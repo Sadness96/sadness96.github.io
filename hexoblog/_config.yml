@@ -3,18 +3,18 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: 个人博客 - 刘佳华
 subtitle:
-description:
+description: 刘佳华的个人博客,记录生活,记录学习,记录成长!
 keywords:
-author: John Doe
+author: IceElves
 language:
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
-root: /sadness96.github.io/blog
+url: http://sadness96.github.io/blog
+root: /blog/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
