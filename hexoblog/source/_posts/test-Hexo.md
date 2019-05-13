@@ -2,6 +2,9 @@
 title: test Hexo
 date: 2019-05-09 16:31:04
 tags:
+  - Testing
+  - Another Tag
+categories: Testing
 ---
 # Header 1
 ## Header 2
