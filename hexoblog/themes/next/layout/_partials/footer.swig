@@ -37,6 +37,7 @@
   {% endif %}
 </div>
 
+<!-- 隐藏：由 Hexo 强力驱动 v3.8.0 | 主题 – NexT.Pisces v7.1.1
 {% if theme.footer.powered.enable %}
   <div class="powered-by">{#
   #}{{ __('footer.powered', next_url('https://hexo.io', 'Hexo', {class: 'theme-link'})) }}{#
@@ -54,6 +55,7 @@
   #}{% if theme.footer.theme.version %} v{{ version }}{% endif %}{#
 #}</div>
 {% endif %}
+-->
 
 {% if theme.footer.custom_text %}
   <div class="footer-custom">{#

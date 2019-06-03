@@ -19,6 +19,9 @@ categories: Testing
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28445602&auto=1&height=66"></iframe>
 
 <embed src="http://www.w3school.com.cn/i/bookmark.swf" width="320" height="240" type="application/x-shockwave-flash" allowNetworking="all"></embed>
+<section>
+    <object type="application/x-shockwave-flash" data="http://www.w3school.com.cn/i/bookmark.swf" width="320" height="240"></object>
+</section>
 
 [Title](URL)
 **Bold**
