@@ -157,12 +157,12 @@ baidu_push: false
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, question icon will be loaded.
 # External url should start with http:// or https://
 menu:
-  home: /
-  archives: /archives
-  about: /about
-  categories: /categories
-  tags: /tags
-  github: https://github.com/Sadness96
+  home: / || home
+  archives: /archives || archive
+  about: /about || user
+  categories: /categories || th
+  tags: /tags || tags
+  github: https://github.com/Sadness96 || github
   #commonweal: /404.html
 
 # Enable / Disable menu icons / item badges.
