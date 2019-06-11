@@ -162,7 +162,7 @@ menu:
   about: /about || user
   categories: /categories || th
   tags: /tags || tags
-  github: https://github.com/Sadness96 || github
+  GitHub: https://github.com/Sadness96 || github
   #commonweal: /404.html
 
 # Enable / Disable menu icons / item badges.
