@@ -17,8 +17,9 @@ categories: 学校记忆
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/memory-HighSchool/%E8%8A%B12.jpg"/>
 
 ##### flash
-git访问速度慢或网页不兼容可能导致无法访问，可单独下载
+移动端浏览器和部分浏览器已不支持Flash播放
+访问速度慢或网页不兼容可能导致无法访问，可单独下载
 储存地址：[https://github.com/Sadness96/sadness96.github.io/tree/master/flash/memory-HighSchool](https://github.com/Sadness96/sadness96.github.io/tree/master/flash/memory-HighSchool)
-<embed src="https://sadness96.github.io//flash//memory-HighSchool//苏宁.swf" type="application/x-shockwave-flash" allowNetworking="all"/>
-<embed src="https://sadness96.github.io//flash//memory-HighSchool//期末.swf" type="application/x-shockwave-flash" allowNetworking="all"/>
-<embed src="https://sadness96.github.io//flash//memory-HighSchool//粮.swf" type="application/x-shockwave-flash" allowNetworking="all"/>
+<embed src="https://sadness96.github.io//flash//memory-HighSchool//苏宁.swf" width="550" height="200" type="application/x-shockwave-flash" allowNetworking="all"/>
+<embed src="https://sadness96.github.io//flash//memory-HighSchool//期末.swf" width="550" height="400" type="application/x-shockwave-flash" allowNetworking="all"/>
+<embed src="https://sadness96.github.io//flash//memory-HighSchool//粮.swf" width="550" height="400" type="application/x-shockwave-flash" allowNetworking="all"/>
