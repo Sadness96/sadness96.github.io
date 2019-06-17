@@ -19,6 +19,6 @@ categories: 学校记忆
 ##### flash
 git访问速度慢或网页不兼容可能导致无法访问，可单独下载
 储存地址：[https://github.com/Sadness96/sadness96.github.io/tree/master/flash/memory-HighSchool](https://github.com/Sadness96/sadness96.github.io/tree/master/flash/memory-HighSchool)
-<embed src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/flash/memory-HighSchool/苏宁.swf" type="application/x-shockwave-flash" allowNetworking="all"></embed>
-<embed src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/flash/memory-HighSchool/期末.swf" type="application/x-shockwave-flash" allowNetworking="all"></embed>
-<embed src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/flash/memory-HighSchool/粮.swf" type="application/x-shockwave-flash" allowNetworking="all"></embed>
+<embed src="https://sadness96.github.io//flash//memory-HighSchool//苏宁.swf" type="application/x-shockwave-flash" allowNetworking="all"/>
+<embed src="https://sadness96.github.io//flash//memory-HighSchool//期末.swf" type="application/x-shockwave-flash" allowNetworking="all"/>
+<embed src="https://sadness96.github.io//flash//memory-HighSchool//粮.swf" type="application/x-shockwave-flash" allowNetworking="all"/>
