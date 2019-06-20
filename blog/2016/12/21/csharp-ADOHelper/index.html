@@ -35,20 +35,20 @@
   };
 </script>
   <meta name="description" content="使用 ADO.NET 二次封装ORM框架的数据库操作帮助类">
-<meta name="keywords" content="c#,helper,ado.net">
+<meta name="keywords" content="c#,helper,ado.net,sql server,oracle,mysql,access,sqlite">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ADO.NET 帮助类">
-<meta property="og:url" content="http://sadness96.github.io/blog/2016/12/21/csharp-AdoNet/index.html">
+<meta property="og:url" content="http://sadness96.github.io/blog/2016/12/21/csharp-ADOHelper/index.html">
 <meta property="og:site_name" content="个人博客 - 刘佳华">
 <meta property="og:description" content="使用 ADO.NET 二次封装ORM框架的数据库操作帮助类">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7.png">
-<meta property="og:updated_time" content="2019-06-20T06:01:43.791Z">
+<meta property="og:updated_time" content="2019-06-20T08:00:38.609Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ADO.NET 帮助类">
 <meta name="twitter:description" content="使用 ADO.NET 二次封装ORM框架的数据库操作帮助类">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7.png">
-  <link rel="canonical" href="http://sadness96.github.io/blog/2016/12/21/csharp-AdoNet/">
+  <link rel="canonical" href="http://sadness96.github.io/blog/2016/12/21/csharp-ADOHelper/">
 <script id="page.configurations">
   CONFIG.page = {
     sidebar: "",
@@ -131,7 +131,7 @@
   <div id="posts" class="posts-expand">
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/blog/2016/12/21/csharp-AdoNet/">
+    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/blog/2016/12/21/csharp-ADOHelper/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="IceElves">
       <meta itemprop="description" content="记录生活,记录学习,记录成长!">
@@ -164,7 +164,8 @@
     <div class="post-body" itemprop="articleBody">
         <p><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7.png"></p>
 <h3 id="使用-ADO-NET-二次封装ORM框架的数据库操作帮助类"><a href="#使用-ADO-NET-二次封装ORM框架的数据库操作帮助类" class="headerlink" title="使用 ADO.NET 二次封装ORM框架的数据库操作帮助类"></a>使用 ADO.NET 二次封装ORM框架的数据库操作帮助类</h3><a id="more"></a>
-<p>简介：工作中大量需要多种不同数据格式互相转换，通过ADO.NET实现可视化数据转换工具，目前支持关系型数据库SqlServer、Oracle、MySql、Access、SQLite。<br>设计：简易的ORM框架，多种数据库操作封装为一套帮助类中，后期使用不需要过多考虑数据库类型，以及减少在代码中拼写SQL语句。近乎通用的连接方式以及增删改查，支持事务处理。</p>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>工作中大量需要多种不同数据格式互相转换，通过ADO.NET实现可视化数据转换工具，目前支持关系型数据库SqlServer、Oracle、MySql、Access、SQLite。</p>
+<h4 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h4><p>简易的ORM框架，多种数据库操作封装为一套帮助类中，后期使用不需要过多考虑数据库类型，以及减少在代码中拼写SQL语句。近乎通用的连接方式以及增删改查，支持事务处理。</p>
 <h4 id="帮助类、官方文档及其调用方式"><a href="#帮助类、官方文档及其调用方式" class="headerlink" title="帮助类、官方文档及其调用方式"></a>帮助类、官方文档及其调用方式</h4><h5 id="SQLServer："><a href="#SQLServer：" class="headerlink" title="SQLServer："></a>SQLServer：</h5><p><a href="https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/SqlServer/SqlServerHelper.cs" target="_blank" rel="noopener">SqlServerHelper</a> 引用 <a href="https://technet.microsoft.com/zh-cn/system.data.sqlclient" target="_blank" rel="noopener">System.Data.SqlClient</a> 库<br>调用方式：<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SqlServerHelper sqlHelper = <span class="keyword">new</span> SqlServerHelper();</span><br><span class="line">sqlHelper.SqlServerConnectionString(<span class="keyword">string</span> server, <span class="keyword">string</span> database, <span class="keyword">string</span> uid, <span class="keyword">string</span> pwd);</span><br><span class="line">sqlHelper.Open();</span><br><span class="line">sqlHelper.Close();</span><br></pre></td></tr></table></figure></p>
 <h5 id="Oracle："><a href="#Oracle：" class="headerlink" title="Oracle："></a>Oracle：</h5><p><a href="https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/Oracle/OracleHelper.cs" target="_blank" rel="noopener">OracleHelper</a> 引用 <a href="https://technet.microsoft.com/zh-cn/system.data.oracleclient" target="_blank" rel="noopener">System.Data.OracleClient</a> 库<br>调用方式：<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">OracleHelper sqlHelper = <span class="keyword">new</span> OracleHelper();</span><br><span class="line">sqlHelper.OracleConnectionString(<span class="keyword">string</span> Source, <span class="keyword">string</span> Id, <span class="keyword">string</span> Password);</span><br><span class="line">sqlHelper.Open();</span><br><span class="line">sqlHelper.Close();</span><br></pre></td></tr></table></figure></p>
 <h5 id="MySQL："><a href="#MySQL：" class="headerlink" title="MySQL："></a>MySQL：</h5><p><a href="https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/MySql/MySqlHelper.cs" target="_blank" rel="noopener">MySqlHelper</a> 引用 <a href="https://dev.mysql.com/doc/dev/connector-net/8.0/html/N_MySql_Data_MySqlClient.htm" target="_blank" rel="noopener">MySql.Data.MySqlClient</a> 库<br>调用方式：<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MySqlHelper sqlHelper = <span class="keyword">new</span> MySqlHelper();</span><br><span class="line">sqlHelper.MySqlConnectionString(<span class="keyword">string</span> server, <span class="keyword">string</span> id, <span class="keyword">string</span> password, <span class="keyword">string</span> database);</span><br><span class="line">sqlHelper.Open();</span><br><span class="line">sqlHelper.Close();</span><br></pre></td></tr></table></figure></p>
@@ -182,6 +183,11 @@
             <a href="/blog/tags/c/" rel="tag"># c#</a>
             <a href="/blog/tags/helper/" rel="tag"># helper</a>
             <a href="/blog/tags/ado-net/" rel="tag"># ado.net</a>
+            <a href="/blog/tags/sql-server/" rel="tag"># sql server</a>
+            <a href="/blog/tags/oracle/" rel="tag"># oracle</a>
+            <a href="/blog/tags/mysql/" rel="tag"># mysql</a>
+            <a href="/blog/tags/access/" rel="tag"># access</a>
+            <a href="/blog/tags/sqlite/" rel="tag"># sqlite</a>
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
@@ -191,8 +197,8 @@
           </div>
           <span class="post-nav-divider"></span>
           <div class="post-nav-prev post-nav-item">
-              <a href="/blog/2019/03/11/asp-Download/" rel="prev" title="Asp服务端文件下载">
-                Asp服务端文件下载 <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2017/05/27/csharp-NPOIHelper/" rel="prev" title="NPOI/DOCX 帮助类">
+                NPOI/DOCX 帮助类 <i class="fa fa-chevron-right"></i>
               </a>
           </div>
         </div>
@@ -229,7 +235,7 @@
             <nav class="site-state motion-element">
                 <div class="site-state-item site-state-posts">
                   <a href="/blog/archives">
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -241,7 +247,7 @@
                 </div>
                 <div class="site-state-item site-state-tags">
                       <a href="/blog/tags">
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -251,7 +257,7 @@
       <!--noindex-->
         <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-ADO-NET-二次封装ORM框架的数据库操作帮助类"><span class="nav-number">1.</span> <span class="nav-text">使用 ADO.NET 二次封装ORM框架的数据库操作帮助类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#帮助类、官方文档及其调用方式"><span class="nav-number">1.1.</span> <span class="nav-text">帮助类、官方文档及其调用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SQLServer："><span class="nav-number">1.1.1.</span> <span class="nav-text">SQLServer：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Oracle："><span class="nav-number">1.1.2.</span> <span class="nav-text">Oracle：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MySQL："><span class="nav-number">1.1.3.</span> <span class="nav-text">MySQL：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Access："><span class="nav-number">1.1.4.</span> <span class="nav-text">Access：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQLite："><span class="nav-number">1.1.5.</span> <span class="nav-text">SQLite：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据转换帮助类"><span class="nav-number">1.2.</span> <span class="nav-text">数据转换帮助类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#删除DataTable中的空行"><span class="nav-number">1.2.1.</span> <span class="nav-text">删除DataTable中的空行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DataTable与List互相转换"><span class="nav-number">1.2.2.</span> <span class="nav-text">DataTable与List互相转换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#String转Unicode-并去除’-ufeff’非法字符"><span class="nav-number">1.2.3.</span> <span class="nav-text">String转Unicode,并去除’\ufeff’非法字符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字段类型转换"><span class="nav-number">1.2.4.</span> <span class="nav-text">字段类型转换</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-ADO-NET-二次封装ORM框架的数据库操作帮助类"><span class="nav-number">1.</span> <span class="nav-text">使用 ADO.NET 二次封装ORM框架的数据库操作帮助类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设计"><span class="nav-number">1.2.</span> <span class="nav-text">设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#帮助类、官方文档及其调用方式"><span class="nav-number">1.3.</span> <span class="nav-text">帮助类、官方文档及其调用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SQLServer："><span class="nav-number">1.3.1.</span> <span class="nav-text">SQLServer：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Oracle："><span class="nav-number">1.3.2.</span> <span class="nav-text">Oracle：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MySQL："><span class="nav-number">1.3.3.</span> <span class="nav-text">MySQL：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Access："><span class="nav-number">1.3.4.</span> <span class="nav-text">Access：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQLite："><span class="nav-number">1.3.5.</span> <span class="nav-text">SQLite：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据转换帮助类"><span class="nav-number">1.4.</span> <span class="nav-text">数据转换帮助类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#删除DataTable中的空行"><span class="nav-number">1.4.1.</span> <span class="nav-text">删除DataTable中的空行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DataTable与List互相转换"><span class="nav-number">1.4.2.</span> <span class="nav-text">DataTable与List互相转换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#String转Unicode-并去除’-ufeff’非法字符"><span class="nav-number">1.4.3.</span> <span class="nav-text">String转Unicode,并去除’\ufeff’非法字符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字段类型转换"><span class="nav-number">1.4.4.</span> <span class="nav-text">字段类型转换</span></a></li></ol></li></ol></li></ol></div>
           </div>
         </div>
       <!--/noindex-->

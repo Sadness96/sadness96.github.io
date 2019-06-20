@@ -1,14 +1,16 @@
 ---
 title: ADO.NET 帮助类
 date: 2016-12-21 13:30:20
-tags: [c#,helper,ado.net]
+tags: [c#,helper,ado.net,sql server,oracle,mysql,access,sqlite]
 categories: C#.Net
 ---
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7.png"/>
 ### 使用 ADO.NET 二次封装ORM框架的数据库操作帮助类
 <!-- more -->
-简介：工作中大量需要多种不同数据格式互相转换，通过ADO.NET实现可视化数据转换工具，目前支持关系型数据库SqlServer、Oracle、MySql、Access、SQLite。
-设计：简易的ORM框架，多种数据库操作封装为一套帮助类中，后期使用不需要过多考虑数据库类型，以及减少在代码中拼写SQL语句。近乎通用的连接方式以及增删改查，支持事务处理。
+#### 简介
+工作中大量需要多种不同数据格式互相转换，通过ADO.NET实现可视化数据转换工具，目前支持关系型数据库SqlServer、Oracle、MySql、Access、SQLite。
+#### 设计
+简易的ORM框架，多种数据库操作封装为一套帮助类中，后期使用不需要过多考虑数据库类型，以及减少在代码中拼写SQL语句。近乎通用的连接方式以及增删改查，支持事务处理。
 #### 帮助类、官方文档及其调用方式
 ##### SQLServer：
 [SqlServerHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/SqlServer/SqlServerHelper.cs) 引用 [System.Data.SqlClient](https://technet.microsoft.com/zh-cn/system.data.sqlclient) 库
