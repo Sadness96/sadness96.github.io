@@ -1,7 +1,7 @@
 ---
 title: 压缩Hexo博客生成空白行
 date: 2019-06-17 13:32:19
-tags: [python]
+tags: [python,hexo]
 categories: Python
 ---
 ### 解决Hexo博客系统生成导致大量空白行问题，生成文件拷贝到外部目录问题

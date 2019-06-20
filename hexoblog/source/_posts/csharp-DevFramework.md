@@ -1,7 +1,7 @@
 ---
 title: c/s端开发基础框架
 date: 2016-12-20 10:30:21
-tags: [c#,wpf,helper]
+tags: [c#,wpf,helper,devexpress]
 categories: C#.Net
 ---
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/Sadness_MainRibbon.png"/>
