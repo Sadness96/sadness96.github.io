@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+<link rel="stylesheet" href="/blog/css/main.css?v=7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=7.1.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=7.1.1">
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.1.1" color="#222">
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+  <meta name="description" content="使用 ADO.NET 二次封装ORM框架的数据库操作帮助类">
+<meta name="keywords" content="c#,helper,ado.net">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ADO.NET 帮助类">
+<meta property="og:url" content="http://sadness96.github.io/blog/2016/12/21/csharp-AdoNet/index.html">
+<meta property="og:site_name" content="个人博客 - 刘佳华">
+<meta property="og:description" content="使用 ADO.NET 二次封装ORM框架的数据库操作帮助类">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7.png">
+<meta property="og:updated_time" content="2019-06-20T06:01:43.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ADO.NET 帮助类">
+<meta name="twitter:description" content="使用 ADO.NET 二次封装ORM框架的数据库操作帮助类">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7.png">
+  <link rel="canonical" href="http://sadness96.github.io/blog/2016/12/21/csharp-AdoNet/">
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>ADO.NET 帮助类 | 个人博客 - 刘佳华</title>
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客 - 刘佳华</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+          <li class="menu-item menu-item-home">
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+          <li class="menu-item menu-item-archives">
+    <a href="/blog/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+          <li class="menu-item menu-item-about">
+    <a href="/blog/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+          <li class="menu-item menu-item-categories">
+    <a href="/blog/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+  </li>
+          <li class="menu-item menu-item-tags">
+    <a href="/blog/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+  </li>
+          <li class="menu-item menu-item-github">
+    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="menu-item-icon fa fa-fw fa-github"></i> <br>GitHub</a>
+  </li>
+    </ul>
+</nav>
+</div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+  <div id="posts" class="posts-expand">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/blog/2016/12/21/csharp-AdoNet/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="IceElves">
+      <meta itemprop="description" content="记录生活,记录学习,记录成长!">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客 - 刘佳华">
+    </span>
+      <header class="post-header">
+          <h1 class="post-title" itemprop="name headline">ADO.NET 帮助类
+          </h1>
+        <div class="post-meta">
+          <span class="post-time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+                <span class="post-meta-item-text">发表于</span>
+              <time title="创建时间：2016-12-21 13:30:20" itemprop="dateCreated datePublished" datetime="2016-12-21T13:30:20+08:00">2016-12-21</time>
+          </span>
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+                <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/C-Net/" itemprop="url" rel="index"><span itemprop="name">C#.Net</span></a></span>
+            </span>
+        </div>
+      </header>
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7.png"></p>
+<h3 id="使用-ADO-NET-二次封装ORM框架的数据库操作帮助类"><a href="#使用-ADO-NET-二次封装ORM框架的数据库操作帮助类" class="headerlink" title="使用 ADO.NET 二次封装ORM框架的数据库操作帮助类"></a>使用 ADO.NET 二次封装ORM框架的数据库操作帮助类</h3><a id="more"></a>
+<p>简介：工作中大量需要多种不同数据格式互相转换，通过ADO.NET实现可视化数据转换工具，目前支持关系型数据库SqlServer、Oracle、MySql、Access、SQLite。<br>设计：简易的ORM框架，多种数据库操作封装为一套帮助类中，后期使用不需要过多考虑数据库类型，以及减少在代码中拼写SQL语句。近乎通用的连接方式以及增删改查，支持事务处理。</p>
+<h4 id="帮助类、官方文档及其调用方式"><a href="#帮助类、官方文档及其调用方式" class="headerlink" title="帮助类、官方文档及其调用方式"></a>帮助类、官方文档及其调用方式</h4><h5 id="SQLServer："><a href="#SQLServer：" class="headerlink" title="SQLServer："></a>SQLServer：</h5><p><a href="https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/SqlServer/SqlServerHelper.cs" target="_blank" rel="noopener">SqlServerHelper</a> 引用 <a href="https://technet.microsoft.com/zh-cn/system.data.sqlclient" target="_blank" rel="noopener">System.Data.SqlClient</a> 库<br>调用方式：<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SqlServerHelper sqlHelper = <span class="keyword">new</span> SqlServerHelper();</span><br><span class="line">sqlHelper.SqlServerConnectionString(<span class="keyword">string</span> server, <span class="keyword">string</span> database, <span class="keyword">string</span> uid, <span class="keyword">string</span> pwd);</span><br><span class="line">sqlHelper.Open();</span><br><span class="line">sqlHelper.Close();</span><br></pre></td></tr></table></figure></p>
+<h5 id="Oracle："><a href="#Oracle：" class="headerlink" title="Oracle："></a>Oracle：</h5><p><a href="https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/Oracle/OracleHelper.cs" target="_blank" rel="noopener">OracleHelper</a> 引用 <a href="https://technet.microsoft.com/zh-cn/system.data.oracleclient" target="_blank" rel="noopener">System.Data.OracleClient</a> 库<br>调用方式：<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">OracleHelper sqlHelper = <span class="keyword">new</span> OracleHelper();</span><br><span class="line">sqlHelper.OracleConnectionString(<span class="keyword">string</span> Source, <span class="keyword">string</span> Id, <span class="keyword">string</span> Password);</span><br><span class="line">sqlHelper.Open();</span><br><span class="line">sqlHelper.Close();</span><br></pre></td></tr></table></figure></p>
+<h5 id="MySQL："><a href="#MySQL：" class="headerlink" title="MySQL："></a>MySQL：</h5><p><a href="https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/MySql/MySqlHelper.cs" target="_blank" rel="noopener">MySqlHelper</a> 引用 <a href="https://dev.mysql.com/doc/dev/connector-net/8.0/html/N_MySql_Data_MySqlClient.htm" target="_blank" rel="noopener">MySql.Data.MySqlClient</a> 库<br>调用方式：<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MySqlHelper sqlHelper = <span class="keyword">new</span> MySqlHelper();</span><br><span class="line">sqlHelper.MySqlConnectionString(<span class="keyword">string</span> server, <span class="keyword">string</span> id, <span class="keyword">string</span> password, <span class="keyword">string</span> database);</span><br><span class="line">sqlHelper.Open();</span><br><span class="line">sqlHelper.Close();</span><br></pre></td></tr></table></figure></p>
+<h5 id="Access："><a href="#Access：" class="headerlink" title="Access："></a>Access：</h5><p><a href="https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/Access/AccessHelper.cs" target="_blank" rel="noopener">AccessHelper</a> 引用 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/system.data.oledb?redirectedfrom=MSDN&amp;view=netframework-4.8" target="_blank" rel="noopener">System.Data.OleDb</a> 库<br>调用方式：<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AccessHelper sqlHelper = <span class="keyword">new</span> AccessHelper();</span><br><span class="line">sqlHelper.AccessConnectionPath_Office2003(<span class="keyword">string</span> source);</span><br><span class="line">sqlHelper.AccessConnectionPath_Office2007(<span class="keyword">string</span> source);</span><br><span class="line">sqlHelper.Open();</span><br><span class="line">sqlHelper.Close();</span><br></pre></td></tr></table></figure></p>
+<h5 id="SQLite："><a href="#SQLite：" class="headerlink" title="SQLite："></a>SQLite：</h5><p><a href="https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/SQLite/SQLiteHelper.cs" target="_blank" rel="noopener">SQLiteHelper</a> 引用 <a href="http://system.data.sqlite.org/" target="_blank" rel="noopener">System.Data.SQLite</a> 库<br>调用方式：<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SQLiteHelper sqlHelper = <span class="keyword">new</span> SQLiteHelper();</span><br><span class="line">sqlHelper.SQLiteConnectionPath(<span class="keyword">string</span> source);</span><br><span class="line">sqlHelper.Open();</span><br><span class="line">sqlHelper.Close();</span><br></pre></td></tr></table></figure></p>
+<h4 id="数据转换帮助类"><a href="#数据转换帮助类" class="headerlink" title="数据转换帮助类"></a>数据转换帮助类</h4><p>由于每种数据库的字段类型、字符格式长度等不一致，所以专门写了一个用于互相兼容的帮助类，用于自动识别源数据库与目标数据库差异，自动修改。<br><a href="https://github.com/Sadness96/Sadness/tree/master/Code/Helper/ADO.Helper/DatabaseConversion" target="_blank" rel="noopener">数据转换帮助类</a></p>
+<h5 id="删除DataTable中的空行"><a href="#删除DataTable中的空行" class="headerlink" title="删除DataTable中的空行"></a>删除DataTable中的空行</h5><p>数据源以C#基础类型DataTable传递，在实际使用中存在空行导致异常<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 删除DataTable中的空行</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 弱引用,可直接修改参数</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="dtDataSource"&gt;</span>源数据(DataTable)<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>删除空行后的DataTable<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DataTable <span class="title">RemoveEmpty</span>(<span class="params">DataTable dtDataSource</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        List&lt;DataRow&gt; listRemove = <span class="keyword">new</span> List&lt;DataRow&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; dtDataSource.Rows.Count; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">bool</span> IsNull = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; dtDataSource.Columns.Count; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (!<span class="keyword">string</span>.IsNullOrEmpty(dtDataSource.Rows[i][j].ToString().Trim()))</span><br><span class="line">                &#123;</span><br><span class="line">                    IsNull = <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (IsNull)</span><br><span class="line">            &#123;</span><br><span class="line">                listRemove.Add(dtDataSource.Rows[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; listRemove.Count; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            dtDataSource.Rows.Remove(listRemove[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        TXTHelper.Logs(ex.ToString());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dtDataSource;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="DataTable与List互相转换"><a href="#DataTable与List互相转换" class="headerlink" title="DataTable与List互相转换"></a>DataTable与List<t>互相转换</t></h5><p>实际使用中List<t>比DataTable更方便使用，提供互相转换方法方便开发<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> DataTable转换为List<span class="doctag">&lt;T&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;typeparam name="T"&gt;</span>数据模型<span class="doctag">&lt;/typeparam&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="dtDataSource"&gt;</span>源数据(DataTable)<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>成功返回List<span class="doctag">&lt;T&gt;</span>,失败返回null<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line">public static List&lt;T&gt; ConvertToList&lt;T&gt;(DataTable dtDataSource) where T : class,new()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        List&lt;T&gt; listT = <span class="keyword">new</span> List&lt;T&gt;();</span><br><span class="line">        <span class="keyword">foreach</span> (DataRow drDataSource <span class="keyword">in</span> dtDataSource.Rows)</span><br><span class="line">        &#123;</span><br><span class="line">            T t = <span class="keyword">new</span> T();</span><br><span class="line">            PropertyInfo[] propertyInfos = t.GetType().GetProperties();</span><br><span class="line">            <span class="keyword">foreach</span> (PropertyInfo propertyInfo <span class="keyword">in</span> propertyInfos)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">string</span> tempName = propertyInfo.Name;</span><br><span class="line">                <span class="keyword">if</span> (dtDataSource.Columns.Contains(tempName))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (!propertyInfo.CanWrite) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">object</span> <span class="keyword">value</span> = drDataSource[tempName];</span><br><span class="line">                    <span class="keyword">if</span> (<span class="keyword">value</span> != DBNull.Value)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">if</span> (propertyInfo.GetMethod.ReturnParameter.ParameterType.Name == <span class="string">"Int32"</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="keyword">value</span> = Convert.ToInt32(<span class="keyword">value</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                        propertyInfo.SetValue(t, <span class="keyword">value</span>, <span class="literal">null</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            listT.Add(t);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> listT;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        TXTHelper.Logs(ex.ToString());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></t></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> List<span class="doctag">&lt;T&gt;</span>转换为DataTable</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="listDataSource"&gt;</span>源数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>成功返回DataTable,失败返回null<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DataTable <span class="title">ConvertDataTable</span>(<span class="params">IList listDataSource</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        DataTable dataTable = <span class="keyword">new</span> DataTable();</span><br><span class="line">        <span class="keyword">if</span> (listDataSource.Count &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            PropertyInfo[] propertyInfos = listDataSource[<span class="number">0</span>].GetType().GetProperties();</span><br><span class="line">            <span class="keyword">foreach</span> (PropertyInfo propertyInfo <span class="keyword">in</span> propertyInfos)</span><br><span class="line">            &#123;</span><br><span class="line">                dataTable.Columns.Add(propertyInfo.Name, propertyInfo.PropertyType);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> vDataSource <span class="keyword">in</span> listDataSource)</span><br><span class="line">            &#123;</span><br><span class="line">                ArrayList arrayList = <span class="keyword">new</span> ArrayList();</span><br><span class="line">                <span class="keyword">foreach</span> (PropertyInfo propertyInfo <span class="keyword">in</span> propertyInfos)</span><br><span class="line">                &#123;</span><br><span class="line">                    arrayList.Add(propertyInfo.GetValue(vDataSource, <span class="literal">null</span>));</span><br><span class="line">                &#125;</span><br><span class="line">                dataTable.LoadDataRow(arrayList.ToArray(), <span class="literal">true</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dataTable;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        TXTHelper.Logs(ex.ToString());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="String转Unicode-并去除’-ufeff’非法字符"><a href="#String转Unicode-并去除’-ufeff’非法字符" class="headerlink" title="String转Unicode,并去除’\ufeff’非法字符"></a>String转Unicode,并去除’\ufeff’非法字符</h5><p>个别数据中存在有非法字符，避免异常，转换时批量处理<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 去除非法字符'\\ufeff'</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="strSource"&gt;</span>数据源<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>修正后的字符<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">RemoveIllegal</span>(<span class="params"><span class="keyword">string</span> strSource</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> UnicodeToString(StringToUnicode(strSource));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> String转Unicode,并去除'\\ufeff'非法字符</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="strSource"&gt;</span>数据源<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>Unicode编码字符<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">StringToUnicode</span>(<span class="params"><span class="keyword">string</span> strSource</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="comment">//先把字符串转换成 UTF-16 的Btye数组</span></span><br><span class="line">    <span class="keyword">byte</span>[] bytes = Encoding.Unicode.GetBytes(strSource);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; bytes.Length; i += <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//根据Unicode规则，每两个byte表示一个汉字，并且后前顺序，英文前面补00</span></span><br><span class="line">        stringBuilder.AppendFormat(<span class="string">"\\u&#123;0&#125;&#123;1&#125;"</span>, bytes[i + <span class="number">1</span>].ToString(<span class="string">"x"</span>).PadLeft(<span class="number">2</span>, <span class="string">'0'</span>), bytes[i].ToString(<span class="string">"x"</span>).PadLeft(<span class="number">2</span>, <span class="string">'0'</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//去掉'?'的Unicode码,?=003f,Unicode以\u开头,\\为转义\</span></span><br><span class="line">    <span class="keyword">return</span> stringBuilder.Replace(<span class="string">"\\ufeff"</span>, <span class="keyword">string</span>.Empty).ToString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> Unicode转String</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="strSource"&gt;</span>数据源<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>String类型编码字符<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">UnicodeToString</span>(<span class="params"><span class="keyword">string</span> strSource</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Regex(<span class="string">@"\\u([0-9A-F]&#123;4&#125;)"</span>, RegexOptions.IgnoreCase | RegexOptions.Compiled).Replace(strSource, x =&gt; <span class="keyword">string</span>.Empty + Convert.ToChar(Convert.ToUInt16(x.Result(<span class="string">"$1"</span>), <span class="number">16</span>)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="字段类型转换"><a href="#字段类型转换" class="headerlink" title="字段类型转换"></a>字段类型转换</h5><p>由于每种数据库字段类型及字段长度和主键不一致，根据每种目标数据库做单独修改<br>代码过长，请查阅目录下方法 <a href="https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/DatabaseConversion/TypeProcessing.cs" target="_blank" rel="noopener">TypeProcessing</a></p>
+    </div>
+    <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/c/" rel="tag"># c#</a>
+            <a href="/blog/tags/helper/" rel="tag"># helper</a>
+            <a href="/blog/tags/ado-net/" rel="tag"># ado.net</a>
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/blog/2016/12/20/csharp-DevFramework/" rel="next" title="c/s端开发基础框架">
+                <i class="fa fa-chevron-left"></i> c/s端开发基础框架
+              </a>
+          </div>
+          <span class="post-nav-divider"></span>
+          <div class="post-nav-prev post-nav-item">
+              <a href="/blog/2019/03/11/asp-Download/" rel="prev" title="Asp服务端文件下载">
+                Asp服务端文件下载 <i class="fa fa-chevron-right"></i>
+              </a>
+          </div>
+        </div>
+    </footer>
+  </div>
+  </article>
+  </div>
+          </div>
+        </div>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4" alt="IceElves">
+              <p class="site-author-name" itemprop="name">IceElves</p>
+              <div class="site-description motion-element" itemprop="description">记录生活,记录学习,记录成长!</div>
+          </div>
+            <nav class="site-state motion-element">
+                <div class="site-state-item site-state-posts">
+                  <a href="/blog/archives">
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+                <div class="site-state-item site-state-categories">
+                      <a href="/blog/categories">
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+                <div class="site-state-item site-state-tags">
+                      <a href="/blog/tags">
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+            </nav>
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-ADO-NET-二次封装ORM框架的数据库操作帮助类"><span class="nav-number">1.</span> <span class="nav-text">使用 ADO.NET 二次封装ORM框架的数据库操作帮助类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#帮助类、官方文档及其调用方式"><span class="nav-number">1.1.</span> <span class="nav-text">帮助类、官方文档及其调用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SQLServer："><span class="nav-number">1.1.1.</span> <span class="nav-text">SQLServer：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Oracle："><span class="nav-number">1.1.2.</span> <span class="nav-text">Oracle：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MySQL："><span class="nav-number">1.1.3.</span> <span class="nav-text">MySQL：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Access："><span class="nav-number">1.1.4.</span> <span class="nav-text">Access：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQLite："><span class="nav-number">1.1.5.</span> <span class="nav-text">SQLite：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据转换帮助类"><span class="nav-number">1.2.</span> <span class="nav-text">数据转换帮助类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#删除DataTable中的空行"><span class="nav-number">1.2.1.</span> <span class="nav-text">删除DataTable中的空行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DataTable与List互相转换"><span class="nav-number">1.2.2.</span> <span class="nav-text">DataTable与List互相转换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#String转Unicode-并去除’-ufeff’非法字符"><span class="nav-number">1.2.3.</span> <span class="nav-text">String转Unicode,并去除’\ufeff’非法字符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字段类型转换"><span class="nav-number">1.2.4.</span> <span class="nav-text">字段类型转换</span></a></li></ol></li></ol></li></ol></div>
+          </div>
+        </div>
+      <!--/noindex-->
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+            <span id="scrollpercent"><span>0</span>%</span>
+        </div>
+    </div>
+  </aside>
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">IceElves</span>
+</div>
+<!-- 隐藏：由 Hexo 强力驱动 v3.8.0 | 主题 – NexT.Pisces v7.1.1
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
+-->
+      </div>
+    </footer>
+  </div>
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+  <script src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="/blog/js/utils.js?v=7.1.1"></script>
+  <script src="/blog/js/motion.js?v=7.1.1"></script>
+  <script src="/blog/js/affix.js?v=7.1.1"></script>
+  <script src="/blog/js/schemes/pisces.js?v=7.1.1"></script>
+  <script src="/blog/js/scrollspy.js?v=7.1.1"></script>
+<script src="/blog/js/post-details.js?v=7.1.1"></script>
+  <script src="/blog/js/next-boot.js?v=7.1.1"></script>
+</body>
+</html>
