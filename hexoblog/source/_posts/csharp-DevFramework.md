@@ -14,6 +14,7 @@ categories: C#.Net
 #### 生成二维码
 基于 ZXing.QrCode 库制作的横条码、二维码生成工具，可添加LOGO，也可动态识别横条码、二维码。
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81.png"/>
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81.png"/>
 #### 加密解密工具
 提供几种对称密钥加密与非对称加密算法，以及哈希算法，也可以加密文件夹。
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7.png"/>
