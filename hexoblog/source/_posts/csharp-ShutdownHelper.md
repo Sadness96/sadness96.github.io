@@ -1,6 +1,6 @@
 ---
 title: Windows关机帮助类
-date: 2017-06-6 17:48:02
+date: 2017-06-06 17:48:02
 tags: [c#,helper,windows,shutdown]
 categories: C#.Net
 ---
