@@ -1,7 +1,7 @@
 ---
 title: Windows屏幕截图帮助类
 date: 2017-06-21 16:47:10
-tags: [c#,helper,redis]
+tags: [c#,helper,windows]
 categories: C#.Net
 ---
 ### 截取Windows屏幕全屏或指定区域帮助类

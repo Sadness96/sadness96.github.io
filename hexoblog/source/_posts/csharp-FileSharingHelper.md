@@ -1,7 +1,7 @@
 ---
 title: 文件共享帮助类
 date: 2017-05-23 22:34:50
-tags: [c#,filesharing,helper]
+tags: [c#,helper,windows,filesharing]
 categories: C#.Net
 ---
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB.png"/>

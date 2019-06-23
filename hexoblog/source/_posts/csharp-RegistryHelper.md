@@ -1,7 +1,7 @@
 ---
 title: Windows注册表帮助类
 date: 2017-06-22 19:50:08
-tags: [c#,helper,registry]
+tags: [c#,helper,windows,registry]
 categories: C#.Net
 ---
 ### 基于 Microsoft.Win32 库操作Windows注册表帮助类
