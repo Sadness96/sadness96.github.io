@@ -367,3 +367,66 @@ private FTPListTypeModel AnalysisLISTCommand(string strListCommand)
     return ListType;
 }
 ```
+#### 应用
+一个同学的需求：公司是做三维模型模具的，领导要求每个人每次修改上传至FTP，然后领导每天会定时完整下载（虽然我也不理解为什么他们不用SVN或者GIT，需求是什么样的就做成什么样嘛！）。功能需求是制作一个控制台程序，通过[任务计划](/blog/2017/09/18/csharp-TaskschdHelper/)中每天下班定时执行即可。FTP参数调用本地[INI配置文件](/blog/2017/05/10/csharp-INIHelper/)。
+``` CSharp
+static void Main(string[] args)
+{
+    string strPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config.ini";
+    string strFTP = INIHelper.INIGetStringValue(strPath, "System", "FTP", "");
+    string strUser = INIHelper.INIGetStringValue(strPath, "System", "User", "");
+    string strPassword = INIHelper.INIGetStringValue(strPath, "System", "Password", "");
+    string strSavePath = INIHelper.INIGetStringValue(strPath, "System", "SavePath", "");
+    FTPSharingHelper ftp = new FTPSharingHelper();
+    ftp.FTPConnectionURL(strFTP, strUser, strPassword);
+    DownloadFile(ftp, strFTP, strUser, strPassword, strSavePath);
+}
+
+/// <summary>
+/// 下载目录所有文件
+/// </summary>
+/// <param name="ftp">FTP链接</param>
+/// <param name="strFTP">链接地址</param>
+/// <param name="strUser">用户名</param>
+/// <param name="strPassword">密码</param>
+/// <param name="strSavePath">保存路径</param>
+public static void DownloadFile(FTPSharingHelper ftp, string strFTP, string strUser, string strPassword, string strSavePath)
+{
+    try
+    {
+        ftp.FTPConnectionURL(strFTP, strUser, strPassword);
+        //下载当前目录文件
+        List<string> list1 = ftp.GetFilesDetailList();
+        if (list1 != null)
+        {
+            foreach (var item in list1)
+            {
+                ftp.DownloadFile(strSavePath, item);
+            }
+        }
+        //下载文件夹文件
+        List<string> list2 = ftp.GetFoldersDetailList();
+        if (list2 != null)
+        {
+            foreach (var item in list2)
+            {
+                if (item.Substring(0, 1).Equals("."))
+                {
+                    continue;
+                }
+                string strNewFTP = strFTP + item + "/";
+                string strNewSavePath = strSavePath + "\\" + item;
+                if (!Directory.Exists(strNewSavePath))
+                {
+                    Directory.CreateDirectory(strNewSavePath);
+                }
+                DownloadFile(ftp, strNewFTP, strUser, strPassword, strNewSavePath);
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        TXTHelper.Logs(ex.ToString());
+    }
+}
+```

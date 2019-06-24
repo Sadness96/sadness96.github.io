@@ -1,5 +1,5 @@
 ---
-title: c/s端开发基础框架
+title: C/S端开发基础框架
 date: 2016-12-20 10:30:21
 tags: [c#,wpf,helper,devexpress]
 categories: C#.Net
