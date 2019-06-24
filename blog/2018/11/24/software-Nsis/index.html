@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+<link rel="stylesheet" href="/blog/css/main.css?v=7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=7.1.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=7.1.1">
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.1.1" color="#222">
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+  <meta name="description" content="基于 NSIS 的 Windows 桌面端打包程序">
+<meta name="keywords" content="software,nsis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nsis 使用介绍">
+<meta property="og:url" content="http://sadness96.github.io/blog/2018/11/24/software-Nsis/index.html">
+<meta property="og:site_name" content="个人博客 - 刘佳华">
+<meta property="og:description" content="基于 NSIS 的 Windows 桌面端打包程序">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/HM-VNISEdit.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/install1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/install2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/install3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/install4.png">
+<meta property="og:updated_time" content="2019-06-24T09:32:34.558Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nsis 使用介绍">
+<meta name="twitter:description" content="基于 NSIS 的 Windows 桌面端打包程序">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/HM-VNISEdit.jpg">
+  <link rel="canonical" href="http://sadness96.github.io/blog/2018/11/24/software-Nsis/">
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>Nsis 使用介绍 | 个人博客 - 刘佳华</title>
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客 - 刘佳华</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+          <li class="menu-item menu-item-home">
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+          <li class="menu-item menu-item-archives">
+    <a href="/blog/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+          <li class="menu-item menu-item-about">
+    <a href="/blog/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+          <li class="menu-item menu-item-categories">
+    <a href="/blog/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+  </li>
+          <li class="menu-item menu-item-tags">
+    <a href="/blog/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+  </li>
+          <li class="menu-item menu-item-github">
+    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="menu-item-icon fa fa-fw fa-github"></i> <br>GitHub</a>
+  </li>
+    </ul>
+</nav>
+</div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+  <div id="posts" class="posts-expand">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/blog/2018/11/24/software-Nsis/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="IceElves">
+      <meta itemprop="description" content="记录生活,记录学习,记录成长!">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客 - 刘佳华">
+    </span>
+      <header class="post-header">
+          <h1 class="post-title" itemprop="name headline">Nsis 使用介绍
+          </h1>
+        <div class="post-meta">
+          <span class="post-time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+                <span class="post-meta-item-text">发表于</span>
+              <time title="创建时间：2018-11-24 15:59:51" itemprop="dateCreated datePublished" datetime="2018-11-24T15:59:51+08:00">2018-11-24</time>
+          </span>
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+                <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/Software/" itemprop="url" rel="index"><span itemprop="name">Software</span></a></span>
+            </span>
+        </div>
+      </header>
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/HM-VNISEdit.jpg"></p>
+<h3 id="基于-NSIS-的-Windows-桌面端打包程序"><a href="#基于-NSIS-的-Windows-桌面端打包程序" class="headerlink" title="基于 NSIS 的 Windows 桌面端打包程序"></a>基于 NSIS 的 Windows 桌面端打包程序</h3><a id="more"></a>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>现工作中作为全栈开发工程师，不光写服务端B/S也要写桌面端C/S程序，在部署B/S的时候一般是拷贝文件或自动部署到服务器，但是桌面端程序普遍是打包为<a href="https://baike.baidu.com/item/%E5%AE%89%E8%A3%85%E5%8C%85/7693150?fr=aladdin" target="_blank" rel="noopener">安装包(Install pack)</a>在官网提供下载或是直接发送给用户安装升级。一般由质检部门打包测试，最后没有BUG的版本发布。<br><a href="https://nsis.sourceforge.io/Main_Page" target="_blank" rel="noopener">NSIS（Nullsoft Scriptable Install System）</a>是一个专业的开源系统，用于创建Windows安装程序。它的设计尽可能小巧灵活，因此非常适合互联网分发。<br>只做了一个最基础安装包程序，如需定制样式可查阅官方网站。</p>
+<h4 id="安装包截图"><a href="#安装包截图" class="headerlink" title="安装包截图"></a>安装包截图</h4><p><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/install1.png"><br><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/install2.png"><br><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/install3.png"><br><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/install4.png"></p>
+<h4 id="脚本代码"><a href="#脚本代码" class="headerlink" title="脚本代码"></a>脚本代码</h4><p>替换脚本中 “#” 开头的部分即可<br><figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; 该脚本使用 HM VNISEdit 脚本编辑器向导产生</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 安装程序初始定义常量</span></span><br><span class="line"><span class="keyword">!define</span> PRODUCT_NAME <span class="string">"#系统名称"</span></span><br><span class="line"><span class="keyword">!define</span> PRODUCT_VERSION <span class="string">"#系统版本"</span></span><br><span class="line"><span class="keyword">!define</span> PRODUCT_PUBLISHER <span class="string">"#公司名称"</span></span><br><span class="line"><span class="keyword">!define</span> PRODUCT_WEB_SITE <span class="string">"#公司官网"</span></span><br><span class="line"><span class="keyword">!define</span> PRODUCT_DIR_REGKEY <span class="string">"Software\Microsoft\Windows\CurrentVersion\App Paths\#EXE名称"</span></span><br><span class="line"><span class="keyword">!define</span> PRODUCT_UNINST_KEY <span class="string">"Software\Microsoft\Windows\CurrentVersion\Uninstall\<span class="variable">$&#123;PRODUCT_NAME&#125;</span>"</span></span><br><span class="line"><span class="keyword">!define</span> PRODUCT_UNINST_ROOT_KEY <span class="string">"HKLM"</span></span><br><span class="line"><span class="keyword">!define</span> PRODUCT_STARTMENU_REGVAL <span class="string">"NSIS:StartMenuDir"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SetCompressor</span> <span class="literal">lzma</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; ------ MUI 现代界面定义 (1.67 版本以上兼容) ------</span></span><br><span class="line"><span class="keyword">!include</span> <span class="string">"MUI.nsh"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; MUI 预定义常量</span></span><br><span class="line"><span class="keyword">!define</span> MUI_ABORTWARNING</span><br><span class="line"><span class="keyword">!define</span> MUI_ICON <span class="string">"<span class="variable">$&#123;NSISDIR&#125;</span>\Contrib\Graphics\Icons\modern-install.ico"</span></span><br><span class="line"><span class="keyword">!define</span> MUI_UNICON <span class="string">"<span class="variable">$&#123;NSISDIR&#125;</span>\Contrib\Graphics\Icons\modern-uninstall.ico"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 欢迎页面</span></span><br><span class="line"><span class="keyword">!insertmacro</span> MUI_PAGE_WELCOME</span><br><span class="line"><span class="comment">; 许可协议页面</span></span><br><span class="line"><span class="keyword">!define</span> MUI_LICENSEPAGE_CHECKBOX</span><br><span class="line"><span class="keyword">!insertmacro</span> MUI_PAGE_LICENSE <span class="string">"许可协议.txt"</span></span><br><span class="line"><span class="comment">; 安装目录选择页面</span></span><br><span class="line"><span class="keyword">!insertmacro</span> MUI_PAGE_DIRECTORY</span><br><span class="line"><span class="comment">; 开始菜单设置页面</span></span><br><span class="line">var ICONS_GROUP</span><br><span class="line"><span class="keyword">!define</span> MUI_STARTMENUPAGE_NODISABLE</span><br><span class="line"><span class="keyword">!define</span> MUI_STARTMENUPAGE_DEFAULTFOLDER <span class="string">"#系统名称"</span></span><br><span class="line"><span class="keyword">!define</span> MUI_STARTMENUPAGE_REGISTRY_ROOT <span class="string">"<span class="variable">$&#123;PRODUCT_UNINST_ROOT_KEY&#125;</span>"</span></span><br><span class="line"><span class="keyword">!define</span> MUI_STARTMENUPAGE_REGISTRY_KEY <span class="string">"<span class="variable">$&#123;PRODUCT_UNINST_KEY&#125;</span>"</span></span><br><span class="line"><span class="keyword">!define</span> MUI_STARTMENUPAGE_REGISTRY_VALUENAME <span class="string">"<span class="variable">$&#123;PRODUCT_STARTMENU_REGVAL&#125;</span>"</span></span><br><span class="line"><span class="keyword">!insertmacro</span> MUI_PAGE_STARTMENU Application <span class="variable">$ICONS_GROUP</span></span><br><span class="line"><span class="comment">; 安装过程页面</span></span><br><span class="line"><span class="keyword">!insertmacro</span> MUI_PAGE_INSTFILES</span><br><span class="line"><span class="comment">; 安装完成页面</span></span><br><span class="line"><span class="keyword">!define</span> MUI_FINISHPAGE_RUN <span class="string">"<span class="variable">$INSTDIR</span>\#EXE名称"</span></span><br><span class="line"><span class="keyword">!insertmacro</span> MUI_PAGE_FINISH</span><br><span class="line"></span><br><span class="line"><span class="comment">; 安装卸载过程页面</span></span><br><span class="line"><span class="keyword">!insertmacro</span> MUI_UNPAGE_INSTFILES</span><br><span class="line"></span><br><span class="line"><span class="comment">; 安装界面包含的语言设置</span></span><br><span class="line"><span class="keyword">!insertmacro</span> MUI_LANGUAGE <span class="string">"SimpChinese"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 安装预释放文件</span></span><br><span class="line"><span class="keyword">!insertmacro</span> MUI_RESERVEFILE_INSTALLOPTIONS</span><br><span class="line"><span class="comment">; ------ MUI 现代界面定义结束 ------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Name</span> <span class="string">"<span class="variable">$&#123;PRODUCT_NAME&#125;</span> <span class="variable">$&#123;PRODUCT_VERSION&#125;</span>"</span></span><br><span class="line"><span class="keyword">OutFile</span> <span class="string">"#打包文件名称"</span></span><br><span class="line"><span class="keyword">InstallDir</span> <span class="string">"<span class="variable">$PROGRAMFILES</span>\#系统名称"</span></span><br><span class="line"><span class="keyword">InstallDirRegKey</span> <span class="params">HKLM</span> <span class="string">"<span class="variable">$&#123;PRODUCT_UNINST_KEY&#125;</span>"</span> <span class="string">"UninstallString"</span></span><br><span class="line"><span class="keyword">ShowInstDetails</span> <span class="literal">show</span></span><br><span class="line">ShowUnInstDetails <span class="literal">show</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">Section</span> "MainSection" SEC01</span></span><br><span class="line">  <span class="keyword">SetOutPath</span> <span class="string">"<span class="variable">$INSTDIR</span>"</span></span><br><span class="line">  <span class="keyword">SetOverwrite</span> <span class="literal">ifnewer</span></span><br><span class="line">  <span class="keyword">File</span> <span class="string">"#打包文件"</span></span><br><span class="line">  <span class="keyword">File</span> /r <span class="string">"#打包特定后缀 *.*"</span></span><br><span class="line">  <span class="keyword">SetOverwrite</span> <span class="literal">off</span></span><br><span class="line">  <span class="keyword">File</span> <span class="string">"#打包排除特定后缀 *.*"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 创建开始菜单快捷方式</span></span><br><span class="line">  <span class="keyword">!insertmacro</span> MUI_STARTMENU_WRITE_BEGIN Application</span><br><span class="line">  <span class="keyword">CreateDirectory</span> <span class="string">"<span class="variable">$SMPROGRAMS</span>\<span class="variable">$ICONS_GROUP</span>"</span></span><br><span class="line">  <span class="keyword">CreateShortCut</span> <span class="string">"<span class="variable">$SMPROGRAMS</span>\<span class="variable">$ICONS_GROUP</span>\#系统名称.lnk"</span> <span class="string">"<span class="variable">$INSTDIR</span>\#EXE名称"</span></span><br><span class="line">  <span class="keyword">CreateShortCut</span> <span class="string">"<span class="variable">$DESKTOP</span>\人#系统名称.lnk"</span> <span class="string">"<span class="variable">$INSTDIR</span>\KeDun.Shell.exe"</span></span><br><span class="line">  <span class="keyword">!insertmacro</span> MUI_STARTMENU_WRITE_END</span><br><span class="line"><span class="keyword">SectionEnd</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">Section</span> -AdditionalIcons</span></span><br><span class="line">  <span class="keyword">!insertmacro</span> MUI_STARTMENU_WRITE_BEGIN Application</span><br><span class="line">  <span class="keyword">CreateShortCut</span> <span class="string">"<span class="variable">$SMPROGRAMS</span>\<span class="variable">$ICONS_GROUP</span>\Uninstall.lnk"</span> <span class="string">"<span class="variable">$INSTDIR</span>\uninst.exe"</span></span><br><span class="line">  <span class="keyword">!insertmacro</span> MUI_STARTMENU_WRITE_END</span><br><span class="line"><span class="keyword">SectionEnd</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">Section</span> -Post</span></span><br><span class="line">  <span class="keyword">WriteUninstaller</span> <span class="string">"<span class="variable">$INSTDIR</span>\uninst.exe"</span></span><br><span class="line">  <span class="keyword">WriteRegStr</span> <span class="params">HKLM</span> <span class="string">"<span class="variable">$&#123;PRODUCT_DIR_REGKEY&#125;</span>"</span> <span class="string">""</span> <span class="string">"<span class="variable">$INSTDIR</span>\#EXE名称"</span></span><br><span class="line">  <span class="keyword">WriteRegStr</span> <span class="variable">$&#123;PRODUCT_UNINST_ROOT_KEY&#125;</span> <span class="string">"<span class="variable">$&#123;PRODUCT_UNINST_KEY&#125;</span>"</span> <span class="string">"DisplayName"</span> <span class="string">"<span class="variable">$(^Name)</span>"</span></span><br><span class="line">  <span class="keyword">WriteRegStr</span> <span class="variable">$&#123;PRODUCT_UNINST_ROOT_KEY&#125;</span> <span class="string">"<span class="variable">$&#123;PRODUCT_UNINST_KEY&#125;</span>"</span> <span class="string">"UninstallString"</span> <span class="string">"<span class="variable">$INSTDIR</span>\uninst.exe"</span></span><br><span class="line">  <span class="keyword">WriteRegStr</span> <span class="variable">$&#123;PRODUCT_UNINST_ROOT_KEY&#125;</span> <span class="string">"<span class="variable">$&#123;PRODUCT_UNINST_KEY&#125;</span>"</span> <span class="string">"DisplayIcon"</span> <span class="string">"<span class="variable">$INSTDIR</span>\KeDun.Shell.exe"</span></span><br><span class="line">  <span class="keyword">WriteRegStr</span> <span class="variable">$&#123;PRODUCT_UNINST_ROOT_KEY&#125;</span> <span class="string">"<span class="variable">$&#123;PRODUCT_UNINST_KEY&#125;</span>"</span> <span class="string">"DisplayVersion"</span> <span class="string">"<span class="variable">$&#123;PRODUCT_VERSION&#125;</span>"</span></span><br><span class="line">  <span class="keyword">WriteRegStr</span> <span class="variable">$&#123;PRODUCT_UNINST_ROOT_KEY&#125;</span> <span class="string">"<span class="variable">$&#123;PRODUCT_UNINST_KEY&#125;</span>"</span> <span class="string">"URLInfoAbout"</span> <span class="string">"<span class="variable">$&#123;PRODUCT_WEB_SITE&#125;</span>"</span></span><br><span class="line">  <span class="keyword">WriteRegStr</span> <span class="variable">$&#123;PRODUCT_UNINST_ROOT_KEY&#125;</span> <span class="string">"<span class="variable">$&#123;PRODUCT_UNINST_KEY&#125;</span>"</span> <span class="string">"Publisher"</span> <span class="string">"<span class="variable">$&#123;PRODUCT_PUBLISHER&#125;</span>"</span></span><br><span class="line"><span class="keyword">SectionEnd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 安装net45</span></span><br><span class="line"><span class="function"><span class="keyword">Function</span> CheckAndDownloadDotNet45</span></span><br><span class="line">	<span class="comment"># Let's see if the user has the .NET Framework 4.5 installed on their system or not</span></span><br><span class="line">	<span class="comment"># Remember: you need Vista SP2 or 7 SP1.  It is built in to Windows 8, and not needed</span></span><br><span class="line">	<span class="comment"># In case you're wondering, running this code on Windows 8 will correctly return is_equal</span></span><br><span class="line">	<span class="comment"># or is_greater (maybe Microsoft releases .NET 4.5 SP1 for example)</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Set up our Variables</span></span><br><span class="line">	<span class="keyword">Var</span> /GLOBAL dotNET45IsThere</span><br><span class="line">	<span class="keyword">Var</span> /GLOBAL dotNET_CMD_LINE</span><br><span class="line">	<span class="keyword">Var</span> /GLOBAL EXIT_CODE</span><br><span class="line"></span><br><span class="line">        <span class="comment"># We are reading a version release DWORD that Microsoft says is the documented</span></span><br><span class="line">        <span class="comment"># way to determine if .NET Framework 4.5 is installed</span></span><br><span class="line">	<span class="keyword">ReadRegDWORD</span> <span class="variable">$dotNET45IsThere</span> <span class="params">HKLM</span> <span class="string">"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full"</span> <span class="string">"Release"</span></span><br><span class="line">	<span class="keyword">IntCmp</span> <span class="variable">$dotNET45IsThere</span> <span class="number">378389</span> is_equal is_less is_greater</span><br><span class="line"></span><br><span class="line">	is_equal:</span><br><span class="line">		<span class="keyword">Goto</span> done_compare_not_needed</span><br><span class="line">	is_greater:</span><br><span class="line">		<span class="comment"># Useful if, for example, Microsoft releases .NET 4.5 SP1</span></span><br><span class="line">		<span class="comment"># We want to be able to simply skip install since it's not</span></span><br><span class="line">		<span class="comment"># needed on this system</span></span><br><span class="line">		<span class="keyword">Goto</span> done_compare_not_needed</span><br><span class="line">	is_less:</span><br><span class="line">		<span class="keyword">Goto</span> done_compare_needed</span><br><span class="line"></span><br><span class="line">	done_compare_needed:</span><br><span class="line">		<span class="comment">#.NET Framework 4.5 install is *NEEDED*</span></span><br><span class="line"></span><br><span class="line">		<span class="comment"># Microsoft Download Center EXE:</span></span><br><span class="line">		<span class="comment"># Web Bootstrapper: http://go.microsoft.com/fwlink/?LinkId=225704</span></span><br><span class="line">		<span class="comment"># Full Download: http://go.microsoft.com/fwlink/?LinkId=225702</span></span><br><span class="line"></span><br><span class="line">		<span class="comment"># Setup looks for components\dotNET45Full.exe relative to the install EXE location</span></span><br><span class="line">		<span class="comment"># This allows the installer to be placed on a USB stick (for computers without internet connections)</span></span><br><span class="line">		<span class="comment"># If the .NET Framework 4.5 installer is *NOT* found, Setup will connect to Microsoft's website</span></span><br><span class="line">		<span class="comment"># and download it for you</span></span><br><span class="line"></span><br><span class="line">		<span class="comment"># Reboot Required with these Exit Codes:</span></span><br><span class="line">		<span class="comment"># 1641 or 3010</span></span><br><span class="line"></span><br><span class="line">		<span class="comment"># Command Line Switches:</span></span><br><span class="line">		<span class="comment"># /showrmui /passive /norestart</span></span><br><span class="line"></span><br><span class="line">		<span class="comment"># Silent Command Line Switches:</span></span><br><span class="line">		<span class="comment"># /q /norestart</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		<span class="comment"># Let's see if the user is doing a Silent install or not</span></span><br><span class="line">		<span class="keyword">IfSilent</span> is_quiet is_not_quiet</span><br><span class="line"></span><br><span class="line">		is_quiet:</span><br><span class="line">			<span class="keyword">StrCpy</span> <span class="variable">$dotNET_CMD_LINE</span> <span class="string">"/q /norestart"</span></span><br><span class="line">			<span class="keyword">Goto</span> LookForLocalFile</span><br><span class="line">		is_not_quiet:</span><br><span class="line">			<span class="keyword">StrCpy</span> <span class="variable">$dotNET_CMD_LINE</span> <span class="string">"/showrmui /passive /norestart"</span></span><br><span class="line">			<span class="keyword">Goto</span> LookForLocalFile</span><br><span class="line"></span><br><span class="line">		LookForLocalFile:</span><br><span class="line">			<span class="comment"># Let's see if the user stored the Full Installer</span></span><br><span class="line">			<span class="keyword">IfFileExists</span> <span class="string">"<span class="variable">$EXEPATH</span>\components\dotNET45Full.exe"</span> do_local_install do_network_install</span><br><span class="line"></span><br><span class="line">			do_local_install:</span><br><span class="line">				<span class="comment"># .NET Framework found on the local disk.  Use this copy</span></span><br><span class="line"></span><br><span class="line">				<span class="keyword">ExecWait</span> <span class="string">'"<span class="variable">$EXEPATH</span>\components\dotNET45Full.exe" <span class="variable">$dotNET_CMD_LINE</span>'</span> <span class="variable">$EXIT_CODE</span></span><br><span class="line">				<span class="keyword">Goto</span> is_reboot_requested</span><br><span class="line"></span><br><span class="line">			<span class="comment"># Now, let's Download the .NET</span></span><br><span class="line">			do_network_install:</span><br><span class="line"></span><br><span class="line">				<span class="keyword">Var</span> /GLOBAL dotNetDidDownload</span><br><span class="line">				<span class="class">NSISdl::download</span> <span class="string">"http://go.microsoft.com/fwlink/?LinkId=225704"</span> <span class="string">"<span class="variable">$TEMP</span>\dotNET45Web.exe"</span> <span class="variable">$dotNetDidDownload</span></span><br><span class="line"></span><br><span class="line">				<span class="keyword">StrCmp</span> <span class="variable">$dotNetDidDownload</span> success fail</span><br><span class="line">				success:</span><br><span class="line">					<span class="keyword">ExecWait</span> <span class="string">'"<span class="variable">$TEMP</span>\dotNET45Web.exe" <span class="variable">$dotNET_CMD_LINE</span>'</span> <span class="variable">$EXIT_CODE</span></span><br><span class="line">					<span class="keyword">Goto</span> is_reboot_requested</span><br><span class="line"></span><br><span class="line">				fail:</span><br><span class="line">					<span class="keyword">MessageBox</span> <span class="params">MB_OK</span>|<span class="params">MB_ICONEXCLAMATION</span> <span class="string">"Unable to download .NET Framework.  <span class="variable">$&#123;PRODUCT_NAME&#125;</span> will be installed, but will not function without the Framework!"</span></span><br><span class="line">					<span class="keyword">Goto</span> done_dotNET_function</span><br><span class="line"></span><br><span class="line">				<span class="comment"># $EXIT_CODE contains the return codes.  1641 and 3010 means a Reboot has been requested</span></span><br><span class="line">				is_reboot_requested:</span><br><span class="line">					<span class="variable">$&#123;If&#125;</span> <span class="variable">$EXIT_CODE</span> = <span class="number">1641</span></span><br><span class="line">					<span class="variable">$&#123;OrIf&#125;</span> <span class="variable">$EXIT_CODE</span> = <span class="number">3010</span></span><br><span class="line">						<span class="keyword">SetRebootFlag</span> <span class="literal">true</span></span><br><span class="line">					<span class="variable">$&#123;EndIf&#125;</span></span><br><span class="line"></span><br><span class="line">	done_compare_not_needed:</span><br><span class="line">		<span class="comment"># Done dotNET Install</span></span><br><span class="line">		<span class="keyword">Goto</span> done_dotNET_function</span><br><span class="line"></span><br><span class="line">	<span class="comment">#exit the function</span></span><br><span class="line">	done_dotNET_function:</span><br><span class="line"><span class="keyword">FunctionEnd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/******************************</span></span><br><span class="line"><span class="comment"> *  以下是安装程序的卸载部分  *</span></span><br><span class="line"><span class="comment"> ******************************/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">Section</span> Uninstall</span></span><br><span class="line">  <span class="keyword">!insertmacro</span> MUI_STARTMENU_GETFOLDER <span class="string">"Application"</span> <span class="variable">$ICONS_GROUP</span></span><br><span class="line">  <span class="keyword">Delete</span> <span class="string">"<span class="variable">$INSTDIR</span>\uninst.exe"</span></span><br><span class="line">  <span class="keyword">Delete</span> <span class="string">"<span class="variable">$INSTDIR</span>\*.*"</span></span><br><span class="line">  <span class="keyword">Delete</span> <span class="string">"<span class="variable">$INSTDIR</span>\#EXE名称"</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">Delete</span> <span class="string">"<span class="variable">$SMPROGRAMS</span>\<span class="variable">$ICONS_GROUP</span>\Uninstall.lnk"</span></span><br><span class="line">  <span class="keyword">Delete</span> <span class="string">"<span class="variable">$SMPROGRAMS</span>\<span class="variable">$ICONS_GROUP</span>\Website.lnk"</span></span><br><span class="line">  <span class="keyword">Delete</span> <span class="string">"<span class="variable">$DESKTOP</span>\#系统名称.lnk"</span></span><br><span class="line">  <span class="keyword">Delete</span> <span class="string">"<span class="variable">$SMPROGRAMS</span>\<span class="variable">$ICONS_GROUP</span>\#系统名称.lnk"</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">RMDir</span> <span class="string">"<span class="variable">$SMPROGRAMS</span>\<span class="variable">$ICONS_GROUP</span>"</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">RMDir</span> /r <span class="string">"<span class="variable">$INSTDIR</span>\x86"</span></span><br><span class="line">	<span class="keyword">RMDir</span> /r <span class="string">"<span class="variable">$INSTDIR</span>\x64"</span></span><br><span class="line">	<span class="keyword">RMDir</span> /r <span class="string">"<span class="variable">$INSTDIR</span>\Template"</span></span><br><span class="line">	<span class="keyword">RMDir</span> /r <span class="string">"<span class="variable">$INSTDIR</span>\Logs"</span></span><br><span class="line">	<span class="keyword">RMDir</span> /r <span class="string">"<span class="variable">$INSTDIR</span>\Images"</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">RMDir</span> <span class="string">"<span class="variable">$INSTDIR</span>"</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">DeleteRegKey</span> <span class="variable">$&#123;PRODUCT_UNINST_ROOT_KEY&#125;</span> <span class="string">"<span class="variable">$&#123;PRODUCT_UNINST_KEY&#125;</span>"</span></span><br><span class="line">  <span class="keyword">DeleteRegKey</span> <span class="params">HKLM</span> <span class="string">"<span class="variable">$&#123;PRODUCT_DIR_REGKEY&#125;</span>"</span></span><br><span class="line">  <span class="keyword">SetAutoClose</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">SectionEnd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#-- 根据 NSIS 脚本编辑规则，所有 Function 区段必须放置在 Section 区段之后编写，以避免安装程序出现未可预知的问题。--#</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">Function</span> un.onInit</span></span><br><span class="line">  <span class="keyword">MessageBox</span> <span class="params">MB_ICONQUESTION</span>|<span class="params">MB_YESNO</span>|<span class="params">MB_DEFBUTTON2</span> <span class="string">"您确实要完全移除 <span class="variable">$(^Name)</span> ，及其所有的组件？"</span> <span class="params">IDYES</span> +<span class="number">2</span></span><br><span class="line">  <span class="keyword">Abort</span></span><br><span class="line"><span class="keyword">FunctionEnd</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">Function</span> un.onUninstSuccess</span></span><br><span class="line">  <span class="keyword">HideWindow</span></span><br><span class="line">  <span class="keyword">MessageBox</span> <span class="params">MB_ICONINFORMATION</span>|<span class="params">MB_OK</span> <span class="string">"<span class="variable">$(^Name)</span> 已成功地从您的计算机移除。"</span></span><br><span class="line"><span class="keyword">FunctionEnd</span></span><br></pre></td></tr></table></figure></p>
+    </div>
+    <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/software/" rel="tag"># software</a>
+            <a href="/blog/tags/nsis/" rel="tag"># nsis</a>
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/blog/2018/08/27/csharp-WebApiHelper/" rel="next" title="C/S端调用 WebApi 帮助类">
+                <i class="fa fa-chevron-left"></i> C/S端调用 WebApi 帮助类
+              </a>
+          </div>
+          <span class="post-nav-divider"></span>
+          <div class="post-nav-prev post-nav-item">
+              <a href="/blog/2019/03/11/asp-DownloadFile/" rel="prev" title="Asp服务端文件下载">
+                Asp服务端文件下载 <i class="fa fa-chevron-right"></i>
+              </a>
+          </div>
+        </div>
+    </footer>
+  </div>
+  </article>
+  </div>
+          </div>
+        </div>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4" alt="IceElves">
+              <p class="site-author-name" itemprop="name">IceElves</p>
+              <div class="site-description motion-element" itemprop="description">记录生活,记录学习,记录成长!</div>
+          </div>
+            <nav class="site-state motion-element">
+                <div class="site-state-item site-state-posts">
+                  <a href="/blog/archives">
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+                <div class="site-state-item site-state-categories">
+                      <a href="/blog/categories">
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+                <div class="site-state-item site-state-tags">
+                      <a href="/blog/tags">
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+            </nav>
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于-NSIS-的-Windows-桌面端打包程序"><span class="nav-number">1.</span> <span class="nav-text">基于 NSIS 的 Windows 桌面端打包程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装包截图"><span class="nav-number">1.2.</span> <span class="nav-text">安装包截图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#脚本代码"><span class="nav-number">1.3.</span> <span class="nav-text">脚本代码</span></a></li></ol></li></ol></div>
+          </div>
+        </div>
+      <!--/noindex-->
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+            <span id="scrollpercent"><span>0</span>%</span>
+        </div>
+    </div>
+  </aside>
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">IceElves</span>
+</div>
+<!-- 隐藏：由 Hexo 强力驱动 v3.8.0 | 主题 – NexT.Pisces v7.1.1
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
+-->
+      </div>
+    </footer>
+  </div>
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+  <script src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="/blog/js/utils.js?v=7.1.1"></script>
+  <script src="/blog/js/motion.js?v=7.1.1"></script>
+  <script src="/blog/js/affix.js?v=7.1.1"></script>
+  <script src="/blog/js/schemes/pisces.js?v=7.1.1"></script>
+  <script src="/blog/js/scrollspy.js?v=7.1.1"></script>
+<script src="/blog/js/post-details.js?v=7.1.1"></script>
+  <script src="/blog/js/next-boot.js?v=7.1.1"></script>
+</body>
+</html>
