@@ -1,7 +1,7 @@
 ---
 title: FTP 共享帮助类
 date: 2017-05-24 20:30:30
-tags: [c#,ftp,helper]
+tags: [c#,helper,ftp]
 categories: C#.Net
 ---
 ### 基于 Serv-U 搭建的 FTP 帮助类
