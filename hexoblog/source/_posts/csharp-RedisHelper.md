@@ -1277,3 +1277,6 @@ public Dictionary<string, string> GetAllKeysValues()
     return dicAllKeysValues;
 }
 ```
+#### 错误处理
+Redis错误信息：MISCONG Redis is configured to save RDB
+执行：config set stop-writes-on-bgsave-error no
