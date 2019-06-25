@@ -4,7 +4,7 @@ date: 2018-07-02 20:53:18
 tags: [c#,ef,mysql]
 categories: C#.Net
 ---
-### EntityFramewor框架使用介绍
+### EntityFramework 框架使用介绍
 <!-- more -->
 #### 简介
 [Entity Framework](https://baike.baidu.com/item/ADO.NET%20Entity%20Framework/6444727?fr=aladdin) 是微软以 ADO.NET 为基础所发展出来的对象关系对应 ([O/R Mapping](https://baike.baidu.com/item/%E5%AF%B9%E8%B1%A1%E5%85%B3%E7%B3%BB%E6%98%A0%E5%B0%84/311152?fromtitle=O%2FR%20Mapping&fromid=1229659)) 解决方案。
