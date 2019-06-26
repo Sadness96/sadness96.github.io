@@ -1,10 +1,23 @@
 ---
 title: 命令启动程序
-date: 2018-08-10 10:55:11
+date: 2016-08-10 10:55:11
 tags: [windows,cmd]
 categories: Windows
 ---
 ### 通过运行或CMD命令启动软件
 <!-- more -->
 #### 简介
-[SVN](https://baike.baidu.com/item/SVN) 是一个开放源代码的[版本控制系统](https://baike.baidu.com/item/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/3311252)，现大部分公司
+作为一个强迫症来说，电脑桌面当然是越精简越好，杂乱的文件不能有，甚至想干掉所有图标…Windows的强大足以完全用快捷键操作系统了，鼠标用得少了效率也提高不少。
+之前有想过用 [Mac OS](https://baike.baidu.com/item/Mac%20OS/2840867?fr=aladdin) 的 Dock 的工具栏样式显示软件图标，但是没有MAC总觉得少点什么。
+通过 [运行（Win+R）](https://baike.baidu.com/item/%E8%BF%90%E8%A1%8C/13132909?fr=aladdin) 的方式启动软件或许是个不错的方式，系统有集成很多自带的软件或者安装打包有环境变量的软件都可以输入名称运行（例如：calc、notepad、mspaint、mstsc）。
+#### 设置
+##### 创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/windows-QueryCmd/1.jpg"/>
+##### 配置环境变量（在环境变量Path下增加启动目录）
+###### Win7
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/windows-QueryCmd/2.jpg"/>
+###### Win10
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/windows-QueryCmd/3.png"/>
+##### 通过 Win+R 打开运行窗口，输入启动名称即可。
+例：运行PS
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/windows-QueryCmd/4.png"/>
