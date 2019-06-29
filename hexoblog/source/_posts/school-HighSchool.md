@@ -1,8 +1,8 @@
 ---
-title: 记忆-齐齐哈尔职业教育中心学校
+title: 齐齐哈尔职业教育中心学校
 date: 2014-10-5 19:07:18
 tags: [photoshop,flash]
-categories: 学校记忆
+categories: School
 ---
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/memory-HighSchool/school.png"/>
 <!-- more -->
