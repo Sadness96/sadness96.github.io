@@ -7,10 +7,11 @@ categories: C++
 ### 基于神思二代身份证读卡器做二次开发
 <!-- more -->
 #### 简介
-公司中项目[人证合一核查系统](https://baike.baidu.com/item/%E4%BA%BA%E8%AF%81%E5%90%88%E4%B8%80/19776127?fr=aladdin)需要，使用[神思二代证读卡器](http://www.sdses.com/)二次开发集成。
-由于神思二代证[SKD](https://baike.baidu.com/item/sdk/7815680?fr=aladdin)只提供了C++/Java接口，还是使用C#+WPF开发界面，所以采用 [C#/C++ 混合编程](/blog/2018/08/01/cpp-HybridCSharp/) 的方式开发。
+公司中项目[人证合一核查系统](https://baike.baidu.com/item/%E4%BA%BA%E8%AF%81%E5%90%88%E4%B8%80/19776127?fr=aladdin)需要，使用[神思二代身份证读卡器](http://www.sdses.com/)二次开发集成。
+由于神思二代证[SKD](https://baike.baidu.com/item/sdk/7815680?fr=aladdin)只提供了C++/Java接口，项目还是采用C#作为主要开发语言，使用WPF开发界面，所以采用 [C#/C++ 混合编程](/blog/2018/08/01/cpp-HybridCSharp/) 的方式开发。
 #### 封装代码
 由官方提供的C++SDK二次封装为非托管动态链接库暴露接口给C#端调用
+读卡器读取身份证照片存为 RdCard.dll 库目录下 zp.bmp 文件
 ``` C++
 #include "stdafx.h"
 #include "2ndCardReader.h"
@@ -115,7 +116,7 @@ _FID_GetVersion			FID_GetVersion;
 _FID_GetDep				FID_GetDep;
 _GetSAMIDToStr			GetSAMIDToStr;
 
-extern "C"  char* TrimStr(char *str)
+extern "C" char* TrimStr(char *str)
 {
 	char *head = str;
 	while (*head == ' ')
@@ -131,61 +132,6 @@ extern "C"  char* TrimStr(char *str)
 	*(end + 1) = 0;
 	strcpy(str, head);
 	return str;
-}
-
-int saveBmp(char* bmpName, char*imgBuf, int width, int height, int biBitCount, RGBQUAD* pColorTable)
-{
-	if (!imgBuf)
-	{
-		return -10;
-	}
-	int colorTableSize = 0;
-	if (biBitCount == 8)
-	{
-		colorTableSize = 1024;
-	}
-	int lineByte = (width*biBitCount / 8 + 3) / 4 * 4;
-	FILE *fout = fopen(bmpName, "wb");
-	if (fout == 0)
-	{
-		return -10;
-	}
-
-
-	BITMAPFILEHEADER bitHead;
-
-	WORD fileType;
-	fwrite(&fileType, 1, sizeof(WORD), fout);
-	if (fileType != 0x4d42)
-	{
-		return -14;
-	}
-	bitHead.bfSize = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + colorTableSize + lineByte*height;
-	bitHead.bfReserved1 = 0;
-	bitHead.bfReserved2 = 0;
-	bitHead.bfOffBits = 54 + colorTableSize;
-	fwrite(&bitHead, sizeof(BITMAPFILEHEADER), 1, fout);
-
-	BITMAPINFOHEADER head;
-	head.biBitCount = biBitCount;
-	head.biClrImportant = 0;
-	head.biClrUsed = 0;
-	head.biCompression = 0;
-	head.biHeight = height;
-	head.biWidth = width;
-	head.biPlanes = 1;
-	head.biSize = 40;
-	head.biSizeImage = lineByte*height;
-	head.biXPelsPerMeter = 0;
-	head.biYPelsPerMeter = 0;
-	fwrite(&head, sizeof(BITMAPINFOHEADER), 1, fout);
-	if (biBitCount == 8)
-	{
-		fwrite(pColorTable, sizeof(RGBQUAD), 256, fout);
-	}
-	fwrite(imgBuf, height*lineByte, 1, fout);
-	fclose(fout);
-	return 1;
 }
 
 extern "C" MY2NDCARDREADER_API int fn2ndCardReaderInfo(IDInfo* pIDInfo)
