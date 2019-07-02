@@ -25,7 +25,7 @@ categories: Work
 该项目为：第八届国际警用装备及反恐技术装备展览会 展出产品，功能及介绍均为宣传内容，如有兴趣请联系科盾科技股份有限公司。
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/work-KedunTech/20190521_164057.jpg"/>
 ##### 项目背景
-该项目由清华大学 [苏光大](https://baike.baidu.com/item/%E8%8B%8F%E5%85%89%E5%A4%A7/4797223) 教授多项国家发明专利为基础研发。
+该项目由清华大学 [苏光大](https://baike.baidu.com/item/%E8%8B%8F%E5%85%89%E5%A4%A7/4797223) 教授多项国家发明专利为基础研发。主要使用技术有 [OpenCV](https://baike.baidu.com/item/opencv/10320623?fr=aladdin)、[深度学习](https://baike.baidu.com/item/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3729729?fr=aladdin)、[DNN（深度神经网络）](https://baike.baidu.com/item/DNN/19974079?fr=aladdin)、[Caffe（卷积神经网络框架）](https://baike.baidu.com/item/Caffe/16301044?fr=aladdin) 构成。
 1、基于人脸几何尺寸归一化的人脸图像识别方法，2007年获国家发明专利（发明专利号：ZL 2005 1 0067692.X，发明人：苏光大，孟凯，杜成，王俊艳）；
 2、一种人脸图像采集设备属性归一化的方法，2006年获得国家发明专利（发明专利号：ZL 2004 1 0047919.2，发明人：苏光大，章柏幸）；
 3、基于部件主分量分析的多模式人脸识别方法，2004年获得国家发明专利（发明专利号：ZL 01 1 36577.3，发明人：苏光大，张翠平）；
