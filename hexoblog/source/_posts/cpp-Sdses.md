@@ -4,6 +4,7 @@ date: 2019-04-06 21:15:31
 tags: [c++,c#,sdses]
 categories: C++
 ---
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/cpp-Sdses/s100-1.jpg"/>
 ### 基于神思二代身份证读卡器做二次开发
 <!-- more -->
 #### 简介
