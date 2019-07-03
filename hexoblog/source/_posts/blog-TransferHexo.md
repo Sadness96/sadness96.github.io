@@ -1,7 +1,7 @@
 ---
 title: 迁移博客至 GitHub Pages + Hexo
 date: 2019-06-18 12:40:45
-tags: [hexo,html,css,js,md,python,yml,swig]
+tags: [hexo,python,cmd,git]
 categories: Blog
 ---
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/blog-TransferHexo/BlogVSCode.png"/>
