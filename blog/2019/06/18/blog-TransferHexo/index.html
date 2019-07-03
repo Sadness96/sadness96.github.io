@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+<link rel="stylesheet" href="/blog/css/main.css?v=7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=7.1.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=7.1.1">
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.1.1" color="#222">
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+  <meta name="keywords" content="hexo,html,css,js,md,python,yml,swig">
+<meta property="og:type" content="article">
+<meta property="og:title" content="迁移博客至 GitHub Pages + Hexo">
+<meta property="og:url" content="http://sadness96.github.io/blog/2019/06/18/blog-TransferHexo/index.html">
+<meta property="og:site_name" content="个人博客 - 刘佳华">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/blog-TransferHexo/BlogVSCode.png">
+<meta property="og:updated_time" content="2019-07-03T06:50:11.969Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="迁移博客至 GitHub Pages + Hexo">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/blog-TransferHexo/BlogVSCode.png">
+  <link rel="canonical" href="http://sadness96.github.io/blog/2019/06/18/blog-TransferHexo/">
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>迁移博客至 GitHub Pages + Hexo | 个人博客 - 刘佳华</title>
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客 - 刘佳华</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+          <li class="menu-item menu-item-home">
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+          <li class="menu-item menu-item-archives">
+    <a href="/blog/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+          <li class="menu-item menu-item-about">
+    <a href="/blog/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+  </li>
+          <li class="menu-item menu-item-categories">
+    <a href="/blog/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+  </li>
+          <li class="menu-item menu-item-tags">
+    <a href="/blog/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+  </li>
+          <li class="menu-item menu-item-github">
+    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="menu-item-icon fa fa-fw fa-github"></i> <br>GitHub</a>
+  </li>
+    </ul>
+</nav>
+</div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+  <div id="posts" class="posts-expand">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/blog/2019/06/18/blog-TransferHexo/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="IceElves">
+      <meta itemprop="description" content="记录生活,记录学习,记录成长!">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客 - 刘佳华">
+    </span>
+      <header class="post-header">
+          <h1 class="post-title" itemprop="name headline">迁移博客至 GitHub Pages + Hexo
+          </h1>
+        <div class="post-meta">
+          <span class="post-time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+                <span class="post-meta-item-text">发表于</span>
+              <time title="创建时间：2019-06-18 12:40:45" itemprop="dateCreated datePublished" datetime="2019-06-18T12:40:45+08:00">2019-06-18</time>
+          </span>
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+                <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/Blog/" itemprop="url" rel="index"><span itemprop="name">Blog</span></a></span>
+            </span>
+        </div>
+      </header>
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/blog-TransferHexo/BlogVSCode.png"><br><a id="more"></a></p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>原来只有使用 <a href="https://cn.wordpress.org/" target="_blank" rel="noopener">WordPress</a> 记录一部分博客，以及平时有随手记录工作生活的习惯，这次迁移博客统一整理一遍。</p>
+<h3 id="技术简介"><a href="#技术简介" class="headerlink" title="技术简介"></a>技术简介</h3><p>博客主体使用 <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> 作为静态网站托管平台，使用 <a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo</a> 作为静态博客生成框架，以及使用 <a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">theme-next</a> 主题。</p>
+<h3 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h3><p><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VSCode</a> + <a href="http://nodejs.cn/" target="_blank" rel="noopener">Node.js</a> + <a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo</a> + <a href="https://www.python.org/" target="_blank" rel="noopener">Python</a> + <a href="https://git-scm.com/" target="_blank" rel="noopener">GIT</a></p>
+<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><h4 id="创建-GitHub-Pages"><a href="#创建-GitHub-Pages" class="headerlink" title="创建 GitHub Pages"></a>创建 GitHub Pages</h4><h5 id="GitHub-仓库创建与用户名同名的-“-github-io”-库"><a href="#GitHub-仓库创建与用户名同名的-“-github-io”-库" class="headerlink" title="GitHub 仓库创建与用户名同名的 “.github.io” 库"></a>GitHub 仓库创建与用户名同名的 “.github.io” 库</h5><p>要求：名称必须为小写字母或数字<br>例：Github 用户名为：Test；则创建库为：test.github.io<br>库地址即为：<a href="https://github.com/Test/test.github.io" target="_blank" rel="noopener">https://github.com/Test/test.github.io</a><br>git地址为：<a href="https://github.com/Test/test.github.io.git" target="_blank" rel="noopener">https://github.com/Test/test.github.io.git</a><br>Pages访问地址为：<a href="https://test.github.io" target="_blank" rel="noopener">https://test.github.io</a><br>设置网站为<a href="https://baike.baidu.com/item/https/285356?fr=aladdin" target="_blank" rel="noopener">HTTPS</a>：库 Settings 中勾选：Enforce HTTPS</p>
+<h5 id="域名配置"><a href="#域名配置" class="headerlink" title="域名配置"></a>域名配置</h5><p>在<a href="https://www.aliyun.com/" target="_blank" rel="noopener">阿里云</a>中购买域名（例：test.com）后需实名认证<br>安全设置中设置<a href="https://wanwang.aliyun.com/domain/transferlock/?spm=5176.100251.0.0.7dd54f15rzxrOx" target="_blank" rel="noopener">禁止转移锁</a>、<a href="https://wanwang.aliyun.com/domain/domainlock/?spm=5176.100251.0.0.7dd54f15rzxrOx" target="_blank" rel="noopener">禁止更新锁</a><br>设置域名解析：新增两条记录<br>1、记录类型：CNAME；主机记录：www；解析线路：默认；记录值：test.github.io；TTL：10分钟；<br>2、记录类型：CNAME；主机记录：@；解析线路：默认；记录值：test.github.io；TTL：10分钟；<br>即可跳转为 test.github.io 地址<br>设置打开网站为域名地址：<br>GitHub 库中新增 CNAME 文件 保存内容为域名地址（例：test.com）<br>Settings 中显示 “Your site is published at <a href="https://test.com/" target="_blank" rel="noopener">https://test.com/</a> “ 即可</p>
+<h5 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h5><table>
+<thead>
+<tr>
+<th style="text-align:left">目录文件夹或文件</th>
+<th style="text-align:left">作用及功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">about</td>
+<td style="text-align:left">关于界面</td>
+</tr>
+<tr>
+<td style="text-align:left">blog</td>
+<td style="text-align:left">用于发布的静态博客</td>
+</tr>
+<tr>
+<td style="text-align:left">flash</td>
+<td style="text-align:left">网页中加载的Flash文件</td>
+</tr>
+<tr>
+<td style="text-align:left">hexoblog</td>
+<td style="text-align:left">Hexo 编译博客源码</td>
+</tr>
+<tr>
+<td style="text-align:left">images</td>
+<td style="text-align:left">网页中加载的图片文件</td>
+</tr>
+<tr>
+<td style="text-align:left">resume</td>
+<td style="text-align:left">简历页面</td>
+</tr>
+<tr>
+<td style="text-align:left">.nojekyll</td>
+<td style="text-align:left">关闭jekyll检查</td>
+</tr>
+<tr>
+<td style="text-align:left">404.html</td>
+<td style="text-align:left">网站404页面</td>
+</tr>
+<tr>
+<td style="text-align:left">CNAME</td>
+<td style="text-align:left">设置Pages解析域名地址</td>
+</tr>
+<tr>
+<td style="text-align:left">README.md</td>
+<td style="text-align:left">自述文件</td>
+</tr>
+<tr>
+<td style="text-align:left">index.html</td>
+<td style="text-align:left">博客主界面</td>
+</tr>
+</tbody>
+</table>
+<h5 id="修改主题样式"><a href="#修改主题样式" class="headerlink" title="修改主题样式"></a>修改主题样式</h5><p>仅展示代码样式部分，主题配置文件请查阅官网 <a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">theme-next</a><br>修改文件路径：hexoblog/themes/next/source/css/_custom/custom.styl<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">// Custom styles.</span><br><span class="line">// 主页文章添加阴影效果</span><br><span class="line"><span class="selector-class">.post</span> &#123;</span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#FFF</span>;</span><br><span class="line">    <span class="attribute">-webkit-box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">5px</span> <span class="built_in">rgba</span>(202, 203, 203, .5);</span><br><span class="line">    <span class="attribute">-moz-box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">5px</span> <span class="built_in">rgba</span>(202, 203, 204, .5);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.content-wrap</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: transparent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.footer</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 主页文章内间距</span><br><span class="line"><span class="selector-class">.content-wrap</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.posts-expand</span> &#123;</span><br><span class="line">    <span class="attribute">padding-top</span>: <span class="number">0px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 超链接颜色</span><br><span class="line"><span class="selector-class">.post-body</span> <span class="selector-tag">p</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#0593d3</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>: none;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#0593d3</span>;</span><br><span class="line">    &amp;:hover &#123;</span><br><span class="line">    <span class="selector-tag">color</span>: <span class="selector-id">#fc6423</span>;</span><br><span class="line">    <span class="selector-tag">border-bottom</span>: <span class="selector-tag">none</span>;</span><br><span class="line">    <span class="selector-tag">border-bottom</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#fc6423</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 主页文章块缩进</span><br><span class="line"><span class="selector-class">.posts-expand</span> <span class="selector-class">.post-eof</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">30px</span> auto <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">0px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.posts-expand</span> <span class="selector-class">.post-meta</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">3px</span> <span class="number">0</span> <span class="number">30px</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.posts-expand</span> <span class="selector-class">.post-body</span> <span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0px</span> auto <span class="number">0px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.post-button</span> &#123;</span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 底部页码格式</span><br><span class="line"><span class="selector-class">.pagination</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">40px</span> <span class="number">0</span> <span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">border-top</span>: <span class="number">0px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h5><h6 id="使用VSCode开发时生成静态页不加载CSS样式"><a href="#使用VSCode开发时生成静态页不加载CSS样式" class="headerlink" title="使用VSCode开发时生成静态页不加载CSS样式"></a>使用VSCode开发时生成静态页不加载CSS样式</h6><p>插件：View In Browser 本地网页打开<br>插件：Live Server 启动一个服务打开网站</p>
+<h6 id="上传Hexo博客源码后报错：Date-is-not-a-valid-datetime"><a href="#上传Hexo博客源码后报错：Date-is-not-a-valid-datetime" class="headerlink" title="上传Hexo博客源码后报错：Date is not a valid datetime"></a>上传Hexo博客源码后报错：Date is not a valid datetime</h6><p>由于GitHub Pages默认使用jekyll作为代码检查，在上传Hexo源码之后存在编译不通过的情况，所以需要创建.nojekyll空文件在Repository的根目录下以关闭针对jekyll的检查。<br>Windows下创建以“.”开头文件夹和文件（执行命令）：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">md</span> .folder              //创建文件夹</span><br><span class="line"><span class="built_in">echo</span> &gt;.file             //创建文件</span><br></pre></td></tr></table></figure></p>
+<h6 id="Hexo生成静态博客存在大量空白行"><a href="#Hexo生成静态博客存在大量空白行" class="headerlink" title="Hexo生成静态博客存在大量空白行"></a>Hexo生成静态博客存在大量空白行</h6><p>请查看文章：<a href="/blog/2019/06/17/python-CompressHexo/">压缩Hexo博客生成空白行</a></p>
+<h5 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h5><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> hexoblog                 //进入博客源码文件夹</span><br><span class="line">hexo new &lt;<span class="built_in">title</span>&gt;            //创建新文章</span><br><span class="line">hexo clean                  //清理博客生成文件</span><br><span class="line">hexo generate               //生成博客静文件</span><br><span class="line">hexo server                 //启动博客服务测试内容</span><br><span class="line">python compress.py          //压缩Hexo生成空白行</span><br><span class="line">python deploy.py            //拷贝至上级 "../blog" 发布目录</span><br><span class="line"><span class="built_in">cd</span> ..                       //回到上级 "../" 目录</span><br><span class="line">git status                  //对比差异文件</span><br><span class="line">git add .                   //添加修改至缓存区</span><br><span class="line">git commit -m "Message"     //填写修改内容</span><br><span class="line">git push                    //提交修改</span><br></pre></td></tr></table></figure>
+    </div>
+    <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/hexo/" rel="tag"># hexo</a>
+            <a href="/blog/tags/html/" rel="tag"># html</a>
+            <a href="/blog/tags/css/" rel="tag"># css</a>
+            <a href="/blog/tags/js/" rel="tag"># js</a>
+            <a href="/blog/tags/md/" rel="tag"># md</a>
+            <a href="/blog/tags/python/" rel="tag"># python</a>
+            <a href="/blog/tags/yml/" rel="tag"># yml</a>
+            <a href="/blog/tags/swig/" rel="tag"># swig</a>
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/blog/2019/06/17/python-CompressHexo/" rel="next" title="压缩Hexo博客生成空白行">
+                <i class="fa fa-chevron-left"></i> 压缩Hexo博客生成空白行
+              </a>
+          </div>
+          <span class="post-nav-divider"></span>
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  </article>
+  </div>
+          </div>
+        </div>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4" alt="IceElves">
+              <p class="site-author-name" itemprop="name">IceElves</p>
+              <div class="site-description motion-element" itemprop="description">记录生活,记录学习,记录成长!</div>
+          </div>
+            <nav class="site-state motion-element">
+                <div class="site-state-item site-state-posts">
+                  <a href="/blog/archives">
+                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+                <div class="site-state-item site-state-categories">
+                      <a href="/blog/categories">
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+                <div class="site-state-item site-state-tags">
+                      <a href="/blog/tags">
+                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+            </nav>
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#技术简介"><span class="nav-number">2.</span> <span class="nav-text">技术简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发环境"><span class="nav-number">3.</span> <span class="nav-text">开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建"><span class="nav-number">4.</span> <span class="nav-text">搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-GitHub-Pages"><span class="nav-number">4.1.</span> <span class="nav-text">创建 GitHub Pages</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GitHub-仓库创建与用户名同名的-“-github-io”-库"><span class="nav-number">4.1.1.</span> <span class="nav-text">GitHub 仓库创建与用户名同名的 “.github.io” 库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#域名配置"><span class="nav-number">4.1.2.</span> <span class="nav-text">域名配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#目录结构"><span class="nav-number">4.1.3.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改主题样式"><span class="nav-number">4.1.4.</span> <span class="nav-text">修改主题样式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到的问题"><span class="nav-number">4.1.5.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用VSCode开发时生成静态页不加载CSS样式"><span class="nav-number">4.1.5.1.</span> <span class="nav-text">使用VSCode开发时生成静态页不加载CSS样式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#上传Hexo博客源码后报错：Date-is-not-a-valid-datetime"><span class="nav-number">4.1.5.2.</span> <span class="nav-text">上传Hexo博客源码后报错：Date is not a valid datetime</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Hexo生成静态博客存在大量空白行"><span class="nav-number">4.1.5.3.</span> <span class="nav-text">Hexo生成静态博客存在大量空白行</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#执行命令"><span class="nav-number">4.1.6.</span> <span class="nav-text">执行命令</span></a></li></ol></li></ol></li></ol></div>
+          </div>
+        </div>
+      <!--/noindex-->
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+            <span id="scrollpercent"><span>0</span>%</span>
+        </div>
+    </div>
+  </aside>
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">IceElves</span>
+</div>
+<!-- 隐藏：由 Hexo 强力驱动 v3.8.0 | 主题 – NexT.Pisces v7.1.1
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
+-->
+      </div>
+    </footer>
+  </div>
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+  <script src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="/blog/js/utils.js?v=7.1.1"></script>
+  <script src="/blog/js/motion.js?v=7.1.1"></script>
+  <script src="/blog/js/affix.js?v=7.1.1"></script>
+  <script src="/blog/js/schemes/pisces.js?v=7.1.1"></script>
+  <script src="/blog/js/scrollspy.js?v=7.1.1"></script>
+<script src="/blog/js/post-details.js?v=7.1.1"></script>
+  <script src="/blog/js/next-boot.js?v=7.1.1"></script>
+</body>
+</html>
