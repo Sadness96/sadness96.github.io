@@ -34,7 +34,6 @@ Settings 中显示 "Your site is published at https://test.com/ " 即可
 ##### 目录结构
 |目录文件夹或文件|作用及功能|
 |:---|:---|
-|about|关于界面|
 |blog|用于发布的静态博客|
 |flash|网页中加载的Flash文件|
 |hexoblog|Hexo 编译博客源码|
