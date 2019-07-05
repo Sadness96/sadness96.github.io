@@ -85,6 +85,7 @@
         }
     </style>
     <script type="text/javascript">
+        // 延迟刷新
         $(document).ready(function () {
             $(".inner").fadeIn(2000);
         });
@@ -93,6 +94,13 @@
                 $(".homeBackground").fadeIn(2000);
             })
         }, 2000);
+        // 窗口改变事件
+        $(document).ready(function () {
+            $("body").css("margin-top", ($(window).height() - parseInt($("body").css("height"))) / 2 - 40);
+            $(window).resize(function () {
+                $("body").css("margin-top", ($(window).height() - parseInt($("body").css("height"))) / 2 - 40);
+            });
+        });
     </script>
 </head>
 
