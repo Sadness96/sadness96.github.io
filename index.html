@@ -96,9 +96,11 @@
         }, 2000);
         // 窗口改变事件
         $(document).ready(function () {
-            $("body").css("margin-top", ($(window).height() - parseInt($("body").css("height"))) / 2 - 40);
+            var vResize = ($(window).height() - parseInt($("body").css("height"))) / 2 - 80;
+            $("body").css("margin-top", vResize <= 0 ? 0 : vResize);
             $(window).resize(function () {
-                $("body").css("margin-top", ($(window).height() - parseInt($("body").css("height"))) / 2 - 40);
+                var vResize = ($(window).height() - parseInt($("body").css("height"))) / 2 - 80;
+                $("body").css("margin-top", vResize <= 0 ? 0 : vResize);
             });
         });
     </script>
