@@ -83,6 +83,106 @@
         .FunctionalTitle {
             margin-top: 5px;
         }
+
+        /* 简历问题悬浮框 */
+        #layer-shade {
+            display: none;
+            z-index: 999998;
+            background-color: #000000;
+            opacity: 0.5;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+        }
+
+        #dialog {
+            display: none;
+            z-index: 999999;
+            width: 460px;
+            height: 350px;
+            border-radius: 0.25rem;
+            background-color: #ffffff;
+            margin-left: auto;
+            margin-right: auto;
+            position: fixed;
+        }
+
+        #dialog-title {
+            font-size: 14px;
+            width: 100%;
+            height: 30px;
+            border-radius: 0.25rem;
+            background-color: #d0d0d0;
+        }
+
+        #dialog-title span {
+            display: inline-block;
+            margin: 5px;
+            color: #000000;
+        }
+
+        #dialog-close {
+            float: right;
+            color: #000000;
+            margin: 6px;
+            text-align: center;
+            background-color: transparent;
+            border: 0px solid transparent;
+            border-radius: 0.25rem;
+        }
+
+        #dialog-problem {
+            height: 180px;
+            width: 380px;
+            font-size: 14px;
+            margin-left: 40px;
+            margin-top: 20px;
+            float: left;
+            color: #000000;
+            text-align: left;
+        }
+
+        #dialog-form {
+            margin-top: 20px;
+        }
+
+        #dialog-form label {
+            font-size: 14px;
+            margin-left: 40px;
+            margin-top: 20px;
+            float: left;
+            color: #000000;
+        }
+
+        .PassText input {
+            padding: 8px;
+            border: 1px solid #D8DDE6;
+            border-radius: 0.25rem;
+            width: 280px;
+            margin-top: 12px;
+        }
+
+        #btn-Verification {
+            color: white;
+            background-color: #279f43;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            padding: 5px 20px;
+            margin-top: 30px;
+            margin-left: 260px;
+            text-align: center;
+        }
+
+        #btn-close {
+            color: black;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            padding: 5px 20px;
+            margin-left: 20px;
+            text-align: center;
+        }
     </style>
     <script type="text/javascript">
         // 延迟刷新
@@ -101,6 +201,51 @@
             $(window).resize(function () {
                 var vResize = ($(window).height() - parseInt($("body").css("height"))) / 2 - 80;
                 $("body").css("margin-top", vResize <= 0 ? 0 : vResize);
+            });
+        });
+        // 简历问题悬浮框
+        // 改变悬浮窗位置
+        $(document).ready(function () {
+            $("#dialog").css("top", ($(window).height() - parseInt($("#dialog").css("height"))) / 2);
+            $("#dialog").css("left", ($(window).width() - parseInt($("#dialog").css("width"))) / 2);
+        });
+        // 窗口改变大小
+        $(window).resize(function () {
+            if ($("#dialog").css("display") == "block") {
+                $("#dialog").css("top", ($(window).height() - parseInt($("#dialog").css("height"))) / 2);
+                $("#dialog").css("left", ($(window).width() - parseInt($("#dialog").css("width"))) / 2);
+            }
+        });
+        $(function () {
+            // 打开问题框
+            $("#OpenResume").click(function () {
+                // 显示悬浮窗
+                $("#dialog").css("display", "block");
+                $("#layer-shade").css("display", "block");
+                // 清除悬浮窗上的数据
+                $("#textAnswer").val("");
+            });
+
+            // 验证答案进入简历页
+            $("#btn-Verification").click(function () {
+                var textAnswer = $("#textAnswer").val();
+                var str = "";
+                var arr = new Array(0, 3, 3, 2, 9, 8, 1, 6, 5, 8);
+                var index = new Array(7, 3, 2, 6, 8, 8, 6, 7, 7);
+                index.forEach(function (item) {
+                    str += arr[item];
+                });
+                if (textAnswer == str) {
+                    $(location).attr("href", "/resume/");
+                } else {
+                    alert("答案错误请重试！");
+                }
+            });
+
+            // 关闭悬浮窗
+            $(".dialog-close").click(function () {
+                $("#dialog").css("display", "none");
+                $("#layer-shade").css("display", "none");
             });
         });
     </script>
@@ -144,7 +289,7 @@
                     </svg>
                     <p class="FunctionalTitle">博客</p>
                 </div>
-                <div class="Resume" onclick="window.location.href='./resume/'">
+                <div class="Resume" id="OpenResume">
                     <svg t="1557201285190" class="icon" viewbox="0 0 1024 1024" version="1.1"
                         xmlns="http://www.w3.org/2000/svg" p-id="6908" xmlns:xlink="http://www.w3.org/1999/xlink"
                         width="50" height="50">
@@ -174,6 +319,38 @@
                     <p class="FunctionalTitle">关于</p>
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="layer-shade"></div>
+    <div id="dialog">
+        <div id="dialog-title">
+            <span>输入答案查看简历</span>
+            <button id="dialog-close" class="dialog-close">X</button>
+        </div>
+        <div id="dialog-problem">
+            <label>int[] arr = new int[] { 0, 3, 3, 2, 9, 8, 1, 6, 5, 8 };</label>
+            <br />
+            <label>int[] index = new int[] { 7, 3, 2, 6, 8, 8, 6, 7, 7 };</label>
+            <br />
+            <label>string str = string.Empty;</label>
+            <br />
+            <label>foreach (var item in index)</label>
+            <br />
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;{</label>
+            <br />
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str += arr[item];</label>
+            <br />
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;}</label>
+            <br />
+            <label>Console.WriteLine(str);</label>
+        </div>
+        <div id="dialog-form">
+            <label>解答：</label>
+            <div class="PassText">
+                <input id="textAnswer" type="text" placeholder="请输入答案" />
+            </div>
+            <button id="btn-Verification">验证</button>
+            <button class="dialog-close" id="btn-close">取消</button>
         </div>
     </div>
 </body>
