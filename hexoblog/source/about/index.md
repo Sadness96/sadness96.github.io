@@ -20,7 +20,7 @@ date: 2019-03-05 14:00:00
 大学就读于：[哈尔滨信息工程学院](http://www.hxci.com.cn/) 2014 ~ 2017
 #### Work
 [北京地林伟业科技股份有限公司](http://www.forestar.com.cn/) 2016-06-28 ~ 2018-06-28
-[科盾科技股份有限公司北京分公司](http://www.forestar.com.cn/) 2018-07-12 ~ 已提交辞职申请（预计2019-07-12办理离职手续）
+[科盾科技股份有限公司北京分公司](http://www.kedun.com/) 2018-07-12 ~ 已提交辞职申请（预计2019-07-12办理离职手续）
 #### Ability
 拥有 [GIS](https://baike.baidu.com/item/%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F/171830?fromtitle=GIS&fromid=31541&fr=aladdin) 行业（[林业信息化](https://baike.baidu.com/item/%E6%9E%97%E4%B8%9A%E4%BF%A1%E6%81%AF%E5%8C%96/2504043?fr=aladdin)、[农村土地承包](https://baike.baidu.com/item/%E5%86%9C%E6%9D%91%E5%9C%9F%E5%9C%B0%E6%89%BF%E5%8C%85/9973496?fr=aladdin)）以及公安公安部门（[人脸识别](https://baike.baidu.com/item/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/4463435?fr=aladdin)、超分辨率重建、[模拟画像](https://baike.baidu.com/item/%E6%A8%A1%E6%8B%9F%E7%94%BB%E5%83%8F/5341100?fr=aladdin)、全景拼接）的工作经验。具有中小型项目设计及管理经验，带领过3-4人开发小团队，也善于独立开发。
 拥有电脑及其它硬件维修经验，网络设备及监控设备部署调试经验。
