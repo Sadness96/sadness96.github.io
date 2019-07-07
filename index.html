@@ -100,7 +100,7 @@
         #dialog {
             display: none;
             z-index: 999999;
-            width: 400px;
+            width: 386px;
             height: 315px;
             border-radius: 0.25rem;
             background-color: #ffffff;
@@ -207,13 +207,15 @@
         // 改变悬浮窗位置
         $(document).ready(function () {
             $("#dialog").css("top", ($(window).height() - parseInt($("#dialog").css("height"))) / 2);
-            $("#dialog").css("left", ($(window).width() - parseInt($("#dialog").css("width"))) / 2);
+            var vLeft = ($(window).width() - parseInt($("#dialog").css("width"))) / 2;
+            $("#dialog").css("left", vLeft <= 0 ? 0 : vLeft);
         });
         // 窗口改变大小
         $(window).resize(function () {
             if ($("#dialog").css("display") == "block") {
                 $("#dialog").css("top", ($(window).height() - parseInt($("#dialog").css("height"))) / 2);
-                $("#dialog").css("left", ($(window).width() - parseInt($("#dialog").css("width"))) / 2);
+                var vLeft = ($(window).width() - parseInt($("#dialog").css("width"))) / 2;
+                $("#dialog").css("left", vLeft <= 0 ? 0 : vLeft);
             }
         });
         $(function () {
