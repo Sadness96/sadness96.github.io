@@ -238,6 +238,8 @@
                     str += arr[item];
                 });
                 if (textAnswer == str) {
+                    $("#dialog").css("display", "none");
+                    $("#layer-shade").css("display", "none");
                     $(location).attr("href", "/resume/");
                 } else {
                     alert("答案错误请重试！");
