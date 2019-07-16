@@ -21,3 +21,8 @@ categories: Windows
 ##### 通过 Win+R 打开运行窗口，输入启动名称即可。
 例：运行PS
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/windows-QueryCmd/4.png"/>
+#### 2019年7月16日补充
+记录一个更好的替代或是搭配使用的工具
+Wox：[官方网站](http://www.wox.one/)（An effective launcher for windows）
+GitHub：[https://github.com/Wox-launcher/Wox](https://github.com/Wox-launcher/Wox)
+<img src="http://www.wox.one/images/wox_preview.jpg"/>
