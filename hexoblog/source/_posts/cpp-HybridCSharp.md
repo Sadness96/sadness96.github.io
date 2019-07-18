@@ -9,7 +9,7 @@ categories: C++
 #### 简介
 现工作中作由于C++的UI（[MFC](https://baike.baidu.com/item/MFC/2530850?fr=aladdin)、[QT](https://baike.baidu.com/item/qt)）开发界面比较难看，定制用户控件复杂且样式一般。而C#又不擅长于开发算法逻辑，效率不如C++。所以现在大部分公司都会选用C#/C++混合编程。
 #### 性能分析
-使用C#做界面要比C++高效的多，但是存在算法逻辑的时候由于性能问题不得不把部分模块交给C++处理，C++可以使用高效的栈内存对象（CCalc），而C#所有对象只能放在托管堆中。测试C#调用C++类库使用[托管](https://baike.baidu.com/item/%E6%89%98%E7%AE%A1/3967693)方式性能得到了一定程度的提升，但比起单纯的C++项目，还是差了很多；测试C#调用C++类库使用 [DllImport](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.dllimportattribute?redirectedfrom=MSDN&view=netframework-4.8) 混合方式由[非托管动态链接库](https://baike.baidu.com/item/%E9%9D%9E%E6%89%98%E7%AE%A1/7967564)效率与单独运行C++相差无几。
+使用C#做界面要比C++高效的多，但是存在算法逻辑的时候由于性能问题不得不把部分模块交给C++处理，C++可以使用高效的栈内存对象（CCalc），而C#所有对象只能放在托管堆中。测试C#调用C++类库使用[托管](https://baike.baidu.com/item/%E6%89%98%E7%AE%A1/3967693)方式性能得到了一定程度的提升，但比起单纯的C++项目，还是差了很多；测试C#调用C++类库使用 [DllImport](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.dllimportattribute?redirectedfrom=MSDN&view=netframework-4.8) [Attribute](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/attributes/) 混合方式由[非托管动态链接库](https://baike.baidu.com/item/%E9%9D%9E%E6%89%98%E7%AE%A1/7967564)效率与单独运行C++相差无几。
 #### 简单基础参数传递
 例子：
 1.最基础的加法运算；
