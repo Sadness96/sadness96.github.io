@@ -4,7 +4,8 @@ date: 2019-06-18 12:40:45
 tags: [hexo,python,cmd,git]
 categories: Blog
 ---
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/blog-TransferHexo/BlogVSCode.png"/>
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/blog-TransferHexo/BlogLogo.png"/>
+
 <!-- more -->
 ### 简介
 原来只有使用 [WordPress](https://cn.wordpress.org/) 记录一部分博客，以及平时有随手记录工作生活的习惯，这次迁移博客统一整理一遍。
