@@ -5,6 +5,7 @@ tags: [c#,c++,asp,mysql,axure]
 categories: Work
 ---
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/work-KedunTech/%E4%B8%BB%E7%A8%8B%E5%BA%8F.png"/>
+
 ### 人像识别重建系统
 <!-- more -->
 #### 个人简介
@@ -24,6 +25,7 @@ categories: Work
 ##### 声明
 该项目为：第八届国际警用装备及反恐技术装备展览会 展出产品，功能及介绍均为宣传内容，如有兴趣请联系科盾科技股份有限公司。
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/work-KedunTech/20190521_164057.jpg"/>
+
 ##### 项目背景
 该项目由清华大学 [苏光大](https://baike.baidu.com/item/%E8%8B%8F%E5%85%89%E5%A4%A7/4797223) 教授多项国家发明专利为基础研发。主要使用技术有 [OpenCV](https://baike.baidu.com/item/opencv/10320623?fr=aladdin)、[深度学习](https://baike.baidu.com/item/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3729729?fr=aladdin)、[DNN（深度神经网络）](https://baike.baidu.com/item/DNN/19974079?fr=aladdin)、[Caffe（卷积神经网络框架）](https://baike.baidu.com/item/Caffe/16301044?fr=aladdin) 构成。
 1、基于人脸几何尺寸归一化的人脸图像识别方法，2007年获国家发明专利（发明专利号：ZL 2005 1 0067692.X，发明人：苏光大，孟凯，杜成，王俊艳）；
@@ -43,13 +45,16 @@ categories: Work
 消息队列：[RabbitMQ](https://www.rabbitmq.com/)
 ##### 重建流程
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/work-KedunTech/%E4%BA%BA%E5%83%8F%E8%AF%86%E5%88%AB%E9%87%8D%E5%BB%BA%E6%B5%81%E7%A8%8B.png"/>
+
 ##### 功能介绍
 ###### 超分辨率重建
 使监控拍摄到的模糊人像通过算法优化重建出意向人脸，增加案件破获概率。
 1、加载监控拍摄到的图像（正脸角度60以内）
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/work-KedunTech/%E9%87%8D%E5%BB%BA%E7%9B%91%E6%8E%A7%E6%8B%8D%E6%91%84%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE.jpg"/>
+
 2、归一化图像480*360（自动处理）；调整直方图均衡及噪点；超分辨率重建
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/work-KedunTech/%E8%B6%85%E5%88%86%E8%BE%A8%E7%8E%87%E9%87%8D%E5%BB%BA.png"/>
+
 ###### 人脸识别
 使超分辨率重建得到的意向人脸或清晰人脸照片匹配数据库中相似的人像数据，从而排查可疑人员。
 ###### 模拟画像

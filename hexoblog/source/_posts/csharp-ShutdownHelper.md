@@ -5,6 +5,7 @@ tags: [c#,helper,windows,shutdown]
 categories: C#.Net
 ---
 <img src="http://www.bkill.com/u/upload/2017/08/17/172215508193.jpg"/>
+
 ### 关闭Windows计算机帮助类…鬼知道为什么我关电脑也能整理出一篇文章。
 <!-- more -->
 #### 简介

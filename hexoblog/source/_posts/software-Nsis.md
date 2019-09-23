@@ -5,6 +5,7 @@ tags: [software,nsis]
 categories: Software
 ---
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/HM-VNISEdit.jpg"/>
+
 ### 基于 NSIS 的 Windows 桌面端打包程序
 <!-- more -->
 #### 简介
@@ -16,6 +17,7 @@ categories: Software
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/install2.png"/>
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/install3.png"/>
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Nsis/install4.png"/>
+
 #### 脚本代码
 替换脚本中 "#" 开头的部分即可
 ``` NSIS

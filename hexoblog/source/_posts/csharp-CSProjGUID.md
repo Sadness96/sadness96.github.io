@@ -14,6 +14,7 @@ categories: C#.Net
 <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
 ```
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-CSProjGUID/csproj.png"/>
+
 ### 完整的 .csproj 文件中的 GUID 列表及其说明
 [参考资料](https://www.codeproject.com/Reference/720512/List-of-Visual-Studio-Project-Type-GUIDs)
 创建项目后，没有一种简单的方法可以在 Visual Studio 项目中更改项目类型。例如，将C＃类库更改为可移植类库（PCL）。了解这些GUID将允许您编辑项目文件 .csproj，.vbproj 以便在 Visual Studio 不允许使用 GUI 的情况下轻松更改项目类型。

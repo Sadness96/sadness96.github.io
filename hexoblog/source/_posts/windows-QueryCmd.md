@@ -13,14 +13,18 @@ categories: Windows
 #### 设置
 ##### 创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/windows-QueryCmd/1.jpg"/>
+
 ##### 配置环境变量（在环境变量Path下增加启动目录）
 ###### Win7
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/windows-QueryCmd/2.jpg"/>
+
 ###### Win10
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/windows-QueryCmd/3.png"/>
+
 ##### 通过 Win+R 打开运行窗口，输入启动名称即可。
 例：运行PS
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/windows-QueryCmd/4.png"/>
+
 #### 2019年7月16日补充
 记录一个更好的替代或是搭配使用的工具
 Wox：[官方网站](http://www.wox.one/)（An effective launcher for windows）

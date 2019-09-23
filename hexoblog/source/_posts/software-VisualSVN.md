@@ -5,6 +5,7 @@ tags: [software,svn]
 categories: Software
 ---
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-VisualSVN/VisualSVN-Server.png"/>
+
 ### 使用 SVN 作为版本管理工具
 <!-- more -->
 #### 简介
@@ -14,16 +15,22 @@ categories: Software
 #### 设置
 ##### 创建成员
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-VisualSVN/CreateNewUser.png"/>
+
 ##### 创建项目库
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-VisualSVN/CreateNewRepository.png"/>
+
 ##### 设置项目名
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-VisualSVN/CreateNewRepositoryName.png"/>
+
 ##### 设置项目结构
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-VisualSVN/CreateNewRepositoryStructure.png"/>
+
 ##### 设置项目访问权限
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-VisualSVN/CreateNewRepositoryAccess.png"/>
+
 ##### 设置项目成员
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-VisualSVN/AddUser.png"/>
+
 #### 客户端连接
 [TortoiseSVN](https://tortoisesvn.net/downloads.html) 是一个Apache ™ Subversion（SVN）&reg;客户端，实现为Windows外壳扩展。它直观且易于使用，因为它不需要Subversion命令行客户端运行。[下载地址](https://tortoisesvn.net/downloads.html) 安装即可。
 右键 SVN Checkout… 连接项目库

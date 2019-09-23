@@ -5,6 +5,7 @@ tags: [c#,helper,ado.net,sql server,oracle,mysql,access,sqlite]
 categories: C#.Net
 ---
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7.png"/>
+
 ### 使用 ADO.NET 二次封装ORM框架的数据库操作帮助类
 <!-- more -->
 #### 简介
