@@ -151,6 +151,87 @@ public static byte[] GetBytesFromMultilateration(string strMultilateration)
 | Yspeed | Y方向速度 | | |
 | Remark | 备注 | | |
 ### 代码
+#### 拆分数据（部分）
+``` csharp
+/// <summary>
+/// 格式 Cat020 数据
+/// </summary>
+/// <param name="bytesData"></param>
+/// <returns></returns>
+public static Cat020 Format(byte[] bytesData)
+{
+    List<byte> cat020List = new List<byte>();
+    cat020List.Add(bytesData[3]);
+    cat020List.Add(bytesData[4]);
+    cat020List.Add(bytesData[5]);
+    cat020List.Add(bytesData[6]);
+
+    //11111111000011110000000110000100
+    string isData = "";
+    foreach (var item in cat020List)
+    {
+        isData += Convert.ToString(item, 2).PadLeft(8, '0');
+    }
+
+    int index = 7;
+    char[] isDataStr = isData.ToCharArray();
+    bool flag = false;
+    Dictionary<string, string> strData = new Dictionary<string, string>();
+
+    for (int i = 0; i < Constants.cat020ItemNameList.Count; i++)
+    {
+        string data1 = Constants.cat020ItemNameList[i];
+        string data2 = Constants.cat020ItemLengthList[i];
+        if (data1.Equals("FX") && data2.Equals("-") && isDataStr[i] == '0')
+        {
+            flag = true;
+        }
+        if (data2.Equals("1+") && isDataStr[i] == '1')
+        {
+            string newStr = "";
+            while (true)
+            {
+                if (index >= bytesData.Length)
+                {
+                    //logger.info("下标长度大于或者等于数据总长度,循环结束");
+                    break;
+                }
+                string isextend = Convert.ToString(bytesData[index], 2);
+                if (!isextend.EndsWith("1"))
+                {
+                    newStr += bytesData[index] + " ";
+                    index++;
+                    break;
+                }
+                newStr += bytesData[index] + " ";
+                index++;
+            }
+            strData[(i + 1) + ""] = newStr.Trim();
+        }
+        else if (data2.Equals("-") || data2.Equals("") || data2.Equals("1+N*8"))
+        { }
+        else if (isDataStr[i] == '1')
+        {
+            int b = int.Parse(data2);
+            string c = "";
+            for (int k = 0; k < b; k++)
+            {
+                c += bytesData[index] + " ";
+                index++;
+            }
+            strData[(i + 1) + ""] = c;
+        }
+
+        if (flag)
+            break;
+    }
+
+    Cat020 cat020 = new Cat020();
+    ---
+    return cat020;
+}
+```
+
 #### I020/140
 <span id="1020140"><span/>
 
