@@ -4,7 +4,8 @@ date: 2019-11-4 11:05:38
 tags: [software,arcgis]
 categories: Software
 ---
-# ArcGIS API for JavaScript 搭建使用
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-ArcGisForJS/ArcGISForJavaScript.png"/>
+
 <!-- more -->
 ### 简介
 现工作中 GIS 地图使用客户提供的 AutoCAD 图纸提取图层到 ArcGIS 中导出图片模拟 GIS 显示，存在一定弊端（1.不包含经纬度数据，需要进行图像标定坐标转换；2.图像中边线粗的越放大越粗，边线细的缩放时不足一像素颜色减淡。），尝试以客户端加载 WebJS 的方式使用 GIS。
@@ -17,3 +18,10 @@ categories: Software
 地图服务账号：siteadmin
 #### 搭建 ArcGIS Desktop 10.2
 [参考资料](https://blog.csdn.net/bigemap/article/details/81131840)
+##### 地图服务发布
+1.编辑好的地图保存为 .mxd 格式
+2.ArcMap 中打开地图
+3.在目录中选择 GIS 服务器 → 添加 ArcGIS Server
+
+
+4.在目录中选择 .mxd 文件右键选择：共享为服务(S)…
