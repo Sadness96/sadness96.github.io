@@ -13,6 +13,17 @@ RabbitMQ轻量级，易于在内部和云中部署。它支持多种消息传递
 RabbitMQ可在许多操作系统和云环境中运行，并为大多数流行语言提供各种开发人员工具。
 #### 安装部署
 请参阅[官方文档](https://www.rabbitmq.com/download.html)
+##### Docker 部署
+``` cmd
+安装官方镜像
+docker pull rabbitmq
+启动 RabbitMQ
+docker run -d --name myrabbitmq -p 5672:5672 -p 15672:15672 docker.io/rabbitmq:3-management
+设置 RabbitMQ 默认账户密码为 guest/guest
+docker run -d --hostname my-rabbit --name some-rabbit -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=password rabbitmq:3-management
+WEB 端登录
+http://localhost:15672/#/
+```
 #### C#代码调用
 引用 [RabbitMQ.Client](https://www.rabbitmq.com/dotnet.html) 库
 ##### 生产者
