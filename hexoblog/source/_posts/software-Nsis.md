@@ -93,7 +93,7 @@ Section "MainSection" SEC01
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
   CreateDirectory "$SMPROGRAMS\$ICONS_GROUP"
   CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\#系统名称.lnk" "$INSTDIR\#EXE名称"
-  CreateShortCut "$DESKTOP\人#系统名称.lnk" "$INSTDIR\KeDun.Shell.exe"
+  CreateShortCut "$DESKTOP\#系统名称.lnk" "$INSTDIR\KeDun.Shell.exe"
   !insertmacro MUI_STARTMENU_WRITE_END
 SectionEnd
 
