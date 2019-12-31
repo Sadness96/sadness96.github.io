@@ -7,7 +7,7 @@ categories: C#.Net
 ### Kafka 消息队列使用介绍
 <!-- more -->
 #### 简介
-[ApacheKafka](http://kafka.apache.org/) 是一个分布式流平台。
+[Apache Kafka](http://kafka.apache.org/) 是一个分布式流平台。
 
 流平台具有三个关键功能：
 

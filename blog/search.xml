@@ -13,6 +13,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Kafka Demo]]></title>
+    <url>%2Fblog%2F2019%2F09%2F16%2Fcsharp-Kafka%2F</url>
+    <content type="text"><![CDATA[Kafka 消息队列使用介绍 简介Apache Kafka 是一个分布式流平台。 流平台具有三个关键功能： 发布和订阅记录流，类似于消息队列或企业消息传递系统。 以容错的持久方式存储记录流。 处理记录流。 Kafka通常用于两大类应用程序： 建立实时流数据管道，以可靠地在系统或应用程序之间获取数据 构建实时流应用程序以转换或响应数据流安装部署请参阅官方文档C#代码调用引用 Confluent.Kafka 库生产者(未测试)1234567891011121314151617181920212223242526using System;using Confluent.Kafka;class Program&#123; public static void Main(string[] args) &#123; var conf = new ProducerConfig &#123; BootstrapServers = "localhost:9092" &#125;; Action&lt;DeliveryReport&lt;Null, string&gt;&gt; handler = r =&gt; Console.WriteLine(!r.Error.IsError ? $"Delivered message to &#123;r.TopicPartitionOffset&#125;" : $"Delivery Error: &#123;r.Error.Reason&#125;"); using (var p = new ProducerBuilder&lt;Null, string&gt;(conf).Build()) &#123; for (int i=0; i&lt;100; ++i) &#123; p.Produce("my-topic", new Message&lt;Null, string&gt; &#123; Value = i.ToString() &#125;, handler); &#125; // wait for up to 10 seconds for any inflight messages to be delivered. p.Flush(TimeSpan.FromSeconds(10)); &#125; &#125;&#125; 消费者1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253using System;using System.Threading;using Confluent.Kafka;class Program&#123; public static void Main(string[] args) &#123; var conf = new ConsumerConfig &#123; GroupId = "test-consumer-group", BootstrapServers = "localhost:9092", // Note: The AutoOffsetReset property determines the start offset in the event // there are not yet any committed offsets for the consumer group for the // topic/partitions of interest. By default, offsets are committed // automatically, so in this example, consumption will only start from the // earliest message in the topic 'my-topic' the first time you run the program. AutoOffsetReset = AutoOffsetReset.Earliest &#125;; using (var c = new ConsumerBuilder&lt;Ignore, string&gt;(conf).Build()) &#123; c.Subscribe("my-topic"); CancellationTokenSource cts = new CancellationTokenSource(); Console.CancelKeyPress += (_, e) =&gt; &#123; e.Cancel = true; // prevent the process from terminating. cts.Cancel(); &#125;; try &#123; while (true) &#123; try &#123; var cr = c.Consume(cts.Token); Console.WriteLine($"Consumed message '&#123;cr.Value&#125;' at: '&#123;cr.TopicPartitionOffset&#125;'."); &#125; catch (ConsumeException e) &#123; Console.WriteLine($"Error occured: &#123;e.Error.Reason&#125;"); &#125; &#125; &#125; catch (OperationCanceledException) &#123; // Ensure the consumer leaves the group cleanly and final offsets are committed. c.Close(); &#125; &#125; &#125;&#125; 遇到问题在实际使用中消费数据使用多服务器链接追加配置多 IP 地址到 Hosts 文件中（例）：123456172.26.78.135 tdh02172.26.78.136 tdh03172.26.78.137 tdh04172.26.78.140 tdh07172.26.78.141 tdh08172.26.78.142 tdh09 Host 文件所在目录：| 系统 | 目录 || —- | —- || Windows | C:\windows\system32\drivers\etc\Hosts || Linux / Unix | /etc/Hosts || Mac OS | /private/etc/Hosts |修改部分代码：123456var conf = new ConsumerConfig&#123; GroupId = "test-consumer-group", BootstrapServers = "tdh02:9092,tdh03:9092,tdh04:9092,tdh07:9092,tdh08:9092,tdh09:9092", AutoOffsetReset = AutoOffsetReset.Earliest&#125;;]]></content>
+      <categories>
+        <category>C#.Net</category>
+      </categories>
+      <tags>
+        <tag>c#</tag>
+        <tag>kafka</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[迁移博客至 GitHub Pages + Hexo]]></title>
     <url>%2Fblog%2F2019%2F06%2F18%2Fblog-TransferHexo%2F</url>
     <content type="text"><![CDATA[简介原来只有使用 WordPress 记录一部分博客，以及平时有随手记录工作生活的习惯，这次迁移博客统一整理一遍。 技术简介博客主体使用 GitHub Pages 作为静态网站托管平台，使用 Hexo 作为静态博客生成框架，以及使用 theme-next 主题。 开发环境VSCode + Node.js + Hexo + Python + GIT 搭建创建 GitHub PagesGitHub 仓库创建与用户名同名的 “.github.io” 库要求：名称必须为小写字母或数字例：Github 用户名为：Test；则创建库为：test.github.io库地址即为：https://github.com/Test/test.github.iogit地址为：https://github.com/Test/test.github.io.gitPages访问地址为：https://test.github.io设置网站为HTTPS：库 Settings 中勾选：Enforce HTTPS 域名配置在阿里云中购买域名（例：test.com）后需实名认证安全设置中设置禁止转移锁、禁止更新锁设置域名解析：新增两条记录1、记录类型：CNAME；主机记录：www；解析线路：默认；记录值：test.github.io；TTL：10分钟；2、记录类型：CNAME；主机记录：@；解析线路：默认；记录值：test.github.io；TTL：10分钟；即可跳转为 test.github.io 地址设置打开网站为域名地址：GitHub 库中新增 CNAME 文件 保存内容为域名地址（例：test.com）Settings 中显示 “Your site is published at https://test.com/ “ 即可 目录结构 目录文件夹或文件 作用及功能 blog 用于发布的静态博客 flash 网页中加载的Flash文件 hexoblog Hexo 编译博客源码 images 网页中加载的图片文件 resume 简历页面 .nojekyll 关闭jekyll检查 404.html 网站404页面 CNAME 设置Pages解析域名地址 README.md 自述文件 index.html 博客主界面 修改主题样式仅展示代码样式部分，主题配置文件请查阅官网 theme-next修改文件路径：hexoblog/themes/next/source/css/_custom/custom.styl1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465// Custom styles.// 主页文章添加阴影效果.post &#123; margin-top: 0px; margin-bottom: 20px; padding: 10px; background: #FFF; -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5); -moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);&#125;.content-wrap &#123; background: transparent;&#125;.footer &#123; padding: 0px; padding-bottom: 20px;&#125;// 主页文章内间距.content-wrap &#123; padding: 0px;&#125;.posts-expand &#123; padding-top: 0px;&#125;// 超链接颜色.post-body p a &#123; color: #0593d3; border-bottom: none; border-bottom: 1px solid #0593d3; &amp;:hover &#123; color: #fc6423; border-bottom: none; border-bottom: 1px solid #fc6423; &#125;&#125;// 主页文章块缩进.posts-expand .post-eof &#123; margin: 30px auto 10px; width: 0px; height: 0px;&#125;.posts-expand .post-meta &#123; margin: 3px 0 30px 0;&#125;.posts-expand .post-body img &#123; margin: 0px auto 0px;&#125;.post-button &#123; margin-top: 30px;&#125;// 底部页码格式.pagination &#123; margin: 40px 0 30px; border-top: 0px;&#125; 遇到的问题使用VSCode开发时生成静态页不加载CSS样式插件：View In Browser 本地网页打开插件：Live Server 启动一个服务打开网站 上传Hexo博客源码后报错：Date is not a valid datetime由于GitHub Pages默认使用jekyll作为代码检查，在上传Hexo源码之后存在编译不通过的情况，所以需要创建.nojekyll空文件在Repository的根目录下以关闭针对jekyll的检查。Windows下创建以“.”开头文件夹和文件（执行命令）：12md .folder //创建文件夹echo &gt;.file //创建文件 Hexo生成静态博客存在大量空白行请查看文章：压缩Hexo博客生成空白行 执行命令123456789101112cd hexoblog //进入博客源码文件夹hexo new &lt;title&gt; //创建新文章hexo clean //清理博客生成文件hexo generate //生成博客静文件hexo server //启动博客服务测试内容python compress.py //压缩Hexo生成空白行python deploy.py //拷贝至上级 "../blog" 发布目录cd .. //回到上级 "../" 目录git status //对比差异文件git add . //添加修改至缓存区git commit -m "Message" //填写修改内容git push //提交修改]]></content>
@@ -47,8 +59,8 @@
       </categories>
       <tags>
         <tag>c#</tag>
-        <tag>asp</tag>
         <tag>c++</tag>
+        <tag>asp</tag>
         <tag>mysql</tag>
         <tag>axure</tag>
       </tags>
@@ -397,8 +409,8 @@
       </categories>
       <tags>
         <tag>c#</tag>
-        <tag>helper</tag>
         <tag>ini</tag>
+        <tag>helper</tag>
       </tags>
   </entry>
   <entry>
