@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Jenkins 使用介绍]]></title>
     <url>%2Fblog%2F2019%2F12%2F26%2Fsoftware-Jenkins%2F</url>
-    <content type="text"><![CDATA[简介Jenkins 是一个持续集成（CI&amp;CD）工具，用以构建、部署、自动化。 运行流程以部署PC客户端软件为例：1.连接 GitLab 仓库 pull 最新代码2.使用 NuGet 还原引用库3.使用 MSBuild 编译项目工程4.使用 NSIS 打包软件为安装包5.以邮件方式将打包文件发送 软件部署软件安装参考 官方文档 遇到的问题插件安装失败登录重启页重启后重试http://localhost:8081/restart 需安装 Jenkins 插件Git、MSBuild、NuGet 配置系统环境变量Path 下增加 MSBuild 路径：D:\Software\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\amd64 NuGet 控制台程序下载https://www.nuget.org/downloads下载后拷贝至 Path 环境变量中 构建Pull Git 代码填写 Git 地址以及分支名称即可 还原 NuGet 包构建中选择：执行 Windows 批处理程序1nuget restore project.sln 编译代码构建中选择：Build a Visual Studio project or solution using MSBuild| function | value || —- | —- || MSBuild Version | Default || MSBuild Build File | project.sln || Command Line Arguments | /t:Build /p:Configuration=Release;VisualStudioVersion=16.3 | 拷贝或删除多余文件1234567:: 拷贝文件md .\bin\Release\MediaAccessSDK\xcopy /s/c/h/y .\9.Reference\MediaAccessSDK\Release .\bin\Release\MediaAccessSDK:: 删除多余的pdb和xmldel /s bin\Release\*.pdbdel /s bin\Release\*.xml 程序打包构建中选择：执行 Windows 批处理程序NSIS 使用参考：使用介绍1makensis PanoramaClientSetup.nsi 构建后操作归档成品在归档成品中直接写入打包好的安装包名称，会在构建结束后在结果中显示并可以直接下载]]></content>
+    <content type="text"><![CDATA[简介Jenkins 是一个持续集成（CI&amp;CD）工具，用以构建、部署、自动化。 运行流程以部署PC客户端软件为例：1.连接 GitLab 仓库 pull 最新代码2.使用 NuGet 还原引用库3.使用 MSBuild 编译项目工程4.使用 NSIS 打包软件为安装包5.以邮件方式将打包文件发送 软件部署软件安装参考 官方文档 遇到的问题插件安装失败登录重启页重启后重试http://localhost:8081/restart 需安装 Jenkins 插件Git、MSBuild、NuGet 配置系统环境变量Path 下增加 MSBuild 路径：D:\Software\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\amd64 NuGet 控制台程序下载https://www.nuget.org/downloads下载后拷贝至 Path 环境变量中 构建Pull Git 代码填写 Git 地址以及分支名称即可 还原 NuGet 包构建中选择：执行 Windows 批处理程序1nuget restore project.sln 编译代码构建中选择：Build a Visual Studio project or solution using MSBuild function value MSBuild Version Default MSBuild Build File project.sln Command Line Arguments /t:Build /p:Configuration=Release;VisualStudioVersion=16.3 拷贝或删除多余文件1234567:: 拷贝文件md .\bin\Release\MediaAccessSDK\xcopy /s/c/h/y .\9.Reference\MediaAccessSDK\Release .\bin\Release\MediaAccessSDK:: 删除多余的pdb和xmldel /s bin\Release\*.pdbdel /s bin\Release\*.xml 程序打包构建中选择：执行 Windows 批处理程序NSIS 使用参考：使用介绍1makensis PanoramaClientSetup.nsi 构建后操作归档成品在归档成品中直接写入打包好的安装包名称，会在构建结束后在结果中显示并可以直接下载]]></content>
       <categories>
         <category>Software</category>
       </categories>
@@ -46,8 +46,8 @@
         <category>Work</category>
       </categories>
       <tags>
-        <tag>asp</tag>
         <tag>c#</tag>
+        <tag>asp</tag>
         <tag>c++</tag>
         <tag>mysql</tag>
         <tag>axure</tag>
@@ -397,8 +397,8 @@
       </categories>
       <tags>
         <tag>c#</tag>
-        <tag>helper</tag>
         <tag>ini</tag>
+        <tag>helper</tag>
       </tags>
   </entry>
   <entry>

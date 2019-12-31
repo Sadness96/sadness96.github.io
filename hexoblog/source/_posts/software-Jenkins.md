@@ -44,11 +44,13 @@ nuget restore project.sln
 
 ##### 编译代码
 构建中选择：Build a Visual Studio project or solution using MSBuild
+
 | function | value |
 | ---- | ---- |
 | MSBuild Version | Default |
 | MSBuild Build File | project.sln |
 | Command Line Arguments | /t:Build /p:Configuration=Release;VisualStudioVersion=16.3 |
+
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/msbuild.png"/>
 
 ##### 拷贝或删除多余文件
