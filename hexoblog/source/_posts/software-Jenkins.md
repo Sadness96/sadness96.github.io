@@ -15,7 +15,7 @@ categories: Software
 2.使用 NuGet 还原引用库
 3.使用 MSBuild 编译项目工程
 4.使用 NSIS 打包软件为安装包
-5.以邮件方式将打包文件发送
+5.以邮件方式将打包文件发送(未完成)
 ### 软件部署
 软件安装参考 [官方文档](https://jenkins.io/zh/doc/pipeline/tour/getting-started/)
 #### 遇到的问题
@@ -38,6 +38,7 @@ https://www.nuget.org/downloads
 ##### 还原 NuGet 包
 构建中选择：执行 Windows 批处理程序
 ``` cmd
+:: 调用 nuget 命令还原引用库
 nuget restore project.sln
 ```
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/nuget.png"/>
@@ -56,8 +57,7 @@ nuget restore project.sln
 ##### 拷贝或删除多余文件
 ``` cmd
 :: 拷贝文件
-md .\bin\Release\MediaAccessSDK\
-xcopy /s/c/h/y .\9.Reference\MediaAccessSDK\Release .\bin\Release\MediaAccessSDK
+xcopy /s/c/h/y .\9.Reference\MediaAccessSDK\Release .\bin\Release\MediaAccessSDK\Release\
 
 :: 删除多余的pdb和xml
 del /s bin\Release\*.pdb
@@ -69,6 +69,7 @@ del /s bin\Release\*.xml
 构建中选择：执行 Windows 批处理程序
 [NSIS](https://nsis.sourceforge.io/Main_Page) 使用参考：[使用介绍](http://sadness96.github.io/blog/2018/11/24/software-Nsis/)
 ``` cmd
+:: 调用 makensis 命令构建 NSI
 makensis PanoramaClientSetup.nsi
 ```
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/nsis.png"/>

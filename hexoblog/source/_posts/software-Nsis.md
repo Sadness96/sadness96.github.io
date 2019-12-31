@@ -255,3 +255,14 @@ Function un.onUninstSuccess
   MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) 已成功地从您的计算机移除。"
 FunctionEnd
 ```
+#### 使用命令调用构建打包程序
+``` cmd
+:: 调用 makensis 命令构建 NSI
+makensis Setup.nsi
+```
+``` cmd
+:: 调用 makensis 命令带参数构建 NSI
+:: 从文本中读取版本号传入 NSI 中作为常量
+set /p var= < ClientVersion
+makensis /DClientVersion=%var% Setup.nsi
+```
