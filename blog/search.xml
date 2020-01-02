@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[ActiveMQ Demo]]></title>
+    <url>%2Fblog%2F2019%2F12%2F31%2Fcsharp-ActiveMQ%2F</url>
+    <content type="text"><![CDATA[ActiveMQ 消息队列使用介绍 简介Apache ActiveMQ 是一个开放源代码的消息中间件。 安装部署请参阅官方文档 Docker 部署123456安装官方镜像docker pull webcenter/activemq启动 RabbitMQ 默认账户密码为 admin/admindocker run -d --name myactivemq -p 61617:61616 -p 8162:8161 webcenter/activemqWEB 端登录http://localhost:8162/ 遇到问题未找到 61616 端口错误信息：1Apache.NMS.NMSConnectionException: Error connecting to localhost:61616. ---&gt; System.Net.Sockets.SocketException: Unknown error (0xfffffffe) 使用命令查询端口号占用进程12netstat -ano|findstr "PORT"tasklist|findstr "PID" 未查到 61616 端口使用，但是开启了 61617 端口 C#代码调用引用 Apache.NMS.ActiveMQ 库 生产者1234567891011121314151617181920212223242526272829303132333435363738394041using Apache.NMS;using Apache.NMS.ActiveMQ;using System;class Program&#123; static void Main(string[] args) &#123; try &#123; //Create the Connection Factory IConnectionFactory factory = new ConnectionFactory("tcp://localhost:61617/"); using (IConnection connection = factory.CreateConnection()) &#123; //Create the Session using (ISession session = connection.CreateSession()) &#123; //Create the Producer for the topic/queue IMessageProducer prod = session.CreateProducer(new Apache.NMS.ActiveMQ.Commands.ActiveMQTopic("testing")); //Send Messages int i = 0; while (!Console.KeyAvailable) &#123; ITextMessage msg = prod.CreateTextMessage(); msg.Text = i.ToString(); Console.WriteLine("Sending: " + i.ToString()); prod.Send(msg, Apache.NMS.MsgDeliveryMode.NonPersistent, Apache.NMS.MsgPriority.Normal, TimeSpan.MinValue); System.Threading.Thread.Sleep(5000); i++; &#125; &#125; &#125; Console.ReadLine(); &#125; catch (System.Exception e) &#123; Console.WriteLine("&#123;0&#125;", e.Message); Console.ReadLine(); &#125; &#125;&#125; 消费者1234567891011121314151617181920212223242526272829303132333435363738394041424344454647using Apache.NMS;using Apache.NMS.ActiveMQ;using System;class Program&#123; static void Main(string[] args) &#123; try &#123; //Create the Connection factory IConnectionFactory factory = new ConnectionFactory("tcp://localhost:61617/"); //Create the connection using (IConnection connection = factory.CreateConnection()) &#123; connection.ClientId = "testing listener"; connection.Start(); //Create the Session using (ISession session = connection.CreateSession()) &#123; //Create the Consumer IMessageConsumer consumer = session.CreateDurableConsumer(new Apache.NMS.ActiveMQ.Commands.ActiveMQTopic("testing"), "testing listener", null, false); consumer.Listener += new MessageListener(consumer_Listener); Console.ReadLine(); &#125; connection.Stop(); connection.Close(); &#125; &#125; catch (System.Exception e) &#123; Console.WriteLine(e.Message); &#125; &#125; static void consumer_Listener(IMessage message) &#123; try &#123; ITextMessage msg = (ITextMessage)message; Console.WriteLine("Receive: " + msg.Text); &#125; catch (System.Exception e) &#123; Console.WriteLine(e.Message); &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>C#.Net</category>
+      </categories>
+      <tags>
+        <tag>c#</tag>
+        <tag>activemq</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Jenkins 使用介绍]]></title>
     <url>%2Fblog%2F2019%2F12%2F26%2Fsoftware-Jenkins%2F</url>
     <content type="text"><![CDATA[简介Jenkins 是一个持续集成（CI&amp;CD）工具，用以构建、部署、自动化。 运行流程以部署PC客户端软件为例：1.连接 GitLab 仓库 pull 最新代码2.使用 NuGet 还原引用库3.使用 MSBuild 编译项目工程4.使用 NSIS 打包软件为安装包5.以邮件方式将打包文件发送(未完成) 软件部署软件安装参考 官方文档 遇到的问题插件安装失败登录重启页重启后重试http://localhost:8081/restart 需安装 Jenkins 插件Git、MSBuild、NuGet 配置系统环境变量Path 下增加 MSBuild 路径：D:\Software\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\amd64 NuGet 控制台程序下载https://www.nuget.org/downloads下载后拷贝至 Path 环境变量中 构建Pull Git 代码填写 Git 地址以及分支名称即可 还原 NuGet 包构建中选择：执行 Windows 批处理程序12:: 调用 nuget 命令还原引用库nuget restore project.sln 编译代码构建中选择：Build a Visual Studio project or solution using MSBuild function value MSBuild Version Default MSBuild Build File project.sln Command Line Arguments /t:Build /p:Configuration=Release;VisualStudioVersion=16.3 拷贝或删除多余文件123456:: 拷贝文件xcopy /s/c/h/y .\9.Reference\MediaAccessSDK\Release .\bin\Release\MediaAccessSDK\Release\:: 删除多余的pdb和xmldel /s bin\Release\*.pdbdel /s bin\Release\*.xml 程序打包构建中选择：执行 Windows 批处理程序NSIS 使用参考：使用介绍12:: 调用 makensis 命令构建 NSImakensis PanoramaClientSetup.nsi 构建后操作归档成品在归档成品中直接写入打包好的安装包名称，会在构建结束后在结果中显示并可以直接下载]]></content>
@@ -59,8 +71,8 @@
       </categories>
       <tags>
         <tag>c#</tag>
-        <tag>c++</tag>
         <tag>asp</tag>
+        <tag>c++</tag>
         <tag>mysql</tag>
         <tag>axure</tag>
       </tags>
