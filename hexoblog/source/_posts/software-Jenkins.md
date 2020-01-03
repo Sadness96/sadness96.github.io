@@ -11,10 +11,10 @@ categories: Software
 [Jenkins](https://jenkins.io/zh/) 是一个持续集成（CI&CD）工具，用以构建、部署、自动化。
 ### 运行流程
 以部署PC客户端软件为例：
-1.连接 GitLab 仓库 pull 最新代码
-2.使用 NuGet 还原引用库
-3.使用 MSBuild 编译项目工程
-4.使用 NSIS 打包软件为安装包
+1.连接 [GitLab](https://about.gitlab.com/) 仓库 pull 最新代码
+2.使用 [NuGet](https://www.nuget.org/) 还原引用库
+3.使用 [MSBuild](https://msdn.microsoft.com/zh-CN/library/dd393574.aspx) 编译项目工程
+4.使用 [NSIS](https://nsis.sourceforge.io/Main_Page) 打包软件为安装包
 5.以邮件方式将打包文件发送(未完成)
 ### 软件部署
 软件安装参考 [官方文档](https://jenkins.io/zh/doc/pipeline/tour/getting-started/)
@@ -43,7 +43,7 @@ nuget restore project.sln
 ```
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/nuget.png"/>
 
-##### 编译代码
+##### 编译代码(客户端)
 构建中选择：Build a Visual Studio project or solution using MSBuild
 
 | function | value |
@@ -53,6 +53,37 @@ nuget restore project.sln
 | Command Line Arguments | /t:Build /p:Configuration=Release;VisualStudioVersion=16.3 |
 
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/msbuild.png"/>
+
+##### 编译代码(服务端)
+调用发布文件 .\Properties\PublishProfiles\FolderProfile.pubxml
+测试 MSBuild 命令中加入 VisualStudioVersion=16.3 会导致不会生成发布目录
+``` XML
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+此文件由 Web 项目的发布/打包过程使用。可以通过编辑此 MSBuild 文件
+自定义此过程的行为。为了解与此相关的更多内容，请访问 https://go.microsoft.com/fwlink/?LinkID=208121。 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <WebPublishMethod>FileSystem</WebPublishMethod>
+    <PublishProvider>FileSystem</PublishProvider>
+    <LastUsedBuildConfiguration>Release</LastUsedBuildConfiguration>
+    <LastUsedPlatform>Any CPU</LastUsedPlatform>
+    <SiteUrlToLaunchAfterPublish />
+    <LaunchSiteAfterPublish>True</LaunchSiteAfterPublish>
+    <ExcludeApp_Data>False</ExcludeApp_Data>
+    <publishUrl>.\bin\Release\PublishOutput</publishUrl>
+    <DeleteExistingFiles>True</DeleteExistingFiles>
+  </PropertyGroup>
+</Project>
+```
+
+| function | value |
+| ---- | ---- |
+| MSBuild Version | Default |
+| MSBuild Build File | project.sln |
+| Command Line Arguments | /t:Build /p:Configuration=Release /p:DeployOnBuild=True /p:PublishProfile=FolderProfile |
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/msbuildasp.png"/>
 
 ##### 拷贝或删除多余文件
 ``` cmd
