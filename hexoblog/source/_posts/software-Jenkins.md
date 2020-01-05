@@ -23,7 +23,7 @@ categories: Software
 登录重启页重启后重试
 http://localhost:8081/restart
 ##### 需安装 Jenkins 插件
-Git、MSBuild、NuGet
+Git、MSBuild、NuGet、PowerShell
 ##### 配置系统环境变量
 Path 下增加 MSBuild 路径：
 D:\Software\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\amd64
@@ -38,7 +38,9 @@ https://www.nuget.org/downloads
 ##### 还原 NuGet 包
 构建中选择：执行 Windows 批处理程序
 ``` cmd
-:: 调用 nuget 命令还原引用库
+:: 清空项目中多余文件
+git checkout . && git clean -xdf
+:: nuget 引用
 nuget restore project.sln
 ```
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/nuget.png"/>
@@ -104,6 +106,18 @@ del /s bin\Release\*.xml
 makensis PanoramaClientSetup.nsi
 ```
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/nsis.png"/>
+
+##### 压缩文件打包
+构建中选择：PowerShell
+``` cmd
+# 调用 PowerShell 命令压缩文件
+
+# 压缩文件
+Compress-Archive -Path .\test -DestinationPath .\test.zip
+# 解压缩文件
+Expand-Archive -Path .\test.zip -DestinationPath .\test
+```
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/zipfile.png"/>
 
 #### 构建后操作
 ##### 归档成品
