@@ -21,17 +21,22 @@ categories: Software
 #### 脚本代码
 替换脚本中 "#" 开头的部分即可
 ``` NSIS
-; 该脚本使用 HM VNISEdit 脚本编辑器向导产生
+; 自定义常量
+!define MainWindow "#主程序名称"
+!define /date PRODUCT_TIME %Y%m%d%H%M
+!ifdef ClientVersion
+!else
+  !define ClientVersion 0.0.0.0
+!endif
 
 ; 安装程序初始定义常量
-!define PRODUCT_NAME "#系统名称"
-!define PRODUCT_VERSION "#系统版本"
-!define PRODUCT_PUBLISHER "#公司名称"
-!define PRODUCT_WEB_SITE "#公司官网"
-!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\#EXE名称"
+!define PRODUCT_NAME "#产品名称"
+!define PRODUCT_VERSION ${ClientVersion}
+!define PRODUCT_PUBLISHER "#产品发布者"
+!define PRODUCT_WEB_SITE "#产品官网"
+!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\${MainWindow}"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
-!define PRODUCT_STARTMENU_REGVAL "NSIS:StartMenuDir"
 
 SetCompressor lzma
 
@@ -46,22 +51,13 @@ SetCompressor lzma
 ; 欢迎页面
 !insertmacro MUI_PAGE_WELCOME
 ; 许可协议页面
-!define MUI_LICENSEPAGE_CHECKBOX
 !insertmacro MUI_PAGE_LICENSE "许可协议.txt"
 ; 安装目录选择页面
 !insertmacro MUI_PAGE_DIRECTORY
-; 开始菜单设置页面
-var ICONS_GROUP
-!define MUI_STARTMENUPAGE_NODISABLE
-!define MUI_STARTMENUPAGE_DEFAULTFOLDER "#系统名称"
-!define MUI_STARTMENUPAGE_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"
-!define MUI_STARTMENUPAGE_REGISTRY_KEY "${PRODUCT_UNINST_KEY}"
-!define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "${PRODUCT_STARTMENU_REGVAL}"
-!insertmacro MUI_PAGE_STARTMENU Application $ICONS_GROUP
 ; 安装过程页面
 !insertmacro MUI_PAGE_INSTFILES
 ; 安装完成页面
-!define MUI_FINISHPAGE_RUN "$INSTDIR\#EXE名称"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\${MainWindow}"
 !insertmacro MUI_PAGE_FINISH
 
 ; 安装卸载过程页面
@@ -75,168 +71,57 @@ var ICONS_GROUP
 ; ------ MUI 现代界面定义结束 ------
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "#打包文件名称"
-InstallDir "$PROGRAMFILES\#系统名称"
+OutFile "${PRODUCT_NAME}Setup_${ClientVersion}_${PRODUCT_TIME}.exe"
+InstallDir "$PROGRAMFILES64\${PRODUCT_PUBLISHER}\${PRODUCT_NAME}"
 InstallDirRegKey HKLM "${PRODUCT_UNINST_KEY}" "UninstallString"
 ShowInstDetails show
 ShowUnInstDetails show
 
 Section "MainSection" SEC01
+	ExecWait "taskkill /f /im ${MainWindow}"
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
-  File "#打包文件"
-  File /r "#打包特定后缀 *.*"
-  SetOverwrite off
-  File "#打包排除特定后缀 *.*"
-
-; 创建开始菜单快捷方式
-  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
-  CreateDirectory "$SMPROGRAMS\$ICONS_GROUP"
-  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\#系统名称.lnk" "$INSTDIR\#EXE名称"
-  CreateShortCut "$DESKTOP\#系统名称.lnk" "$INSTDIR\KeDun.Shell.exe"
-  !insertmacro MUI_STARTMENU_WRITE_END
+  CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\${PRODUCT_NAME}.lnk" "$INSTDIR\${MainWindow}"
+  CreateShortCut "$DESKTOP\${PRODUCT_NAME}.lnk" "$INSTDIR\${MainWindow}"
+  File /r "bin\Release\*.*"
+  ExecWait 'cmd.exe /c takeown /f "$INSTDIR" /r /d y && icacls "$INSTDIR" /grant administrators:F /t'
 SectionEnd
 
 Section -AdditionalIcons
-  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
-  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\Uninstall.lnk" "$INSTDIR\uninst.exe"
-  !insertmacro MUI_STARTMENU_WRITE_END
+  WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${PRODUCT_WEB_SITE}"
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Website.lnk" "$INSTDIR\${PRODUCT_NAME}.url"
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk" "$INSTDIR\uninst.exe"
 SectionEnd
 
 Section -Post
   WriteUninstaller "$INSTDIR\uninst.exe"
-  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\#EXE名称"
+  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\${MainWindow}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\KeDun.Shell.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\${MainWindow}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
 SectionEnd
-
-; 安装net45
-Function CheckAndDownloadDotNet45
-	# Let's see if the user has the .NET Framework 4.5 installed on their system or not
-	# Remember: you need Vista SP2 or 7 SP1.  It is built in to Windows 8, and not needed
-	# In case you're wondering, running this code on Windows 8 will correctly return is_equal
-	# or is_greater (maybe Microsoft releases .NET 4.5 SP1 for example)
-
-	# Set up our Variables
-	Var /GLOBAL dotNET45IsThere
-	Var /GLOBAL dotNET_CMD_LINE
-	Var /GLOBAL EXIT_CODE
-
-        # We are reading a version release DWORD that Microsoft says is the documented
-        # way to determine if .NET Framework 4.5 is installed
-	ReadRegDWORD $dotNET45IsThere HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full" "Release"
-	IntCmp $dotNET45IsThere 378389 is_equal is_less is_greater
-
-	is_equal:
-		Goto done_compare_not_needed
-	is_greater:
-		# Useful if, for example, Microsoft releases .NET 4.5 SP1
-		# We want to be able to simply skip install since it's not
-		# needed on this system
-		Goto done_compare_not_needed
-	is_less:
-		Goto done_compare_needed
-
-	done_compare_needed:
-		#.NET Framework 4.5 install is *NEEDED*
-
-		# Microsoft Download Center EXE:
-		# Web Bootstrapper: http://go.microsoft.com/fwlink/?LinkId=225704
-		# Full Download: http://go.microsoft.com/fwlink/?LinkId=225702
-
-		# Setup looks for components\dotNET45Full.exe relative to the install EXE location
-		# This allows the installer to be placed on a USB stick (for computers without internet connections)
-		# If the .NET Framework 4.5 installer is *NOT* found, Setup will connect to Microsoft's website
-		# and download it for you
-
-		# Reboot Required with these Exit Codes:
-		# 1641 or 3010
-
-		# Command Line Switches:
-		# /showrmui /passive /norestart
-
-		# Silent Command Line Switches:
-		# /q /norestart
-
-
-		# Let's see if the user is doing a Silent install or not
-		IfSilent is_quiet is_not_quiet
-
-		is_quiet:
-			StrCpy $dotNET_CMD_LINE "/q /norestart"
-			Goto LookForLocalFile
-		is_not_quiet:
-			StrCpy $dotNET_CMD_LINE "/showrmui /passive /norestart"
-			Goto LookForLocalFile
-
-		LookForLocalFile:
-			# Let's see if the user stored the Full Installer
-			IfFileExists "$EXEPATH\components\dotNET45Full.exe" do_local_install do_network_install
-
-			do_local_install:
-				# .NET Framework found on the local disk.  Use this copy
-
-				ExecWait '"$EXEPATH\components\dotNET45Full.exe" $dotNET_CMD_LINE' $EXIT_CODE
-				Goto is_reboot_requested
-
-			# Now, let's Download the .NET
-			do_network_install:
-
-				Var /GLOBAL dotNetDidDownload
-				NSISdl::download "http://go.microsoft.com/fwlink/?LinkId=225704" "$TEMP\dotNET45Web.exe" $dotNetDidDownload
-
-				StrCmp $dotNetDidDownload success fail
-				success:
-					ExecWait '"$TEMP\dotNET45Web.exe" $dotNET_CMD_LINE' $EXIT_CODE
-					Goto is_reboot_requested
-
-				fail:
-					MessageBox MB_OK|MB_ICONEXCLAMATION "Unable to download .NET Framework.  ${PRODUCT_NAME} will be installed, but will not function without the Framework!"
-					Goto done_dotNET_function
-
-				# $EXIT_CODE contains the return codes.  1641 and 3010 means a Reboot has been requested
-				is_reboot_requested:
-					${If} $EXIT_CODE = 1641
-					${OrIf} $EXIT_CODE = 3010
-						SetRebootFlag true
-					${EndIf}
-
-	done_compare_not_needed:
-		# Done dotNET Install
-		Goto done_dotNET_function
-
-	#exit the function
-	done_dotNET_function:
-FunctionEnd
 
 /******************************
  *  以下是安装程序的卸载部分  *
  ******************************/
 
 Section Uninstall
-  !insertmacro MUI_STARTMENU_GETFOLDER "Application" $ICONS_GROUP
+  Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
   Delete "$INSTDIR\*.*"
-  Delete "$INSTDIR\#EXE名称"
 
-  Delete "$SMPROGRAMS\$ICONS_GROUP\Uninstall.lnk"
-  Delete "$SMPROGRAMS\$ICONS_GROUP\Website.lnk"
-  Delete "$DESKTOP\#系统名称.lnk"
-  Delete "$SMPROGRAMS\$ICONS_GROUP\#系统名称.lnk"
+  Delete "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk"
+  Delete "$SMPROGRAMS\${PRODUCT_NAME}\Website.lnk"
+  Delete "$DESKTOP\${PRODUCT_NAME}.lnk"
+  Delete "$SMPROGRAMS\${PRODUCT_NAME}\${PRODUCT_NAME}.lnk"
 
-  RMDir "$SMPROGRAMS\$ICONS_GROUP"
+  RMDir "$SMPROGRAMS\${PRODUCT_NAME}"
 
-  RMDir /r "$INSTDIR\x86"
-	RMDir /r "$INSTDIR\x64"
-	RMDir /r "$INSTDIR\Template"
-	RMDir /r "$INSTDIR\Logs"
-	RMDir /r "$INSTDIR\Images"
-
-  RMDir "$INSTDIR"
+  RMDir /r "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
