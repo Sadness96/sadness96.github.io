@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[SonarQube 使用介绍]]></title>
+    <url>%2Fblog%2F2020%2F01%2F16%2Fsoftware-SonarQube%2F</url>
+    <content type="text"><![CDATA[简介SonarQube 是一个用于管理代码质量和安全的开源平台。 软件部署软件安装参考 官方文档 下载社区版下载文件 顺序运行123.\sonarqube\bin\windows-x86-64\InstallNTService.bat.\sonarqube\bin\windows-x86-64\StartNTService.bat.\sonarqube\bin\windows-x86-64\StartSonar.bat 访问网页http://localhost:9000/默认用户名密码：admin:admin Download SonarScanner for MSBuildSonarScanner for MSBuild解压后配置环境变量 Path Create new project创建新项目： 生成 ToKen 令牌： 项目根目录运行：123SonarScanner.MSBuild.exe begin /k:"#ProjectName" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="#ToKen"MsBuild.exe /t:RebuildSonarScanner.MSBuild.exe end /d:sonar.login="#ToKen" 查看质检结果：]]></content>
+      <categories>
+        <category>Software</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
+        <tag>sonarqube</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ActiveMQ Demo]]></title>
     <url>%2Fblog%2F2019%2F12%2F31%2Fcsharp-ActiveMQ%2F</url>
     <content type="text"><![CDATA[ActiveMQ 消息队列使用介绍 简介Apache ActiveMQ 是一个开放源代码的消息中间件。 安装部署请参阅官方文档 Docker 部署123456安装官方镜像docker pull webcenter/activemq启动 RabbitMQ 默认账户密码为 admin/admindocker run -d --name myactivemq -p 61617:61616 -p 8162:8161 webcenter/activemqWEB 端登录http://localhost:8162/ 遇到问题未找到 61616 端口错误信息：1Apache.NMS.NMSConnectionException: Error connecting to localhost:61616. ---&gt; System.Net.Sockets.SocketException: Unknown error (0xfffffffe) 使用命令查询端口号占用进程12netstat -ano|findstr "PORT"tasklist|findstr "PID" 未查到 61616 端口使用，但是开启了 61617 端口 C#代码调用引用 Apache.NMS.ActiveMQ 库 生产者1234567891011121314151617181920212223242526272829303132333435363738394041using Apache.NMS;using Apache.NMS.ActiveMQ;using System;class Program&#123; static void Main(string[] args) &#123; try &#123; //Create the Connection Factory IConnectionFactory factory = new ConnectionFactory("tcp://localhost:61617/"); using (IConnection connection = factory.CreateConnection()) &#123; //Create the Session using (ISession session = connection.CreateSession()) &#123; //Create the Producer for the topic/queue IMessageProducer prod = session.CreateProducer(new Apache.NMS.ActiveMQ.Commands.ActiveMQTopic("testing")); //Send Messages int i = 0; while (!Console.KeyAvailable) &#123; ITextMessage msg = prod.CreateTextMessage(); msg.Text = i.ToString(); Console.WriteLine("Sending: " + i.ToString()); prod.Send(msg, Apache.NMS.MsgDeliveryMode.NonPersistent, Apache.NMS.MsgPriority.Normal, TimeSpan.MinValue); System.Threading.Thread.Sleep(5000); i++; &#125; &#125; &#125; Console.ReadLine(); &#125; catch (System.Exception e) &#123; Console.WriteLine("&#123;0&#125;", e.Message); Console.ReadLine(); &#125; &#125;&#125; 消费者1234567891011121314151617181920212223242526272829303132333435363738394041424344454647using Apache.NMS;using Apache.NMS.ActiveMQ;using System;class Program&#123; static void Main(string[] args) &#123; try &#123; //Create the Connection factory IConnectionFactory factory = new ConnectionFactory("tcp://localhost:61617/"); //Create the connection using (IConnection connection = factory.CreateConnection()) &#123; connection.ClientId = "testing listener"; connection.Start(); //Create the Session using (ISession session = connection.CreateSession()) &#123; //Create the Consumer IMessageConsumer consumer = session.CreateDurableConsumer(new Apache.NMS.ActiveMQ.Commands.ActiveMQTopic("testing"), "testing listener", null, false); consumer.Listener += new MessageListener(consumer_Listener); Console.ReadLine(); &#125; connection.Stop(); connection.Close(); &#125; &#125; catch (System.Exception e) &#123; Console.WriteLine(e.Message); &#125; &#125; static void consumer_Listener(IMessage message) &#123; try &#123; ITextMessage msg = (ITextMessage)message; Console.WriteLine("Receive: " + msg.Text); &#125; catch (System.Exception e) &#123; Console.WriteLine(e.Message); &#125; &#125;&#125;]]></content>
@@ -100,18 +112,6 @@
       <tags>
         <tag>asp</tag>
         <tag>download</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[SonarQube 使用介绍]]></title>
-    <url>%2Fblog%2F2019%2F01%2F16%2Fsoftware-SonarQube%2F</url>
-    <content type="text"><![CDATA[简介SonarQube 是一个用于管理代码质量和安全的开源平台。 软件部署软件安装参考 官方文档 下载社区版下载文件 顺序运行123.\sonarqube\bin\windows-x86-64\InstallNTService.bat.\sonarqube\bin\windows-x86-64\StartNTService.bat.\sonarqube\bin\windows-x86-64\StartSonar.bat 访问网页http://localhost:9000/默认用户名密码：admin:admin Download SonarScanner for MSBuildSonarScanner for MSBuild解压后配置环境变量 Path Create new project创建新项目： 生成 ToKen 令牌： 项目根目录运行：123SonarScanner.MSBuild.exe begin /k:"#ProjectName" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="#ToKen"MsBuild.exe /t:RebuildSonarScanner.MSBuild.exe end /d:sonar.login="#ToKen" 查看质检结果：]]></content>
-      <categories>
-        <category>Software</category>
-      </categories>
-      <tags>
-        <tag>software</tag>
-        <tag>sonarqube</tag>
       </tags>
   </entry>
   <entry>
@@ -433,8 +433,8 @@
       </categories>
       <tags>
         <tag>c#</tag>
-        <tag>helper</tag>
         <tag>ini</tag>
+        <tag>helper</tag>
       </tags>
   </entry>
   <entry>
