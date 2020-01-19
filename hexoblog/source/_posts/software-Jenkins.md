@@ -35,6 +35,22 @@ https://www.nuget.org/downloads
 填写 Git 地址以及分支名称即可
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/%E6%BA%90%E7%A0%81%E7%AE%A1%E7%90%86.png"/>
 
+###### 设置 Git 用户名密码
+如果本地 Git 记录用户无权限访问则会报错：
+``` cmd
+Failed to connect to repository : Command "git.exe ls-remote -h -- http://192.168.5.188:9090/***/***.git HEAD" returned status code 128:
+stdout:
+stderr: remote: HTTP Basic: Access denied
+fatal: Authentication failed for 'http://192.168.5.188:9090/***/***.git/'
+```
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/CredentialConfig1.png"/>
+
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/CredentialConfig2.png"/>
+
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/CredentialConfig3.png"/>
+
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/CredentialConfig4.png"/>
+
 ##### 还原 NuGet 包
 构建中选择：执行 Windows 批处理程序
 ``` cmd
@@ -68,7 +84,7 @@ nuget restore project.sln
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <WebPublishMethod>FileSystem</WebPublishMethod>
-    <PublishProvider>FileSystem</PublishProvider>
+    <PublishProvider>FileSystem</PublishProvider>3
     <LastUsedBuildConfiguration>Release</LastUsedBuildConfiguration>
     <LastUsedPlatform>Any CPU</LastUsedPlatform>
     <SiteUrlToLaunchAfterPublish />
