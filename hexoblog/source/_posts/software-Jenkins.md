@@ -43,12 +43,16 @@ stdout:
 stderr: remote: HTTP Basic: Access denied
 fatal: Authentication failed for 'http://192.168.5.188:9090/***/***.git/'
 ```
+选择：凭据→系统→全局凭据
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/CredentialConfig1.png"/>
 
+选择：添加凭据
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/CredentialConfig2.png"/>
 
+配置：Git 用户名密码
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/CredentialConfig3.png"/>
 
+配置：Credentials 中选择添加的凭据
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/CredentialConfig4.png"/>
 
 ##### 还原 NuGet 包
