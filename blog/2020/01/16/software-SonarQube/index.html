@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/CreateNewProject.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/GenerateToken.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/QualityGate.png">
-<meta property="og:updated_time" content="2020-01-20T01:48:47.420Z">
+<meta property="og:updated_time" content="2020-01-20T02:07:10.012Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SonarQube 使用介绍">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/sonarqube.png">
@@ -194,7 +194,7 @@
 <p>生成 ToKen 令牌：<br><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/GenerateToken.png"></p>
 <p>项目根目录运行：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SonarScanner.MSBuild.exe begin /k:"#ProjectName" /d:sonar.host.url="http://localhost:<span class="number">9000</span>" /d:sonar.login="#ToKen"</span><br><span class="line">MsBuild.exe /t:Rebuild</span><br><span class="line">SonarScanner.MSBuild.exe end /d:sonar.login="#ToKen"</span><br></pre></td></tr></table></figure></p>
 <p>查看质检结果：<br><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/QualityGate.png"></p>
-<h4 id="Jenkins-中集成-SonarQube"><a href="#Jenkins-中集成-SonarQube" class="headerlink" title="Jenkins 中集成 SonarQube"></a>Jenkins 中集成 SonarQube</h4><p>参考：<a href="http://sadness96.github.io/blog/2019/12/26/software-Jenkins/#集成 SonarQube">集成 SonarQube</a></p>
+<h4 id="Jenkins-中集成-SonarQube"><a href="#Jenkins-中集成-SonarQube" class="headerlink" title="Jenkins 中集成 SonarQube"></a>Jenkins 中集成 SonarQube</h4><p>参考：<a href="http://sadness96.github.io/blog/2019/12/26/software-Jenkins/#SonarQube">集成 SonarQube</a></p>
     </div>
     <footer class="post-footer">
         <div class="post-tags">

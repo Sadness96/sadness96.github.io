@@ -146,6 +146,8 @@ Expand-Archive -Path .\test.zip -DestinationPath .\test
 
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/结果.png"/>
 
+<span id='SonarQube'/>
+
 #### 集成 SonarQube
 安装使用 SonarQube 参考博客：[SonarQube 使用介绍](http://sadness96.github.io/blog/2020/01/16/software-SonarQube/)
 ##### SonarQube 创建 Jenkins ToKen
