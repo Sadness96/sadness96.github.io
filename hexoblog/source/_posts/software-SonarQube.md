@@ -41,3 +41,6 @@ SonarScanner.MSBuild.exe end /d:sonar.login="#ToKen"
 ```
 查看质检结果：
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/QualityGate.png"/>
+
+#### Jenkins 中集成 SonarQube
+参考：[集成 SonarQube](http://sadness96.github.io/blog/2019/12/26/software-Jenkins/#集成 SonarQube)

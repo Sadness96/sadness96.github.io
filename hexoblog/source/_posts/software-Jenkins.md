@@ -145,3 +145,38 @@ Expand-Archive -Path .\test.zip -DestinationPath .\test
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/归档成品.png"/>
 
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/结果.png"/>
+
+#### 集成 SonarQube
+安装使用 SonarQube 参考博客：[SonarQube 使用介绍](http://sadness96.github.io/blog/2020/01/16/software-SonarQube/)
+##### SonarQube 创建 Jenkins ToKen
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/SonarQubeJenkinsToKens.png"/>
+
+##### 下载插件 SonarQube Scanner
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/SonarQubeScanner.png"/>
+
+##### Jenkins 配置 SonarQube
+添加凭据：
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/SonarQubeCredentials.png"/>
+
+##### 配置插件 SonarQube Scanner
+系统管理→系统配置→SonarQube servers
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/ConfigSonarQubeServers1.png"/>
+
+##### 配置插件 SonarQube Scanner
+系统管理→全局工具配置→SonarQube Scanner
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/ConfigSonarQubeServers2.png"/>
+
+##### 配置插件 SonarScanner for MSBuild
+系统管理→全局工具配置→SonarScanner for MSBuild
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/ConfigSonarScannerForMSBuild.png"/>
+
+##### 配置插件 JDK
+系统管理→全局工具配置→JDK
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/ConfigJDK.png"/>
+
+##### 构建项目
+增加配置：
+构建中选择：SonarScanner for MSBuild - Begin Analyoio
+配置项 Project key 与 Project name 与 创建 SonarQube 中的 Project key 与 Project name 对应
+在 MSBuild 后选择： SonarScanner for MSBuild - End Analyoio
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-jenkins/SonarScannerforMSBuild.png"/>
