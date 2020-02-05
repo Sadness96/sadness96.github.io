@@ -20,7 +20,7 @@ table {
 | 中国 | 运营商及归属地 | 随机号码 |
 
 ### 正则表达式校验
-``` csharp
+``` CSharp
 /// <summary>
 /// 效验中国大陆手机号码
 /// </summary>
@@ -62,5 +62,5 @@ public static bool CheckPhoneNumber(string strPhoneNumber)
 ```
 
 ### 归属地查询
-下载：[mobile.xls](https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/file/data-PhoneNumber/mobile.xls)
+下载：[mobile.xlsb](https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/file/data-PhoneNumber/mobile.xlsb)
 <iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/file/data-PhoneNumber/mobile.xlsb" style="width:100%; height:1500px;" frameborder="0"></iframe>
