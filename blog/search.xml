@@ -82,9 +82,9 @@
         <category>Work</category>
       </categories>
       <tags>
+        <tag>c#</tag>
         <tag>asp</tag>
         <tag>c++</tag>
-        <tag>c#</tag>
         <tag>mysql</tag>
         <tag>axure</tag>
       </tags>
@@ -97,8 +97,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>c++</tag>
         <tag>c#</tag>
+        <tag>c++</tag>
         <tag>sdses</tag>
       </tags>
   </entry>
@@ -159,8 +159,8 @@
         <category>Software</category>
       </categories>
       <tags>
-        <tag>depends</tag>
         <tag>software</tag>
+        <tag>depends</tag>
       </tags>
   </entry>
   <entry>
@@ -171,8 +171,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>c++</tag>
         <tag>c#</tag>
+        <tag>c++</tag>
         <tag>depends</tag>
       </tags>
   </entry>
