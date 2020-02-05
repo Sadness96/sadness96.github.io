@@ -306,7 +306,7 @@
   <entry>
     <title><![CDATA[数据分析-手机号]]></title>
     <url>%2Fblog%2F2017%2F08%2F01%2Fdata-PhoneNumber%2F</url>
-    <content type="text"><![CDATA[简介table th:first-of-type { width: 30px;}| +86 | XXX - XXXX | XXXX || — | — | — || 中国 | 运营商及归属地 | 随机号码 | 归属地查询下载：mobile.xls]]></content>
+    <content type="text"><![CDATA[简介 table { width: 300px; } +86 XXX - XXXX XXXX 中国 运营商及归属地 随机号码 正则表达式校验1234567891011121314151617181920212223242526272829303132333435363738/// &lt;summary&gt;/// 效验中国大陆手机号码/// &lt;/summary&gt;/// &lt;param name="strPhoneNumber"&gt;中国大陆手机号码&lt;/param&gt;/// &lt;returns&gt;效验通过返回true,失败返回false&lt;/returns&gt;public static bool CheckPhoneNumber(string strPhoneNumber)&#123; try &#123; //+86替换成空(只考虑中国大陆手机号) if (strPhoneNumber.Length == 14) &#123; strPhoneNumber.Replace("+86", string.Empty); &#125; //中国电信正则表达式匹配 string strRegexChinaTelecom = @"^1[3578][01379]\d&#123;8&#125;$"; Regex regexChinaTelecom = new Regex(strRegexChinaTelecom); //中国移动正则表达式匹配 string strRegexChinaMobile = @"^(134[012345678]\d&#123;7&#125;|1[34578][012356789]\d&#123;8&#125;)$"; Regex regexChinaMobile = new Regex(strRegexChinaMobile); //中国联通正则表达式匹配 string strRegexChinaUnicom = @"^1[34578][01256]\d&#123;8&#125;$"; Regex regexChinaUnicom = new Regex(strRegexChinaUnicom); //验证手机号 if (regexChinaTelecom.IsMatch(strPhoneNumber) || regexChinaMobile.IsMatch(strPhoneNumber) || regexChinaUnicom.IsMatch(strPhoneNumber)) &#123; return true; &#125; else &#123; return false; &#125; &#125; catch (Exception ex) &#123; return false; &#125;&#125; 归属地查询下载：mobile.xls]]></content>
       <categories>
         <category>Data</category>
       </categories>

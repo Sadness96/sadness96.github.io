@@ -41,7 +41,7 @@
 <meta property="og:site_name" content="个人博客 - 刘佳华">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/data-PhoneNumber/PhoneLogo.png">
-<meta property="og:updated_time" content="2020-02-05T15:04:21.564Z">
+<meta property="og:updated_time" content="2020-02-05T15:13:54.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据分析-手机号">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/data-PhoneNumber/PhoneLogo.png">
@@ -181,7 +181,28 @@
     <div class="post-body" itemprop="articleBody">
         <p><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/data-PhoneNumber/PhoneLogo.png"></p>
 <a id="more"></a>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><style><br>table th:first-of-type {<br>    width: 30px;<br>}<br></style><br>| +86 | XXX - XXXX | XXXX |<br>| — | — | — |<br>| 中国 | 运营商及归属地 | 随机号码 |</p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><style>
+table {
+    width: 300px;
+}
+</style>
+<table>
+<thead>
+<tr>
+<th>+86</th>
+<th>XXX - XXXX</th>
+<th>XXXX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中国</td>
+<td>运营商及归属地</td>
+<td>随机号码</td>
+</tr>
+</tbody>
+</table>
+<h3 id="正则表达式校验"><a href="#正则表达式校验" class="headerlink" title="正则表达式校验"></a>正则表达式校验</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 效验中国大陆手机号码</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="strPhoneNumber"&gt;</span>中国大陆手机号码<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>效验通过返回true,失败返回false<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">CheckPhoneNumber</span>(<span class="params"><span class="keyword">string</span> strPhoneNumber</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//+86替换成空(只考虑中国大陆手机号)</span></span><br><span class="line">        <span class="keyword">if</span> (strPhoneNumber.Length == <span class="number">14</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            strPhoneNumber.Replace(<span class="string">"+86"</span>, <span class="keyword">string</span>.Empty);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//中国电信正则表达式匹配</span></span><br><span class="line">        <span class="keyword">string</span> strRegexChinaTelecom = <span class="string">@"^1[3578][01379]\d&#123;8&#125;$"</span>;</span><br><span class="line">        Regex regexChinaTelecom = <span class="keyword">new</span> Regex(strRegexChinaTelecom);</span><br><span class="line">        <span class="comment">//中国移动正则表达式匹配</span></span><br><span class="line">        <span class="keyword">string</span> strRegexChinaMobile = <span class="string">@"^(134[012345678]\d&#123;7&#125;|1[34578][012356789]\d&#123;8&#125;)$"</span>;</span><br><span class="line">        Regex regexChinaMobile = <span class="keyword">new</span> Regex(strRegexChinaMobile);</span><br><span class="line">        <span class="comment">//中国联通正则表达式匹配</span></span><br><span class="line">        <span class="keyword">string</span> strRegexChinaUnicom = <span class="string">@"^1[34578][01256]\d&#123;8&#125;$"</span>;</span><br><span class="line">        Regex regexChinaUnicom = <span class="keyword">new</span> Regex(strRegexChinaUnicom);</span><br><span class="line">        <span class="comment">//验证手机号</span></span><br><span class="line">        <span class="keyword">if</span> (regexChinaTelecom.IsMatch(strPhoneNumber) || regexChinaMobile.IsMatch(strPhoneNumber) || regexChinaUnicom.IsMatch(strPhoneNumber))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="归属地查询"><a href="#归属地查询" class="headerlink" title="归属地查询"></a>归属地查询</h3><p>下载：<a href="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/file/data-PhoneNumber/mobile.xls" target="_blank" rel="noopener">mobile.xls</a></p>
 <iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/file/data-PhoneNumber/mobile.xlsb" style="width:100%; height:1500px;" frameborder="0"></iframe>
     </div>
@@ -258,7 +279,7 @@
       <!--noindex-->
         <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归属地查询"><span class="nav-number">2.</span> <span class="nav-text">归属地查询</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式校验"><span class="nav-number">2.</span> <span class="nav-text">正则表达式校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归属地查询"><span class="nav-number">3.</span> <span class="nav-text">归属地查询</span></a></li></ol></div>
           </div>
         </div>
       <!--/noindex-->
