@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title></title>
+    <url>%2Fblog%2F2020%2F02%2F05%2Foffice-HtmlEmbed%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[SonarQube 使用介绍]]></title>
     <url>%2Fblog%2F2020%2F01%2F16%2Fsoftware-SonarQube%2F</url>
     <content type="text"><![CDATA[简介SonarQube 是一个用于管理代码质量和安全的开源平台。 软件部署软件安装参考 官方文档 下载社区版本下载地址：https://www.sonarqube.org/downloads/ 解压后运行批处理文件按顺序运行：123.\sonarqube\bin\windows-x86-64\InstallNTService.bat.\sonarqube\bin\windows-x86-64\StartNTService.bat.\sonarqube\bin\windows-x86-64\StartSonar.bat 访问网页http://localhost:9000/默认用户名密码：admin:admin Download SonarScanner for MSBuildSonarScanner for MSBuild解压后配置环境变量 Path Create new project创建新项目： 生成 ToKen 令牌： 项目根目录运行：123SonarScanner.MSBuild.exe begin /k:"#ProjectName" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="#ToKen"MsBuild.exe /t:RebuildSonarScanner.MSBuild.exe end /d:sonar.login="#ToKen" 查看质检结果： Jenkins 中集成 SonarQube参考：集成 SonarQube]]></content>
