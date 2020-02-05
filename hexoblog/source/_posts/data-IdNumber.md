@@ -1,5 +1,5 @@
 ---
-title: 数据分析-身份证号码 
+title: 数据分析-身份证号码
 date: 2017-08-01 15:00:00
 tags: [data,idnumber]
 categories: Data

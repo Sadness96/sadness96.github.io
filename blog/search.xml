@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Html 中嵌入 Office 文件]]></title>
-    <url>%2Fblog%2F2020%2F02%2F05%2Foffice-HtmlEmbed%2F</url>
-    <content type="text"></content>
-      <categories>
-        <category>Office</category>
-      </categories>
-      <tags>
-        <tag>office</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[SonarQube 使用介绍]]></title>
     <url>%2Fblog%2F2020%2F01%2F16%2Fsoftware-SonarQube%2F</url>
     <content type="text"><![CDATA[简介SonarQube 是一个用于管理代码质量和安全的开源平台。 软件部署软件安装参考 官方文档 下载社区版本下载地址：https://www.sonarqube.org/downloads/ 解压后运行批处理文件按顺序运行：123.\sonarqube\bin\windows-x86-64\InstallNTService.bat.\sonarqube\bin\windows-x86-64\StartNTService.bat.\sonarqube\bin\windows-x86-64\StartSonar.bat 访问网页http://localhost:9000/默认用户名密码：admin:admin Download SonarScanner for MSBuildSonarScanner for MSBuild解压后配置环境变量 Path Create new project创建新项目： 生成 ToKen 令牌： 项目根目录运行：123SonarScanner.MSBuild.exe begin /k:"#ProjectName" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="#ToKen"MsBuild.exe /t:RebuildSonarScanner.MSBuild.exe end /d:sonar.login="#ToKen" 查看质检结果： Jenkins 中集成 SonarQube参考：集成 SonarQube]]></content>
@@ -170,8 +159,8 @@
         <category>Software</category>
       </categories>
       <tags>
-        <tag>software</tag>
         <tag>depends</tag>
+        <tag>software</tag>
       </tags>
   </entry>
   <entry>
@@ -295,6 +284,17 @@
       <tags>
         <tag>software</tag>
         <tag>svn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Html 中嵌入 Office 文件]]></title>
+    <url>%2Fblog%2F2017%2F08%2F05%2Foffice-HtmlEmbed%2F</url>
+    <content type="text"><![CDATA[Html 静态网页中嵌入 Word、Excel、PPT、PDF 文件 简介整理了两篇博客文章，想要把两个 Excel 文件嵌入到网页中显示，遇到了一点小麻烦。由于博客文件比较精简，尽量避开项目中调用大量脚本。数据分析-手机号数据分析-身份证号码 Office Web Apps Viewer使用微软提供的 Office Online 实现 Office 文档的在线查看 使用方法1http://view.officeapps.live.com/op/view.aspx?src=[OFFICE_FILE_URL] 嵌入方法1&lt;iframe src="http://view.officeapps.live.com/op/view.aspx?src=[OFFICE_FILE_URL]" style="width:100%; height:1500px;" frameborder="0"&gt;&lt;/iframe&gt; 存在问题Microsoft 限制文件大小 Worder、PPT 文件上限为 10MB，Excel 文件上限为 5MB。由于我保存的 Excel 文件由 MySQL 数据库导出纯文本，没有压缩的空间。解决：Excel 文件另存为 .xlsb 后缀(二进制工作簿要比正常格式大小小得多) Google Docs Viewer使用方法1https://docs.google.com/viewer?url=[OFFICE_FILE_URL] 嵌入方法1&lt;iframe src="https://docs.google.com/viewer?url=[OFFICE_FILE_URL]" style="width:100%; height:1500px;" frameborder="0"&gt;&lt;/iframe&gt; 存在问题国内对于 Google 并不太友好，有时访问可能需要个梯子]]></content>
+      <categories>
+        <category>Office</category>
+      </categories>
+      <tags>
+        <tag>office</tag>
       </tags>
   </entry>
   <entry>
@@ -480,8 +480,8 @@
       </categories>
       <tags>
         <tag>c#</tag>
-        <tag>helper</tag>
         <tag>ini</tag>
+        <tag>helper</tag>
       </tags>
   </entry>
   <entry>
@@ -524,8 +524,8 @@
       </categories>
       <tags>
         <tag>c#</tag>
-        <tag>helper</tag>
         <tag>wpf</tag>
+        <tag>helper</tag>
         <tag>devexpress</tag>
       </tags>
   </entry>
