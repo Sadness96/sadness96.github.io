@@ -197,10 +197,10 @@
         }, 2000);
         // 窗口改变事件
         $(document).ready(function () {
-            var vResize = ($(window).height() - parseInt($("body").css("height"))) / 2 - 80;
+            var vResize = ($(window).height() - 350) / 2 - 50;
             $("body").css("margin-top", vResize <= 0 ? 0 : vResize);
             $(window).resize(function () {
-                var vResize = ($(window).height() - parseInt($("body").css("height"))) / 2 - 80;
+                var vResize = ($(window).height() - 350) / 2 - 50;
                 $("body").css("margin-top", vResize <= 0 ? 0 : vResize);
             });
         });
