@@ -41,7 +41,12 @@
 <meta property="og:site_name" content="个人博客 - 刘佳华">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/mainboard.jpg">
-<meta property="og:updated_time" content="2020-02-06T20:55:10.126Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/AsusPrimeZ390-A.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/Atx24Pin.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/Capacitance.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/AsusPrimeZ390-A.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/CPUNecklace.jpg">
+<meta property="og:updated_time" content="2020-02-07T12:10:05.522Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机硬件维修检测">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/mainboard.jpg">
@@ -181,7 +186,7 @@
     <div class="post-body" itemprop="articleBody">
         <p><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/mainboard.jpg"></p>
 <a id="more"></a>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>在上大学之前，曾在百脑汇电子城工作过大半年，有维修过电脑、打印机、监控摄像头，时隔多年，这依然使我受益匪浅，在此记录一些硬件故障排除的经验，以及一些检测软件的使用。</p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>在上大学之前，曾在百脑汇电子城工作过大半年，有维修过电脑、打印机、监控摄像头，时隔多年，这依然使我受益匪浅，在此记录一些硬件故障排除的经验，以及一些检测软件的使用。以组装台式机为主，部分介绍笔记本。</p>
 <h3 id="电脑构成以及可能存在的问题"><a href="#电脑构成以及可能存在的问题" class="headerlink" title="电脑构成以及可能存在的问题"></a>电脑构成以及可能存在的问题</h3><table>
 <thead>
 <tr>
@@ -194,22 +199,22 @@
 <tr>
 <td>机箱</td>
 <td>可选</td>
-<td>内部静电导致无法开机、机箱前面板接主板容易接错</td>
+<td><a href="#机箱内部静电导致无法开机">内部静电导致无法开机</a>、<a href="#机箱前面板接主板容易接错">机箱前面板接主板容易接错</a></td>
 </tr>
 <tr>
 <td>电源</td>
 <td>是</td>
-<td>电源线损坏、风扇转速不够导致声音大或过热短路、完全不工作</td>
+<td><a href="#风扇转速不够导致声音大或过热短路">风扇转速不够导致声音大或过热短路</a>、<a href="#电源不工作">电源不工作</a></td>
 </tr>
 <tr>
 <td>主板</td>
 <td>是</td>
-<td>南桥北桥芯片过热、电容鼓包等导致运行中断电或无法开机、BIOS 不识别 U盘</td>
+<td><a href="#主板南桥北桥芯片过热">主板南桥北桥芯片过热</a>、<a href="#电容鼓包等导致运行中断电或无法开机">电容鼓包等导致运行中断电或无法开机</a>、<a href="#按开机键无反应">按开机键无反应</a>、<a href="#无法从优盘启动">无法从U盘启动</a></td>
 </tr>
 <tr>
 <td>CPU</td>
 <td>是</td>
-<td>完全不工作(可能性极低并且不能修复)</td>
+<td><a href="#CPU完全不工作">CPU 完全不工作</a>(可能性极低并且不能修复)</td>
 </tr>
 <tr>
 <td>内存</td>
@@ -229,7 +234,7 @@
 <tr>
 <td>散热器</td>
 <td>是</td>
-<td>缺少硅脂或风扇转速不够导致声音大或过热短路</td>
+<td><a href="#风扇转速不够导致声音大或过热短路">缺少硅脂或风扇转速不够导致声音大或过热短路</a></td>
 </tr>
 <tr>
 <td>光驱</td>
@@ -288,7 +293,7 @@
 <tbody>
 <tr>
 <td>移动电脑后无法开机</td>
-<td>搬运导致的 PCI 或内存接口松动</td>
+<td>搬运导致的 PCI 或内存接口松动，参考：<a href="#按开机键无反应">按开机键无反应</a></td>
 </tr>
 <tr>
 <td>电脑运行一段时间后突然关机</td>
@@ -359,6 +364,219 @@
 </tr>
 </tbody>
 </table>
+<h3 id="维修"><a href="#维修" class="headerlink" title="维修"></a>维修</h3><h4 id="维修前建议准备"><a href="#维修前建议准备" class="headerlink" title="维修前建议准备"></a>维修前建议准备</h4><p>1.各种型号螺丝刀<br>2.条件允许的情况下准备测试机(能够正常运行的低配零件)，用于维修时替换部分可用零件检测。<br>3.主板诊断卡<br>4.U盘或光盘(包含启动项和系统)<br>5.电烙铁、焊锡、焊油、匹配型号的电容等零件、电工万能表<br>6.网线钳、水晶头、网线、网线测线仪</p>
+<h4 id="机箱内部静电导致无法开机"><a href="#机箱内部静电导致无法开机" class="headerlink" title="机箱内部静电导致无法开机"></a>机箱内部静电导致无法开机</h4><p><span id="机箱内部静电导致无法开机"><span><br>有遇到过几次这样的情况：电脑无法开机，短接主板开关灯不亮风扇不转，主板诊断卡不显示数字，主板上不存在明显损坏(鼓电容等)，重新插拔内存以及 PCI 接口设备后无明显改善，短接电源却可以使电源正常工作，尝试将所有零部件取出放在桌子上可以正常运行，应该是机箱设计缺陷或太多灰尘导致主板短路无法运行，全部拆出来清理灰尘即可。</span></span></p>
+<h4 id="机箱前面板接主板容易接错"><a href="#机箱前面板接主板容易接错" class="headerlink" title="机箱前面板接主板容易接错"></a>机箱前面板接主板容易接错</h4><p><span id="机箱前面板接主板容易接错"><span><br>机箱的前面板都会有一些功能型接线，常见的有音频、USB/SD、电源开关/复位需要对应的接在主板的接口上(通常是下方)，每种主板的接口顺序和位置不一样，建议查看主板上标记的缩写，或根据型号查询使用手册。<br>举例我现在使用的主板是 ASUS PRIME Z390-A<br><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/AsusPrimeZ390-A.png"></span></span></p>
+<h4 id="电源不工作"><a href="#电源不工作" class="headerlink" title="电源不工作"></a>电源不工作</h4><p><span id="电源不工作"><span><br>1.确认其他硬件正常后无法通过主板开关运行电源，可尝试通过短路电源 ATX 24 PIN 接线的 PS-ON 与 COM 尝试启动电源。<br><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/Atx24Pin.png"><br>2.尝试更换 220V 接入电源线(电脑通用电源线，实在没有多余可以找找身边电饭锅)<br>3.如果是内部高压滤波电容损坏或变压器损坏，不建议维修，想动手尝试的可以玩一玩。</span></span></p>
+<h4 id="风扇转速不够导致声音大或过热短路"><a href="#风扇转速不够导致声音大或过热短路" class="headerlink" title="风扇转速不够导致声音大或过热短路"></a>风扇转速不够导致声音大或过热短路</h4><p><span id="风扇转速不够导致声音大或过热短路"><span><br>目前大部分设备还避免不了使用风冷散热，使用过久以后会导致积灰严重，噪音较大或没有良好散热后导致计算机突然保护断电。<br>1.拆出风扇清理灰尘、可适当涂抹润滑油。<br>2.直接更换相同型号风扇部件。<br>3.CPU 由于缺少硅脂也会出现过热保护断电情况。</span></span></p>
+<h4 id="主板南桥北桥芯片过热"><a href="#主板南桥北桥芯片过热" class="headerlink" title="主板南桥北桥芯片过热"></a>主板南桥北桥芯片过热</h4><p><span id="主板南桥北桥芯片过热"><span><br>1.如果运行时突然保护断电，可尝试触摸桥芯片是否过热，如果没有影响到基础硬件使用，可尝试在桥芯片上涂抹硅脂然后贴上一片铝制散热片。<br>2.如果无法开机或影响其他硬件工作且桥芯片过热，需要更换桥芯片才可以，通常桥芯片为 <a href="https://baike.baidu.com/item/BGA%E5%B0%81%E8%A3%85/5900329?fr=aladdin" target="_blank" rel="noopener">BGA 封装</a>，除了购买到型号匹配的芯片外(通常电脑店都是用废板上拆一个同型号的)，还需要准备热风枪或 <a href="https://baike.baidu.com/item/BGA%E7%84%8A%E5%8F%B0/9588841?fr=aladdin" target="_blank" rel="noopener">BGA 焊台</a>(芯片级维修存在很大风险，救活了赚不少，救不活赔个芯片钱还有时间)。</span></span></p>
+<h4 id="电容鼓包等导致运行中断电或无法开机"><a href="#电容鼓包等导致运行中断电或无法开机" class="headerlink" title="电容鼓包等导致运行中断电或无法开机"></a>电容鼓包等导致运行中断电或无法开机</h4><p><span id="电容鼓包等导致运行中断电或无法开机"><span><br>电容鼓包是主板上比较常见的问题，大部分情况更换电容可以修复好，但是也难免有出现隐藏的其他问题导致更换完部件效果，下图是一个比较常见的鼓电容情况，更换同型号电容即可。<br><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/Capacitance.png"></span></span></p>
+<h4 id="按开机键无反应"><a href="#按开机键无反应" class="headerlink" title="按开机键无反应"></a>按开机键无反应</h4><p><span id="按开机键无反应"><span><br>有时难免遇到接通电源后按开机键电脑无响应，逐步排除<br>1.机箱前面板按钮或连接线出现问题，尝试使用短接主板上的开关启动，以主板 ASUS PRIME Z390-A 为例：短接 PWRSW<br><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/AsusPrimeZ390-A.png"></span></span></p>
+<p>2.如依旧无法点亮机器依次更换电源，主板等主要零件测试。</p>
+<p>如果按开机键后点亮机器，但是短时间内未进系统再次关机，逐步排除<br>1.如果有主板诊断卡，可插入诊断卡开机检查故障诊断码检测对应的硬件设备。通常来说两位诊断卡会提示大概错误如下，详细错误请查询购买诊断卡说明书。</p>
+<table>
+<thead>
+<tr>
+<th>故障代码</th>
+<th>故障位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FF、00、C0、D0、CF、F1</td>
+<td>CPU 未通过</td>
+</tr>
+<tr>
+<td>C1、C6、C3、D3、D4、D6、D8、B0、A7、E1</td>
+<td>内存未通过</td>
+</tr>
+<tr>
+<td>24、25、26、01、0A、0B、2A、2B、31</td>
+<td>显卡未通过</td>
+</tr>
+</tbody>
+</table>
+<p>2.如手头没有诊断卡，尝试重新插拔 PCI 接口上的设备和内存，减少至最简零件数启动，通过替换配件检测故障。</p>
+<h4 id="无法从U盘启动"><a href="#无法从U盘启动" class="headerlink" title="无法从U盘启动"></a>无法从U盘启动</h4><p><span id="无法从优盘启动"><span><br>对于维修人员来讲，排除所有硬件问题后，重装系统就可以做最后的收尾了，但是对于市面上各式各样的 U 盘来说，主板经常存在无法识别的情况，如果 U 盘作为系统盘的话，购买时优先考虑与主板类似时间出厂的产品，匹配 USB 标准(v1.1/v2.0/v3.0)，WinPE 推荐使用与主板出厂时间相近的镜像(<a href="https://www.laomaotao.net/" target="_blank" rel="noopener">老毛桃</a>、<a href="http://www.winbaicai.com/" target="_blank" rel="noopener">大白菜</a>)，选择与主板设置匹配的启动方式(BIOS/UEFI)，如果依旧无法启动，建议把系统镜像以 ISO 光盘的方式写入到 U 盘中。<br>以下记录各厂商进入 BIOS 的快捷键：</span></span></p>
+<table>
+<thead>
+<tr>
+<th>组装机主板</th>
+<th></th>
+<th>品牌笔记本</th>
+<th></th>
+<th>品牌台式机</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主板品牌</td>
+<td>启动按键</td>
+<td>笔记本品牌</td>
+<td>启动按键</td>
+<td>台式机品牌</td>
+<td>启动按键</td>
+</tr>
+<tr>
+<td>华硕主板</td>
+<td>F8</td>
+<td>联想笔记本</td>
+<td>F12</td>
+<td>联想台式机</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>技嘉主板</td>
+<td>F12</td>
+<td>弘基笔记本</td>
+<td>F12</td>
+<td>惠普台式机</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>微星主板</td>
+<td>F11</td>
+<td>华硕笔记本</td>
+<td>ESC</td>
+<td>宏基台式机</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>映泰主板</td>
+<td>F9</td>
+<td>惠普笔记本</td>
+<td>F9</td>
+<td>戴尔台式机</td>
+<td>ESC</td>
+</tr>
+<tr>
+<td>梅捷主板</td>
+<td>ESC或F12</td>
+<td>联想Thinkpad</td>
+<td>F12</td>
+<td>神舟台式机</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>七彩虹主板</td>
+<td>ESC或F11</td>
+<td>戴尔笔记本</td>
+<td>F12</td>
+<td>华硕台式机</td>
+<td>F8</td>
+</tr>
+<tr>
+<td>华擎主板</td>
+<td>F11</td>
+<td>神舟笔记本</td>
+<td>F12</td>
+<td>方正台式机</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>斯巴达主板</td>
+<td>ESC</td>
+<td>东芝笔记本</td>
+<td>F12</td>
+<td>清华同方台式机</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>昂达主板</td>
+<td>F11</td>
+<td>三星笔记本</td>
+<td>F12</td>
+<td>海尔台式机</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>双敏主板</td>
+<td>ESC</td>
+<td>IBM笔记本</td>
+<td>F12</td>
+<td>明基台式机</td>
+<td>F8</td>
+</tr>
+<tr>
+<td>翔升主板</td>
+<td>F10</td>
+<td>富士通笔记本</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>精英主板</td>
+<td>ESC或F11</td>
+<td>海尔笔记本</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>冠盟主板</td>
+<td>F11或F12</td>
+<td>方正笔记本</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>富士康主板</td>
+<td>ESC或F12</td>
+<td>清华同方笔记本</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>顶星主板</td>
+<td>F11或F12</td>
+<td>微星笔记本</td>
+<td>F11</td>
+</tr>
+<tr>
+<td>铭瑄主板</td>
+<td>ESC</td>
+<td>明基笔记本</td>
+<td>F9</td>
+</tr>
+<tr>
+<td>盈通主板</td>
+<td>F8</td>
+<td>技嘉笔记本</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>捷波主板</td>
+<td>ESC</td>
+<td>Gateway笔记本</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>Intel主板</td>
+<td>F12</td>
+<td>eMachines笔记本</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>杰微主板</td>
+<td>ESC或F8</td>
+<td>索尼笔记本</td>
+<td>ESC</td>
+</tr>
+<tr>
+<td>致铭主板</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>磐英主板</td>
+<td>ESC</td>
+</tr>
+<tr>
+<td>磐正主板</td>
+<td>ESC</td>
+</tr>
+<tr>
+<td>冠铭主板</td>
+<td>F9</td>
+</tr>
+</tbody>
+</table>
+<h4 id="CPU-完全不工作"><a href="#CPU-完全不工作" class="headerlink" title="CPU 完全不工作"></a>CPU 完全不工作</h4><p><span id="CPU完全不工作"><span><br>由于 CPU 的做工及其技术导致无法修复，排除 CPU 损坏，尝试更换相同针脚的 CPU 测试。<br>扔了怪可惜的，做成项链还是蛮不错的(上班路上偷拍)<br><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/CPUNecklace.jpg"></span></span></p>
     </div>
     <footer class="post-footer">
         <div class="post-tags">
@@ -431,7 +649,7 @@
       <!--noindex-->
         <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#电脑构成以及可能存在的问题"><span class="nav-number">2.</span> <span class="nav-text">电脑构成以及可能存在的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行中故障-软件或硬件导致"><span class="nav-number">3.</span> <span class="nav-text">运行中故障(软件或硬件导致)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统软件或应用软件相关推荐"><span class="nav-number">4.</span> <span class="nav-text">系统软件或应用软件相关推荐</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#电脑构成以及可能存在的问题"><span class="nav-number">2.</span> <span class="nav-text">电脑构成以及可能存在的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行中故障-软件或硬件导致"><span class="nav-number">3.</span> <span class="nav-text">运行中故障(软件或硬件导致)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统软件或应用软件相关推荐"><span class="nav-number">4.</span> <span class="nav-text">系统软件或应用软件相关推荐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#维修"><span class="nav-number">5.</span> <span class="nav-text">维修</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#维修前建议准备"><span class="nav-number">5.1.</span> <span class="nav-text">维修前建议准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#机箱内部静电导致无法开机"><span class="nav-number">5.2.</span> <span class="nav-text">机箱内部静电导致无法开机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#机箱前面板接主板容易接错"><span class="nav-number">5.3.</span> <span class="nav-text">机箱前面板接主板容易接错</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#电源不工作"><span class="nav-number">5.4.</span> <span class="nav-text">电源不工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#风扇转速不够导致声音大或过热短路"><span class="nav-number">5.5.</span> <span class="nav-text">风扇转速不够导致声音大或过热短路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主板南桥北桥芯片过热"><span class="nav-number">5.6.</span> <span class="nav-text">主板南桥北桥芯片过热</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#电容鼓包等导致运行中断电或无法开机"><span class="nav-number">5.7.</span> <span class="nav-text">电容鼓包等导致运行中断电或无法开机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按开机键无反应"><span class="nav-number">5.8.</span> <span class="nav-text">按开机键无反应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无法从U盘启动"><span class="nav-number">5.9.</span> <span class="nav-text">无法从U盘启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-完全不工作"><span class="nav-number">5.10.</span> <span class="nav-text">CPU 完全不工作</span></a></li></ol></li></ol></div>
           </div>
         </div>
       <!--/noindex-->
