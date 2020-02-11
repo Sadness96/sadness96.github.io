@@ -64,13 +64,14 @@
   <entry>
     <title><![CDATA[数据分析-航空公司]]></title>
     <url>%2Fblog%2F2019%2F08%2F20%2Fdata-AirlineCompany%2F</url>
-    <content type="text"><![CDATA[航空公司数据分析 简介为便于组织运输生产，每个航班都按照一定的规律编有不同的号码以便于区别和管理，这种号码称为航班号。 参考资料航班号编排方式参考 2004 年中国民用航空局发布政府公文：关于印发《中国民航航班号分配和使用方案》的通知 航班号组成航空公司代码由民航局规定发布，包含 IATA 发布的二字码和 ICAO 发布的三字码，航班号使用的是二字码加四或三位阿拉伯数字组成(不同的设备可能使用不同的标准)，还有各个航空公司向民航局自己登记的呼号，用于无线电通讯中使用的代号。 航空公司信息查询下载：航空公司信息.xlsx]]></content>
+    <content type="text"><![CDATA[航空公司数据分析 简介为便于组织运输生产，每个航班都按照一定的规律编有不同的号码以便于区别和管理，这种号码称为航班号。 参考资料航班号编排方式参考 2004 年中国民用航空局发布政府公文：关于印发《中国民航航班号分配和使用方案》的通知 航班号组成航空公司代码由民航局规定发布，包含 IATA 发布的二字码和 ICAO 发布的三字码，航班号使用的是二字码加四或三位阿拉伯数字组成(不同的设备可能使用不同的标准)，还有各个航空公司向民航局自己登记的呼号，用于无线电通讯中使用的代号。 爬虫爬取携程网航空公司二字码LOGO123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354# _*_coding:utf-8_*_import requestsimport reimport osclass GetImage(object): def __init__(self, url): self.url = url self.headers = &#123; 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36' &#125; self.dir_path = os.path.dirname(os.path.abspath(__file__)) self.path = self.dir_path+'/imgs' isExists = os.path.exists(self.dir_path+'/imgs') # 创建目录 if not isExists: os.makedirs(self.path) def download(self, url): try: res = requests.get(url, headers=self.headers) return res except Exception as e: print(url+'下载失败,原因:'+e.args) def save(self, res_img, file_name): if res_img: with open(file_name, 'wb') as f: f.write(res_img.content) print(url+'下载成功') def run(self): # 下载图片 res_img = self.download(self.url) name = self.url.strip().split('/').pop() file_name = self.path+'/'+name # 保存 self.save(res_img, file_name)if __name__ == '__main__': url_list = [] Letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'] for i in Letter: for j in Letter: url_list.append( "https://pic.c-ctrip.com/flight_intl/airline_logo/40x35/" + i + j + ".png") for url in url_list: print(url) text = GetImage(url) text.run() 航空公司信息查询下载：航空公司信息.xlsx]]></content>
       <categories>
         <category>Data</category>
       </categories>
       <tags>
         <tag>data</tag>
         <tag>aviation</tag>
+        <tag>pyhon</tag>
       </tags>
   </entry>
   <entry>
