@@ -1,7 +1,7 @@
 ---
 title: 数据分析-航空公司
 date: 2019-08-20 09:50:00
-tags: [data,aviation,pyhon]
+tags: [data,aviation,python]
 categories: Data
 ---
 ### 航空公司数据分析

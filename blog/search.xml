@@ -69,9 +69,9 @@
         <category>Data</category>
       </categories>
       <tags>
+        <tag>python</tag>
         <tag>data</tag>
         <tag>aviation</tag>
-        <tag>pyhon</tag>
       </tags>
   </entry>
   <entry>
@@ -82,9 +82,9 @@
         <category>Blog</category>
       </categories>
       <tags>
-        <tag>cmd</tag>
         <tag>hexo</tag>
         <tag>python</tag>
+        <tag>cmd</tag>
         <tag>git</tag>
       </tags>
   </entry>
@@ -506,9 +506,9 @@
         <category>Windows</category>
       </categories>
       <tags>
+        <tag>cmd</tag>
         <tag>windows</tag>
         <tag>registry</tag>
-        <tag>cmd</tag>
       </tags>
   </entry>
   <entry>
@@ -538,8 +538,8 @@
       </categories>
       <tags>
         <tag>c#</tag>
-        <tag>helper</tag>
         <tag>wpf</tag>
+        <tag>helper</tag>
         <tag>devexpress</tag>
       </tags>
   </entry>
@@ -551,8 +551,8 @@
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>windows</tag>
         <tag>cmd</tag>
+        <tag>windows</tag>
       </tags>
   </entry>
   <entry>
