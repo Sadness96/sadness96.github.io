@@ -62,7 +62,7 @@ if __name__ == '__main__':
     for i in Letter:
         for j in Letter:
             url_list.append(
-                "https://pic.c-ctrip.com/flight_intl/airline_logo/40x35/" + i + j + ".png")
+                "http://pic.c-ctrip.com/AssetCatalog/airline/32/" + i + j + ".png")
 
     for url in url_list:
         print(url)
