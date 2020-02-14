@@ -78,7 +78,7 @@ categories: Repair
 #### 电源不工作
 1.确认其他硬件正常后无法通过主板开关运行电源，可尝试通过短路电源 ATX 24 PIN 接线的 PS-ON 与 COM 尝试启动电源。
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/Atx24Pin.png"/>
-2.尝试更换 220V 接入电源线(电脑通用电源线，实在没有多余可以找找身边电饭锅)
+2.尝试更换 220V 接入电源线(电脑通用三口品字尾电源线，实在没有多余可以找找身边电饭锅)
 3.如果是内部高压滤波电容损坏或变压器损坏，不建议维修，想动手尝试的可以玩一玩。
 
 <span id="风扇转速不够导致声音大或过热短路"><span/>
