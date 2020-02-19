@@ -347,7 +347,7 @@ public static bool FileDESDecrypt(string strFilePath, string strSaveFilePath, st
 [非对称加密算法](https://baike.baidu.com/item/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95) 需要两个密钥：公开密钥（publickey:简称公钥）和私有密钥（privatekey:简称私钥）。公钥与私钥是一对，如果用公钥对数据进行加密，只有用对应的私钥才能解密。
 ###### RSA
 [RSA](https://baike.baidu.com/item/RSA%E7%AE%97%E6%B3%95?fromtitle=RSA&fromid=210678) 一种非对称加密算法。在公开密钥加密和电子商业中RSA被广泛使用。
-[RSAHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Encryption/RSAHelper.cs) 只能使用产生出的密钥，且加密更加复杂所以只能加密短文本。
+[RSAHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Encryption/RSAHelper.cs) 只能使用产生出的密钥，且加密更加复杂所以只能加密短文本（测试加密长度上限为58字节）。
 ``` CSharp
 /// <summary>
 /// RSA产生秘钥
