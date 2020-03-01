@@ -20,3 +20,8 @@ Windows Registry Editor Version 5.00
 [HKEY_CLASSES_ROOT\Directory\Background\shell\OpenCMDHere\command]
 @="cmd.exe /s /k pushd \"%V\""
 ```
+#### 更简单的方案
+2020年3月1日更新：在学习 .Net Core EF 时查阅 MSDN 才发现了一个更简单的方式。
+[教程：使用迁移功能 - ASP.NET MVC 和 EF Core](https://docs.microsoft.com/zh-cn/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0)
+直接在文件夹中地址栏输入：“cmd” 或 “powershell” 即可。
+<img src="https://docs.microsoft.com/zh-cn/aspnet/core/data/ef-mvc/migrations/_static/open-command-window.png?view=aspnetcore-2.0"/>
