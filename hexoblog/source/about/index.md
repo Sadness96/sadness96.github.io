@@ -34,7 +34,6 @@ date: 2019-03-05 14:00:00
 #### 联系方式
 QQ：[623155166](http://wpa.qq.com/msgrd?v=3&uin=623155166&site=qq&menu=yes)
 E-Mail：qsbs623@163.com
-Phone：13504619260
 ### 结束语
 希望以这个博客记录生活，记录学习，记录成长！
 一首纯音乐，来自游戏《彩虹岛》中的《Wind from the Far East》，敬请欣赏！
