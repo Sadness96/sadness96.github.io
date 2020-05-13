@@ -41,6 +41,7 @@ categories: Software
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Rose/向导4.png"/>
 
 5.创建主机关系，创建心跳网(心跳要求与局域网IP不同网段，添加一个新网段后可在主机列表更新系统信息后重新创建心跳，测试使用时把心跳IP网段改为了6网段)
+<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Rose/架构设计.png"/>
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Rose/向导5.png"/>
 
 6.选择应用服务类型，类型中不包含MySQL，客服建议选择USERDEF（用户自定义）
