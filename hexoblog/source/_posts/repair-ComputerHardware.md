@@ -225,7 +225,7 @@ categories: Repair
 1.以 [RJ45](https://baike.baidu.com/item/RJ45/3401007?fr=aladdin) 型网线插头的 T568B 线序制作
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/RJ45.png"/>
 
-2.使用网线测线仪检测顺序 1.2.3.6 亮即为可以联网
+2.使用网线测线仪检测顺序：百兆网线序 1.2.3.6 亮即为可以联网，千兆网线则需要 8 根线全亮
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/NetworkLineTester.png"/>
 
 <span id="部分系统安装不包含网卡驱动"><span/>
