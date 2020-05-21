@@ -20,7 +20,7 @@ Code First：代码优先，开发者只需要写代码，将会自动创建模�
 现采用基础又最常用的 Database First 方式创建！
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-EntityFramework/ef2.png"/>
 ##### 更改数据源
-连接MySQL需要单独安装 [mysql-connector-net](https://mysql-connector-net.updatestar.com/) 与 [mysql-for-visualstudio](https://dev.mysql.com/downloads/windows/visualstudio/)
+连接MySQL需要单独安装 [mysql-connector-net](https://dev.mysql.com/downloads/connector/net/) 与 [mysql-for-visualstudio](https://dev.mysql.com/downloads/windows/visualstudio/)
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-EntityFramework/ef3.png"/>
 ##### 修改连接属性
 <img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-EntityFramework/ef4.png"/>
