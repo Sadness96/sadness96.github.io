@@ -4,7 +4,7 @@ date: 2017-05-23 22:34:50
 tags: [c#,helper,windows,filesharing]
 categories: C#.Net
 ---
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB.png"/>
+<img src="https://sadness96.github.io/images/blog/csharp-DevFramework/%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB.png"/>
 
 ### 基于 Win32 API 与 CMD 命令制作可视化文件共享工具
 <!-- more -->

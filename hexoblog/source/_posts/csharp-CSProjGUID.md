@@ -13,7 +13,7 @@ categories: C#.Net
 ``` xml
 <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
 ```
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-CSProjGUID/csproj.png"/>
+<img src="https://sadness96.github.io/images/blog/csharp-CSProjGUID/csproj.png"/>
 
 ### 完整的 .csproj 文件中的 GUID 列表及其说明
 [参考资料](https://www.codeproject.com/Reference/720512/List-of-Visual-Studio-Project-Type-GUIDs)

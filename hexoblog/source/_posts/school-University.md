@@ -4,7 +4,7 @@ date: 2016-05-10 20:08:50
 tags: [c,java,会声会影]
 categories: School
 ---
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/memory-University/school.png"/>
+<img src="https://sadness96.github.io/images/blog/memory-University/school.png"/>
 
 <!-- more -->
 ### 选择不同，命运自然不同
@@ -13,15 +13,15 @@ categories: School
 ##### c（企业员工信息管理系统）
 使用C语言编写简易的控制台管理程序，实训有录像剪辑视频（使用会声会影）。由于涉及到她人肖像问题，不方便发布，感兴趣可以单独联系博主。
 插曲：制作视频的时候很赶工，几个小女生视频录一半着急忙慌就回家放假了，我带着朋友跑网吧通宵剪辑视频，他玩着联盟看我剪了一宿…然后在最后渲染的时候已经凌晨五点了，非常幸运的死机了，我凭着记忆快速重启电脑，安装好软件后重新剪辑，在通宵下机之前完成了。
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/memory-University/c-登录.png"/>
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/memory-University/c-主界面.png"/>
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/memory-University/c-主界面2.png"/>
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/memory-University/c-查询.png"/>
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/memory-University/c-修改.png"/>
+<img src="https://sadness96.github.io/images/blog/memory-University/c-登录.png"/>
+<img src="https://sadness96.github.io/images/blog/memory-University/c-主界面.png"/>
+<img src="https://sadness96.github.io/images/blog/memory-University/c-主界面2.png"/>
+<img src="https://sadness96.github.io/images/blog/memory-University/c-查询.png"/>
+<img src="https://sadness96.github.io/images/blog/memory-University/c-修改.png"/>
 ##### java（学生成绩管理系统）
 使用Java的awt和swing设计开发C/S端程序，使用SQL Server数据库管理，exe4j打包为exe程序。
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/memory-University/java-Login.png"/>
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/memory-University/java-主界面.png"/>
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/memory-University/java-查询界面.png"/>
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/memory-University/java-添加界面.png"/>
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/memory-University/java-删除界面.png"/>
+<img src="https://sadness96.github.io/images/blog/memory-University/java-Login.png"/>
+<img src="https://sadness96.github.io/images/blog/memory-University/java-主界面.png"/>
+<img src="https://sadness96.github.io/images/blog/memory-University/java-查询界面.png"/>
+<img src="https://sadness96.github.io/images/blog/memory-University/java-添加界面.png"/>
+<img src="https://sadness96.github.io/images/blog/memory-University/java-删除界面.png"/>

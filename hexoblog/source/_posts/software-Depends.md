@@ -4,7 +4,7 @@ date: 2018-08-01 12:13:07
 tags: [software,depends]
 categories: Software
 ---
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Depends/depends.jpg"/>
+<img src="https://sadness96.github.io/images/blog/software-Depends/depends.jpg"/>
 
 <!-- more -->
 #### 简介
@@ -14,11 +14,11 @@ categories: Software
 ##### 引用类库缺少
 软件安装包或开发环境提示错误：无法加载 DLL“xxx.dll”: 找不到指定的模块。使用Depends检查缺少模块，模块无效的库。
 下图：[OpenCV](https://opencv.org/) 使用 [Visual Studio](https://visualstudio.microsoft.com/zh-hans/downloads/) 2015 开发缺少mfc120d.dll、msvcr120d.dll、msvcp120d.dll库
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Depends/LackDLL.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Depends/LackDLL.png"/>
 
 ##### C/C++开发
 方法声明为C++方法时，[DllImport](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.dllimportattribute?redirectedfrom=MSDN&view=netframework-4.8) 引用被不明方法加密，调用时需拷贝对应方法的Function名字粘贴到EntryPoint。
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Depends/C-CPP.jpg"/>
+<img src="https://sadness96.github.io/images/blog/software-Depends/C-CPP.jpg"/>
 
 ``` CSharp
 [DllImport(@"CPP_Demo.dll", EntryPoint = "?filePath@@YAPADPAD@Z", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]

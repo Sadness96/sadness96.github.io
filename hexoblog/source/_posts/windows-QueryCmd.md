@@ -12,18 +12,18 @@ categories: Windows
 通过 [运行（Win+R）](https://baike.baidu.com/item/%E8%BF%90%E8%A1%8C/13132909?fr=aladdin) 的方式启动软件或许是个不错的方式，系统有集成很多自带的软件或者安装打包有环境变量的软件都可以输入名称运行（例如：calc、notepad、mspaint、mstsc）。
 #### 设置
 ##### 创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/windows-QueryCmd/1.jpg"/>
+<img src="https://sadness96.github.io/images/blog/windows-QueryCmd/1.jpg"/>
 
 ##### 配置环境变量（在环境变量Path下增加启动目录）
 ###### Win7
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/windows-QueryCmd/2.jpg"/>
+<img src="https://sadness96.github.io/images/blog/windows-QueryCmd/2.jpg"/>
 
 ###### Win10
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/windows-QueryCmd/3.png"/>
+<img src="https://sadness96.github.io/images/blog/windows-QueryCmd/3.png"/>
 
 ##### 通过 Win+R 打开运行窗口，输入启动名称即可。
 例：运行PS
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/windows-QueryCmd/4.png"/>
+<img src="https://sadness96.github.io/images/blog/windows-QueryCmd/4.png"/>
 
 #### 2019年7月16日补充
 记录一个更好的替代或是搭配使用的工具

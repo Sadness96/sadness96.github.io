@@ -4,7 +4,7 @@ date: 2017-06-06 15:29:18
 tags: [c#,helper,windows]
 categories: C#.Net
 ---
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E6%B3%A8%E5%86%8C%E5%B7%A5%E5%85%B7.png"/>
+<img src="https://sadness96.github.io/images/blog/csharp-DevFramework/%E6%B3%A8%E5%86%8C%E5%B7%A5%E5%85%B7.png"/>
 
 ### 获取电脑硬件基础信息，用于开发时作为唯一标示或注册激活使用
 <!-- more -->

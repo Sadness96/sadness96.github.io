@@ -4,7 +4,7 @@ date: 2019-12-26 11:05:38
 tags: [software,jenkins]
 categories: Software
 ---
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/jenkins.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/jenkins.png"/>
 
 <!-- more -->
 ### 简介
@@ -33,7 +33,7 @@ https://www.nuget.org/downloads
 #### 构建
 ##### Pull Git 代码
 填写 Git 地址以及分支名称即可
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/%E6%BA%90%E7%A0%81%E7%AE%A1%E7%90%86.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/%E6%BA%90%E7%A0%81%E7%AE%A1%E7%90%86.png"/>
 
 ###### 设置 Git 用户名密码
 如果本地 Git 记录用户无权限访问则会报错：
@@ -44,16 +44,16 @@ stderr: remote: HTTP Basic: Access denied
 fatal: Authentication failed for 'http://192.168.5.188:9090/***/***.git/'
 ```
 选择：凭据→系统→全局凭据
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/CredentialConfig1.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/CredentialConfig1.png"/>
 
 选择：添加凭据
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/CredentialConfig2.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/CredentialConfig2.png"/>
 
 配置：Git 用户名密码
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/CredentialConfig3.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/CredentialConfig3.png"/>
 
 配置：Credentials 中选择添加的凭据
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/CredentialConfig4.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/CredentialConfig4.png"/>
 
 ##### 还原 NuGet 包
 构建中选择：执行 Windows 批处理程序
@@ -63,7 +63,7 @@ git checkout . && git clean -xdf
 :: nuget 引用
 nuget restore project.sln
 ```
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/nuget.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/nuget.png"/>
 
 ##### 编译代码(客户端)
 构建中选择：Build a Visual Studio project or solution using MSBuild
@@ -74,7 +74,7 @@ nuget restore project.sln
 | MSBuild Build File | project.sln |
 | Command Line Arguments | /t:Build /p:Configuration=Release;VisualStudioVersion=16.3 |
 
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/msbuild.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/msbuild.png"/>
 
 ##### 编译代码(服务端)
 调用发布文件 .\Properties\PublishProfiles\FolderProfile.pubxml
@@ -105,7 +105,7 @@ nuget restore project.sln
 | MSBuild Version | Default |
 | MSBuild Build File | project.sln |
 | Command Line Arguments | /t:Build /p:Configuration=Release /p:DeployOnBuild=True /p:PublishProfile=FolderProfile |
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/msbuildasp.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/msbuildasp.png"/>
 
 ##### 拷贝或删除多余文件
 ``` cmd
@@ -116,7 +116,7 @@ xcopy /s/c/h/y .\9.Reference\MediaAccessSDK\Release .\bin\Release\MediaAccessSDK
 del /s bin\Release\*.pdb
 del /s bin\Release\*.xml
 ```
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/copydel.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/copydel.png"/>
 
 ##### 程序打包
 构建中选择：执行 Windows 批处理程序
@@ -125,7 +125,7 @@ del /s bin\Release\*.xml
 :: 调用 makensis 命令构建 NSI
 makensis PanoramaClientSetup.nsi
 ```
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/nsis.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/nsis.png"/>
 
 ##### 压缩文件打包
 构建中选择：PowerShell
@@ -137,48 +137,48 @@ Compress-Archive -Path .\test -DestinationPath .\test.zip
 # 解压缩文件
 Expand-Archive -Path .\test.zip -DestinationPath .\test
 ```
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/zipfile.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/zipfile.png"/>
 
 #### 构建后操作
 ##### 归档成品
 在归档成品中直接写入打包好的安装包名称，会在构建结束后在结果中显示并可以直接下载
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/归档成品.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/归档成品.png"/>
 
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/结果.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/结果.png"/>
 
 <span id='SonarQube'/>
 
 #### 集成 SonarQube
 安装使用 SonarQube 参考博客：[SonarQube 使用介绍](http://sadness96.github.io/blog/2020/01/16/software-SonarQube/)
 ##### SonarQube 创建 Jenkins ToKen
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/SonarQubeJenkinsToKens.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarQubeJenkinsToKens.png"/>
 
 ##### 下载插件 SonarQube Scanner
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/SonarQubeScanner.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarQubeScanner.png"/>
 
 ##### Jenkins 配置 SonarQube
 添加凭据：
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/SonarQubeCredentials.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarQubeCredentials.png"/>
 
 ##### 配置插件 SonarQube Scanner
 系统管理→系统配置→SonarQube servers
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/ConfigSonarQubeServers1.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/ConfigSonarQubeServers1.png"/>
 
 ##### 配置插件 SonarQube Scanner
 系统管理→全局工具配置→SonarQube Scanner
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/ConfigSonarQubeServers2.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/ConfigSonarQubeServers2.png"/>
 
 ##### 配置插件 SonarScanner for MSBuild
 系统管理→全局工具配置→SonarScanner for MSBuild
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/ConfigSonarScannerForMSBuild.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/ConfigSonarScannerForMSBuild.png"/>
 
 ##### 配置插件 JDK
 系统管理→全局工具配置→JDK
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/ConfigJDK.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/ConfigJDK.png"/>
 
 ##### 构建项目
 增加配置：
 构建中选择：SonarScanner for MSBuild - Begin Analyoio
 配置项 Project key 与 Project name 与 创建 SonarQube 中的 Project key 与 Project name 对应
 在 MSBuild 后选择： SonarScanner for MSBuild - End Analyoio
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-Jenkins/SonarScannerforMSBuild.png"/>
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarScannerforMSBuild.png"/>

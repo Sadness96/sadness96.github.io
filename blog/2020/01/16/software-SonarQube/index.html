@@ -40,14 +40,14 @@
 <meta property="og:url" content="http://sadness96.github.io/blog/2020/01/16/software-SonarQube/index.html">
 <meta property="og:site_name" content="个人博客 - 刘佳华">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/sonarqube.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/CreateNewProject.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/GenerateToken.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/QualityGate.png">
-<meta property="og:updated_time" content="2020-05-19T09:17:30.446Z">
+<meta property="og:image" content="https://sadness96.github.io/images/blog/software-SonarQube/sonarqube.png">
+<meta property="og:image" content="https://sadness96.github.io/images/blog/software-SonarQube/CreateNewProject.png">
+<meta property="og:image" content="https://sadness96.github.io/images/blog/software-SonarQube/GenerateToken.png">
+<meta property="og:image" content="https://sadness96.github.io/images/blog/software-SonarQube/QualityGate.png">
+<meta property="og:updated_time" content="2020-05-22T07:07:49.790Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SonarQube 使用介绍">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/sonarqube.png">
+<meta name="twitter:image" content="https://sadness96.github.io/images/blog/software-SonarQube/sonarqube.png">
   <link rel="canonical" href="http://sadness96.github.io/blog/2020/01/16/software-SonarQube/">
 <script id="page.configurations">
   CONFIG.page = {
@@ -182,7 +182,7 @@
         </div>
       </header>
     <div class="post-body" itemprop="articleBody">
-        <p><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/sonarqube.png"></p>
+        <p><img src="https://sadness96.github.io/images/blog/software-SonarQube/sonarqube.png"></p>
 <a id="more"></a>
 <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><a href="https://www.sonarqube.org/" target="_blank" rel="noopener">SonarQube</a> 是一个用于管理代码质量和安全的开源平台。</p>
 <h3 id="软件部署"><a href="#软件部署" class="headerlink" title="软件部署"></a>软件部署</h3><p>软件安装参考 <a href="https://docs.sonarqube.org/latest/setup/get-started-2-minutes/" target="_blank" rel="noopener">官方文档</a></p>
@@ -190,10 +190,10 @@
 <h4 id="解压后运行批处理文件"><a href="#解压后运行批处理文件" class="headerlink" title="解压后运行批处理文件"></a>解压后运行批处理文件</h4><p>按顺序运行：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.\sonarqube\bin\windows-x86-<span class="number">64</span>\InstallNTService.bat</span><br><span class="line">.\sonarqube\bin\windows-x86-<span class="number">64</span>\StartNTService.bat</span><br><span class="line">.\sonarqube\bin\windows-x86-<span class="number">64</span>\StartSonar.bat</span><br></pre></td></tr></table></figure></p>
 <h4 id="访问网页"><a href="#访问网页" class="headerlink" title="访问网页"></a>访问网页</h4><p><a href="http://localhost:9000/" target="_blank" rel="noopener">http://localhost:9000/</a><br>默认用户名密码：admin:admin</p>
 <h4 id="Download-SonarScanner-for-MSBuild"><a href="#Download-SonarScanner-for-MSBuild" class="headerlink" title="Download SonarScanner for MSBuild"></a>Download SonarScanner for MSBuild</h4><p><a href="https://sonarcloud.io/documentation/analysis/scan/sonarscanner-for-msbuild/" target="_blank" rel="noopener">SonarScanner for MSBuild</a><br>解压后配置环境变量 Path</p>
-<h4 id="Create-new-project"><a href="#Create-new-project" class="headerlink" title="Create new project"></a>Create new project</h4><p>创建新项目：<br><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/CreateNewProject.png"></p>
-<p>生成 ToKen 令牌：<br><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/GenerateToken.png"></p>
+<h4 id="Create-new-project"><a href="#Create-new-project" class="headerlink" title="Create new project"></a>Create new project</h4><p>创建新项目：<br><img src="https://sadness96.github.io/images/blog/software-SonarQube/CreateNewProject.png"></p>
+<p>生成 ToKen 令牌：<br><img src="https://sadness96.github.io/images/blog/software-SonarQube/GenerateToken.png"></p>
 <p>项目根目录运行：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SonarScanner.MSBuild.exe begin /k:"#ProjectName" /d:sonar.host.url="http://localhost:<span class="number">9000</span>" /d:sonar.login="#ToKen"</span><br><span class="line">MsBuild.exe /t:Rebuild</span><br><span class="line">SonarScanner.MSBuild.exe end /d:sonar.login="#ToKen"</span><br></pre></td></tr></table></figure></p>
-<p>查看质检结果：<br><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/QualityGate.png"></p>
+<p>查看质检结果：<br><img src="https://sadness96.github.io/images/blog/software-SonarQube/QualityGate.png"></p>
 <h4 id="Jenkins-中集成-SonarQube"><a href="#Jenkins-中集成-SonarQube" class="headerlink" title="Jenkins 中集成 SonarQube"></a>Jenkins 中集成 SonarQube</h4><p>参考：<a href="http://sadness96.github.io/blog/2019/12/26/software-Jenkins/#SonarQube">集成 SonarQube</a></p>
     </div>
     <footer class="post-footer">

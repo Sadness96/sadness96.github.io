@@ -4,7 +4,7 @@ date: 2019-06-18 12:40:45
 tags: [hexo,python,cmd,git]
 categories: Blog
 ---
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/blog-TransferHexo/BlogLogo.png"/>
+<img src="https://sadness96.github.io/images/blog/blog-TransferHexo/BlogLogo.png"/>
 
 <!-- more -->
 ### 简介

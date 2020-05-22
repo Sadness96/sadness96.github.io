@@ -42,12 +42,12 @@
 <meta property="og:site_name" content="个人博客 - 刘佳华">
 <meta property="og:description" content="新创建类库只能添加 WPF 用户控件，无法添加 WPF 窗体">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-CSProjGUID/csproj.png">
-<meta property="og:updated_time" content="2020-05-19T09:17:30.439Z">
+<meta property="og:image" content="https://sadness96.github.io/images/blog/csharp-CSProjGUID/csproj.png">
+<meta property="og:updated_time" content="2020-05-22T07:07:49.789Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="类库项目中新增 WPF 窗口">
 <meta name="twitter:description" content="新创建类库只能添加 WPF 用户控件，无法添加 WPF 窗体">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-CSProjGUID/csproj.png">
+<meta name="twitter:image" content="https://sadness96.github.io/images/blog/csharp-CSProjGUID/csproj.png">
   <link rel="canonical" href="http://sadness96.github.io/blog/2018/05/27/csharp-CSProjGUID/">
 <script id="page.configurations">
   CONFIG.page = {
@@ -185,7 +185,7 @@
         <h3 id="新创建类库只能添加-WPF-用户控件，无法添加-WPF-窗体"><a href="#新创建类库只能添加-WPF-用户控件，无法添加-WPF-窗体" class="headerlink" title="新创建类库只能添加 WPF 用户控件，无法添加 WPF 窗体"></a>新创建类库只能添加 WPF 用户控件，无法添加 WPF 窗体</h3><a id="more"></a>
 <p>通过修改 .csproj 配置文件使类库可以创建 WPF 窗体</p>
 <h3 id="修改方法"><a href="#修改方法" class="headerlink" title="修改方法"></a>修改方法</h3><p>组合使用 GUID，新增 ProjectTypeGuids 节点描述一个类库为 C# WPF 类型<br>新增节点 ProjectTypeGuids 至 .csproj 配置文件 Project.PropertyGroup 下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ProjectTypeGuids</span>&gt;</span>&#123;60dc8134-eba5-43b8-bcc9-bb4bc16c2548&#125;;&#123;FAE04EC0-301F-11D3-BF4B-00C04F79EFBC&#125;<span class="tag">&lt;/<span class="name">ProjectTypeGuids</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-CSProjGUID/csproj.png"></p>
+<p><img src="https://sadness96.github.io/images/blog/csharp-CSProjGUID/csproj.png"></p>
 <h3 id="完整的-csproj-文件中的-GUID-列表及其说明"><a href="#完整的-csproj-文件中的-GUID-列表及其说明" class="headerlink" title="完整的 .csproj 文件中的 GUID 列表及其说明"></a>完整的 .csproj 文件中的 GUID 列表及其说明</h3><p><a href="https://www.codeproject.com/Reference/720512/List-of-Visual-Studio-Project-Type-GUIDs" target="_blank" rel="noopener">参考资料</a><br>创建项目后，没有一种简单的方法可以在 Visual Studio 项目中更改项目类型。例如，将C＃类库更改为可移植类库（PCL）。了解这些GUID将允许您编辑项目文件 .csproj，.vbproj 以便在 Visual Studio 不允许使用 GUI 的情况下轻松更改项目类型。</p>
 <h4 id="By-Description"><a href="#By-Description" class="headerlink" title="By Description"></a>By Description</h4><table>
 <thead>

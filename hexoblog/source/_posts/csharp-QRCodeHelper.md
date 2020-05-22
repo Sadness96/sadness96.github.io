@@ -4,7 +4,7 @@ date: 2017-06-06 21:24:00
 tags: [c#,helper,qrcode]
 categories: C#.Net
 ---
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81.png"/>
+<img src="https://sadness96.github.io/images/blog/csharp-DevFramework/%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81.png"/>
 
 ### 基于 ZXing.QrCode 库制作的横条码/二维码生成识别工具
 <!-- more -->

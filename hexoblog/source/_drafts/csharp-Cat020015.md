@@ -327,7 +327,7 @@ public static string I020_245(string flnoStr)
 NOTE: See ICAO document Annex 10, Volume IV, section 3.1.2.9
 for the coding rules.
 每六字节代表一个字母或数字
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-Cat020015/TheCodingRules.png"/>
+<img src="https://sadness96.github.io/images/blog/csharp-Cat020015/TheCodingRules.png"/>
 
 <span id="1020041"><span/>
 

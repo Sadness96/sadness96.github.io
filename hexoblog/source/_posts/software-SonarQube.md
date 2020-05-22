@@ -4,7 +4,7 @@ date: 2020-01-16 10:50:00
 tags: [software,sonarqube]
 categories: Software
 ---
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/sonarqube.png"/>
+<img src="https://sadness96.github.io/images/blog/software-SonarQube/sonarqube.png"/>
 
 <!-- more -->
 ### 简介
@@ -28,10 +28,10 @@ categories: Software
 解压后配置环境变量 Path
 #### Create new project
 创建新项目：
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/CreateNewProject.png"/>
+<img src="https://sadness96.github.io/images/blog/software-SonarQube/CreateNewProject.png"/>
 
 生成 ToKen 令牌：
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/GenerateToken.png"/>
+<img src="https://sadness96.github.io/images/blog/software-SonarQube/GenerateToken.png"/>
 
 项目根目录运行：
 ``` cmd
@@ -40,7 +40,7 @@ MsBuild.exe /t:Rebuild
 SonarScanner.MSBuild.exe end /d:sonar.login="#ToKen"
 ```
 查看质检结果：
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-SonarQube/QualityGate.png"/>
+<img src="https://sadness96.github.io/images/blog/software-SonarQube/QualityGate.png"/>
 
 #### Jenkins 中集成 SonarQube
 参考：[集成 SonarQube](http://sadness96.github.io/blog/2019/12/26/software-Jenkins/#SonarQube)

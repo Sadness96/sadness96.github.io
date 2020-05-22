@@ -4,7 +4,7 @@ date: 2019-11-4 11:05:38
 tags: [software,arcgis]
 categories: Software
 ---
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-ArcGisForJS/ArcGISForJavaScript.png"/>
+<img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ArcGISForJavaScript.png"/>
 
 <!-- more -->
 ### 简介
@@ -20,32 +20,32 @@ categories: Software
 [参考资料](https://blog.csdn.net/bigemap/article/details/81131840)
 ##### 地图服务发布
 ###### 1.编辑好的地图保存为 .mxd 格式
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-ArcGisForJS/SaveMxd.png"/>
+<img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/SaveMxd.png"/>
 
 ###### 2.在 ArcMap 目录中选择 GIS 服务器 → 添加 ArcGIS Server → 发布 GIS 服务
 选择发布 GIS 服务
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-ArcGisForJS/PublishingService1.png"/>
+<img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/PublishingService1.png"/>
 
 设置服务器 URL 与用户名密码
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-ArcGisForJS/PublishingService2.png"/>
+<img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/PublishingService2.png"/>
 
 ###### 4.在 ArcMap 目录中选择 .mxd 文件右键选择：共享为服务(S)…
 选择发布服务
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-ArcGisForJS/ShareForService1.png"/>
+<img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ShareForService1.png"/>
 
 设置服务名称
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-ArcGisForJS/ShareForService2.png"/>
+<img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ShareForService2.png"/>
 
 默认发布为根
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-ArcGisForJS/ShareForService3.png"/>
+<img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ShareForService3.png"/>
 
 1.点击分析，解决错误（例：图层坐标系异常）；2.发布
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-ArcGisForJS/ShareForService4.png"/>
+<img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ShareForService4.png"/>
 
 选择发布图层等待服务发布
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-ArcGisForJS/ShareForService5.png"/>
+<img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ShareForService5.png"/>
 
 [ArcGIS Server Manager](http://localhost:6080/arcgis/manager/) 中查看服务
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/software-ArcGisForJS/ShareForService6.png"/>
+<img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ShareForService6.png"/>
 
 #### 搭建 ArcGIS API for JavaScript

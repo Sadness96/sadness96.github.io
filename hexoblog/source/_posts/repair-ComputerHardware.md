@@ -4,7 +4,7 @@ date: 2020-02-07 01:44:45
 tags: [repair,computer,hardware]
 categories: Repair
 ---
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/mainboard.jpg"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/mainboard.jpg"/>
 
 <!-- more -->
 ### 简介
@@ -71,13 +71,13 @@ categories: Repair
 #### 机箱前面板接主板容易接错
 机箱的前面板都会有一些功能型接线，常见的有音频、USB/SD、电源开关/复位需要对应的接在主板的接口上(通常是下方)，每种主板的接口顺序和位置不一样，建议查看主板上标记的缩写，或根据型号查询使用手册。
 举例我现在使用的主板是 ASUS PRIME Z390-A
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/AsusPrimeZ390-A.png"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/AsusPrimeZ390-A.png"/>
 
 <span id="电源不工作"><span/>
 
 #### 电源不工作
 1.确认其他硬件正常后无法通过主板开关运行电源，可尝试通过短路电源 ATX 24 PIN 接线的 PS-ON 与 COM 尝试启动电源。
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/Atx24Pin.png"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/Atx24Pin.png"/>
 2.尝试更换 220V 接入电源线(电脑通用三口品字尾电源线，实在没有多余可以找找身边电饭锅)
 3.如果是内部高压滤波电容损坏或变压器损坏，不建议维修，想动手尝试的可以玩一玩。
 
@@ -99,14 +99,14 @@ categories: Repair
 
 #### 电容鼓包等导致运行中断电或无法开机
 电容鼓包是主板上比较常见的问题，大部分情况更换电容可以修复好，但是也难免有出现隐藏的其他问题导致更换完部件效果，下图是一个比较常见的鼓电容情况，更换同型号电容即可。
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/Capacitance.png"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/Capacitance.png"/>
 
 <span id="按开机键无反应"><span/>
 
 #### 按开机键无反应
 有时难免遇到接通电源后按开机键电脑无响应，逐步排除
 1.机箱前面板按钮或连接线出现问题，尝试使用短接主板上的开关启动，以主板 ASUS PRIME Z390-A 为例：短接 PWRSW
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/AsusPrimeZ390-A.png"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/AsusPrimeZ390-A.png"/>
 
 2.如依旧无法点亮机器依次更换电源，主板等主要零件测试。
 
@@ -160,7 +160,7 @@ categories: Repair
 #### CPU 完全不工作
 由于 CPU 的做工及其技术导致无法修复，排除 CPU 损坏，尝试更换相同针脚的 CPU 测试。
 扔了怪可惜的，做成项链还是蛮不错的(上班路上偷拍)
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/CPUNecklace.jpg"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/CPUNecklace.jpg"/>
 
 <span id="接口虚连"><span/>
 
@@ -207,26 +207,26 @@ categories: Repair
 #### 由于接口错误或系统设置导致的麦克风或音响失效
 音频输入输出接口多用颜色区分
 举例我现在使用的主板是 ASUS PRIME Z390-A
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/AsusPrimeZ390-A-Audio.png"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/AsusPrimeZ390-A-Audio.png"/>
 
 若连接机箱前面板没有声音，检查机箱前面板 Audio 连接线是否正常连接主板上。
 根据系统以及声卡不同检查对应驱动配置，例：
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/RealtekAudioControl.png"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/RealtekAudioControl.png"/>
 
 <span id="掐网线及检测"><span/>
 
 #### 掐网线及检测
 网线作为暴露在外部的线材，还是比较脆弱的，比如家里有一只喜欢拆家的小可爱！
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/IMG_20190306_191036.jpg"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/IMG_20190306_191036.jpg"/>
 
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/IMG_20181222_192946.jpg"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/IMG_20181222_192946.jpg"/>
 
 常备一箱网线还是很有必要的，还需要准备网线钳、水晶头、网线测线仪
 1.以 [RJ45](https://baike.baidu.com/item/RJ45/3401007?fr=aladdin) 型网线插头的 T568B 线序制作
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/RJ45.png"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/RJ45.png"/>
 
 2.使用网线测线仪检测顺序：百兆网线序 1.2.3.6 亮即为可以联网，千兆网线则需要 8 根线全亮
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/NetworkLineTester.png"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/NetworkLineTester.png"/>
 
 <span id="部分系统安装不包含网卡驱动"><span/>
 
@@ -237,7 +237,7 @@ categories: Repair
 
 #### 高压板或驱动板损坏
 液晶显示器不亮，常见的情况是高压板或驱动板损坏，高压板大部分有通用型号，驱动板尽可能找匹配的型号更换测试即可。
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/高压板.png"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/高压板.png"/>
 
 <span id="亮点或屏线"><span/>
 
@@ -253,13 +253,13 @@ categories: Repair
 
 #### (机械)键盘轴脱焊
 虽然说 Cherry 官网给出的理论寿命有5000万次，但是也难免有按到轴脱焊的情况，不妨重新焊一下吧。
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/20190607_150347.jpg"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/20190607_150347.jpg"/>
 
 <span id="鼠标连键"><span/>
 
 #### 鼠标连键(单击变双击)
 鼠标用久了就会出现连键的情况，单击变双击，打英雄联盟新买的中亚沙漏还没出门拖动一下就被用掉了，不舍得扔掉就换个微动吧，很便宜的，邮费比产品贵系列。
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/鼠标微动.png"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/鼠标微动.png"/>
 
 <span id="外置USB供电的音响出现杂音"><span/>
 
@@ -270,7 +270,7 @@ categories: Repair
 
 #### 游戏手柄连接数据线虚连
 之前朋友送的一个 Xbox 360 手柄用的太久了出现时断时连的情况，检查一圈是连接的数据线虚连了，换了一根线就好了，后出的 Xbox One 手柄已经改成无线连接了，点个赞！
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/repair-ComputerHardware/20190615_134144.jpg"/>
+<img src="https://sadness96.github.io/images/blog/repair-ComputerHardware/20190615_134144.jpg"/>
 
 <span id="电脑温度过高"><span/>
 

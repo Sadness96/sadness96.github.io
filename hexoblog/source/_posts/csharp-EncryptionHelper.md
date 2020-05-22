@@ -4,7 +4,7 @@ date: 2018-01-10 11:41:20
 tags: [c#,helper,aes,base64,crc32,des,folder,md5,rsa,sha1]
 categories: C#.Net
 ---
-<img src="https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/images/blog/csharp-DevFramework/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7.png"/>
+<img src="https://sadness96.github.io/images/blog/csharp-DevFramework/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7.png"/>
 
 ### 提供几种对称加密与非对称加密算法，以及单项加密与文件夹加密
 <!-- more -->
