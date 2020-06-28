@@ -52,7 +52,7 @@
   <entry>
     <title><![CDATA[Kafka Demo]]></title>
     <url>%2Fblog%2F2019%2F09%2F16%2Fcsharp-Kafka%2F</url>
-    <content type="text"><![CDATA[Kafka 消息队列使用介绍 简介Apache Kafka 是一个分布式流平台。 流平台具有三个关键功能： 发布和订阅记录流，类似于消息队列或企业消息传递系统。 以容错的持久方式存储记录流。 处理记录流。 Kafka通常用于两大类应用程序： 建立实时流数据管道，以可靠地在系统或应用程序之间获取数据 构建实时流应用程序以转换或响应数据流安装部署请参阅官方文档C#代码调用引用 Confluent.Kafka 库生产者(未测试)1234567891011121314151617181920212223242526using System;using Confluent.Kafka;class Program&#123; public static void Main(string[] args) &#123; var conf = new ProducerConfig &#123; BootstrapServers = "localhost:9092" &#125;; Action&lt;DeliveryReport&lt;Null, string&gt;&gt; handler = r =&gt; Console.WriteLine(!r.Error.IsError ? $"Delivered message to &#123;r.TopicPartitionOffset&#125;" : $"Delivery Error: &#123;r.Error.Reason&#125;"); using (var p = new ProducerBuilder&lt;Null, string&gt;(conf).Build()) &#123; for (int i=0; i&lt;100; ++i) &#123; p.Produce("my-topic", new Message&lt;Null, string&gt; &#123; Value = i.ToString() &#125;, handler); &#125; // wait for up to 10 seconds for any inflight messages to be delivered. p.Flush(TimeSpan.FromSeconds(10)); &#125; &#125;&#125; 消费者1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253using System;using System.Threading;using Confluent.Kafka;class Program&#123; public static void Main(string[] args) &#123; var conf = new ConsumerConfig &#123; GroupId = "test-consumer-group", BootstrapServers = "localhost:9092", // Note: The AutoOffsetReset property determines the start offset in the event // there are not yet any committed offsets for the consumer group for the // topic/partitions of interest. By default, offsets are committed // automatically, so in this example, consumption will only start from the // earliest message in the topic 'my-topic' the first time you run the program. AutoOffsetReset = AutoOffsetReset.Earliest &#125;; using (var c = new ConsumerBuilder&lt;Ignore, string&gt;(conf).Build()) &#123; c.Subscribe("my-topic"); CancellationTokenSource cts = new CancellationTokenSource(); Console.CancelKeyPress += (_, e) =&gt; &#123; e.Cancel = true; // prevent the process from terminating. cts.Cancel(); &#125;; try &#123; while (true) &#123; try &#123; var cr = c.Consume(cts.Token); Console.WriteLine($"Consumed message '&#123;cr.Value&#125;' at: '&#123;cr.TopicPartitionOffset&#125;'."); &#125; catch (ConsumeException e) &#123; Console.WriteLine($"Error occured: &#123;e.Error.Reason&#125;"); &#125; &#125; &#125; catch (OperationCanceledException) &#123; // Ensure the consumer leaves the group cleanly and final offsets are committed. c.Close(); &#125; &#125; &#125;&#125; 遇到问题在实际使用中消费数据使用多服务器链接追加配置多 IP 地址到 Hosts 文件中（例）：123456172.26.78.135 tdh02172.26.78.136 tdh03172.26.78.137 tdh04172.26.78.140 tdh07172.26.78.141 tdh08172.26.78.142 tdh09 Host 文件所在目录：| 系统 | 目录 || —- | —- || Windows | C:\windows\system32\drivers\etc\Hosts || Linux / Unix | /etc/Hosts || Mac OS | /private/etc/Hosts |修改部分代码：123456var conf = new ConsumerConfig&#123; GroupId = "test-consumer-group", BootstrapServers = "tdh02:9092,tdh03:9092,tdh04:9092,tdh07:9092,tdh08:9092,tdh09:9092", AutoOffsetReset = AutoOffsetReset.Earliest&#125;;]]></content>
+    <content type="text"><![CDATA[Kafka 消息队列使用介绍 简介Apache Kafka 是一个分布式流平台。 流平台具有三个关键功能： 发布和订阅记录流，类似于消息队列或企业消息传递系统。 以容错的持久方式存储记录流。 处理记录流。 Kafka通常用于两大类应用程序： 建立实时流数据管道，以可靠地在系统或应用程序之间获取数据 构建实时流应用程序以转换或响应数据流安装部署请参阅官方文档C#代码调用引用 Confluent.Kafka 库生产者1234567891011121314151617181920212223242526using System;using Confluent.Kafka;class Program&#123; public static void Main(string[] args) &#123; var conf = new ProducerConfig &#123; BootstrapServers = "localhost:9092" &#125;; Action&lt;DeliveryReport&lt;Null, string&gt;&gt; handler = r =&gt; Console.WriteLine(!r.Error.IsError ? $"Delivered message to &#123;r.TopicPartitionOffset&#125;" : $"Delivery Error: &#123;r.Error.Reason&#125;"); using (var p = new ProducerBuilder&lt;Null, string&gt;(conf).Build()) &#123; for (int i=0; i&lt;100; ++i) &#123; p.Produce("my-topic", new Message&lt;Null, string&gt; &#123; Value = i.ToString() &#125;, handler); &#125; // wait for up to 10 seconds for any inflight messages to be delivered. p.Flush(TimeSpan.FromSeconds(10)); &#125; &#125;&#125; 消费者1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253using System;using System.Threading;using Confluent.Kafka;class Program&#123; public static void Main(string[] args) &#123; var conf = new ConsumerConfig &#123; GroupId = "test-consumer-group", BootstrapServers = "localhost:9092", // Note: The AutoOffsetReset property determines the start offset in the event // there are not yet any committed offsets for the consumer group for the // topic/partitions of interest. By default, offsets are committed // automatically, so in this example, consumption will only start from the // earliest message in the topic 'my-topic' the first time you run the program. AutoOffsetReset = AutoOffsetReset.Earliest &#125;; using (var c = new ConsumerBuilder&lt;Ignore, string&gt;(conf).Build()) &#123; c.Subscribe("my-topic"); CancellationTokenSource cts = new CancellationTokenSource(); Console.CancelKeyPress += (_, e) =&gt; &#123; e.Cancel = true; // prevent the process from terminating. cts.Cancel(); &#125;; try &#123; while (true) &#123; try &#123; var cr = c.Consume(cts.Token); Console.WriteLine($"Consumed message '&#123;cr.Value&#125;' at: '&#123;cr.TopicPartitionOffset&#125;'."); &#125; catch (ConsumeException e) &#123; Console.WriteLine($"Error occured: &#123;e.Error.Reason&#125;"); &#125; &#125; &#125; catch (OperationCanceledException) &#123; // Ensure the consumer leaves the group cleanly and final offsets are committed. c.Close(); &#125; &#125; &#125;&#125; 遇到问题在实际使用中消费数据使用多服务器链接追加配置多 IP 地址到 Hosts 文件中（例）：123456172.26.78.135 tdh02172.26.78.136 tdh03172.26.78.137 tdh04172.26.78.140 tdh07172.26.78.141 tdh08172.26.78.142 tdh09 Host 文件所在目录：| 系统 | 目录 || —- | —- || Windows | C:\windows\system32\drivers\etc\Hosts || Linux / Unix | /etc/Hosts || Mac OS | /private/etc/Hosts |修改部分代码：123456var conf = new ConsumerConfig&#123; GroupId = "test-consumer-group", BootstrapServers = "tdh02:9092,tdh03:9092,tdh04:9092,tdh07:9092,tdh08:9092,tdh09:9092", AutoOffsetReset = AutoOffsetReset.Earliest&#125;;]]></content>
       <categories>
         <category>C#.Net</category>
       </categories>
@@ -96,9 +96,9 @@
         <category>Work</category>
       </categories>
       <tags>
-        <tag>c#</tag>
         <tag>asp</tag>
         <tag>c++</tag>
+        <tag>c#</tag>
         <tag>mysql</tag>
         <tag>axure</tag>
       </tags>
@@ -111,8 +111,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>c#</tag>
         <tag>c++</tag>
+        <tag>c#</tag>
         <tag>sdses</tag>
       </tags>
   </entry>
@@ -173,8 +173,8 @@
         <category>Software</category>
       </categories>
       <tags>
-        <tag>software</tag>
         <tag>depends</tag>
+        <tag>software</tag>
       </tags>
   </entry>
   <entry>
@@ -185,8 +185,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>c#</tag>
         <tag>c++</tag>
+        <tag>c#</tag>
         <tag>depends</tag>
       </tags>
   </entry>
@@ -506,8 +506,8 @@
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>cmd</tag>
         <tag>windows</tag>
+        <tag>cmd</tag>
         <tag>registry</tag>
       </tags>
   </entry>
@@ -551,8 +551,8 @@
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>cmd</tag>
         <tag>windows</tag>
+        <tag>cmd</tag>
       </tags>
   </entry>
   <entry>

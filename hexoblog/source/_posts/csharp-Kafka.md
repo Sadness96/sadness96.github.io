@@ -23,7 +23,7 @@ Kafka通常用于两大类应用程序：
 请参阅[官方文档](http://kafka.apache.org/documentation/)
 #### C#代码调用
 引用 [Confluent.Kafka](https://github.com/confluentinc/confluent-kafka-dotnet) 库
-##### 生产者(未测试)
+##### 生产者
 ``` CSharp
 using System;
 using Confluent.Kafka;
