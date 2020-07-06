@@ -43,7 +43,7 @@ categories: Repair
 ### 系统软件或应用软件相关推荐
 | 软件功能 | 推荐软件 | 简介 |
 | --- | --- | --- |
-| U盘启动(WinPE) | [老毛桃](https://www.laomaotao.net/)、[大白菜](http://www.winbaicai.com/) | 通过U盘启动提供的 WinPE 包含很多有用的工具，比如：[DiskGenius 分区工具](http://www.diskgenius.cn/)、[Ghost](https://baike.baidu.com/item/ghost/847?fr=aladdin) |
+| U盘启动(WinPE) | [Rufus](http://rufus.ie/)、 [老毛桃](https://www.laomaotao.net/)、[大白菜](http://www.winbaicai.com/) | 通过U盘启动提供的 WinPE 包含很多有用的工具，比如：[DiskGenius 分区工具](http://www.diskgenius.cn/)、[Ghost](https://baike.baidu.com/item/ghost/847?fr=aladdin) |
 | 操作系统 | Windows、Linux | 现大部分装电脑都会选择 Windows(原版建议通过[itellyou](https://msdn.itellyou.cn/)下载，Ghost 版建议使用[Deepin](http://www.deepinghost.com/)或[雨林木风](http://www.ylmf888.com/))、部分企业或个人学习选择 Linux(建议使用[Ubuntu](https://ubuntu.com/download)、[CentOS](https://www.centos.org/)、[Red Hat](https://www.redhat.com/en)、[Debian](https://www.debian.org/))、MAC(黑苹果请移步到社区论坛吧) |
 | 系统还原 | [冰点还原](https://www.bingdianhuanyuan.cn/) | 重启电脑还原至初始状态，避免病毒入侵，广泛用于银行学校宾馆，除了硬件 PCI 接口的还原卡之外，用软件还原也是不错的选择 |
 | 磁盘分区/坏道检测/数据恢复 | [DiskGenius](http://www.diskgenius.cn/)、[MHDD](https://baike.baidu.com/item/MHDD/2755765?fr=aladdin)、[EasyRecovery](https://www.easyrecoverychina.com/) | 1.DiskGenius 是一个常用的分区、坏道检测以及数据恢复的工具。<br />2.MHDD 是一个古老的坏道检测工具，适用于老式 AMD 型机器坏道检测，但是其工具强大可以抹除坏道，现 U 盘启动 DOS 工具箱包含<br />3. EasyRecovery 更专业的数据恢复厂商|
