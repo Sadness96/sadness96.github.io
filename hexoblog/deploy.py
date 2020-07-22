@@ -3,9 +3,9 @@ import shutil
 
 
 def deploy(dir_path, dir_copy):
-    dirpath = r'%s\%s' % (os.path.dirname(
+    dirpath = r'%s/%s' % (os.path.dirname(
         os.path.realpath(__file__)), dir_path)
-    dircopy = r'%s\%s' % (os.path.abspath(
+    dircopy = r'%s/%s' % (os.path.abspath(
         os.path.dirname(os.getcwd())), dir_copy)
     print('dirpath：%s', dirpath)
     print('dircopy：%s', dircopy)
