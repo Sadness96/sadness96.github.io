@@ -148,6 +148,12 @@ Expand-Archive -Path .\test.zip -DestinationPath .\test
 
 <span id='SonarQube'/>
 
+#### FAQ
+##### 提示 'xxx' 不是内部或外部命令，也不是可运行的程序或批处理文件。
+通常这个提示代表着环境变量配置错误，但是检测时发现系统环境变量配置正常，可以在 Jenkins 目录中手动执行命令操作，重启电脑和 Jenkins 后依然无效。
+解决方式：选择 Jenkins → 左下角“构建执行状态” → 右侧齿轮标志“设置” → 节点属性 → 新增“Environment variables” → 拷贝报错(或全部)的环境变量到此处 → 保存
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/PathError.png"/>
+
 #### 集成 SonarQube
 安装使用 SonarQube 参考博客：[SonarQube 使用介绍](http://sadness96.github.io/blog/2020/01/16/software-SonarQube/)
 ##### SonarQube 创建 Jenkins ToKen
