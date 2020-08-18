@@ -26,7 +26,7 @@ http://localhost:8081/restart
 Git、MSBuild、NuGet、PowerShell
 ##### 配置系统环境变量
 Path 下增加 MSBuild 路径：
-D:\Software\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\amd64
+..\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\amd64
 ##### NuGet 控制台程序下载
 https://www.nuget.org/downloads
 下载后拷贝至 Path 环境变量中

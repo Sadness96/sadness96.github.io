@@ -62,7 +62,7 @@
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Jenkins/ConfigSonarScannerForMSBuild.png">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Jenkins/ConfigJDK.png">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Jenkins/SonarScannerforMSBuild.png">
-<meta property="og:updated_time" content="2020-07-21T16:52:00.004Z">
+<meta property="og:updated_time" content="2020-08-18T04:16:32.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins 使用介绍">
 <meta name="twitter:image" content="https://sadness96.github.io/images/blog/software-Jenkins/jenkins.png">
@@ -207,7 +207,7 @@
 <h3 id="软件部署"><a href="#软件部署" class="headerlink" title="软件部署"></a>软件部署</h3><p>软件安装参考 <a href="https://jenkins.io/zh/doc/pipeline/tour/getting-started/" target="_blank" rel="noopener">官方文档</a></p>
 <h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><h5 id="插件安装失败"><a href="#插件安装失败" class="headerlink" title="插件安装失败"></a>插件安装失败</h5><p>登录重启页重启后重试<br><a href="http://localhost:8081/restart" target="_blank" rel="noopener">http://localhost:8081/restart</a></p>
 <h5 id="需安装-Jenkins-插件"><a href="#需安装-Jenkins-插件" class="headerlink" title="需安装 Jenkins 插件"></a>需安装 Jenkins 插件</h5><p>Git、MSBuild、NuGet、PowerShell</p>
-<h5 id="配置系统环境变量"><a href="#配置系统环境变量" class="headerlink" title="配置系统环境变量"></a>配置系统环境变量</h5><p>Path 下增加 MSBuild 路径：<br>D:\Software\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\amd64</p>
+<h5 id="配置系统环境变量"><a href="#配置系统环境变量" class="headerlink" title="配置系统环境变量"></a>配置系统环境变量</h5><p>Path 下增加 MSBuild 路径：<br>..\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\amd64</p>
 <h5 id="NuGet-控制台程序下载"><a href="#NuGet-控制台程序下载" class="headerlink" title="NuGet 控制台程序下载"></a>NuGet 控制台程序下载</h5><p><a href="https://www.nuget.org/downloads" target="_blank" rel="noopener">https://www.nuget.org/downloads</a><br>下载后拷贝至 Path 环境变量中</p>
 <h4 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h4><h5 id="Pull-Git-代码"><a href="#Pull-Git-代码" class="headerlink" title="Pull Git 代码"></a>Pull Git 代码</h5><p>填写 Git 地址以及分支名称即可<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/%E6%BA%90%E7%A0%81%E7%AE%A1%E7%90%86.png"></p>
 <h6 id="设置-Git-用户名密码"><a href="#设置-Git-用户名密码" class="headerlink" title="设置 Git 用户名密码"></a>设置 Git 用户名密码</h6><p>如果本地 Git 记录用户无权限访问则会报错：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Failed to connect to repository : Command "git.exe ls-remote -h -- http://192.168.5.188:9090/***/***.git HEAD" returned status code 128:</span><br><span class="line"><span class="function">stdout:</span></span><br><span class="line"><span class="function"><span class="title">stderr</span>: <span class="title">remote</span>: <span class="title">HTTP</span> <span class="title">Basic</span>: <span class="title">Access</span> <span class="title">denied</span></span></span><br><span class="line"><span class="function"><span class="title">fatal</span>: <span class="title">Authentication</span> <span class="title">failed</span> <span class="title">for</span> '<span class="title">http</span>://192.168.5.188:9090/***/***.<span class="title">git</span>/'</span></span><br></pre></td></tr></table></figure></p>
