@@ -63,7 +63,7 @@
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Jenkins/ConfigSonarScannerForMSBuild.png">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Jenkins/ConfigJDK.png">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Jenkins/SonarScannerforMSBuild.png">
-<meta property="og:updated_time" content="2020-08-18T07:25:37.396Z">
+<meta property="og:updated_time" content="2020-08-19T01:50:20.387Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins 使用介绍">
 <meta name="twitter:image" content="https://sadness96.github.io/images/blog/software-Jenkins/jenkins.png">
@@ -275,7 +275,11 @@
 <h4 id="构建后操作"><a href="#构建后操作" class="headerlink" title="构建后操作"></a>构建后操作</h4><h5 id="归档成品"><a href="#归档成品" class="headerlink" title="归档成品"></a>归档成品</h5><p>在归档成品中直接写入打包好的安装包名称，会在构建结束后在结果中显示并可以直接下载<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/归档成品.png"></p>
 <p><img src="https://sadness96.github.io/images/blog/software-Jenkins/结果.png"></p>
 <p><span id="SonarQube"></span></p>
-<h4 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h4><h5 id="提示-‘xxx’-不是内部或外部命令，也不是可运行的程序或批处理文件。"><a href="#提示-‘xxx’-不是内部或外部命令，也不是可运行的程序或批处理文件。" class="headerlink" title="提示 ‘xxx’ 不是内部或外部命令，也不是可运行的程序或批处理文件。"></a>提示 ‘xxx’ 不是内部或外部命令，也不是可运行的程序或批处理文件。</h5><p>通常这个提示代表着环境变量配置错误，但是检测时发现系统环境变量配置正常，可以在 Jenkins 目录中手动执行命令操作，重启电脑和 Jenkins 后依然无效。<br>解决方式：选择 Jenkins → 左下角“构建执行状态” → 右侧齿轮标志“设置” → 节点属性 → 新增“Environment variables” → 拷贝报错(或全部)的环境变量到此处 → 保存<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/PathError.png"></p>
+<h4 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h4><h5 id="提示-‘xxx’-不是内部或外部命令，也不是可运行的程序或批处理文件。"><a href="#提示-‘xxx’-不是内部或外部命令，也不是可运行的程序或批处理文件。" class="headerlink" title="提示 ‘xxx’ 不是内部或外部命令，也不是可运行的程序或批处理文件。"></a>提示 ‘xxx’ 不是内部或外部命令，也不是可运行的程序或批处理文件。</h5><p>通常这个提示代表着环境变量配置错误，但是检测时发现系统环境变量配置正常，可以在 Jenkins 目录中手动执行命令操作，重启电脑和 Jenkins 后依然无效。<br>解决方式：选择 Jenkins → 左下角“构建执行状态” → 右侧齿轮标志“设置” → 节点属性 → 新增“Environment variables” → 拷贝报错(或全部)的环境变量到此处 → 保存</p>
+<ul>
+<li>无法识别环境变量中的：%SystemRoot%\，改用绝对路径。</li>
+</ul>
+<p><img src="https://sadness96.github.io/images/blog/software-Jenkins/PathError.png"></p>
 <h4 id="集成-SonarQube"><a href="#集成-SonarQube" class="headerlink" title="集成 SonarQube"></a>集成 SonarQube</h4><p>安装使用 SonarQube 参考博客：<a href="http://sadness96.github.io/blog/2020/01/16/software-SonarQube/">SonarQube 使用介绍</a></p>
 <h5 id="SonarQube-创建-Jenkins-ToKen"><a href="#SonarQube-创建-Jenkins-ToKen" class="headerlink" title="SonarQube 创建 Jenkins ToKen"></a>SonarQube 创建 Jenkins ToKen</h5><p><img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarQubeJenkinsToKens.png"></p>
 <h5 id="下载插件-SonarQube-Scanner"><a href="#下载插件-SonarQube-Scanner" class="headerlink" title="下载插件 SonarQube Scanner"></a>下载插件 SonarQube Scanner</h5><p><img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarQubeScanner.png"></p>
