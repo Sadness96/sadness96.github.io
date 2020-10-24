@@ -81,14 +81,16 @@ Android 开发使用真机有线调试和无线 wifi 调试
     ```
 
 1. 创建 adb 端口
+    使用命令 adb tcpip [port] 让手机的某个端口处于监听状态
     服务器端通过扫描5555到5585之间的奇数端口来寻找模拟器或设备实例并与找到的建立链接。
     ``` shell
     adb topic 5555
     ```
-    返回 restarting in TCP mode port: 5555 为创建成功
+    返回 restarting in TCP mode port:5555 为创建成功
 
 1. 创建 adb 无线连接
     保证手机与电脑在一个网络中
+    使用命令行 adb connect [ip-address]:[port-num] 连接手机
     命令中 ip 地址为手机在网络中的 ip 地址，端口号为上一步创建的监听端口
     ``` shell
     adb connect 192.168.1.101:5555
@@ -100,6 +102,13 @@ Android 开发使用真机有线调试和无线 wifi 调试
     adb devices
     ```
     返回 {ip 地址}:{端口号} 正确则可以进行无线调试
+
+1. 断开 Wi-Fi 链接
+    使用命令 adb disconnect [ip-address]:[port-num] 来中断连接
+    ``` shell
+    adb disconnect 192.168.1.101:5555
+    ```
+    返回 disconnected 192.168.1.101:5555 断开成功
 
 1. 命令展示
     <img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/无线调试.png"/>
