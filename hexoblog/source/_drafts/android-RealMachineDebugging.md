@@ -17,6 +17,10 @@ Android 手机数据线链接电脑并开启 USB 调试
 ##### Windows
 ###### 安装 Google USB Driver
 1. 选择 File → Setting…
+<img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/选择菜单Windows_Settings.png"/>
+
+1. 选择 Appearance & Behavior → System Settings → Android SDK → SDK Tools 勾选 Android SDK Tools 选项安装
+<img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/GoogleUSBDriver.png"/>
 
 ##### Mac OS
 ###### 获取 Android ADB 路径
