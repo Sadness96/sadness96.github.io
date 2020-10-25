@@ -22,6 +22,11 @@ Android 手机数据线链接电脑并开启 USB 调试
 1. 选择 Appearance & Behavior → System Settings → Android SDK → SDK Tools 勾选 Android SDK Tools 选项安装
 <img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/GoogleUSBDriver.png"/>
 
+1. 在计算机管理 → 设备管理器 → 便携设备中选择手机型号，更新驱动，期间可能会在手机中认证授权设备，确认即可
+<img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/计算机管理_更新驱动程序.png"/>
+
+1. 确保正确开启 USB 调试后可以真机调试
+
 ##### Mac OS
 ###### 获取 Android ADB 路径
 1. 选择 File → Project Structure…
