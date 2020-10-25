@@ -82,9 +82,11 @@ Android 手机数据线链接电脑并开启 USB 调试
     <img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/判断是否连接成功.png"/>
 
 #### 无线调试（需完成有线调试步骤）
-##### Windows
+##### Windows & Mac OS
+1. 配置 ADB 环境变量（如果未配置）
+Windows 通常 ADB 路径：..\Android\Sdk\platform-tools
+Mac OS 通常 ADB 路径：~/Library/Android/sdk
 
-##### Mac OS
 1. 使用命令检测 Android 手机是否链接正常（有线连接）
     ``` shell
     adb devices
