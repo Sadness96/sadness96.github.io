@@ -12,7 +12,11 @@ Android 开发使用真机有线调试和无线 wifi 调试
 
 ### 配置方式
 #### 有线调试
+Android 手机数据线链接电脑并开启 USB 调试
+大部分 Android 默认不显示 USB 调试，多次点击系统版本号开启开发者模式
 ##### Windows
+###### 安装 Google USB Driver
+1. 选择 File → Setting…
 
 ##### Mac OS
 ###### 获取 Android ADB 路径
@@ -44,9 +48,6 @@ Android 开发使用真机有线调试和无线 wifi 调试
     ```
 
 ###### 配置手机可被识别
-1. Android 手机数据线链接电脑并开启 USB 调试
-<img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/usb调试.jpg"/>
-
 1. 执行命令获取 usb 接入信息，查询信息中会显示链接的 Android 信息，记录 Vendor ID 备用
     ``` shell
     system_profiler SPUSBDataType
