@@ -76,6 +76,14 @@ nuget restore project.sln
 
 <img src="https://sadness96.github.io/images/blog/software-Jenkins/msbuild.png"/>
 
+编译时如需选择解决方案配置和解决方案平台
+``` cmd
+:: 解决方案配置“Debug|x86”
+MSBuild project.sln /property:Configuration=Debug /property:Platform=x86
+:: 解决方案配置“Release|x64”
+MSBuild project.sln /property:Configuration=Release /property:Platform=x64
+```
+
 ##### 编译代码(服务端)
 调用发布文件 .\Properties\PublishProfiles\FolderProfile.pubxml
 测试 MSBuild 命令中加入 VisualStudioVersion=16.3 会导致不会生成发布目录
