@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[CallerMemberNameAttribute 类]]></title>
+    <url>%2Fblog%2F2020%2F11%2F25%2Fcsharp-CallerMemberName%2F</url>
+    <content type="text"><![CDATA[在 Release 下输出堆栈信息 简介在项目中需要在打印日志同时打印堆栈信息，通常使用 StackTrace 来捕获堆栈信息，并跟随日志一同打印，但是生产环境部署通常使用 Release 方式打包，这会导致 StackTrace 方法失效。测试改用 CallerMemberNameAttribute 方式可以解决。 代码StackTrace 方式获取堆栈信息123456789public static void SaveError(string message)&#123; var stackTrace = new StackTrace(true); var stackFrame = stackTrace.GetFrame(1); if (stackFrame != null) &#123; logger.Error($"[&#123;stackFrame?.GetMethod()?.DeclaringType?.Name&#125;][&#123;stackFrame?.GetMethod()?.Name&#125;] &#123;message&#125;"); &#125;&#125; CallerMemberNameAttribute 改用方式获取堆栈信息1234567public static void SaveError(string message,[System.Runtime.CompilerServices.CallerMemberName] string memberName = "",[System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "",[System.Runtime.CompilerServices.CallerLineNumber] int sourceLineNumber = 0)&#123; logger.Error($"[&#123;System.IO.Path.GetFileName(sourceFilePath)&#125;][&#123;memberName&#125;] &#123;message&#125;");&#125;]]></content>
+      <categories>
+        <category>C#.Net</category>
+      </categories>
+      <tags>
+        <tag>c#</tag>
+        <tag>.net core</tag>
+        <tag>stack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[插入无线网卡后局域网无法连接]]></title>
     <url>%2Fblog%2F2020%2F07%2F16%2Fwindows-Route%2F</url>
     <content type="text"><![CDATA[通过 rount 命令编辑路由表 简介在一次出差时遇到插入无线网卡后内网无法访问，通过 rount 命令配置路由表后解决。 网络环境用户现场内网绑定地址IPV4 地址：10.69.129.126IPV4 子网掩码：255.255.255.0IPV4 默认网关：10.69.129.254 其他使用的内网地址IPV4 地址1：10.69.176.1IPV4 地址2：10.69.177.1 无线网卡HUAWEI e8372h-155 解决方法调用命令解决 10.69.129.1 网段访问1route -p add 10.69.129.0 mask 255.255.255.0 10.69.129.254 网段 10.69.176.1 与 10.69.177.1 访问转发 10.69.129.254 路由12route -p add 10.69.176.0 mask 255.255.255.0 10.69.129.254route -p add 10.69.177.0 mask 255.255.255.0 10.69.129.254 命令语法介绍1route [-f] [-p] [Command] [Destination] [mask Netmask] [Gateway] [metric Metric] [if Interface] -f清除所有不是主路由（网掩码为 255.255.255.255 的路由）、环回网络路由（目标为 127.0.0.0，网掩码为 255.255.255.0 的路由）或多播路由（目标为 224.0.0.0，网掩码为 240.0.0.0 的路由）的条目的路由表。如果它与命令之一（例如 add、change 或 delete）结合使用，表会在运行命令之前清除。 -p与 add 命令共同使用时，指定路由被添加到注册表并在启动 TCP/IP 协议的时候初始化 IP 路由表。默认情况下，启动 TCP/IP 协议时不会保存添加的路由。与 print 命令一起使用时，则显示永久路由列表。所有其它的命令都忽略此参数。永久路由存储在注册表中的位置是 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\PersistentRoutes。 command指定要运行的命令。下表列出了有效的命令。 命令 目的 add 添加路由 change 更改现存路由 delete 删除路由 print 打印路由 Destination指定路由的网络目标地址。目标地址可以是一个 IP 网络地址（其中网络地址的主机地址位设置为 0），对于主机路由是 IP 地址，对于默认路由是 0.0.0.0。 mask subnetmask指定与网络目标地址相关联的网掩码（又称之为子网掩码）。子网掩码对于 IP 网络地址可以是一适当的子网掩码，对于主机路由是 255.255.255.255 ，对于默认路由是 0.0.0.0。如果忽略，则使用子网掩码 255.255.255.255。定义路由时由于目标地址和子网掩码之间的关系，目标地址不能比它对应的子网掩码更为详细。换句话说，如果子网掩码的一位是 0，则目标地址中的对应位就不能设置为 1。 Gateway指定超过由网络目标和子网掩码定义的可达到的地址集的前一个或下一个跃点 IP 地址。对于本地连接的子网路由，网关地址是分配给连接子网接口的 IP 地址。对于要经过一个或多个路由器才可用到的远程路由，网关地址是一个分配给相邻路由器的、可直接达到的 IP 地址。 metric Metric为路由指定所需跃点数的整数值（范围是 1 ~ 9999），它用来在路由表里的多个路由中选择与转发包中的目标地址最为匹配的路由。所选的路由具有最少的跃点数。跃点数能够反映跃点的数量、路径的速度、路径可靠性、路径吞吐量以及管理属性。 if Interface指定目标可以到达的接口的接口索引。使用 route print 命令可以显示接口及其对应接口索引的列表。对于接口索引可以使用十进制或十六进制的值。对于十六进制值，要在十六进制数的前面加上 0x。忽略 if 参数时，接口由网关地址确定。]]></content>

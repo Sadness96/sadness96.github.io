@@ -7,7 +7,7 @@ categories: C#.Net
 ### 在 Release 下输出堆栈信息
 <!-- more -->
 #### 简介
-在项目中需要在打印日志同时打印堆栈信息，通常使用 [StackTrace](https://docs.microsoft.com/zh-cn/dotnet/api/system.diagnostics.stacktrace.-ctor?f1url=%3FappId%3DDev16IDEF1%26l%3DZH-CN%26k%3Dk(System.Diagnostics.StackTrace.%2523ctor);k(SolutionItemsProject);k(SolutionItemsProject);k(DevLang-csharp)%26rd%3Dtrue&view=net-5.0) 来捕获堆栈信息，并跟随日志一同打印，但是生产环境部署通常使用 Release 方式打包，这会导致 StackTrace 方法失效。测试改用 [CallerMemberNameAttribute](https://docs.microsoft.com/zh-cn/dotnet/api/System.Runtime.CompilerServices.CallerMemberNameAttribute?view=net-5.0) 方式可以解决。
+在项目中需要在打印日志同时打印堆栈信息，通常使用 [StackTrace](https://docs.microsoft.com/zh-cn/dotnet/api/system.diagnostics.stacktrace) 来捕获堆栈信息，并跟随日志一同打印，但是生产环境部署通常使用 Release 方式打包，这会导致 StackTrace 方法失效。测试改用 [CallerMemberNameAttribute](https://docs.microsoft.com/zh-cn/dotnet/api/System.Runtime.CompilerServices.CallerMemberNameAttribute) 方式可以解决。
 
 #### 代码
 ##### StackTrace 方式获取堆栈信息
