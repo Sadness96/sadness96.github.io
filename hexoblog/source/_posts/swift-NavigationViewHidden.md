@@ -16,7 +16,7 @@ categories: Swift
 直接使用 .navigationBarHidden(true) 可以使标题隐藏，但是二级菜单中的导航栏同步也会被隐藏，额外增加 .onAppear 与 .onDisappear 控制变量使导航栏在什么时候显示。
 
 #### 修改前截图示例
-<img src="https://sadness96.github.io/images/blog/swift-NavigationViewHidden/login1-register.png"/>
+<img src="https://sadness96.github.io/images/blog/swift-NavigationViewHidden/login1_register.png"/>
 
 #### 修改前代码片段
 ``` Swift
@@ -49,7 +49,7 @@ struct LoginView: View {
 ```
 
 #### 修改后截图示例
-<img src="https://sadness96.github.io/images/blog/swift-NavigationViewHidden/login2-register.png"/>
+<img src="https://sadness96.github.io/images/blog/swift-NavigationViewHidden/login2_register.png"/>
 
 #### 修改后代码片段
 ``` Swift
