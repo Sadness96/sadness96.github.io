@@ -7,10 +7,16 @@ categories: Swift
 ### SwiftUI 对 NavigationView 导航栏的一些操作
 <!-- more -->
 #### 简介
-原本简单的一个需求，但是相关的文档极少，所以还是记录一下的好
+原本简单的一个需求，但是相关的文档较少，所以还是记录一下的好
+
 #### 需求描述
 在 SwiftUI 开发 IOS 应用时，官方建议使用 [NavigationView](https://developer.apple.com/documentation/swiftui/navigationview) 来跳转页面，使用环境例如登录页弹出注册与修改密码二级菜单，登陆页需要隐藏导航栏，注册与修改密码菜单则需要显示导航栏显示标题并且可以返回登录页。
+
+#### 遇到问题
+直接使用 .navigationBarHidden(true) 可以使标题隐藏，但是二级菜单中的导航栏同步也会被隐藏，额外增加 .onAppear 与 .onDisappear 控制变量使导航栏在什么时候显示。
+
 #### 修改前截图示例
+<img src="https://sadness96.github.io/images/blog/swift-NavigationViewHidden/login1-register.png"/>
 
 #### 修改前代码片段
 ``` Swift
@@ -43,6 +49,7 @@ struct LoginView: View {
 ```
 
 #### 修改后截图示例
+<img src="https://sadness96.github.io/images/blog/swift-NavigationViewHidden/login2-register.png"/>
 
 #### 修改后代码片段
 ``` Swift

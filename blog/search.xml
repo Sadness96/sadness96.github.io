@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[SwiftUI 隐藏 NavigationView 导航栏]]></title>
+    <url>%2Fblog%2F2020%2F11%2F30%2Fswift-NavigationViewHidden%2F</url>
+    <content type="text"><![CDATA[SwiftUI 对 NavigationView 导航栏的一些操作 简介原本简单的一个需求，但是相关的文档较少，所以还是记录一下的好 需求描述在 SwiftUI 开发 IOS 应用时，官方建议使用 NavigationView 来跳转页面，使用环境例如登录页弹出注册与修改密码二级菜单，登陆页需要隐藏导航栏，注册与修改密码菜单则需要显示导航栏显示标题并且可以返回登录页。 遇到问题直接使用 .navigationBarHidden(true) 可以使标题隐藏，但是二级菜单中的导航栏同步也会被隐藏，额外增加 .onAppear 与 .onDisappear 控制变量使导航栏在什么时候显示。 修改前截图示例 修改前代码片段1234567891011121314151617181920212223242526struct LoginView: View &#123; var body: some View &#123; NavigationView&#123; VStack()&#123; …… HStack()&#123; NavigationLink( destination: RegisterView(), label: &#123; Text("注册用户") &#125;) Spacer() NavigationLink( destination: RetrievePasswordView(), label: &#123; Text("找回密码") &#125;) &#125; .padding(EdgeInsets(top: 30, leading: 40, bottom: 0, trailing: 40)) &#125; .navigationBarTitle(Text("登录")) &#125; &#125;&#125; 修改后截图示例 修改后代码片段123456789101112131415161718192021222324252627282930313233343536struct LoginView: View &#123; @State var isNavigationBarHidden: Bool = true var body: some View &#123; NavigationView&#123; VStack()&#123; …… HStack()&#123; NavigationLink( destination: RegisterView(), label: &#123; Text("注册用户") &#125;) Spacer() NavigationLink( destination: RetrievePasswordView(), label: &#123; Text("找回密码") &#125;) &#125; .padding(EdgeInsets(top: 30, leading: 40, bottom: 0, trailing: 40)) &#125; .navigationBarTitle(Text("登录")) .navigationBarHidden(self.isNavigationBarHidden) .onAppear &#123; self.isNavigationBarHidden = true &#125; .onDisappear &#123; self.isNavigationBarHidden = false &#125; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>Swift</category>
+      </categories>
+      <tags>
+        <tag>swift</tag>
+        <tag>swiftui</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CallerMemberNameAttribute 类]]></title>
     <url>%2Fblog%2F2020%2F11%2F25%2Fcsharp-CallerMemberName%2F</url>
     <content type="text"><![CDATA[在 Release 下输出堆栈信息 简介在项目中需要在打印日志同时打印堆栈信息，通常使用 StackTrace 来捕获堆栈信息，并跟随日志一同打印，但是生产环境部署通常使用 Release 方式打包，这会导致 StackTrace 方法失效。测试改用 CallerMemberNameAttribute 方式可以解决。 代码StackTrace 方式获取堆栈信息123456789public static void SaveError(string message)&#123; var stackTrace = new StackTrace(true); var stackFrame = stackTrace.GetFrame(1); if (stackFrame != null) &#123; logger.Error($"[&#123;stackFrame?.GetMethod()?.DeclaringType?.Name&#125;][&#123;stackFrame?.GetMethod()?.Name&#125;] &#123;message&#125;"); &#125;&#125; CallerMemberNameAttribute 改用方式获取堆栈信息1234567public static void SaveError(string message,[System.Runtime.CompilerServices.CallerMemberName] string memberName = "",[System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "",[System.Runtime.CompilerServices.CallerLineNumber] int sourceLineNumber = 0)&#123; logger.Error($"[&#123;System.IO.Path.GetFileName(sourceFilePath)&#125;][&#123;memberName&#125;] &#123;message&#125;");&#125;]]></content>
