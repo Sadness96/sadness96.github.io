@@ -239,7 +239,7 @@ function GetIpLocation() {
 
 <img src="https://sadness96.github.io/images/blog/blog-Location/location2.jpg"/>
 
-* 另外一个我期望的信息，没想到来的这么快，知道我的域名，同时使用 努比亚X 这么小众的手机，QQ 浏览器，并且在哈尔滨，我知道这肯定就是你，这一世咱们缘分薄，知道你过得还不错，我这心也就踏实了，愿一切安好。
+* 另外一个我期望的信息，没想到来的这么快，知道我的域名，同时使用 努比亚X 这么小众的手机，QQ 浏览器，并且在哈尔滨，我知道这肯定就是你，很高兴你也在关注我，这一世咱们缘分薄，知道你过得还不错，我这心也就踏实了，愿一切安好。
 
 ``` text
 2020-12-03 19:44:36.083 ip:1.58.90.177,ua:Mozilla/5.0 (Linux; U; Android 9; zh-cn; NX616J Build/PKQ1.180929.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/11.0 Mobile Safari/537.36 COVC/045429,lng:126.70117723534,lat:45.785759977106
