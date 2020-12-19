@@ -52,7 +52,7 @@ Browser.Address = @"https://www.baidu.com/";
 ``` csharp
 using CefSharp;
 
-namespace Ice.CefControl.Handler
+namespace *
 {
     /// <summary>
     /// 关联 Cef 右键菜单
@@ -119,7 +119,7 @@ using CefSharp;
 using System;
 using System.Windows.Forms;
 
-namespace Ice.CefControl.Handler
+namespace *
 {
     /// <summary>
     /// 捕获 Cef 快捷键
@@ -201,7 +201,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
 
-namespace ProjectName
+namespace *
 {
     /// <summary>
     /// Interaction logic for App.xaml
