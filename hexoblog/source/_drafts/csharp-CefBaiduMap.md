@@ -80,7 +80,7 @@ map.baidu.html?Lon=116.4716&Lat=40.01849
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <chrome:ChromiumWebBrowser/>
+        <chrome:ChromiumWebBrowser x:Name="Browser"/>
     </Grid>
 </UserControl>
 ```
@@ -109,9 +109,7 @@ namespace Ice.BaiduMap.Control
         {
             if (File.Exists(_webapp_baidumap_path) && !string.IsNullOrEmpty(Lon) && !string.IsNullOrEmpty(Lat))
             {
-                var webView = new ChromiumWebBrowser();
-                this.Content = webView;
-                webView.Address = $"{_webapp_baidumap_path}?Lon={Lon}&Lat={Lat}";
+                Browser.Address = $"{_webapp_baidumap_path}?Lon={Lon}&Lat={Lat}";
             }
         }
 
@@ -149,115 +147,4 @@ namespace Ice.BaiduMap.Control
 <Grid>
     <control:BaiduMap Lon="116.4716" Lat="40.01849"/>
 </Grid>
-```
-
-#### CefSharp 使用优化
-##### CefSharp 以 Any CPU 平台编译并且使文件生成在子目录
-###### 参考文档
-[Add AnyCPU Support](https://github.com/cefsharp/CefSharp/issues/1714)
-[Copy CefSharp Files](https://github.com/cefsharp/CefSharp/pull/1753)
-###### 代码部分
-编辑项目文件 project.csproj 加入以下内容
-``` xml
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-
-  <PropertyGroup>
-    <!--允许在 Any CPU 平台下允许编译-->
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
-    <!--拷贝 CefSharp 相关文件至 \CefSharp 子文件夹-->
-    <!--x86 与 x64 平台下编译会生成在 \CefSharp 目录下-->
-    <!--Any CPU 平台下编译会在 \CefSharp 下生成 \x86 与 \x64 子文件夹-->
-    <CefSharpTargetDir>\CefSharp</CefSharpTargetDir>
-  </PropertyGroup>
-
-</Project>
-```
-在运行初始时执行代码 WPF 为：App.xaml.cs 文件
-``` csharp
-using CefSharp;
-using CefSharp.Wpf;
-using System;
-using System.IO;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Windows;
-
-namespace ProjectName
-{
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
-    {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            // Add Custom assembly resolver
-            AppDomain.CurrentDomain.AssemblyResolve += Resolver;
-
-            // Any CefSharp references have to be in another method with NonInlining
-            // attribute so the assembly rolver has time to do it's thing.
-            InitializeCefSharp();
-
-            // 启动主程序
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void InitializeCefSharp()
-        {
-            var settings = new CefSettings();
-
-            // 不对日志进行保存
-            settings.LogSeverity = LogSeverity.Disable;
-
-            // Set BrowserSubProcessPath based on app bitness at runtime
-            settings.BrowserSubprocessPath = GetCefSharpFilePath("CefSharp.BrowserSubprocess.exe");
-
-            // Make sure you set performDependencyCheck false
-            Cef.Initialize(settings, performDependencyCheck: false, browserProcessHandler: null);
-        }
-
-        // Will attempt to load missing assembly from either x86 or x64 subdir
-        // Required by CefSharp to load the unmanaged dependencies when running using AnyCPU
-        private static Assembly Resolver(object sender, ResolveEventArgs args)
-        {
-            if (args.Name.StartsWith("CefSharp"))
-            {
-                string assemblyName = args.Name.Split(new[] { ',' }, 2)[0] + ".dll";
-                string archSpecificPath = GetCefSharpFilePath(assemblyName);
-                return File.Exists(archSpecificPath) ? Assembly.LoadFile(archSpecificPath) : null;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// 获取 CefSharp 文件路径
-        /// </summary>
-        /// <param name="assemblyName">文件名称</param>
-        /// <returns></returns>
-        private static string GetCefSharpFilePath(string assemblyName)
-        {
-            var vAnyCpuPath = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "CefSharp", Environment.Is64BitProcess ? "x64" : "x86", assemblyName);
-            var vNoAnyCpuPath = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "CefSharp", assemblyName);
-            return Directory.Exists(Path.GetDirectoryName(vAnyCpuPath)) ? vAnyCpuPath : vNoAnyCpuPath;
-        }
-    }
-}
-```
-
-##### CefSharp 报错：试图加载格式不正确的程序。
-默认 CefSharp 仅允许在设置为 x86 或 x64 平台下运行，修改设置即可。
-但是有时会在配置了允许 Any CPU 后出现 x86 平台下正常 x64 平台下运行报同样错误，最后找到问题出现在独立创建用的于调用 Cef 库不知何时生成出一些不必要的内容，删除 project.csproj 文件下不必要的内容即可。
-``` xml
-<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-  <PlatformTarget>x86</PlatformTarget>
-</PropertyGroup>
-
-<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-  <PlatformTarget>x86</PlatformTarget>
-</PropertyGroup>
-
-<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-  <PlatformTarget>x86</PlatformTarget>
-</PropertyGroup>
 ```
