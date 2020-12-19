@@ -78,6 +78,8 @@ nuget restore project.sln
 
 编译时如需选择解决方案配置和解决方案平台
 ``` cmd
+:: 解决方案配置“Release|Any CPU”
+MSBuild project.sln /property:Configuration=Release
 :: 解决方案配置“Debug|x86”
 MSBuild project.sln /property:Configuration=Debug /property:Platform=x86
 :: 解决方案配置“Release|x64”
