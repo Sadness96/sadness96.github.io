@@ -10,7 +10,7 @@ MLAT CAT020 0.15 报文协议解析
 ### 简介/声明
 多点定位(MLAT) 全称是 Multilateration，多点定位技术利用多个地面接收机接收到机载应答机信号的时间差，计算得出飞机位置。
 
-解析文档均为[欧洲航空交通管理](https://www.eurocontrol.int/)官方提供，解析代码基于 CSDN 付费文档修改，仅包含极少部分公司业务格式不包含涉密文件，如有侵权请联系本人删除。
+解析文档均为[欧洲航空交通管理](https://www.eurocontrol.int/)官方提供，解析代码基于 CSDN 付费文档修改，仅包含极少部分公司业务格式不包含涉密文件。
 ## 参考资料
 ### 原文
 [EuroControl](https://www.eurocontrol.int)：[cat020p14ed15.pdf](https://www.eurocontrol.int/sites/default/files/2019-06/cat020-asterix-mlt-messages-part-14.pdf)

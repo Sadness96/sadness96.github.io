@@ -10,7 +10,7 @@ Radar CAT062 1.18 报文协议解析
 ### 简介/声明
 [Radar](https://baike.baidu.com/item/%E9%9B%B7%E8%BE%BE/10485?fr=aladdin) 雷达，源于radio detection and ranging的缩写，意思为"无线电探测和测距"，即用无线电的方法发现目标并测定它们的空间位置。因此，雷达也被称为“无线电定位”。雷达是利用电磁波探测目标的电子设备。雷达发射电磁波对目标进行照射并接收其回波，由此获得目标至电磁波发射点的距离、距离变化率（径向速度）、方位、高度等信息。
 
-解析文档均为[欧洲航空交通管理](https://www.eurocontrol.int/)官方提供，仅包含极少部分公司业务格式不包含涉密文件，如有侵权请联系本人删除。
+解析文档均为[欧洲航空交通管理](https://www.eurocontrol.int/)官方提供，仅包含极少部分公司业务格式不包含涉密文件。
 ## 参考资料
 ### 原文
 [EuroControl](https://www.eurocontrol.int)：[cat062p9ed118.pdf](https://www.eurocontrol.int/sites/default/files/content/documents/nm/asterix/cat062p9ed118.pdf)
