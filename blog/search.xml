@@ -13,9 +13,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[CallerMemberNameAttribute 类]]></title>
+    <title><![CDATA[在 Release 下输出堆栈信息]]></title>
     <url>%2Fblog%2F2020%2F11%2F25%2Fcsharp-CallerMemberName%2F</url>
-    <content type="text"><![CDATA[在 Release 下输出堆栈信息 简介在项目中需要在打印日志同时打印堆栈信息，通常使用 StackTrace 来捕获堆栈信息，并跟随日志一同打印，但是生产环境部署通常使用 Release 方式打包，这会导致 StackTrace 方法失效。测试改用 CallerMemberNameAttribute 方式可以解决。 代码StackTrace 方式获取堆栈信息123456789public static void SaveError(string message)&#123; var stackTrace = new StackTrace(true); var stackFrame = stackTrace.GetFrame(1); if (stackFrame != null) &#123; logger.Error($"[&#123;stackFrame?.GetMethod()?.DeclaringType?.Name&#125;][&#123;stackFrame?.GetMethod()?.Name&#125;] &#123;message&#125;"); &#125;&#125; CallerMemberNameAttribute 改用方式获取堆栈信息1234567public static void SaveError(string message,[System.Runtime.CompilerServices.CallerMemberName] string memberName = "",[System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "",[System.Runtime.CompilerServices.CallerLineNumber] int sourceLineNumber = 0)&#123; logger.Error($"[&#123;System.IO.Path.GetFileName(sourceFilePath)&#125;][&#123;memberName&#125;] &#123;message&#125;");&#125;]]></content>
+    <content type="text"><![CDATA[使用 CallerMemberNameAttribute 类获取堆栈信息 简介在项目中需要在打印日志同时打印堆栈信息，通常使用 StackTrace 来捕获堆栈信息，并跟随日志一同打印，但是生产环境部署通常使用 Release 方式打包，这会导致 StackTrace 方法失效。测试改用 CallerMemberNameAttribute 方式可以解决。 代码StackTrace 方式获取堆栈信息123456789public static void SaveError(string message)&#123; var stackTrace = new StackTrace(true); var stackFrame = stackTrace.GetFrame(1); if (stackFrame != null) &#123; logger.Error($"[&#123;stackFrame?.GetMethod()?.DeclaringType?.Name&#125;][&#123;stackFrame?.GetMethod()?.Name&#125;] &#123;message&#125;"); &#125;&#125; CallerMemberNameAttribute 改用方式获取堆栈信息1234567public static void SaveError(string message,[System.Runtime.CompilerServices.CallerMemberName] string memberName = "",[System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "",[System.Runtime.CompilerServices.CallerLineNumber] int sourceLineNumber = 0)&#123; logger.Error($"[&#123;System.IO.Path.GetFileName(sourceFilePath)&#125;][&#123;memberName&#125;] &#123;message&#125;");&#125;]]></content>
       <categories>
         <category>C#.Net</category>
       </categories>
