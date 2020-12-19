@@ -244,3 +244,20 @@ namespace ProjectName
     }
 }
 ```
+
+##### CefSharp 报错：试图加载格式不正确的程序。
+默认 CefSharp 仅允许在设置为 x86 或 x64 平台下运行，修改设置即可。
+但是有时会在配置了允许 Any CPU 后出现 x86 平台下正常 x64 平台下运行报同样错误，最后找到问题出现在独立创建用的于调用 Cef 库不知何时生成出一些不必要的内容，删除 project.csproj 文件下不必要的内容即可。
+``` xml
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PlatformTarget>x86</PlatformTarget>
+</PropertyGroup>
+
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+  <PlatformTarget>x86</PlatformTarget>
+</PropertyGroup>
+
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <PlatformTarget>x86</PlatformTarget>
+</PropertyGroup>
+```
