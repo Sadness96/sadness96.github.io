@@ -6,8 +6,8 @@ categories: C++
 ---
 <img src="https://sadness96.github.io/images/blog/cpp-Sdses/s100-1.jpg"/>
 
-### 基于神思二代身份证读卡器做二次开发
 <!-- more -->
+### 基于神思二代身份证读卡器做二次开发
 #### 简介
 公司中项目[人证合一核查系统](https://baike.baidu.com/item/%E4%BA%BA%E8%AF%81%E5%90%88%E4%B8%80/19776127?fr=aladdin)需要，使用[神思二代身份证读卡器](http://www.sdses.com/)二次开发集成。
 由于神思二代证[SKD](https://baike.baidu.com/item/sdk/7815680?fr=aladdin)只提供了C++/Java接口，项目还是采用C#作为主要开发语言，使用WPF开发界面，所以采用 [C#/C++ 混合编程](/blog/2018/08/01/cpp-HybridCSharp/) 的方式开发。

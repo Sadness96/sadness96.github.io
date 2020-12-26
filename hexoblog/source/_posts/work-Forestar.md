@@ -6,8 +6,8 @@ categories: Work
 ---
 <img src="https://sadness96.github.io/images/blog/work-Forestar/mapzone.png"/>
 
-### 基于 ArcGIS 和公司自主平台 Mapzone 进行地理信息系统二次开发
 <!-- more -->
+### 基于 ArcGIS 和公司自主平台 Mapzone 进行地理信息系统二次开发
 #### 个人简介
 2016年06月28日 - 2018年06月28日 就职于 [北京地林伟业科技股份有限公司](http://www.forestar.com.cn/) 软件研发工程师岗位。
 #### 公司简介

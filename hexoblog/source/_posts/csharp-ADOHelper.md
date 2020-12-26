@@ -6,8 +6,8 @@ categories: C#.Net
 ---
 <img src="https://sadness96.github.io/images/blog/csharp-DevFramework/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7.png"/>
 
-### 使用 ADO.NET 二次封装ORM框架的数据库操作帮助类
 <!-- more -->
+### 使用 ADO.NET 二次封装ORM框架的数据库操作帮助类
 #### 简介
 工作中大量需要多种不同数据格式互相转换，通过ADO.NET实现可视化数据转换工具，目前支持关系型数据库SqlServer、Oracle、MySql、Access、SQLite。
 #### 设计

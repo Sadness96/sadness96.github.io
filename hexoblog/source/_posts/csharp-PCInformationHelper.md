@@ -6,8 +6,8 @@ categories: C#.Net
 ---
 <img src="https://sadness96.github.io/images/blog/csharp-DevFramework/%E6%B3%A8%E5%86%8C%E5%B7%A5%E5%85%B7.png"/>
 
-### 获取电脑硬件基础信息，用于开发时作为唯一标示或注册激活使用
 <!-- more -->
+### 获取电脑硬件基础信息，用于开发时作为唯一标示或注册激活使用
 #### 帮助类及说明
 [PCInformationHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/PCInformation/PCInformationHelper.cs) 获取的信息有：网卡MAC地址、CPU-ID、硬盘序列号、内存序列号、主板序列号、BIOS序列号、显卡信息。可拼接加密生成唯一序列号，可用于软件激活使用或作为其他唯一标识。
 ``` CSharp

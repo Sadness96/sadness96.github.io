@@ -6,8 +6,8 @@ categories: C#.Net
 ---
 <img src="https://sadness96.github.io/images/blog/csharp-DevFramework/%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7.png"/>
 
-### 提供几种对称加密与非对称加密算法，以及单项加密与文件夹加密
 <!-- more -->
+### 提供几种对称加密与非对称加密算法，以及单项加密与文件夹加密
 #### 简介
 工作中需要各种方式的加密（传输文本加密，文件加密，图片Base64编码，文件MD5与SHA1值计算），既有对称式加密与非对称式加密，也有单向加密，应用于各种使用环境。
 #### 警告

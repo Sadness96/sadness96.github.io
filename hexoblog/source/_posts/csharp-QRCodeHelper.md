@@ -6,8 +6,8 @@ categories: C#.Net
 ---
 <img src="https://sadness96.github.io/images/blog/csharp-DevFramework/%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81.png"/>
 
-### 基于 ZXing.QrCode 库制作的横条码/二维码生成识别工具
 <!-- more -->
+### 基于 ZXing.QrCode 库制作的横条码/二维码生成识别工具
 #### 简介
 [二维码（QR Code码）](https://baike.baidu.com/item/%E4%BA%8C%E7%BB%B4%E7%A0%81) 在现在生活中十分常见，扫一扫即可付款。原本想要学习一下二维码原理自己造轮子，后来还是决定站在巨人的肩膀上使用Google的开源库ZXing来生成和识别二维码/横条码。
 #### 帮助类

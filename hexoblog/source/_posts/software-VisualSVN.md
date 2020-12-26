@@ -6,8 +6,8 @@ categories: Software
 ---
 <img src="https://sadness96.github.io/images/blog/software-VisualSVN/VisualSVN-Server.png"/>
 
-### 使用 SVN 作为版本管理工具
 <!-- more -->
+### 使用 SVN 作为版本管理工具
 #### 简介
 [SVN](https://baike.baidu.com/item/SVN) 是一个开放源代码的[版本控制系统](https://baike.baidu.com/item/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/3311252)，现大部分公司还是使用SVN作为代码托管服务，我曾经提议公司将版本控制替换为 [GIT](https://baike.baidu.com/item/GIT/12647237)，但是项目经理有考虑员工学习成本，最后没有使用。
 #### 部署服务端（VisualSVN Server）

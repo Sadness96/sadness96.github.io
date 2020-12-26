@@ -6,8 +6,8 @@ categories: Work
 ---
 <img src="https://sadness96.github.io/images/blog/work-KedunTech/%E4%B8%BB%E7%A8%8B%E5%BA%8F.png"/>
 
-### 人像识别重建系统
 <!-- more -->
+### 人像识别重建系统
 #### 个人简介
 2018年07月12日 - 2019年08月09日 就职于 [科盾科技股份有限公司](http://www.kedun.com/) 软件研发工程师岗位。
 #### 公司简介

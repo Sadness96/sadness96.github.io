@@ -6,8 +6,8 @@ categories: Software
 ---
 <img src="https://sadness96.github.io/images/blog/software-Rose/rose_log.png"/>
 
-### 本地灾备、远程容灾，快速恢复数据和业务
 <!-- more -->
+### 本地灾备、远程容灾，快速恢复数据和业务
 #### 简介
 [RoseReplicator](http://www.rosedata.com/index.php/Prodetail/index/proid/24)是基于网络的实时数据容灾复制以及业务连续性保护产品，实现生产数据的本地/远程实时容灾备份，保证数据的安全。实时监测应用资源运行状态，实现资源故障时自动/手动应急切换，解决软、硬件的单点故障，提供高级别的容灾保护。
 

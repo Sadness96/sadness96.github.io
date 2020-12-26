@@ -6,8 +6,8 @@ categories: Software
 ---
 <img src="https://sadness96.github.io/images/blog/software-Nsis/HM-VNISEdit.jpg"/>
 
-### 基于 NSIS 的 Windows 桌面端打包程序
 <!-- more -->
+### 基于 NSIS 的 Windows 桌面端打包程序
 #### 简介
 [NSIS（Nullsoft Scriptable Install System）](https://nsis.sourceforge.io/Main_Page)是一个专业的开源系统，用于创建Windows安装程序。它的设计尽可能小巧灵活，因此非常适合互联网分发。
 只做了一个最基础安装包程序，如需定制样式可查阅官方网站。
