@@ -14,9 +14,9 @@ categories: Repair
 ### 氚气发光还是很不错的
 官网的展示，可以拖动显示正常和夜间的效果
 <div style="width:100%;height:820px;overflow:hidden;border:0px;">
-<div style="width:100%;height:820px;margin:-90px 0px 0px 0px;">
-<iframe src="https://luminox.jp/watch-collection/land/recon-point-man-8820-series-ref8821-km/" scrolling="no" height="900" width="767" frameborder="0"></iframe>
-</div>
+  <div style="width:100%;height:820px;margin:-90px 0px 0px 0px;">
+   <iframe src="https://luminox.jp/watch-collection/land/recon-point-man-8820-series-ref8821-km/" scrolling="no" height="900" width="767" frameborder="0"></iframe>
+  </div>
 </div>
 
 ### 更换电池
