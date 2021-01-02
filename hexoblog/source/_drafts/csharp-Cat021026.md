@@ -4,8 +4,7 @@ date: 2019-08-19 12:49:00
 tags: [c#]
 categories: C#.Net
 ---
-# ADS-B 报文解析
-ADS-B CAT021 0.26 报文协议解析
+# ADS-B CAT021 0.26 报文协议解析
 <!-- more -->
 ### 简介/声明
 [ADS-B](https://baike.baidu.com/item/ADS-B/9750451?fr=aladdin) 全称是Automatic Dependent Surveillance - Broadcast，中文是广播式自动相关监视，顾名思义，即无需人工操作或者询问，可以自动地从相关机载设备获取飞机或地面站广播飞机的位置、高度、速度、航向、识别号等参数信息，以供管制员对飞机状态进行监控。它衍生于ADS（自动相关监视），最初是为越洋飞行的航空器在无法进行雷达监视的情况下，希望利用卫星实施监视所提出的解决方案。
