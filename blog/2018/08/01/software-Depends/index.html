@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
-<link rel="stylesheet" href="/blog/css/main.css?v=7.1.1">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="/blog/css/main.css?v=7.1.1"/>
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/Logo300.png?v=7.1.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/Logo30.png?v=7.1.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/Logo16.png?v=7.1.1">
@@ -14,7 +14,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/blog/',
+    root: '',
     scheme: 'Pisces',
     version: '7.1.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -34,20 +34,22 @@
     }
   };
 </script>
-  <meta name="keywords" content="software,depends">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="article">
 <meta property="og:title" content="Depends 使用介绍">
 <meta property="og:url" content="http://sadness96.github.io/blog/2018/08/01/software-Depends/index.html">
 <meta property="og:site_name" content="个人博客 - 刘佳华">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Depends/depends.jpg">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Depends/LackDLL.png">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Depends/C-CPP.jpg">
-<meta property="og:updated_time" content="2020-07-16T14:09:06.339Z">
+<meta property="article:published_time" content="2018-08-01T04:13:07.000Z">
+<meta property="article:modified_time" content="2021-01-09T21:03:40.232Z">
+<meta property="article:author" content="LiuJiaHua">
+<meta property="article:tag" content="software">
+<meta property="article:tag" content="depends">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Depends 使用介绍">
 <meta name="twitter:image" content="https://sadness96.github.io/images/blog/software-Depends/depends.jpg">
-  <link rel="canonical" href="http://sadness96.github.io/blog/2018/08/01/software-Depends/">
+  <link rel="canonical" href="http://sadness96.github.io/blog/2018/08/01/software-Depends/"/>
 <script id="page.configurations">
   CONFIG.page = {
     sidebar: "",
@@ -76,7 +78,7 @@
   .use-motion .logo-line-after i { right: initial; }
   </style>
 </noscript>
-</head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -102,26 +104,26 @@
 <nav class="site-nav">
     <ul id="menu" class="menu">
           <li class="menu-item menu-item-home">
-    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
   </li>
           <li class="menu-item menu-item-archives">
-    <a href="/blog/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/blog/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
   </li>
           <li class="menu-item menu-item-categories">
-    <a href="/blog/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/blog/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
   </li>
           <li class="menu-item menu-item-tags">
-    <a href="/blog/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/blog/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
   </li>
           <li class="menu-item menu-item-about">
-    <a href="/blog/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/blog/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br/>关于</a>
   </li>
           <li class="menu-item menu-item-github">
-    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="menu-item-icon fa fa-fw fa-github"></i> <br>GitHub</a>
+    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="menu-item-icon fa fa-fw fa-github"></i> <br/>GitHub</a>
   </li>
         <li class="menu-item menu-item-search">
             <a href="javascript:;" class="popup-trigger">
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
     </ul>
     <div class="site-search">
@@ -134,7 +136,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -150,14 +154,14 @@
   <div id="posts" class="posts-expand">
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/blog/2018/08/01/software-Depends/">
+    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/blog/2018/08/01/software-Depends/"/>
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LiuJiaHua">
-      <meta itemprop="description" content="记录生活,记录学习,记录成长!">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+      <meta itemprop="name" content="LiuJiaHua"/>
+      <meta itemprop="description" content="记录生活,记录学习,记录成长!"/>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4"/>
     </span>
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客 - 刘佳华">
+      <meta itemprop="name" content="个人博客 - 刘佳华"/>
     </span>
       <header class="post-header">
           <h1 class="post-title" itemprop="name headline">Depends 使用介绍
@@ -181,12 +185,12 @@
         </div>
       </header>
     <div class="post-body" itemprop="articleBody">
-        <p><img src="https://sadness96.github.io/images/blog/software-Depends/depends.jpg"></p>
+        <p><img src="https://sadness96.github.io/images/blog/software-Depends/depends.jpg"/></p>
 <a id="more"></a>
-<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p><a href="http://www.dependencywalker.com/" target="_blank" rel="noopener">Depends</a>：可以扫描任何32位或64位Windows模块（exe，dll，ocx，sys等），并构建所有相关模块的分层树形图。对于找到的每个模块，它列出了该模块导出的所有函数，以及其他模块实际调用了哪些函数。另一个视图显示所需文件的最小集合，以及每个文件的详细信息，包括文件的完整路径，基本地址，版本号，机器类型，调试信息等。对于解决与加载和执行模块相关的系统错误也非常有用。Dependency Walker检测到许多常见的应用程序问题，例如缺少模块，模块无效，导入/导出不匹配，循环依赖性错误，模块的机器类型不匹配以及模块初始化失败。<br>工作中需要使用到 <a href="/blog/2018/08/01/cpp-HybridCSharp/">C#/C++ 混合编程</a>，或者安装一个软件后提示丢失某些类库导致无法运行时，Depends是最好的选择。</p>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><h5 id="引用类库缺少"><a href="#引用类库缺少" class="headerlink" title="引用类库缺少"></a>引用类库缺少</h5><p>软件安装包或开发环境提示错误：无法加载 DLL“xxx.dll”: 找不到指定的模块。使用Depends检查缺少模块，模块无效的库。<br>下图：<a href="https://opencv.org/" target="_blank" rel="noopener">OpenCV</a> 使用 <a href="https://visualstudio.microsoft.com/zh-hans/downloads/" target="_blank" rel="noopener">Visual Studio</a> 2015 开发缺少mfc120d.dll、msvcr120d.dll、msvcp120d.dll库<br><img src="https://sadness96.github.io/images/blog/software-Depends/LackDLL.png"></p>
-<h5 id="C-C-开发"><a href="#C-C-开发" class="headerlink" title="C/C++开发"></a>C/C++开发</h5><p>方法声明为C++方法时，<a href="https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.dllimportattribute?redirectedfrom=MSDN&amp;view=netframework-4.8" target="_blank" rel="noopener">DllImport</a> 引用被不明方法加密，调用时需拷贝对应方法的Function名字粘贴到EntryPoint。<br><img src="https://sadness96.github.io/images/blog/software-Depends/C-CPP.jpg"></p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">DllImport(@<span class="meta-string">"CPP_Demo.dll"</span>, EntryPoint = <span class="meta-string">"?filePath@@YAPADPAD@Z"</span>, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> IntPtr <span class="title">filePath</span>(<span class="params">IntPtr filePath</span>)</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p><a target="_blank" rel="noopener" href="http://www.dependencywalker.com/">Depends</a>：可以扫描任何32位或64位Windows模块（exe，dll，ocx，sys等），并构建所有相关模块的分层树形图。对于找到的每个模块，它列出了该模块导出的所有函数，以及其他模块实际调用了哪些函数。另一个视图显示所需文件的最小集合，以及每个文件的详细信息，包括文件的完整路径，基本地址，版本号，机器类型，调试信息等。对于解决与加载和执行模块相关的系统错误也非常有用。Dependency Walker检测到许多常见的应用程序问题，例如缺少模块，模块无效，导入/导出不匹配，循环依赖性错误，模块的机器类型不匹配以及模块初始化失败。<br>工作中需要使用到 <a href="/blog/2018/08/01/cpp-HybridCSharp/">C#/C++ 混合编程</a>，或者安装一个软件后提示丢失某些类库导致无法运行时，Depends是最好的选择。</p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><h5 id="引用类库缺少"><a href="#引用类库缺少" class="headerlink" title="引用类库缺少"></a>引用类库缺少</h5><p>软件安装包或开发环境提示错误：无法加载 DLL“xxx.dll”: 找不到指定的模块。使用Depends检查缺少模块，模块无效的库。<br>下图：<a target="_blank" rel="noopener" href="https://opencv.org/">OpenCV</a> 使用 <a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/downloads/">Visual Studio</a> 2015 开发缺少mfc120d.dll、msvcr120d.dll、msvcp120d.dll库<br><img src="https://sadness96.github.io/images/blog/software-Depends/LackDLL.png"/></p>
+<h5 id="C-C-开发"><a href="#C-C-开发" class="headerlink" title="C/C++开发"></a>C/C++开发</h5><p>方法声明为C++方法时，<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.dllimportattribute?redirectedfrom=MSDN&amp;view=netframework-4.8">DllImport</a> 引用被不明方法加密，调用时需拷贝对应方法的Function名字粘贴到EntryPoint。<br><img src="https://sadness96.github.io/images/blog/software-Depends/C-CPP.jpg"/></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">DllImport(@<span class="meta-string">&quot;CPP_Demo.dll&quot;</span>, EntryPoint = <span class="meta-string">&quot;?filePath@@YAPADPAD@Z&quot;</span>, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> IntPtr <span class="title">filePath</span>(<span class="params">IntPtr filePath</span>)</span>;</span><br></pre></td></tr></table></figure>
     </div>
     <footer class="post-footer">
         <div class="post-tags">
@@ -232,25 +236,27 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4" alt="LiuJiaHua">
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4"
+                alt="LiuJiaHua"/>
               <p class="site-author-name" itemprop="name">LiuJiaHua</p>
               <div class="site-description motion-element" itemprop="description">记录生活,记录学习,记录成长!</div>
           </div>
             <nav class="site-state motion-element">
                 <div class="site-state-item site-state-posts">
-                  <a href="/blog/archives">
+                  <a href="/blog/archives%20%7C%7C%20archive">
                     <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
                 <div class="site-state-item site-state-categories">
-                      <a href="/blog/categories">
+                      <a href="/blog/categories%20%7C%7C%20th">
                     <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
                 <div class="site-state-item site-state-tags">
-                      <a href="/blog/tags">
+                      <a href="/blog/tags%20%7C%7C%20tags">
                     <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
@@ -261,7 +267,7 @@
       <!--noindex-->
         <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#引用类库缺少"><span class="nav-number">2.1.</span> <span class="nav-text">引用类库缺少</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#C-C-开发"><span class="nav-number">2.2.</span> <span class="nav-text">C/C++开发</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%BA%93%E7%BC%BA%E5%B0%91"><span class="nav-number">2.1.</span> <span class="nav-text">引用类库缺少</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#C-C-%E5%BC%80%E5%8F%91"><span class="nav-number">2.2.</span> <span class="nav-text">C&#x2F;C++开发</span></a></li></ol></li></ol></div>
           </div>
         </div>
       <!--/noindex-->
@@ -275,14 +281,14 @@
     </main>
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">LiuJiaHua</span>
 </div>
 <!-- 隐藏：由 Hexo 强力驱动 v3.8.0 | 主题 – NexT.Pisces v7.1.1
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.3.0</div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
 -->
