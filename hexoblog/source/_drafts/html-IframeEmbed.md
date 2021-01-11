@@ -31,16 +31,16 @@ categories: Html
 
 ##### 代码
 ``` html
-<div style="width:679px;height:641px;overflow:hidden;border:0px;"> 
-  <div style="width:679px;height:641px;margin:-240px 0px 0px -133px;"> 
+<div style="width:680px;height:640px;overflow:hidden;border:0px;"> 
+  <div style="width:680px;height:640px;margin:-145px 0px 0px -140px;"> 
    <iframe src="http://www.weather.com.cn/weather/101010100.shtml" height="850" width="1280" frameborder="0"></iframe> 
   </div> 
 </div>
 ```
 
 ##### 示例
-<div style="width:679px;height:641px;overflow:hidden;border:0px;"> 
-  <div style="width:679px;height:641px;margin:-240px 0px 0px -133px;"> 
+<div style="width:680px;height:640px;overflow:hidden;border:0px;"> 
+  <div style="width:680px;height:640px;margin:-145px 0px 0px -140px;"> 
    <iframe src="http://www.weather.com.cn/weather/101010100.shtml" height="850" width="1280" frameborder="0"></iframe> 
   </div> 
 </div>
