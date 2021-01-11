@@ -4,7 +4,7 @@ date: 2021-01-02 17:01:00
 tags: [html,iframe]
 categories: Html
 ---
-# 在网页中嵌入其他网页中的一部分
+### 在网页中嵌入其他网页中的一部分
 <!-- more -->
 ### 简介
 [iframe](https://www.w3school.com.cn/tags/tag_iframe.asp) 元素会创建包含另外一个文档的内联框架，平时使用不多，但是也确实蛮好用的，比如在[博客关于页面](https://sadness96.github.io/blog/about/)中嵌入了一个[网易云音乐的播放插件](https://music.163.com/#/outchain/2/28445602/)，但是有时在嵌入其他页面时直想截取部分嵌入，再此解决。
