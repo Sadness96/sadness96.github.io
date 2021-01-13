@@ -239,21 +239,15 @@ public static Cat020 Format(byte[] bytesData)
 /// <summary>
 /// 解析I020_140日时间
 /// </summary>
-/// <param name="timeStr"></param>
+/// <param name="byteData">二进制数据</param>
 /// <returns></returns>
-public static string I020_140(string timeStr)
+public static string I020_140(byte[] byteData)
 {
-    string[] strs = timeStr.Trim().Split(' ');
-    byte[] byts16 = new byte[strs.Length];
-    for (int i = 0; i < strs.Length; i++)
-    {
-        byts16[i] = Convert.ToByte(strs[i], 10);
-    }
     // 16进制转成10进制
-    string timeDec = (((uint)byts16[0] << 16) + ((uint)byts16[1] << 8) + (uint)byts16[2]).ToString();
+    string timeDec = (((uint)byteData[0] << 16) + ((uint)byteData[1] << 8) + byteData[2]).ToString();
 
     // 字符串转数值/128 * 1000 总毫秒数
-    long ms = (long)((Double.Parse(timeDec) / 128) * 1000);
+    long ms = (long)((double.Parse(timeDec) / 128) * 1000);
 
     int ss = 1000;
     int mi = ss * 60;
@@ -264,10 +258,14 @@ public static string I020_140(string timeStr)
     long second = (ms - hour * hh - minute * mi) / ss;
     long milliSecond = ms - hour * hh - minute * mi - second * ss;
 
-    string strHour = hour < 10 ? "0" + hour : "" + hour;// 小时
-    string strMinute = minute < 10 ? "0" + minute : "" + minute;// 分钟
-    string strSecond = second < 10 ? "0" + second : "" + second;// 秒
-    string strMilliSecond = milliSecond < 10 ? "0" + milliSecond : "" + milliSecond;// 毫秒
+    // 小时
+    string strHour = hour < 10 ? "0" + hour : "" + hour;
+    // 分钟
+    string strMinute = minute < 10 ? "0" + minute : "" + minute;
+    // 秒
+    string strSecond = second < 10 ? "0" + second : "" + second;
+    // 毫秒
+    string strMilliSecond = milliSecond < 10 ? "0" + milliSecond : "" + milliSecond;
     strMilliSecond = milliSecond < 100 ? "0" + strMilliSecond : "" + strMilliSecond;
     //增加UTC时间
     strHour = int.Parse(strHour) + 8 > 24 ? (int.Parse(strHour) + 8 - 24).ToString() : (int.Parse(strHour) + 8).ToString();
@@ -281,47 +279,35 @@ public static string I020_140(string timeStr)
 /// <summary>
 /// 解析I020/245目标识别
 /// </summary>
-/// <param name="flnoStr"></param>
+/// <param name="byteData">二进制数据</param>
 /// <returns></returns>
-public static string I020_245(string flnoStr)
+public static string I020_245(byte[] byteData)
 {
-    if (null != flnoStr)
+    string str = "";
+    for (int i = 1; i < byteData.Length; i++)
     {
-        try
-        {
-            string[] strflno = flnoStr.Trim().Split(' ');
-
-            string str = "";
-            for (int i = 1; i < strflno.Length; i++)
-            {
-                // 把第一位去掉
-                string newFLNO = strflno[i];
-                str += Convert.ToString(byte.Parse(newFLNO), 2).PadLeft(8, '0');
-            }
-
-            char[] strCharArray = str.ToCharArray();
-            string flno2BinaryStr = "";
-            string result = "";
-
-            for (int i = 0; i < strCharArray.Length; i++)
-            {
-                flno2BinaryStr += strCharArray[i] + "";
-                if ((i + 1) % 6 == 0)
-                {
-                    string flightNumberValue = Constants.flightNumberMap[flno2BinaryStr];
-                    if (!string.IsNullOrEmpty(flightNumberValue))
-                    {
-                        result += flightNumberValue;
-                    }
-                    flno2BinaryStr = "";
-                }
-            }
-            return result;
-        }
-        catch (Exception e)
-        { }
+        // 把第一位去掉
+        str += Convert.ToString(byteData[i], 2).PadLeft(8, '0');
     }
-    return "";
+
+    char[] strCharArray = str.ToCharArray();
+    string flno2BinaryStr = "";
+    string result = "";
+
+    for (int i = 0; i < strCharArray.Length; i++)
+    {
+        flno2BinaryStr += strCharArray[i] + "";
+        if ((i + 1) % 6 == 0)
+        {
+            string flightNumberValue = flightNumberMap[flno2BinaryStr];
+            if (!string.IsNullOrEmpty(flightNumberValue))
+            {
+                result += flightNumberValue;
+            }
+            flno2BinaryStr = "";
+        }
+    }
+    return result;
 }
 ```
 NOTE: See ICAO document Annex 10, Volume IV, section 3.1.2.9
@@ -336,47 +322,20 @@ for the coding rules.
 /// <summary>
 /// 解析I020_041在WGS-84中的坐标位置
 /// </summary>
-/// <param name="str"></param>
+/// <param name="byteData">二进制数据</param>
 /// <returns></returns>
-public static string[] I020_041(string str)
+public static double[] I020_041(byte[] byteData)
 {
-    string[] relDataArray = new string[2];
-    if (!string.IsNullOrEmpty(str))
+    double[] relDataArray = new double[2];
+    if (byteData.Length == 8)
     {
-        string[] dataArray = str.Trim().Split(' ');
-        int[] tempDataArray = new int[dataArray.Length];
-        for (int i = 0; i < dataArray.Length; i++)
-        {
-            tempDataArray[i] = int.Parse(dataArray[i]);
-        }
-        for (int i = 0; i < tempDataArray.Length; i++)
-        {
-            dataArray[i] = tempDataArray[i].ToString("X2");
-        }
-
-        if (dataArray.Length == 8)
-        {
-            string Item1 = dataArray[0];
-            string Item2 = dataArray[1];
-            string Item3 = dataArray[2];
-            string Item4 = dataArray[3];
-            string Item5 = dataArray[4];
-            string Item6 = dataArray[5];
-            string Item7 = dataArray[6];
-            string Item8 = dataArray[7];
-            // 16进制转成10进制（4位一转）
-            string xCoordinate10 = Item1 + Item2 + Item3 + Item4;
-            string yCoordinate10 = Item5 + Item6 + Item7 + Item8;
-            // 10进制计算规则（xCoordinate10 * 180 /2^25）
-            double xCoordinate = double.Parse(Convert.ToInt32(xCoordinate10, 16).ToString()) * 180 / 33554432;
-            double yCoordinate = double.Parse(Convert.ToInt32(yCoordinate10, 16).ToString()) * 180 / 33554432;
-            relDataArray[0] = xCoordinate.ToString();
-            relDataArray[1] = yCoordinate.ToString();
-
-            return relDataArray;
-        }
-        else
-        { }
+        // 16进制转成10进制（4位一转）
+        string xCoordinate10 = byteData[0].ToString("X2") + byteData[1].ToString("X2") + byteData[2].ToString("X2") + byteData[3].ToString("X2");
+        string yCoordinate10 = byteData[4].ToString("X2") + byteData[5].ToString("X2") + byteData[6].ToString("X2") + byteData[7].ToString("X2");
+        // 10进制计算规则（xCoordinate10 * 180 /2^25）
+        relDataArray[0] = double.Parse(Convert.ToInt32(xCoordinate10, 16).ToString()) * 180 / 33554432;
+        relDataArray[1] = double.Parse(Convert.ToInt32(yCoordinate10, 16).ToString()) * 180 / 33554432;
+        return relDataArray;
     }
     return null;
 }
@@ -386,48 +345,24 @@ public static string[] I020_041(string str)
 #### I020/042
 ``` csharp
 /// <summary>
-/// 解析I020_042
+/// 解析I020_042轨道位置(直角)
 /// </summary>
-/// <param name="str"></param>
+/// <param name="byteData">二进制数据</param>
 /// <returns></returns>
-public static string[] I020_042(string str)
+public static double[] I020_042(byte[] byteData)
 {
-    string[] relDataArray = new string[2];
-    if (!string.IsNullOrEmpty(str))
+    double[] relDataArray = new double[2];
+    if (byteData.Length == 6)
     {
-        string[] dataArray = str.Trim().Split(' ');
-        if (dataArray.Length == 6)
-        {
-            int[] tempDataArray = new int[dataArray.Length];
-            for (int i = 0; i < dataArray.Length; i++)
-            {
-                tempDataArray[i] = int.Parse(dataArray[i]);
-            }
-            for (int i = 0; i < tempDataArray.Length; i++)
-            {
-                dataArray[i] = tempDataArray[i].ToString("X2");
-            }
-            // 16进制转成10进制
-            string Item1 = dataArray[0];
-            string Item2 = dataArray[1];
-            string Item3 = dataArray[2];
-            string Item4 = dataArray[3];
-            string Item5 = dataArray[4];
-            string Item6 = dataArray[5];
-            string xAngle16 = Item1 + Item2 + Item3;
-            string yAngle16 = Item4 + Item5 + Item6;
-            string xAngle10 = Convert.ToInt32(xAngle16, 16).ToString();
-            string yAngle10 = Convert.ToInt32(yAngle16, 16).ToString();
-            // 10进制计算规则（xAngle10 * 0.5）
-            double xAngle = Double.Parse(xAngle10) * 0.5;
-            double yAngle = Double.Parse(yAngle10) * 0.5;
-            relDataArray[0] = xAngle.ToString();
-            relDataArray[1] = yAngle.ToString();
-
-            return relDataArray;
-        }
-        else
-        { }
+        // 16进制转成10进制
+        string xAngle16 = byteData[0].ToString("X2") + byteData[1].ToString("X2") + byteData[2].ToString("X2");
+        string yAngle16 = byteData[3].ToString("X2") + byteData[4].ToString("X2") + byteData[5].ToString("X2");
+        string xAngle10 = Convert.ToInt32(xAngle16, 16).ToString();
+        string yAngle10 = Convert.ToInt32(yAngle16, 16).ToString();
+        // 10进制计算规则（xAngle10 * 0.5）
+        relDataArray[0] = double.Parse(xAngle10) * 0.5;
+        relDataArray[1] = double.Parse(yAngle10) * 0.5;
+        return relDataArray;
     }
     return null;
 }
@@ -439,28 +374,11 @@ public static string[] I020_042(string str)
 /// <summary>
 /// 解析I020_161
 /// </summary>
-/// <param name="str"></param>
+/// <param name="byteData">二进制数据</param>
 /// <returns></returns>
-public static string I020_161(string str)
+public static int I020_161(byte[] byteData)
 {
-    try
-    {
-        string[] dataArray = str.Trim().Split(' ');
-        int[] tempDataArray = new int[dataArray.Length];
-        for (int i = 0; i < dataArray.Length; i++)
-        {
-            tempDataArray[i] = int.Parse(dataArray[i]);
-        }
-        for (int i = 0; i < tempDataArray.Length; i++)
-        {
-            dataArray[i] = tempDataArray[i].ToString("X2");
-        }
-        str = dataArray[0] + dataArray[1];
-        return Convert.ToInt32(str.Replace(" ", ""), 16).ToString();
-    }
-    catch (Exception e)
-    { }
-    return str;
+    return Convert.ToInt32(byteData[0].ToString("X2") + byteData[1].ToString("X2"), 16);
 }
 ```
 <span id="1020110"><span/>
@@ -470,45 +388,22 @@ public static string I020_161(string str)
 /// <summary>
 /// 解析I020_110
 /// </summary>
-/// <param name="str"></param>
+/// <param name="byteData">二进制数据</param>
 /// <returns></returns>
-public static string I020_110(string str)
+public static double I020_110(byte[] byteData)
 {
-    try
+    string strByteData = byteData[0].ToString("X2") + byteData[1].ToString("X2");
+    double dByteData = (double)Convert.ToInt32(strByteData, 16);
+
+    if (Convert.ToString(byteData[0], 2).Substring(0, 1).Equals("1"))
     {
-
-        Double measuredFlightLevel = (double)0;
-
-        if (!string.IsNullOrEmpty(str))
-        {
-            str = str.Replace(" ", "");
-            // 将16进制转换为2进制
-            string binStr = str;
-            // 转为10进制
-            string decStr = binStr;
-            // 将十进制的字符串转换为double
-            Double desDouble = Double.Parse(decStr);
-
-            if (binStr.Length == 16)
-            {
-                // 如果2进制长度为16，说明第16位一定为1，则为负数
-                measuredFlightLevel = -(Math.Pow(2, 16) - desDouble) * 6.25;
-
-            }
-            else
-            {
-                // 如果2进制长度不为16，说明第16位一定为0，则为正数
-                measuredFlightLevel = desDouble * 6.25;
-            }
-            return measuredFlightLevel.ToString();
-        }
-        else
-        { }
+        // 如果2进制长度为16，说明第16位一定为1，则为负数
+        return -(Math.Pow(2, 16) - dByteData) * 6.25;
     }
-    catch (Exception e)
+    else
     {
-        return "";
+        // 如果2进制长度不为16，说明第16位一定为0，则为正数
+        return dByteData * 6.25;
     }
-    return "";
 }
 ```
