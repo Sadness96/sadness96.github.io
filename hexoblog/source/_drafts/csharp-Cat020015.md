@@ -11,28 +11,15 @@ categories: C#.Net
 多点定位(MLAT) 全称是 Multilateration，多点定位技术利用多个地面接收机接收到机载应答机信号的时间差，计算得出飞机位置。
 
 解析文档均为[欧洲航空交通管理](https://www.eurocontrol.int/)官方提供，解析代码基于 CSDN 付费文档修改，仅包含极少部分公司业务格式不包含涉密文件。
+
 ## 参考资料
 ### 原文
 [EuroControl](https://www.eurocontrol.int)：[cat020p14ed15.pdf](https://www.eurocontrol.int/sites/default/files/2019-06/cat020-asterix-mlt-messages-part-14.pdf)
+
 ## 测试数据解析
 14 00 46 FF 0F 01 84 16 07 41 10 A1 A0 BB 00 57 8B 48 01 44 DC F6 00 17 06 00 1F AD 0E F2 02 78 10 45 80 0C 54 F2 DB 3C 60 00 02 20 40 19 98 D0 00 00 00 00 00 01 00 0C 00 0C 00 03 00 06 00 05 00 05 A1 A0 C2 00
+
 ### 解析步骤
-#### 解析为 Byte 数组
-``` csharp
-/// <summary>
-/// 16进制文本转为 byte 数组
-/// </summary>
-public static byte[] GetBytesFromMultilateration(string strMultilateration)
-{
-    string[] strs = strMultilateration.Split(' ');
-    byte[] temp = new byte[strs.Length];
-    for (int i = 0; i < strs.Length; i++)
-    {
-        temp[i] = Convert.ToByte(strs[i], 16);
-    }
-    return temp;
-}
-```
 #### 数据格式
 | CAT = 020 | LEN | FSPEC | Items of the first record |
 | ---- | ---- | ---- | ---- |
@@ -109,129 +96,8 @@ public static byte[] GetBytesFromMultilateration(string strMultilateration)
 | A0 |  |  |
 | C2 |  |  |
 | 00 |  |  |
-#### 项目需要最终生成 Json 数据
-``` json
-{
-	"FlightTag": {
-		"FlightNumer": "CES2631",
-		"Reg": "",
-		"Lat": 30.77721,
-		"Lon": 114.209694,
-		"Stand": "",
-		"PlaneType": "",
-		"Runway": "",
-		"Direction": 0.0,
-		"Height": 0.0,
-		"StandSide": "",
-		"UpdateTime": "2019/9/23 6:59:13.460",
-		"CenterDistance": 0.0,
-		"Speed": 0.0,
-		"Xspeed": 0.0,
-		"Yspeed": 0.0,
-		"Remark": ""
-	}
-}
-```
-| Json 参数 | 备注 | 获得数据编号 | 数据内容 |
-| ---- | ---- | ---- | ---- |
-| FlightNumer | 航班号 | [I020/245](#1020245) | CES2631 |
-| Reg | 机号 |  |  |
-| Lat | 纬度 | [I020/041](#1020041) | 30.77721 |
-| Lon | 经度 | [I020/041](#1020041) | 114.209694 |
-| Stand | 机位 | | |
-| PlaneType | 机型 | | |
-| Runway | 跑道 | | |
-| Direction | 方向 | | |
-| Height | 飞机高度 | | |
-| StandSide | 机位所在的位置 | | |
-| UpdateTime | 信息更新的时间 | [I020/140](#1020140) | 2019/9/23 6:59:13.460 |
-| CenterDistance | 距离 | | |
-| Speed | 速度 | | |
-| Xspeed | X方向速度 | | |
-| Yspeed | Y方向速度 | | |
-| Remark | 备注 | | |
+
 ### 代码
-#### 拆分数据（部分）
-``` csharp
-/// <summary>
-/// 格式 Cat020 数据
-/// </summary>
-/// <param name="bytesData"></param>
-/// <returns></returns>
-public static Cat020 Format(byte[] bytesData)
-{
-    List<byte> cat020List = new List<byte>();
-    cat020List.Add(bytesData[3]);
-    cat020List.Add(bytesData[4]);
-    cat020List.Add(bytesData[5]);
-    cat020List.Add(bytesData[6]);
-
-    //11111111000011110000000110000100
-    string isData = "";
-    foreach (var item in cat020List)
-    {
-        isData += Convert.ToString(item, 2).PadLeft(8, '0');
-    }
-
-    int index = 7;
-    char[] isDataStr = isData.ToCharArray();
-    bool flag = false;
-    Dictionary<string, string> strData = new Dictionary<string, string>();
-
-    for (int i = 0; i < Constants.cat020ItemNameList.Count; i++)
-    {
-        string data1 = Constants.cat020ItemNameList[i];
-        string data2 = Constants.cat020ItemLengthList[i];
-        if (data1.Equals("FX") && data2.Equals("-") && isDataStr[i] == '0')
-        {
-            flag = true;
-        }
-        if (data2.Equals("1+") && isDataStr[i] == '1')
-        {
-            string newStr = "";
-            while (true)
-            {
-                if (index >= bytesData.Length)
-                {
-                    //logger.info("下标长度大于或者等于数据总长度,循环结束");
-                    break;
-                }
-                string isextend = Convert.ToString(bytesData[index], 2);
-                if (!isextend.EndsWith("1"))
-                {
-                    newStr += bytesData[index] + " ";
-                    index++;
-                    break;
-                }
-                newStr += bytesData[index] + " ";
-                index++;
-            }
-            strData[(i + 1) + ""] = newStr.Trim();
-        }
-        else if (data2.Equals("-") || data2.Equals("") || data2.Equals("1+N*8"))
-        { }
-        else if (isDataStr[i] == '1')
-        {
-            int b = int.Parse(data2);
-            string c = "";
-            for (int k = 0; k < b; k++)
-            {
-                c += bytesData[index] + " ";
-                index++;
-            }
-            strData[(i + 1) + ""] = c;
-        }
-
-        if (flag)
-            break;
-    }
-
-    Cat020 cat020 = new Cat020();
-    ---
-    return cat020;
-}
-```
-
 <span id="1020140"><span/>
 
 #### I020/140
