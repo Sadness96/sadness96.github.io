@@ -8,15 +8,16 @@ categories: C#.Net
 
 <!-- more -->
 ### 简介/声明
-[ADS-B](https://baike.baidu.com/item/ADS-B/9750451?fr=aladdin) 全称是Automatic Dependent Surveillance - Broadcast，中文是广播式自动相关监视，顾名思义，即无需人工操作或者询问，可以自动地从相关机载设备获取飞机或地面站广播飞机的位置、高度、速度、航向、识别号等参数信息，以供管制员对飞机状态进行监控。它衍生于ADS（自动相关监视），最初是为越洋飞行的航空器在无法进行雷达监视的情况下，希望利用卫星实施监视所提出的解决方案。
+[ADS-B](https://baike.baidu.com/item/ADS-B/9750451?fr=aladdin) 全称是Automatic Dependent Surveillance - Broadcast，中文是广播式自动相关监视，即无需人工操作或者询问，可以自动地从相关机载设备获取飞机或地面站广播飞机的位置、高度、速度、航向、识别号等参数信息，以供管制员对飞机状态进行监控。它衍生于ADS（自动相关监视），最初是为越洋飞行的航空器在无法进行雷达监视的情况下，希望利用卫星实施监视所提出的解决方案。
 
-解析文档均为[欧洲航空交通管理](https://www.eurocontrol.int/)官方提供，解析代码基于 CSDN 付费文档修改，仅包含极少部分公司业务格式不包含涉密文件。
+解析文档均为[欧洲航空交通管理](https://www.eurocontrol.int/)官方提供。
+
 ## 参考资料
 ### 原文
 [EuroControl](https://www.eurocontrol.int)：[cat021p12ed026.pdf](https://www.eurocontrol.int/sites/default/files/content/documents/nm/asterix/20150615-asterix-adsbtr-cat021-part12-v2.4.pdf)
 
 ## 测试数据解析
-20190816:130000.052 15002efba1df80000100302327660055a0b60144ae0a7802610006080388000a077e043e0d33b3c72de000800002
+15002efba1df80000100302327660055a0b60144ae0a7802610006080388000a077e043e0d33b3c72de000800002
 
 ### 解析步骤
 #### 数据格式

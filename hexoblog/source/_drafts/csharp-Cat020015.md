@@ -10,7 +10,7 @@ categories: C#.Net
 ### 简介/声明
 多点定位(MLAT) 全称是 Multilateration，多点定位技术利用多个地面接收机接收到机载应答机信号的时间差，计算得出飞机位置。
 
-解析文档均为[欧洲航空交通管理](https://www.eurocontrol.int/)官方提供，解析代码基于 CSDN 付费文档修改，仅包含极少部分公司业务格式不包含涉密文件。
+解析文档均为[欧洲航空交通管理](https://www.eurocontrol.int/)官方提供。
 
 ## 参考资料
 ### 原文
@@ -138,6 +138,7 @@ public static string I020_140(byte[] byteData)
     return $"{DateTime.Now.ToShortDateString()} {strHour}:{strMinute}:{strSecond}.{strMilliSecond}";
 }
 ```
+
 <span id="1020245"><span/>
 
 #### I020/245
@@ -206,6 +207,7 @@ public static double[] I020_041(byte[] byteData)
     return null;
 }
 ```
+
 <span id="1020042"><span/>
 
 #### I020/042
@@ -233,6 +235,7 @@ public static double[] I020_042(byte[] byteData)
     return null;
 }
 ```
+
 <span id="1020161"><span/>
 
 #### I020/161
@@ -247,6 +250,7 @@ public static int I020_161(byte[] byteData)
     return Convert.ToInt32(byteData[0].ToString("X2") + byteData[1].ToString("X2"), 16);
 }
 ```
+
 <span id="1020110"><span/>
 
 #### I020/110
