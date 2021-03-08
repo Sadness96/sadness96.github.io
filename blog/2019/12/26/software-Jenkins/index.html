@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
-<meta name="theme-color" content="#222"/>
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"/>
-<link rel="stylesheet" href="/blog/css/main.css?v=7.1.1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+<link rel="stylesheet" href="/blog/css/main.css?v=7.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/Logo300.png?v=7.1.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/Logo30.png?v=7.1.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/Logo16.png?v=7.1.1">
@@ -14,7 +14,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '',
+    root: '/blog/',
     scheme: 'Pisces',
     version: '7.1.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -34,11 +34,12 @@
     }
   };
 </script>
-  <meta property="og:type" content="article">
+  <meta name="keywords" content="software,jenkins">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Jenkins 使用介绍">
 <meta property="og:url" content="http://sadness96.github.io/blog/2019/12/26/software-Jenkins/index.html">
 <meta property="og:site_name" content="个人博客 - 刘佳华">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Jenkins/jenkins.png">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Jenkins/%E6%BA%90%E7%A0%81%E7%AE%A1%E7%90%86.png">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Jenkins/CredentialConfig1.png">
@@ -62,14 +63,11 @@
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Jenkins/ConfigSonarScannerForMSBuild.png">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Jenkins/ConfigJDK.png">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/software-Jenkins/SonarScannerforMSBuild.png">
-<meta property="article:published_time" content="2019-12-26T03:05:38.000Z">
-<meta property="article:modified_time" content="2021-01-09T21:03:40.232Z">
-<meta property="article:author" content="LiuJiaHua">
-<meta property="article:tag" content="software">
-<meta property="article:tag" content="jenkins">
+<meta property="og:updated_time" content="2020-12-19T07:07:29.420Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jenkins 使用介绍">
 <meta name="twitter:image" content="https://sadness96.github.io/images/blog/software-Jenkins/jenkins.png">
-  <link rel="canonical" href="http://sadness96.github.io/blog/2019/12/26/software-Jenkins/"/>
+  <link rel="canonical" href="http://sadness96.github.io/blog/2019/12/26/software-Jenkins/">
 <script id="page.configurations">
   CONFIG.page = {
     sidebar: "",
@@ -98,7 +96,7 @@
   .use-motion .logo-line-after i { right: initial; }
   </style>
 </noscript>
-<meta name="generator" content="Hexo 5.3.0"></head>
+</head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -124,26 +122,26 @@
 <nav class="site-nav">
     <ul id="menu" class="menu">
           <li class="menu-item menu-item-home">
-    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
   </li>
           <li class="menu-item menu-item-archives">
-    <a href="/blog/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+    <a href="/blog/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
   </li>
           <li class="menu-item menu-item-categories">
-    <a href="/blog/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+    <a href="/blog/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
   </li>
           <li class="menu-item menu-item-tags">
-    <a href="/blog/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+    <a href="/blog/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
   </li>
           <li class="menu-item menu-item-about">
-    <a href="/blog/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br/>关于</a>
+    <a href="/blog/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
   </li>
           <li class="menu-item menu-item-github">
-    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="menu-item-icon fa fa-fw fa-github"></i> <br/>GitHub</a>
+    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="menu-item-icon fa fa-fw fa-github"></i> <br>GitHub</a>
   </li>
         <li class="menu-item menu-item-search">
             <a href="javascript:;" class="popup-trigger">
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
         </li>
     </ul>
     <div class="site-search">
@@ -156,9 +154,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -174,14 +170,14 @@
   <div id="posts" class="posts-expand">
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/blog/2019/12/26/software-Jenkins/"/>
+    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/blog/2019/12/26/software-Jenkins/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LiuJiaHua"/>
-      <meta itemprop="description" content="记录生活,记录学习,记录成长!"/>
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4"/>
+      <meta itemprop="name" content="LiuJiaHua">
+      <meta itemprop="description" content="记录生活,记录学习,记录成长!">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
     </span>
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客 - 刘佳华"/>
+      <meta itemprop="name" content="个人博客 - 刘佳华">
     </span>
       <header class="post-header">
           <h1 class="post-title" itemprop="name headline">Jenkins 使用介绍
@@ -205,21 +201,23 @@
         </div>
       </header>
     <div class="post-body" itemprop="articleBody">
-        <p><img src="https://sadness96.github.io/images/blog/software-Jenkins/jenkins.png"/></p>
+        <p><img src="https://sadness96.github.io/images/blog/software-Jenkins/jenkins.png"></p>
 <a id="more"></a>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><a target="_blank" rel="noopener" href="https://jenkins.io/zh/">Jenkins</a> 是一个持续集成（CI&amp;CD）工具，用以构建、部署、自动化。</p>
-<h3 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h3><p>以部署PC客户端软件为例：<br>1.连接 <a target="_blank" rel="noopener" href="https://about.gitlab.com/">GitLab</a> 仓库 pull 最新代码<br>2.使用 <a target="_blank" rel="noopener" href="https://www.nuget.org/">NuGet</a> 还原引用库<br>3.使用 <a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-CN/library/dd393574.aspx">MSBuild</a> 编译项目工程<br>4.使用 <a target="_blank" rel="noopener" href="https://nsis.sourceforge.io/Main_Page">NSIS</a> 打包软件为安装包<br>5.以邮件方式将打包文件发送(未完成)</p>
-<h3 id="软件部署"><a href="#软件部署" class="headerlink" title="软件部署"></a>软件部署</h3><p>软件安装参考 <a target="_blank" rel="noopener" href="https://jenkins.io/zh/doc/pipeline/tour/getting-started/">官方文档</a></p>
-<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><h5 id="插件安装失败"><a href="#插件安装失败" class="headerlink" title="插件安装失败"></a>插件安装失败</h5><p>登录重启页重启后重试<br><a target="_blank" rel="noopener" href="http://localhost:8081/restart">http://localhost:8081/restart</a></p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><a href="https://jenkins.io/zh/" target="_blank" rel="noopener">Jenkins</a> 是一个持续集成（CI&amp;CD）工具，用以构建、部署、自动化。</p>
+<h3 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h3><p>以部署PC客户端软件为例：<br>1.连接 <a href="https://about.gitlab.com/" target="_blank" rel="noopener">GitLab</a> 仓库 pull 最新代码<br>2.使用 <a href="https://www.nuget.org/" target="_blank" rel="noopener">NuGet</a> 还原引用库<br>3.使用 <a href="https://msdn.microsoft.com/zh-CN/library/dd393574.aspx" target="_blank" rel="noopener">MSBuild</a> 编译项目工程<br>4.使用 <a href="https://nsis.sourceforge.io/Main_Page" target="_blank" rel="noopener">NSIS</a> 打包软件为安装包<br>5.以邮件方式将打包文件发送(未完成)</p>
+<h3 id="软件部署"><a href="#软件部署" class="headerlink" title="软件部署"></a>软件部署</h3><p>软件安装参考 <a href="https://jenkins.io/zh/doc/pipeline/tour/getting-started/" target="_blank" rel="noopener">官方文档</a></p>
+<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><h5 id="插件安装失败"><a href="#插件安装失败" class="headerlink" title="插件安装失败"></a>插件安装失败</h5><p>登录重启页重启后重试<br><a href="http://localhost:8081/restart" target="_blank" rel="noopener">http://localhost:8081/restart</a></p>
 <h5 id="需安装-Jenkins-插件"><a href="#需安装-Jenkins-插件" class="headerlink" title="需安装 Jenkins 插件"></a>需安装 Jenkins 插件</h5><p>Git、MSBuild、NuGet、PowerShell</p>
 <h5 id="配置系统环境变量"><a href="#配置系统环境变量" class="headerlink" title="配置系统环境变量"></a>配置系统环境变量</h5><p>Path 下增加 MSBuild 路径：<br>..\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\amd64</p>
-<h5 id="NuGet-控制台程序下载"><a href="#NuGet-控制台程序下载" class="headerlink" title="NuGet 控制台程序下载"></a>NuGet 控制台程序下载</h5><p><a target="_blank" rel="noopener" href="https://www.nuget.org/downloads">https://www.nuget.org/downloads</a><br>下载后拷贝至 Path 环境变量中</p>
-<h4 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h4><h5 id="Pull-Git-代码"><a href="#Pull-Git-代码" class="headerlink" title="Pull Git 代码"></a>Pull Git 代码</h5><p>填写 Git 地址以及分支名称即可<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/%E6%BA%90%E7%A0%81%E7%AE%A1%E7%90%86.png"/></p>
-<h6 id="设置-Git-用户名密码"><a href="#设置-Git-用户名密码" class="headerlink" title="设置 Git 用户名密码"></a>设置 Git 用户名密码</h6><p>如果本地 Git 记录用户无权限访问则会报错：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Failed to connect to repository : Command &quot;git.exe ls-remote -h -- http://192.168.5.188:9090/***/***.git HEAD&quot; returned status code 128:</span><br><span class="line"><span class="function">stdout:</span></span><br><span class="line"><span class="function"><span class="title">stderr</span>: <span class="title">remote</span>: <span class="title">HTTP</span> <span class="title">Basic</span>: <span class="title">Access</span> <span class="title">denied</span></span></span><br><span class="line"><span class="function"><span class="title">fatal</span>: <span class="title">Authentication</span> <span class="title">failed</span> <span class="title">for</span> &#x27;<span class="title">http</span>://192.168.5.188:9090/***/***.<span class="title">git</span>/&#x27;</span></span><br></pre></td></tr></table></figure><br>选择：凭据→系统→全局凭据<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/CredentialConfig1.png"/></p>
-<p>选择：添加凭据<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/CredentialConfig2.png"/></p>
-<p>配置：Git 用户名密码<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/CredentialConfig3.png"/></p>
-<p>配置：Credentials 中选择添加的凭据<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/CredentialConfig4.png"/></p>
-<h5 id="还原-NuGet-包"><a href="#还原-NuGet-包" class="headerlink" title="还原 NuGet 包"></a>还原 NuGet 包</h5><p>构建中选择：执行 Windows 批处理程序<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:: 清空项目中多余文件</span><br><span class="line">git checkout . &amp;&amp; git clean -xdf</span><br><span class="line">:: nuget 引用</span><br><span class="line">nuget <span class="built_in">restore</span> project.sln</span><br></pre></td></tr></table></figure><br><img src="https://sadness96.github.io/images/blog/software-Jenkins/nuget.png"/></p>
+<h5 id="NuGet-控制台程序下载"><a href="#NuGet-控制台程序下载" class="headerlink" title="NuGet 控制台程序下载"></a>NuGet 控制台程序下载</h5><p><a href="https://www.nuget.org/downloads" target="_blank" rel="noopener">https://www.nuget.org/downloads</a><br>下载后拷贝至 Path 环境变量中</p>
+<h4 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h4><h5 id="Pull-Git-代码"><a href="#Pull-Git-代码" class="headerlink" title="Pull Git 代码"></a>Pull Git 代码</h5><p>填写 Git 地址以及分支名称即可<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/%E6%BA%90%E7%A0%81%E7%AE%A1%E7%90%86.png"></p>
+<h6 id="设置-Git-用户名密码"><a href="#设置-Git-用户名密码" class="headerlink" title="设置 Git 用户名密码"></a>设置 Git 用户名密码</h6><p>如果本地 Git 记录用户无权限访问则会报错：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Failed to connect to repository : Command "git.exe ls-remote -h -- http://192.168.5.188:9090/***/***.git HEAD" returned status code 128:</span><br><span class="line"><span class="function">stdout:</span></span><br><span class="line"><span class="function"><span class="title">stderr</span>: <span class="title">remote</span>: <span class="title">HTTP</span> <span class="title">Basic</span>: <span class="title">Access</span> <span class="title">denied</span></span></span><br><span class="line"><span class="function"><span class="title">fatal</span>: <span class="title">Authentication</span> <span class="title">failed</span> <span class="title">for</span> '<span class="title">http</span>://192.168.5.188:9090/***/***.<span class="title">git</span>/'</span></span><br></pre></td></tr></table></figure></p>
+<p>选择：凭据→系统→全局凭据<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/CredentialConfig1.png"></p>
+<p>选择：添加凭据<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/CredentialConfig2.png"></p>
+<p>配置：Git 用户名密码<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/CredentialConfig3.png"></p>
+<p>配置：Credentials 中选择添加的凭据<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/CredentialConfig4.png"></p>
+<h5 id="还原-NuGet-包"><a href="#还原-NuGet-包" class="headerlink" title="还原 NuGet 包"></a>还原 NuGet 包</h5><p>构建中选择：执行 Windows 批处理程序<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:: 清空项目中多余文件</span><br><span class="line">git checkout . &amp;&amp; git clean -xdf</span><br><span class="line">:: nuget 引用</span><br><span class="line">nuget <span class="built_in">restore</span> project.sln</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://sadness96.github.io/images/blog/software-Jenkins/nuget.png"></p>
 <h5 id="编译代码-客户端"><a href="#编译代码-客户端" class="headerlink" title="编译代码(客户端)"></a>编译代码(客户端)</h5><p>构建中选择：Build a Visual Studio project or solution using MSBuild</p>
 <table>
 <thead>
@@ -243,30 +241,55 @@
 </tr>
 </tbody>
 </table>
-<p><img src="https://sadness96.github.io/images/blog/software-Jenkins/msbuild.png"/></p>
+<p><img src="https://sadness96.github.io/images/blog/software-Jenkins/msbuild.png"></p>
 <p>编译时如需选择解决方案配置和解决方案平台<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">:: 解决方案配置“Release|Any CPU”</span><br><span class="line">MSBuild project.sln /property:Configuration=Release</span><br><span class="line">:: 解决方案配置“Debug|x86”</span><br><span class="line">MSBuild project.sln /property:Configuration=Debug /property:Platform=x86</span><br><span class="line">:: 解决方案配置“Release|x64”</span><br><span class="line">MSBuild project.sln /property:Configuration=Release /property:Platform=x64</span><br></pre></td></tr></table></figure></p>
-<h5 id="编译代码-服务端"><a href="#编译代码-服务端" class="headerlink" title="编译代码(服务端)"></a>编译代码(服务端)</h5><p>调用发布文件 .\Properties\PublishProfiles\FolderProfile.pubxml<br>测试 MSBuild 命令中加入 VisualStudioVersion=16.3 会导致不会生成发布目录<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span></span><br><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">此文件由 Web 项目的发布/打包过程使用。可以通过编辑此 MSBuild 文件</span></span><br><span class="line"><span class="comment">自定义此过程的行为。为了解与此相关的更多内容，请访问 https://go.microsoft.com/fwlink/?LinkID=208121。 </span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Project</span> <span class="attr">ToolsVersion</span>=<span class="string">&quot;4.0&quot;</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">WebPublishMethod</span>&gt;</span>FileSystem<span class="tag">&lt;/<span class="name">WebPublishMethod</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">PublishProvider</span>&gt;</span>FileSystem<span class="tag">&lt;/<span class="name">PublishProvider</span>&gt;</span>3</span><br><span class="line">    <span class="tag">&lt;<span class="name">LastUsedBuildConfiguration</span>&gt;</span>Release<span class="tag">&lt;/<span class="name">LastUsedBuildConfiguration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">LastUsedPlatform</span>&gt;</span>Any CPU<span class="tag">&lt;/<span class="name">LastUsedPlatform</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">SiteUrlToLaunchAfterPublish</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">LaunchSiteAfterPublish</span>&gt;</span>True<span class="tag">&lt;/<span class="name">LaunchSiteAfterPublish</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ExcludeApp_Data</span>&gt;</span>False<span class="tag">&lt;/<span class="name">ExcludeApp_Data</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">publishUrl</span>&gt;</span>.\bin\Release\PublishOutput<span class="tag">&lt;/<span class="name">publishUrl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DeleteExistingFiles</span>&gt;</span>True<span class="tag">&lt;/<span class="name">DeleteExistingFiles</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Project</span>&gt;</span></span><br></pre></td></tr></table></figure><br>| function | value |<br>| —- | —- |<br>| MSBuild Version | Default |<br>| MSBuild Build File | project.sln |<br>| Command Line Arguments | /t:Build /p:Configuration=Release /p:DeployOnBuild=True /p:PublishProfile=FolderProfile |<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/msbuildasp.png"/></p>
+<h5 id="编译代码-服务端"><a href="#编译代码-服务端" class="headerlink" title="编译代码(服务端)"></a>编译代码(服务端)</h5><p>调用发布文件 .\Properties\PublishProfiles\FolderProfile.pubxml<br>测试 MSBuild 命令中加入 VisualStudioVersion=16.3 会导致不会生成发布目录<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">此文件由 Web 项目的发布/打包过程使用。可以通过编辑此 MSBuild 文件</span></span><br><span class="line"><span class="comment">自定义此过程的行为。为了解与此相关的更多内容，请访问 https://go.microsoft.com/fwlink/?LinkID=208121。 </span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Project</span> <span class="attr">ToolsVersion</span>=<span class="string">"4.0"</span> <span class="attr">xmlns</span>=<span class="string">"http://schemas.microsoft.com/developer/msbuild/2003"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">WebPublishMethod</span>&gt;</span>FileSystem<span class="tag">&lt;/<span class="name">WebPublishMethod</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">PublishProvider</span>&gt;</span>FileSystem<span class="tag">&lt;/<span class="name">PublishProvider</span>&gt;</span>3</span><br><span class="line">    <span class="tag">&lt;<span class="name">LastUsedBuildConfiguration</span>&gt;</span>Release<span class="tag">&lt;/<span class="name">LastUsedBuildConfiguration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">LastUsedPlatform</span>&gt;</span>Any CPU<span class="tag">&lt;/<span class="name">LastUsedPlatform</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">SiteUrlToLaunchAfterPublish</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">LaunchSiteAfterPublish</span>&gt;</span>True<span class="tag">&lt;/<span class="name">LaunchSiteAfterPublish</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ExcludeApp_Data</span>&gt;</span>False<span class="tag">&lt;/<span class="name">ExcludeApp_Data</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">publishUrl</span>&gt;</span>.\bin\Release\PublishOutput<span class="tag">&lt;/<span class="name">publishUrl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">DeleteExistingFiles</span>&gt;</span>True<span class="tag">&lt;/<span class="name">DeleteExistingFiles</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Project</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th>function</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MSBuild Version</td>
+<td>Default</td>
+</tr>
+<tr>
+<td>MSBuild Build File</td>
+<td>project.sln</td>
+</tr>
+<tr>
+<td>Command Line Arguments</td>
+<td>/t:Build /p:Configuration=Release /p:DeployOnBuild=True /p:PublishProfile=FolderProfile</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://sadness96.github.io/images/blog/software-Jenkins/msbuildasp.png"></p>
 <h5 id="拷贝或删除多余文件"><a href="#拷贝或删除多余文件" class="headerlink" title="拷贝或删除多余文件"></a>拷贝或删除多余文件</h5><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">:: 拷贝文件</span><br><span class="line"><span class="built_in">xcopy</span> /s/c/h/y .\<span class="number">9</span>.Reference\MediaAccessSDK\Release .\bin\Release\MediaAccessSDK\Release\</span><br><span class="line"></span><br><span class="line">:: 删除多余的pdb和xml</span><br><span class="line"><span class="built_in">del</span> /s bin\Release\*.pdb</span><br><span class="line"><span class="built_in">del</span> /s bin\Release\*.xml</span><br></pre></td></tr></table></figure>
-<p><img src="https://sadness96.github.io/images/blog/software-Jenkins/copydel.png"/></p>
-<h5 id="程序打包"><a href="#程序打包" class="headerlink" title="程序打包"></a>程序打包</h5><p>构建中选择：执行 Windows 批处理程序<br><a target="_blank" rel="noopener" href="https://nsis.sourceforge.io/Main_Page">NSIS</a> 使用参考：<a href="http://sadness96.github.io/blog/2018/11/24/software-Nsis/">使用介绍</a><br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:: 调用 makensis 命令构建 NSI</span><br><span class="line">makensis PanoramaClientSetup.nsi</span><br></pre></td></tr></table></figure><br><img src="https://sadness96.github.io/images/blog/software-Jenkins/nsis.png"/></p>
-<h5 id="压缩文件打包"><a href="#压缩文件打包" class="headerlink" title="压缩文件打包"></a>压缩文件打包</h5><p>构建中选择：PowerShell<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 调用 PowerShell 命令压缩文件</span><br><span class="line"></span><br><span class="line"># 压缩文件</span><br><span class="line">Compress-Archive -<span class="built_in">Path</span> .\test -DestinationPath .\test.zip</span><br><span class="line"># 解压缩文件</span><br><span class="line">Expand-Archive -<span class="built_in">Path</span> .\test.zip -DestinationPath .\test</span><br></pre></td></tr></table></figure><br><img src="https://sadness96.github.io/images/blog/software-Jenkins/zipfile.png"/></p>
-<h4 id="构建后操作"><a href="#构建后操作" class="headerlink" title="构建后操作"></a>构建后操作</h4><h5 id="归档成品"><a href="#归档成品" class="headerlink" title="归档成品"></a>归档成品</h5><p>在归档成品中直接写入打包好的安装包名称，会在构建结束后在结果中显示并可以直接下载<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/归档成品.png"/></p>
-<p><img src="https://sadness96.github.io/images/blog/software-Jenkins/结果.png"/></p>
-<p><span id='SonarQube'/></p>
+<p><img src="https://sadness96.github.io/images/blog/software-Jenkins/copydel.png"></p>
+<h5 id="程序打包"><a href="#程序打包" class="headerlink" title="程序打包"></a>程序打包</h5><p>构建中选择：执行 Windows 批处理程序<br><a href="https://nsis.sourceforge.io/Main_Page" target="_blank" rel="noopener">NSIS</a> 使用参考：<a href="http://sadness96.github.io/blog/2018/11/24/software-Nsis/">使用介绍</a><br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:: 调用 makensis 命令构建 NSI</span><br><span class="line">makensis PanoramaClientSetup.nsi</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://sadness96.github.io/images/blog/software-Jenkins/nsis.png"></p>
+<h5 id="压缩文件打包"><a href="#压缩文件打包" class="headerlink" title="压缩文件打包"></a>压缩文件打包</h5><p>构建中选择：PowerShell<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 调用 PowerShell 命令压缩文件</span><br><span class="line"></span><br><span class="line"># 压缩文件</span><br><span class="line">Compress-Archive -<span class="built_in">Path</span> .\test -DestinationPath .\test.zip</span><br><span class="line"># 解压缩文件</span><br><span class="line">Expand-Archive -<span class="built_in">Path</span> .\test.zip -DestinationPath .\test</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://sadness96.github.io/images/blog/software-Jenkins/zipfile.png"></p>
+<h4 id="构建后操作"><a href="#构建后操作" class="headerlink" title="构建后操作"></a>构建后操作</h4><h5 id="归档成品"><a href="#归档成品" class="headerlink" title="归档成品"></a>归档成品</h5><p>在归档成品中直接写入打包好的安装包名称，会在构建结束后在结果中显示并可以直接下载<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/归档成品.png"></p>
+<p><img src="https://sadness96.github.io/images/blog/software-Jenkins/结果.png"></p>
+<p><span id="SonarQube"></span></p>
 <h4 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h4><h5 id="提示-‘xxx’-不是内部或外部命令，也不是可运行的程序或批处理文件。"><a href="#提示-‘xxx’-不是内部或外部命令，也不是可运行的程序或批处理文件。" class="headerlink" title="提示 ‘xxx’ 不是内部或外部命令，也不是可运行的程序或批处理文件。"></a>提示 ‘xxx’ 不是内部或外部命令，也不是可运行的程序或批处理文件。</h5><p>通常这个提示代表着环境变量配置错误，但是检测时发现系统环境变量配置正常，可以在 Jenkins 目录中手动执行命令操作，重启电脑和 Jenkins 后依然无效。<br>解决方式：选择 Jenkins → 左下角“构建执行状态” → 右侧齿轮标志“设置” → 节点属性 → 新增“Environment variables” → 拷贝报错(或全部)的环境变量到此处 → 保存</p>
 <ul>
 <li>无法识别环境变量中的：%SystemRoot%\，改用绝对路径。</li>
 </ul>
-<p><img src="https://sadness96.github.io/images/blog/software-Jenkins/PathError.png"/></p>
+<p><img src="https://sadness96.github.io/images/blog/software-Jenkins/PathError.png"></p>
 <h4 id="集成-SonarQube"><a href="#集成-SonarQube" class="headerlink" title="集成 SonarQube"></a>集成 SonarQube</h4><p>安装使用 SonarQube 参考博客：<a href="http://sadness96.github.io/blog/2020/01/16/software-SonarQube/">SonarQube 使用介绍</a></p>
-<h5 id="SonarQube-创建-Jenkins-ToKen"><a href="#SonarQube-创建-Jenkins-ToKen" class="headerlink" title="SonarQube 创建 Jenkins ToKen"></a>SonarQube 创建 Jenkins ToKen</h5><p><img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarQubeJenkinsToKens.png"/></p>
-<h5 id="下载插件-SonarQube-Scanner"><a href="#下载插件-SonarQube-Scanner" class="headerlink" title="下载插件 SonarQube Scanner"></a>下载插件 SonarQube Scanner</h5><p><img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarQubeScanner.png"/></p>
-<h5 id="Jenkins-配置-SonarQube"><a href="#Jenkins-配置-SonarQube" class="headerlink" title="Jenkins 配置 SonarQube"></a>Jenkins 配置 SonarQube</h5><p>添加凭据：<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarQubeCredentials.png"/></p>
-<h5 id="配置插件-SonarQube-Scanner"><a href="#配置插件-SonarQube-Scanner" class="headerlink" title="配置插件 SonarQube Scanner"></a>配置插件 SonarQube Scanner</h5><p>系统管理→系统配置→SonarQube servers<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/ConfigSonarQubeServers1.png"/></p>
-<h5 id="配置插件-SonarQube-Scanner-1"><a href="#配置插件-SonarQube-Scanner-1" class="headerlink" title="配置插件 SonarQube Scanner"></a>配置插件 SonarQube Scanner</h5><p>系统管理→全局工具配置→SonarQube Scanner<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/ConfigSonarQubeServers2.png"/></p>
-<h5 id="配置插件-SonarScanner-for-MSBuild"><a href="#配置插件-SonarScanner-for-MSBuild" class="headerlink" title="配置插件 SonarScanner for MSBuild"></a>配置插件 SonarScanner for MSBuild</h5><p>系统管理→全局工具配置→SonarScanner for MSBuild<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/ConfigSonarScannerForMSBuild.png"/></p>
-<h5 id="配置插件-JDK"><a href="#配置插件-JDK" class="headerlink" title="配置插件 JDK"></a>配置插件 JDK</h5><p>系统管理→全局工具配置→JDK<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/ConfigJDK.png"/></p>
-<h5 id="构建项目"><a href="#构建项目" class="headerlink" title="构建项目"></a>构建项目</h5><p>增加配置：<br>构建中选择：SonarScanner for MSBuild - Begin Analyoio<br>配置项 Project key 与 Project name 与 创建 SonarQube 中的 Project key 与 Project name 对应<br>在 MSBuild 后选择： SonarScanner for MSBuild - End Analyoio<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarScannerforMSBuild.png"/></p>
+<h5 id="SonarQube-创建-Jenkins-ToKen"><a href="#SonarQube-创建-Jenkins-ToKen" class="headerlink" title="SonarQube 创建 Jenkins ToKen"></a>SonarQube 创建 Jenkins ToKen</h5><p><img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarQubeJenkinsToKens.png"></p>
+<h5 id="下载插件-SonarQube-Scanner"><a href="#下载插件-SonarQube-Scanner" class="headerlink" title="下载插件 SonarQube Scanner"></a>下载插件 SonarQube Scanner</h5><p><img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarQubeScanner.png"></p>
+<h5 id="Jenkins-配置-SonarQube"><a href="#Jenkins-配置-SonarQube" class="headerlink" title="Jenkins 配置 SonarQube"></a>Jenkins 配置 SonarQube</h5><p>添加凭据：<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarQubeCredentials.png"></p>
+<h5 id="配置插件-SonarQube-Scanner"><a href="#配置插件-SonarQube-Scanner" class="headerlink" title="配置插件 SonarQube Scanner"></a>配置插件 SonarQube Scanner</h5><p>系统管理→系统配置→SonarQube servers<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/ConfigSonarQubeServers1.png"></p>
+<h5 id="配置插件-SonarQube-Scanner-1"><a href="#配置插件-SonarQube-Scanner-1" class="headerlink" title="配置插件 SonarQube Scanner"></a>配置插件 SonarQube Scanner</h5><p>系统管理→全局工具配置→SonarQube Scanner<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/ConfigSonarQubeServers2.png"></p>
+<h5 id="配置插件-SonarScanner-for-MSBuild"><a href="#配置插件-SonarScanner-for-MSBuild" class="headerlink" title="配置插件 SonarScanner for MSBuild"></a>配置插件 SonarScanner for MSBuild</h5><p>系统管理→全局工具配置→SonarScanner for MSBuild<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/ConfigSonarScannerForMSBuild.png"></p>
+<h5 id="配置插件-JDK"><a href="#配置插件-JDK" class="headerlink" title="配置插件 JDK"></a>配置插件 JDK</h5><p>系统管理→全局工具配置→JDK<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/ConfigJDK.png"></p>
+<h5 id="构建项目"><a href="#构建项目" class="headerlink" title="构建项目"></a>构建项目</h5><p>增加配置：<br>构建中选择：SonarScanner for MSBuild - Begin Analyoio<br>配置项 Project key 与 Project name 与 创建 SonarQube 中的 Project key 与 Project name 对应<br>在 MSBuild 后选择： SonarScanner for MSBuild - End Analyoio<br><img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarScannerforMSBuild.png"></p>
     </div>
     <footer class="post-footer">
         <div class="post-tags">
@@ -312,27 +335,25 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-              <img class="site-author-image" itemprop="image"
-                src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4"
-                alt="LiuJiaHua"/>
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4" alt="LiuJiaHua">
               <p class="site-author-name" itemprop="name">LiuJiaHua</p>
               <div class="site-description motion-element" itemprop="description">记录生活,记录学习,记录成长!</div>
           </div>
             <nav class="site-state motion-element">
                 <div class="site-state-item site-state-posts">
-                  <a href="/blog/archives%20%7C%7C%20archive">
+                  <a href="/blog/archives">
                     <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
                 <div class="site-state-item site-state-categories">
-                      <a href="/blog/categories%20%7C%7C%20th">
+                      <a href="/blog/categories">
                     <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
                 <div class="site-state-item site-state-tags">
-                      <a href="/blog/tags%20%7C%7C%20tags">
+                      <a href="/blog/tags">
                     <span class="site-state-item-count">91</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
@@ -343,7 +364,7 @@
       <!--noindex-->
         <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">运行流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">软件部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.1.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5"><span class="nav-number">3.1.1.</span> <span class="nav-text">插件安装失败</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9C%80%E5%AE%89%E8%A3%85-Jenkins-%E6%8F%92%E4%BB%B6"><span class="nav-number">3.1.2.</span> <span class="nav-text">需安装 Jenkins 插件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.3.</span> <span class="nav-text">配置系统环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#NuGet-%E6%8E%A7%E5%88%B6%E5%8F%B0%E7%A8%8B%E5%BA%8F%E4%B8%8B%E8%BD%BD"><span class="nav-number">3.1.4.</span> <span class="nav-text">NuGet 控制台程序下载</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA"><span class="nav-number">3.2.</span> <span class="nav-text">构建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Pull-Git-%E4%BB%A3%E7%A0%81"><span class="nav-number">3.2.1.</span> <span class="nav-text">Pull Git 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-Git-%E7%94%A8%E6%88%B7%E5%90%8D%E5%AF%86%E7%A0%81"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">设置 Git 用户名密码</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%98%E5%8E%9F-NuGet-%E5%8C%85"><span class="nav-number">3.2.2.</span> <span class="nav-text">还原 NuGet 包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E4%BB%A3%E7%A0%81-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">3.2.3.</span> <span class="nav-text">编译代码(客户端)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E4%BB%A3%E7%A0%81-%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">3.2.4.</span> <span class="nav-text">编译代码(服务端)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E6%88%96%E5%88%A0%E9%99%A4%E5%A4%9A%E4%BD%99%E6%96%87%E4%BB%B6"><span class="nav-number">3.2.5.</span> <span class="nav-text">拷贝或删除多余文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85"><span class="nav-number">3.2.6.</span> <span class="nav-text">程序打包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6%E6%89%93%E5%8C%85"><span class="nav-number">3.2.7.</span> <span class="nav-text">压缩文件打包</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E5%90%8E%E6%93%8D%E4%BD%9C"><span class="nav-number">3.3.</span> <span class="nav-text">构建后操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BD%92%E6%A1%A3%E6%88%90%E5%93%81"><span class="nav-number">3.3.1.</span> <span class="nav-text">归档成品</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FAQ"><span class="nav-number">3.4.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA-%E2%80%98xxx%E2%80%99-%E4%B8%8D%E6%98%AF%E5%86%85%E9%83%A8%E6%88%96%E5%A4%96%E9%83%A8%E5%91%BD%E4%BB%A4%EF%BC%8C%E4%B9%9F%E4%B8%8D%E6%98%AF%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%9A%84%E7%A8%8B%E5%BA%8F%E6%88%96%E6%89%B9%E5%A4%84%E7%90%86%E6%96%87%E4%BB%B6%E3%80%82"><span class="nav-number">3.4.1.</span> <span class="nav-text">提示 ‘xxx’ 不是内部或外部命令，也不是可运行的程序或批处理文件。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E6%88%90-SonarQube"><span class="nav-number">3.5.</span> <span class="nav-text">集成 SonarQube</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SonarQube-%E5%88%9B%E5%BB%BA-Jenkins-ToKen"><span class="nav-number">3.5.1.</span> <span class="nav-text">SonarQube 创建 Jenkins ToKen</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6-SonarQube-Scanner"><span class="nav-number">3.5.2.</span> <span class="nav-text">下载插件 SonarQube Scanner</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Jenkins-%E9%85%8D%E7%BD%AE-SonarQube"><span class="nav-number">3.5.3.</span> <span class="nav-text">Jenkins 配置 SonarQube</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6-SonarQube-Scanner"><span class="nav-number">3.5.4.</span> <span class="nav-text">配置插件 SonarQube Scanner</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6-SonarQube-Scanner-1"><span class="nav-number">3.5.5.</span> <span class="nav-text">配置插件 SonarQube Scanner</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6-SonarScanner-for-MSBuild"><span class="nav-number">3.5.6.</span> <span class="nav-text">配置插件 SonarScanner for MSBuild</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6-JDK"><span class="nav-number">3.5.7.</span> <span class="nav-text">配置插件 JDK</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.5.8.</span> <span class="nav-text">构建项目</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行流程"><span class="nav-number">2.</span> <span class="nav-text">运行流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软件部署"><span class="nav-number">3.</span> <span class="nav-text">软件部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#遇到的问题"><span class="nav-number">3.1.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#插件安装失败"><span class="nav-number">3.1.1.</span> <span class="nav-text">插件安装失败</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#需安装-Jenkins-插件"><span class="nav-number">3.1.2.</span> <span class="nav-text">需安装 Jenkins 插件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置系统环境变量"><span class="nav-number">3.1.3.</span> <span class="nav-text">配置系统环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#NuGet-控制台程序下载"><span class="nav-number">3.1.4.</span> <span class="nav-text">NuGet 控制台程序下载</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建"><span class="nav-number">3.2.</span> <span class="nav-text">构建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Pull-Git-代码"><span class="nav-number">3.2.1.</span> <span class="nav-text">Pull Git 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#设置-Git-用户名密码"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">设置 Git 用户名密码</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#还原-NuGet-包"><span class="nav-number">3.2.2.</span> <span class="nav-text">还原 NuGet 包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译代码-客户端"><span class="nav-number">3.2.3.</span> <span class="nav-text">编译代码(客户端)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译代码-服务端"><span class="nav-number">3.2.4.</span> <span class="nav-text">编译代码(服务端)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#拷贝或删除多余文件"><span class="nav-number">3.2.5.</span> <span class="nav-text">拷贝或删除多余文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#程序打包"><span class="nav-number">3.2.6.</span> <span class="nav-text">程序打包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#压缩文件打包"><span class="nav-number">3.2.7.</span> <span class="nav-text">压缩文件打包</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建后操作"><span class="nav-number">3.3.</span> <span class="nav-text">构建后操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#归档成品"><span class="nav-number">3.3.1.</span> <span class="nav-text">归档成品</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FAQ"><span class="nav-number">3.4.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#提示-‘xxx’-不是内部或外部命令，也不是可运行的程序或批处理文件。"><span class="nav-number">3.4.1.</span> <span class="nav-text">提示 ‘xxx’ 不是内部或外部命令，也不是可运行的程序或批处理文件。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集成-SonarQube"><span class="nav-number">3.5.</span> <span class="nav-text">集成 SonarQube</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SonarQube-创建-Jenkins-ToKen"><span class="nav-number">3.5.1.</span> <span class="nav-text">SonarQube 创建 Jenkins ToKen</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#下载插件-SonarQube-Scanner"><span class="nav-number">3.5.2.</span> <span class="nav-text">下载插件 SonarQube Scanner</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Jenkins-配置-SonarQube"><span class="nav-number">3.5.3.</span> <span class="nav-text">Jenkins 配置 SonarQube</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置插件-SonarQube-Scanner"><span class="nav-number">3.5.4.</span> <span class="nav-text">配置插件 SonarQube Scanner</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置插件-SonarQube-Scanner-1"><span class="nav-number">3.5.5.</span> <span class="nav-text">配置插件 SonarQube Scanner</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置插件-SonarScanner-for-MSBuild"><span class="nav-number">3.5.6.</span> <span class="nav-text">配置插件 SonarScanner for MSBuild</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置插件-JDK"><span class="nav-number">3.5.7.</span> <span class="nav-text">配置插件 JDK</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#构建项目"><span class="nav-number">3.5.8.</span> <span class="nav-text">构建项目</span></a></li></ol></li></ol></li></ol></div>
           </div>
         </div>
       <!--/noindex-->
@@ -364,7 +385,7 @@
   <span class="author" itemprop="copyrightHolder">LiuJiaHua</span>
 </div>
 <!-- 隐藏：由 Hexo 强力驱动 v3.8.0 | 主题 – NexT.Pisces v7.1.1
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.3.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
 -->
