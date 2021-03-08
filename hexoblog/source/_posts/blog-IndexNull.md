@@ -80,3 +80,16 @@ external_link:
   </nav>
 {%- endif %}
 ```
+
+##### Hexo 无法解析特殊字符导致生成失败
+标题中的中括号，例如：
+``` Markdown
+title: 网页使用 <iframe> 嵌入部分其他网页
+```
+
+文章中的特殊字符，例如：
+``` Markdown
+{{ }}、{% %}
+```
+
+推荐避免使用类似字符或使用[HTML转义字符对照表](https://tool.oschina.net/commons?type=2)进行转义。
