@@ -1,6 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Android Studio 真机调试</title>
+    <url>/blog/2020/10/23/android-RealMachineDebugging/</url>
+    <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/android_logo.png"/></p>
+<a id="more"></a>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Android 开发使用真机有线调试和无线 wifi 调试</p>
+<h3 id="配置方式"><a href="#配置方式" class="headerlink" title="配置方式"></a>配置方式</h3><h4 id="有线调试"><a href="#有线调试" class="headerlink" title="有线调试"></a>有线调试</h4><p>Android 手机数据线链接电脑并开启 USB 调试<br>大部分 Android 默认不显示 USB 调试，多次点击系统版本号开启开发者模式</p>
+<h5 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h5><h6 id="安装-Google-USB-Driver"><a href="#安装-Google-USB-Driver" class="headerlink" title="安装 Google USB Driver"></a>安装 Google USB Driver</h6><ol>
+<li><p>选择 File → Setting…<br><img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/选择菜单Windows_Settings.png"/></p>
+</li>
+<li><p>选择 Appearance &amp; Behavior → System Settings → Android SDK → SDK Tools 勾选 Android SDK Tools 选项安装<br><img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/GoogleUSBDriver.png"/></p>
+</li>
+<li><p>在计算机管理 → 设备管理器 → 便携设备中选择手机型号，更新驱动，期间可能会在手机中认证授权设备，确认即可<br><img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/计算机管理_更新驱动程序.png"/></p>
+</li>
+<li><p>确保正确开启 USB 调试后可以真机调试</p>
+</li>
+</ol>
+<h5 id="Mac-OS"><a href="#Mac-OS" class="headerlink" title="Mac OS"></a>Mac OS</h5><h6 id="获取-Android-ADB-路径"><a href="#获取-Android-ADB-路径" class="headerlink" title="获取 Android ADB 路径"></a>获取 Android ADB 路径</h6><ol>
+<li><p>选择 File → Project Structure…<br><img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/选择菜单ProjectStructure.png"/></p>
+</li>
+<li><p>选择 SDK Location → 选中位置为 Android ADB 路径<br><img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/ProjectStructure.png"/></p>
+</li>
+</ol>
+<h6 id="配置-Android-ADB-环境变量"><a href="#配置-Android-ADB-环境变量" class="headerlink" title="配置 Android ADB 环境变量"></a>配置 Android ADB 环境变量</h6><p>在 ～/.bash_profile 文件中配置</p>
+<ol>
+<li>创建 .bash_profile 文件（如果不存在） <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd ~</span><br><span class="line">touch .bash_profile</span><br></pre></td></tr></table></figure></li>
+<li><p>编辑 .bash_profile 文件，ANDROID_HOME 参数为上一步获取的 ADB 路径</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">open .bash_profile</span><br></pre></td></tr></table></figure>
+<p> <img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/bash_profile文件.png"/></p>
+</li>
+<li><p>保存文件后执行配置立即生效命令，输入 adb version 检查是否配置成功</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">source .bash_profile</span><br><span class="line">adb version</span><br></pre></td></tr></table></figure>
+<h6 id="配置手机可被识别"><a href="#配置手机可被识别" class="headerlink" title="配置手机可被识别"></a>配置手机可被识别</h6></li>
+<li><p>执行命令获取 usb 接入信息，查询信息中会显示链接的 Android 信息，记录 Vendor ID 备用</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">system_profiler SPUSBDataType</span><br></pre></td></tr></table></figure>
+<p> <img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/查询usb连接命令.png"/></p>
+</li>
+<li><p>在 ～/.android/.adb_usb 文件中配置，目录如下<br><img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/adb_usb目录.png"/></p>
+</li>
+<li><p>创建 .adb_usb 文件（如果不存在）</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd ~</span><br><span class="line">touch .android/.adb_usb</span><br></pre></td></tr></table></figure></li>
+<li><p>编辑 .adb_usb 文件，填写上一步获取的 Vendor ID 并保存<br><img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/adb_usb文件.png"/></p>
+</li>
+<li><p>执行 adb 命令，显示出链接的手机信息后可以真机调试</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb devices</span><br></pre></td></tr></table></figure>
+<p> <img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/判断是否连接成功.png"/></p>
+</li>
+</ol>
+<h4 id="无线调试（需完成有线调试步骤）"><a href="#无线调试（需完成有线调试步骤）" class="headerlink" title="无线调试（需完成有线调试步骤）"></a>无线调试（需完成有线调试步骤）</h4><h5 id="Windows-amp-Mac-OS"><a href="#Windows-amp-Mac-OS" class="headerlink" title="Windows &amp; Mac OS"></a>Windows &amp; Mac OS</h5><ol>
+<li><p>配置 ADB 环境变量（如果未配置）<br>Windows 通常 ADB 路径：..\Android\Sdk\platform-tools<br>Mac OS 通常 ADB 路径：~/Library/Android/sdk</p>
+</li>
+<li><p>使用命令检测 Android 手机是否链接正常（有线连接）</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb devices</span><br></pre></td></tr></table></figure></li>
+<li><p>创建 adb 端口<br> 使用命令 adb tcpip [port] 让手机的某个端口处于监听状态<br> 服务器端通过扫描5555到5585之间的奇数端口来寻找模拟器或设备实例并与找到的建立链接。</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb topic 5555</span><br></pre></td></tr></table></figure>
+<p> 返回 restarting in TCP mode port:5555 为创建成功</p>
+</li>
+<li><p>创建 adb 无线连接<br> 保证手机与电脑在一个网络中<br> 使用命令行 adb connect [ip-address]:[port-num] 连接手机<br> 命令中 ip 地址为手机在网络中的 ip 地址，端口号为上一步创建的监听端口</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb connect 192.168.1.101:5555</span><br></pre></td></tr></table></figure>
+<p> 返回 connected to 192.168.1.101:5555 为创建成功，此时可以断开有线连接</p>
+</li>
+<li><p>重新执行命令检查 adb 链接情况</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb devices</span><br></pre></td></tr></table></figure>
+<p> 返回 {ip 地址}:{端口号} 正确则可以进行无线调试</p>
+</li>
+<li><p>断开 Wi-Fi 链接<br> 使用命令 adb disconnect [ip-address]:[port-num] 来中断连接</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb disconnect 192.168.1.101:5555</span><br></pre></td></tr></table></figure>
+<p> 返回 disconnected 192.168.1.101:5555 断开成功</p>
+</li>
+<li><p>命令展示<br> <img src="https://sadness96.github.io/images/blog/android-RealMachineDebugging/无线调试.png"/></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+        <tag>android studio</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Asp服务端文件下载</title>
     <url>/blog/2019/03/11/asp-DownloadFile/</url>
     <content><![CDATA[<h3 id="服务端提供网页点击下载功能，或-WebApi-接口提供软件更新下载服务"><a href="#服务端提供网页点击下载功能，或-WebApi-接口提供软件更新下载服务" class="headerlink" title="服务端提供网页点击下载功能，或 WebApi 接口提供软件更新下载服务"></a>服务端提供网页点击下载功能，或 WebApi 接口提供软件更新下载服务</h3><a id="more"></a>
@@ -110,22 +191,24 @@
       </tags>
   </entry>
   <entry>
-    <title>C#/C++ 混合编程</title>
-    <url>/blog/2018/08/01/cpp-HybridCSharp/</url>
-    <content><![CDATA[<h3 id="使用C-开发算法（全景拼接、人脸识别、超分辨率重建）-使用C-开发服务端业务逻辑和UI"><a href="#使用C-开发算法（全景拼接、人脸识别、超分辨率重建）-使用C-开发服务端业务逻辑和UI" class="headerlink" title="使用C++开发算法（全景拼接、人脸识别、超分辨率重建）/使用C#开发服务端业务逻辑和UI"></a>使用C++开发算法（全景拼接、人脸识别、超分辨率重建）/使用C#开发服务端业务逻辑和UI</h3><a id="more"></a>
-<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>现工作中作由于C++的UI（<a href="https://baike.baidu.com/item/MFC/2530850?fr=aladdin">MFC</a>、<a href="https://baike.baidu.com/item/qt">QT</a>）开发界面比较难看，定制用户控件复杂且样式一般。而C#又不擅长于开发算法逻辑，效率不如C++。所以现在大部分公司都会选用C#/C++混合编程。</p>
-<h4 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h4><p>使用C#做界面要比C++高效的多，但是存在算法逻辑的时候由于性能问题不得不把部分模块交给C++处理，C++可以使用高效的栈内存对象（CCalc），而C#所有对象只能放在托管堆中。测试C#调用C++类库使用<a href="https://baike.baidu.com/item/%E6%89%98%E7%AE%A1/3967693">托管</a>方式性能得到了一定程度的提升，但比起单纯的C++项目，还是差了很多；测试C#调用C++类库使用 <a href="https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.dllimportattribute?redirectedfrom=MSDN&amp;view=netframework-4.8">DllImport</a> <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/attributes/">Attribute</a> 混合方式由<a href="https://baike.baidu.com/item/%E9%9D%9E%E6%89%98%E7%AE%A1/7967564">非托管动态链接库</a>效率与单独运行C++相差无几。</p>
-<h4 id="简单基础参数传递"><a href="#简单基础参数传递" class="headerlink" title="简单基础参数传递"></a>简单基础参数传递</h4><p>例子：<br>1.最基础的加法运算；<br>2.传入图片地址，通过OpenCV处理后返回图片地址；<br>3.传入图片地址，通过OpenCV把彩色图像转换为灰度图像，然后返回给C#；<br>方法声明为C++方法时，<a href="https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.dllimportattribute?redirectedfrom=MSDN&amp;view=netframework-4.8">DllImport</a> 引用被不明方法加密，调用时需使用Depends工具拷贝对应方法的Function名字粘贴到EntryPoint。详情查看<a href="/blog/2018/08/01/software-Depends/">Depends 使用介绍</a><br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">filePath</span><span class="params">(<span class="keyword">char</span>* filePath)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span>* resurlt;</span><br><span class="line">	resurlt = filePath;</span><br><span class="line">	IplImage* img = cvLoadImage(filePath);</span><br><span class="line">	<span class="comment">//用原图像指针创建新图像</span></span><br><span class="line">	IplImage* dst = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == dst)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	&#125;</span><br><span class="line">	cvCvtColor(img, dst, CV_BGR2GRAY);</span><br><span class="line">	<span class="keyword">return</span> resurlt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">IplImage* <span class="title">Color2Gray</span><span class="params">(<span class="keyword">char</span>* filePath)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	IplImage* img = cvLoadImage(filePath);</span><br><span class="line">	<span class="comment">//用原图像指针创建新图像</span></span><br><span class="line">	IplImage* dst = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == dst)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	&#125;</span><br><span class="line">	cvCvtColor(img, dst, CV_BGR2GRAY);</span><br><span class="line">	<span class="keyword">return</span> dst;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">[<span class="meta">DllImport(@<span class="meta-string">&quot;CPP_Demo.dll&quot;</span>, EntryPoint = <span class="meta-string">&quot;?Add@@YAHHH@Z&quot;</span>, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">Add</span>(<span class="params"><span class="built_in">int</span> a, <span class="built_in">int</span> b</span>)</span>;</span><br><span class="line"></span><br><span class="line">[<span class="meta">DllImport(@<span class="meta-string">&quot;CPP_Demo.dll&quot;</span>, EntryPoint = <span class="meta-string">&quot;?filePath@@YAPEADPEAD@Z&quot;</span>, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> IntPtr <span class="title">filePath</span>(<span class="params">IntPtr filePath</span>)</span>;</span><br><span class="line"></span><br><span class="line">[<span class="meta">DllImport(@<span class="meta-string">&quot;CPP_Demo.dll&quot;</span>, EntryPoint = <span class="meta-string">&quot;?Color2Gray@@YAPEAU_IplImage@@PEAD@Z&quot;</span>, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> IntPtr <span class="title">Color2Gray</span>(<span class="params">IntPtr filePath</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//加载基础图片</span></span><br><span class="line">image1.Source = <span class="keyword">new</span> BitmapImage(<span class="keyword">new</span> Uri(<span class="string">@&quot;./image/HUA1.JPG&quot;</span>, UriKind.Relative));</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试1</span></span><br><span class="line"><span class="built_in">int</span> iAdd = Add(<span class="number">8</span>, <span class="number">12</span>);</span><br><span class="line"><span class="comment">//测试2</span></span><br><span class="line"><span class="built_in">string</span> strFile = Marshal.PtrToStringAnsi(filePath(Marshal.StringToHGlobalAnsi(<span class="string">@&quot;F:\Demos\C#调用C++类库(OpenCV)\CSharp_Demo\CSharp_Demo\Image\HUA1.JPG&quot;</span>)));</span><br><span class="line"><span class="comment">//测试3</span></span><br><span class="line">IntPtr imageGray = Color2Gray(Marshal.StringToHGlobalAnsi(<span class="string">@&quot;F:\Demos\C#调用C++类库(OpenCV)\CSharp_Demo\CSharp_Demo\Image\HUA1.JPG&quot;</span>));</span><br><span class="line">MIplImage lplimage = (Emgu.CV.Structure.MIplImage)System.Runtime.InteropServices.Marshal.PtrToStructure(imageGray, <span class="keyword">typeof</span>(Emgu.CV.Structure.MIplImage));</span><br><span class="line">Image&lt;Gray, Byte&gt; dst = <span class="keyword">new</span> Image&lt;Gray, Byte&gt;(lplimage.Width, lplimage.Height, lplimage.WidthStep, lplimage.ImageData);</span><br><span class="line">image2.Source = ChangeBitmapToImageSource(dst.ToBitmap());</span><br></pre></td></tr></table></figure></p>
-<h4 id="错误及处理"><a href="#错误及处理" class="headerlink" title="错误及处理"></a>错误及处理</h4><h5 id="报错：无法加载-DLL“xxx-dll”-找不到指定的模块"><a href="#报错：无法加载-DLL“xxx-dll”-找不到指定的模块" class="headerlink" title="报错：无法加载 DLL“xxx.dll”: 找不到指定的模块"></a>报错：无法加载 DLL“xxx.dll”: 找不到指定的模块</h5><p>推荐使用 <a href="/blog/2018/08/01/software-Depends/">Depends</a> 工具检测缺少引用类库</p>
-<h5 id="报错：调用-Dll-“试图加载格式不正确的程序。-异常来自-HRESULT-0x8007000B"><a href="#报错：调用-Dll-“试图加载格式不正确的程序。-异常来自-HRESULT-0x8007000B" class="headerlink" title="报错：调用 Dll “试图加载格式不正确的程序。(异常来自 HRESULT:0x8007000B)"></a>报错：调用 Dll “试图加载格式不正确的程序。(异常来自 HRESULT:0x8007000B)</h5><p>调用64位类库需要把项目改为64位<br>桌面端修改：属性→生成→目标平台设为”Any Cpu”，取消勾选”首选32位”。<br>Web端修改：工具→选项→项目和解决方案→Web项目→勾选”对网站和项目使用 IIS Express 的 64 位版”</p>
+    <title>Hexo 博客升级</title>
+    <url>/blog/2021/01/11/blog-IndexNull/</url>
+    <content><![CDATA[<h3 id="Hexo-博客生成后-Index-文件为空"><a href="#Hexo-博客生成后-Index-文件为空" class="headerlink" title="Hexo 博客生成后 Index 文件为空"></a>Hexo 博客生成后 Index 文件为空</h3><a id="more"></a>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>出差时在一台新系统中装环境，执行生成博客命令 hexo generate 后检查生成目录 public 中的 index.html 文件都为空。<br>调试后发现是新装的 <a href="https://nodejs.org/zh-cn/">Node.js</a> 版本与 <a href="https://hexo.io/">Hexo</a> 版本不匹配，旧版 Nodejs 版本为 v12.14.0，新装版本为 v14.15.4，Hexo 版本为 v3.9。</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><h4 id="降级-Nodejs"><a href="#降级-Nodejs" class="headerlink" title="降级 Nodejs"></a>降级 Nodejs</h4><p>降级 Nodejs 版本至 v12</p>
+<h4 id="升级-Hexo"><a href="#升级-Hexo" class="headerlink" title="升级 Hexo"></a>升级 Hexo</h4><p>升级 Hexo 版本至与 Nodejs v14.15 匹配的 Hexo v5.3.0</p>
+<h5 id="修改配置文件版本"><a href="#修改配置文件版本" class="headerlink" title="修改配置文件版本"></a>修改配置文件版本</h5><p>修改 Hexo 目录中 package.json 文件<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  ···</span><br><span class="line">  &quot;hexo&quot;: &#123;</span><br><span class="line">    &quot;version&quot;: &quot;5.3.0&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;hexo&quot;: &quot;^5.3.0&quot;,</span><br><span class="line">    ···</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="执行命令升级版本"><a href="#执行命令升级版本" class="headerlink" title="执行命令升级版本"></a>执行命令升级版本</h5><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm update</span><br></pre></td></tr></table></figure>
+<h5 id="安装-swig"><a href="#安装-swig" class="headerlink" title="安装 swig"></a>安装 swig</h5><p>如果直接生成博客则会出现 “ { % extends ‘_layout.swig‘ % } { % import ‘_macro/post.swig‘ as post_template % }“ 问题。<br>原因是 hexo 在 5.0 之后把 swig 给删除了需要自己手动安装。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i hexo-renderer-swig</span><br></pre></td></tr></table></figure></p>
+<h5 id="修改-external-link"><a href="#修改-external-link" class="headerlink" title="修改 external_link"></a>修改 external_link</h5><p>生成博客提示异常信息<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INFO  Validating config</span><br><span class="line">WARN  Deprecated config detected: &quot;external_link&quot; with a Boolean value is deprecated. See https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;configuration for more details.</span><br></pre></td></tr></table></figure><br>修改文件 _config.yml 中的节点<br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">external_link:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span><span class="string">|false</span></span><br></pre></td></tr></table></figure><br>改为<br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">external_link:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># Open external links in new tab</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">site</span> <span class="comment"># Apply to the whole site</span></span><br><span class="line">  <span class="attr">exclude:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="Next-主题分页显示异常"><a href="#Next-主题分页显示异常" class="headerlink" title="Next 主题分页显示异常"></a>Next 主题分页显示异常</h5><p>参考最新的 <a href="https://github.com/theme-next/hexo-theme-next/blob/master/layout/_partials/pagination.swig">pagination.swig</a><br>修改 Next 主题的配置文件 ../themes/next/layout/_partials/pagination.swig<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;%- if page.prev or page.next %&#125;</span><br><span class="line">  &lt;nav class&#x3D;&quot;pagination&quot;&gt;</span><br><span class="line">    &#123;&#123;</span><br><span class="line">      paginator(&#123;</span><br><span class="line">        prev_text: &#39;&lt;i class&#x3D;&quot;fa fa-angle-left&quot; aria-label&#x3D;&quot;&#39; + __(&#39;accessibility.prev_page&#39;) + &#39;&quot;&gt;&lt;&#x2F;i&gt;&#39;,</span><br><span class="line">        next_text: &#39;&lt;i class&#x3D;&quot;fa fa-angle-right&quot; aria-label&#x3D;&quot;&#39; + __(&#39;accessibility.next_page&#39;) + &#39;&quot;&gt;&lt;&#x2F;i&gt;&#39;,</span><br><span class="line">        mid_size : 1,</span><br><span class="line">        escape   : false</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;&#125;</span><br><span class="line">  &lt;&#x2F;nav&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure></p>
 ]]></content>
       <categories>
-        <category>C++</category>
+        <category>Blog</category>
       </categories>
       <tags>
-        <tag>c#</tag>
-        <tag>c++</tag>
-        <tag>depends</tag>
+        <tag>hexo</tag>
+        <tag>nodejs</tag>
       </tags>
   </entry>
   <entry>
@@ -142,9 +225,28 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>c#</tag>
         <tag>c++</tag>
+        <tag>c#</tag>
         <tag>sdses</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C#/C++ 混合编程</title>
+    <url>/blog/2018/08/01/cpp-HybridCSharp/</url>
+    <content><![CDATA[<h3 id="使用C-开发算法（全景拼接、人脸识别、超分辨率重建）-使用C-开发服务端业务逻辑和UI"><a href="#使用C-开发算法（全景拼接、人脸识别、超分辨率重建）-使用C-开发服务端业务逻辑和UI" class="headerlink" title="使用C++开发算法（全景拼接、人脸识别、超分辨率重建）/使用C#开发服务端业务逻辑和UI"></a>使用C++开发算法（全景拼接、人脸识别、超分辨率重建）/使用C#开发服务端业务逻辑和UI</h3><a id="more"></a>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>现工作中作由于C++的UI（<a href="https://baike.baidu.com/item/MFC/2530850?fr=aladdin">MFC</a>、<a href="https://baike.baidu.com/item/qt">QT</a>）开发界面比较难看，定制用户控件复杂且样式一般。而C#又不擅长于开发算法逻辑，效率不如C++。所以现在大部分公司都会选用C#/C++混合编程。</p>
+<h4 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h4><p>使用C#做界面要比C++高效的多，但是存在算法逻辑的时候由于性能问题不得不把部分模块交给C++处理，C++可以使用高效的栈内存对象（CCalc），而C#所有对象只能放在托管堆中。测试C#调用C++类库使用<a href="https://baike.baidu.com/item/%E6%89%98%E7%AE%A1/3967693">托管</a>方式性能得到了一定程度的提升，但比起单纯的C++项目，还是差了很多；测试C#调用C++类库使用 <a href="https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.dllimportattribute?redirectedfrom=MSDN&amp;view=netframework-4.8">DllImport</a> <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/attributes/">Attribute</a> 混合方式由<a href="https://baike.baidu.com/item/%E9%9D%9E%E6%89%98%E7%AE%A1/7967564">非托管动态链接库</a>效率与单独运行C++相差无几。</p>
+<h4 id="简单基础参数传递"><a href="#简单基础参数传递" class="headerlink" title="简单基础参数传递"></a>简单基础参数传递</h4><p>例子：<br>1.最基础的加法运算；<br>2.传入图片地址，通过OpenCV处理后返回图片地址；<br>3.传入图片地址，通过OpenCV把彩色图像转换为灰度图像，然后返回给C#；<br>方法声明为C++方法时，<a href="https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.dllimportattribute?redirectedfrom=MSDN&amp;view=netframework-4.8">DllImport</a> 引用被不明方法加密，调用时需使用Depends工具拷贝对应方法的Function名字粘贴到EntryPoint。详情查看<a href="/blog/2018/08/01/software-Depends/">Depends 使用介绍</a><br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">filePath</span><span class="params">(<span class="keyword">char</span>* filePath)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span>* resurlt;</span><br><span class="line">	resurlt = filePath;</span><br><span class="line">	IplImage* img = cvLoadImage(filePath);</span><br><span class="line">	<span class="comment">//用原图像指针创建新图像</span></span><br><span class="line">	IplImage* dst = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == dst)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	&#125;</span><br><span class="line">	cvCvtColor(img, dst, CV_BGR2GRAY);</span><br><span class="line">	<span class="keyword">return</span> resurlt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">IplImage* <span class="title">Color2Gray</span><span class="params">(<span class="keyword">char</span>* filePath)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	IplImage* img = cvLoadImage(filePath);</span><br><span class="line">	<span class="comment">//用原图像指针创建新图像</span></span><br><span class="line">	IplImage* dst = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == dst)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	&#125;</span><br><span class="line">	cvCvtColor(img, dst, CV_BGR2GRAY);</span><br><span class="line">	<span class="keyword">return</span> dst;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">[<span class="meta">DllImport(@<span class="meta-string">&quot;CPP_Demo.dll&quot;</span>, EntryPoint = <span class="meta-string">&quot;?Add@@YAHHH@Z&quot;</span>, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">Add</span>(<span class="params"><span class="built_in">int</span> a, <span class="built_in">int</span> b</span>)</span>;</span><br><span class="line"></span><br><span class="line">[<span class="meta">DllImport(@<span class="meta-string">&quot;CPP_Demo.dll&quot;</span>, EntryPoint = <span class="meta-string">&quot;?filePath@@YAPEADPEAD@Z&quot;</span>, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> IntPtr <span class="title">filePath</span>(<span class="params">IntPtr filePath</span>)</span>;</span><br><span class="line"></span><br><span class="line">[<span class="meta">DllImport(@<span class="meta-string">&quot;CPP_Demo.dll&quot;</span>, EntryPoint = <span class="meta-string">&quot;?Color2Gray@@YAPEAU_IplImage@@PEAD@Z&quot;</span>, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> IntPtr <span class="title">Color2Gray</span>(<span class="params">IntPtr filePath</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//加载基础图片</span></span><br><span class="line">image1.Source = <span class="keyword">new</span> BitmapImage(<span class="keyword">new</span> Uri(<span class="string">@&quot;./image/HUA1.JPG&quot;</span>, UriKind.Relative));</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试1</span></span><br><span class="line"><span class="built_in">int</span> iAdd = Add(<span class="number">8</span>, <span class="number">12</span>);</span><br><span class="line"><span class="comment">//测试2</span></span><br><span class="line"><span class="built_in">string</span> strFile = Marshal.PtrToStringAnsi(filePath(Marshal.StringToHGlobalAnsi(<span class="string">@&quot;F:\Demos\C#调用C++类库(OpenCV)\CSharp_Demo\CSharp_Demo\Image\HUA1.JPG&quot;</span>)));</span><br><span class="line"><span class="comment">//测试3</span></span><br><span class="line">IntPtr imageGray = Color2Gray(Marshal.StringToHGlobalAnsi(<span class="string">@&quot;F:\Demos\C#调用C++类库(OpenCV)\CSharp_Demo\CSharp_Demo\Image\HUA1.JPG&quot;</span>));</span><br><span class="line">MIplImage lplimage = (Emgu.CV.Structure.MIplImage)System.Runtime.InteropServices.Marshal.PtrToStructure(imageGray, <span class="keyword">typeof</span>(Emgu.CV.Structure.MIplImage));</span><br><span class="line">Image&lt;Gray, Byte&gt; dst = <span class="keyword">new</span> Image&lt;Gray, Byte&gt;(lplimage.Width, lplimage.Height, lplimage.WidthStep, lplimage.ImageData);</span><br><span class="line">image2.Source = ChangeBitmapToImageSource(dst.ToBitmap());</span><br></pre></td></tr></table></figure></p>
+<h4 id="错误及处理"><a href="#错误及处理" class="headerlink" title="错误及处理"></a>错误及处理</h4><h5 id="报错：无法加载-DLL“xxx-dll”-找不到指定的模块"><a href="#报错：无法加载-DLL“xxx-dll”-找不到指定的模块" class="headerlink" title="报错：无法加载 DLL“xxx.dll”: 找不到指定的模块"></a>报错：无法加载 DLL“xxx.dll”: 找不到指定的模块</h5><p>推荐使用 <a href="/blog/2018/08/01/software-Depends/">Depends</a> 工具检测缺少引用类库</p>
+<h5 id="报错：调用-Dll-“试图加载格式不正确的程序。-异常来自-HRESULT-0x8007000B"><a href="#报错：调用-Dll-“试图加载格式不正确的程序。-异常来自-HRESULT-0x8007000B" class="headerlink" title="报错：调用 Dll “试图加载格式不正确的程序。(异常来自 HRESULT:0x8007000B)"></a>报错：调用 Dll “试图加载格式不正确的程序。(异常来自 HRESULT:0x8007000B)</h5><p>调用64位类库需要把项目改为64位<br>桌面端修改：属性→生成→目标平台设为”Any Cpu”，取消勾选”首选32位”。<br>Web端修改：工具→选项→项目和解决方案→Web项目→勾选”对网站和项目使用 IIS Express 的 64 位版”</p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>c#</tag>
+        <tag>depends</tag>
       </tags>
   </entry>
   <entry>
@@ -730,6 +832,1049 @@
       </tags>
   </entry>
   <entry>
+    <title>Cat020 报文解析</title>
+    <url>/blog/2019/09/09/csharp-Cat020015/</url>
+    <content><![CDATA[<h3 id="MLAT-CAT020-0-15-报文协议解析"><a href="#MLAT-CAT020-0-15-报文协议解析" class="headerlink" title="MLAT CAT020 0.15 报文协议解析"></a>MLAT CAT020 0.15 报文协议解析</h3><a id="more"></a>
+<h3 id="简介-声明"><a href="#简介-声明" class="headerlink" title="简介/声明"></a>简介/声明</h3><p>多点定位(MLAT) 全称是 Multilateration，多点定位技术利用多个地面接收机接收到机载应答机信号的时间差，计算得出飞机位置。</p>
+<p>解析文档均为<a href="https://www.eurocontrol.int/">欧洲航空交通管理</a>官方提供。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><h3 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h3><p><a href="https://www.eurocontrol.int">EuroControl</a>：<a href="https://www.eurocontrol.int/sites/default/files/2019-06/cat020-asterix-mlt-messages-part-14.pdf">cat020p14ed15.pdf</a></p>
+<h2 id="测试数据解析"><a href="#测试数据解析" class="headerlink" title="测试数据解析"></a>测试数据解析</h2><p>14 00 46 FF 0F 01 84 16 07 41 10 A1 A0 BB 00 57 8B 48 01 44 DC F6 00 17 06 00 1F AD 0E F2 02 78 10 45 80 0C 54 F2 DB 3C 60 00 02 20 40 19 98 D0 00 00 00 00 00 01 00 0C 00 0C 00 03 00 06 00 05 00 05 A1 A0 C2 00</p>
+<h3 id="解析步骤"><a href="#解析步骤" class="headerlink" title="解析步骤"></a>解析步骤</h3><h4 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h4><table>
+<thead>
+<tr>
+<th>CAT = 020</th>
+<th>LEN</th>
+<th>FSPEC</th>
+<th>Items of the first record</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="解析报文区域数据"><a href="#解析报文区域数据" class="headerlink" title="解析报文区域数据"></a>解析报文区域数据</h4><table>
+<thead>
+<tr>
+<th>16进制代码</th>
+<th>解析值（二进制或十进制）</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x14</td>
+<td>20</td>
+<td>报文头，转换十进制为20</td>
+</tr>
+<tr>
+<td>0x00</td>
+<td>00</td>
+<td>报文长度起始位</td>
+</tr>
+<tr>
+<td>0x46</td>
+<td>70</td>
+<td>报文长度 LEN，为报文数据字节数，两个字节表示，该报文长度为0x00*256+0x46=0x46=70字节</td>
+</tr>
+<tr>
+<td>FF</td>
+<td>1111 1111</td>
+<td>I020/010、I020/020、I020/140、I020/041、I020/042、I020/161、I020/170</td>
+</tr>
+<tr>
+<td>0F</td>
+<td>0000 1111</td>
+<td>I020/220、I020/245、I020/110</td>
+</tr>
+<tr>
+<td>01</td>
+<td>0000 0001</td>
+<td></td>
+</tr>
+<tr>
+<td>84</td>
+<td>1000 0100</td>
+<td>I020/230、RE</td>
+</tr>
+<tr>
+<td>16</td>
+<td>22</td>
+<td></td>
+</tr>
+<tr>
+<td>07</td>
+<td>7</td>
+<td>I020/010 数据源的标识符</td>
+</tr>
+<tr>
+<td>41</td>
+<td>65</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>16</td>
+<td>I020/020 目标报告描述符</td>
+</tr>
+<tr>
+<td>A1</td>
+<td>161</td>
+<td></td>
+</tr>
+<tr>
+<td>A0</td>
+<td>160</td>
+<td></td>
+</tr>
+<tr>
+<td>BB</td>
+<td>187</td>
+<td><a href="#1020140">I020/140</a> 日时间项</td>
+</tr>
+<tr>
+<td>00</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>57</td>
+<td>87</td>
+<td></td>
+</tr>
+<tr>
+<td>8B</td>
+<td>139</td>
+<td></td>
+</tr>
+<tr>
+<td>48</td>
+<td>72</td>
+<td></td>
+</tr>
+<tr>
+<td>01</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>44</td>
+<td>68</td>
+<td></td>
+</tr>
+<tr>
+<td>DC</td>
+<td>220</td>
+<td></td>
+</tr>
+<tr>
+<td>F6</td>
+<td>246</td>
+<td><a href="#1020041">I020/041</a> 位置坐标（WGS-84）项</td>
+</tr>
+<tr>
+<td>00</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>17</td>
+<td>23</td>
+<td></td>
+</tr>
+<tr>
+<td>06</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>1F</td>
+<td>31</td>
+<td></td>
+</tr>
+<tr>
+<td>AD</td>
+<td>173</td>
+<td><a href="#1020042">I020/042</a> 在笛卡尔坐标中的位置</td>
+</tr>
+<tr>
+<td>0E</td>
+<td>14</td>
+<td></td>
+</tr>
+<tr>
+<td>F2</td>
+<td>242</td>
+<td><a href="#1020161">I020/161</a> 跟踪号码</td>
+</tr>
+<tr>
+<td>02</td>
+<td>2</td>
+<td>I020/170 追踪发送状态</td>
+</tr>
+<tr>
+<td>78</td>
+<td>120</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>16</td>
+<td></td>
+</tr>
+<tr>
+<td>45</td>
+<td>69</td>
+<td>I020/220 目标地址</td>
+</tr>
+<tr>
+<td>80</td>
+<td>128</td>
+<td></td>
+</tr>
+<tr>
+<td>0C</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>54</td>
+<td>84</td>
+<td></td>
+</tr>
+<tr>
+<td>F2</td>
+<td>242</td>
+<td></td>
+</tr>
+<tr>
+<td>DB</td>
+<td>219</td>
+<td></td>
+</tr>
+<tr>
+<td>3C</td>
+<td>60</td>
+<td></td>
+</tr>
+<tr>
+<td>60</td>
+<td>96</td>
+<td><a href="#1020245">I020/245</a> 目标识别 航班号</td>
+</tr>
+<tr>
+<td>00</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>02</td>
+<td>2</td>
+<td><a href="#1020110">I020/110</a> 测量高度(笛卡尔坐标)</td>
+</tr>
+<tr>
+<td>20</td>
+<td>32</td>
+<td></td>
+</tr>
+<tr>
+<td>40</td>
+<td>64</td>
+<td>I020/230 通讯/自动识别系统的能力和飞行状态</td>
+</tr>
+<tr>
+<td>19</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>98</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>D0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>01</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0C</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0C</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>03</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>06</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>05</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>05</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>A1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>A0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>C2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><span id="1020140"><span/></p>
+<h4 id="I020-140"><a href="#I020-140" class="headerlink" title="I020/140"></a>I020/140</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析I020_140日时间</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">I020_140</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 16进制转成10进制</span></span><br><span class="line">    <span class="built_in">string</span> timeDec = (((uint)byteData[<span class="number">0</span>] &lt;&lt; <span class="number">16</span>) + ((uint)byteData[<span class="number">1</span>] &lt;&lt; <span class="number">8</span>) + byteData[<span class="number">2</span>]).ToString();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 字符串转数值/128 * 1000 总毫秒数</span></span><br><span class="line">    <span class="built_in">long</span> ms = (<span class="built_in">long</span>)((<span class="built_in">double</span>.Parse(timeDec) / <span class="number">128</span>) * <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">int</span> ss = <span class="number">1000</span>;</span><br><span class="line">    <span class="built_in">int</span> mi = ss * <span class="number">60</span>;</span><br><span class="line">    <span class="built_in">int</span> hh = mi * <span class="number">60</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">long</span> hour = ms / hh;</span><br><span class="line">    <span class="built_in">long</span> minute = (ms - hour * hh) / mi;</span><br><span class="line">    <span class="built_in">long</span> second = (ms - hour * hh - minute * mi) / ss;</span><br><span class="line">    <span class="built_in">long</span> milliSecond = ms - hour * hh - minute * mi - second * ss;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 小时</span></span><br><span class="line">    <span class="built_in">string</span> strHour = hour &lt; <span class="number">10</span> ? <span class="string">&quot;0&quot;</span> + hour : <span class="string">&quot;&quot;</span> + hour;</span><br><span class="line">    <span class="comment">// 分钟</span></span><br><span class="line">    <span class="built_in">string</span> strMinute = minute &lt; <span class="number">10</span> ? <span class="string">&quot;0&quot;</span> + minute : <span class="string">&quot;&quot;</span> + minute;</span><br><span class="line">    <span class="comment">// 秒</span></span><br><span class="line">    <span class="built_in">string</span> strSecond = second &lt; <span class="number">10</span> ? <span class="string">&quot;0&quot;</span> + second : <span class="string">&quot;&quot;</span> + second;</span><br><span class="line">    <span class="comment">// 毫秒</span></span><br><span class="line">    <span class="built_in">string</span> strMilliSecond = milliSecond &lt; <span class="number">10</span> ? <span class="string">&quot;0&quot;</span> + milliSecond : <span class="string">&quot;&quot;</span> + milliSecond;</span><br><span class="line">    strMilliSecond = milliSecond &lt; <span class="number">100</span> ? <span class="string">&quot;0&quot;</span> + strMilliSecond : <span class="string">&quot;&quot;</span> + strMilliSecond;</span><br><span class="line">    <span class="comment">//增加UTC时间</span></span><br><span class="line">    strHour = <span class="built_in">int</span>.Parse(strHour) + <span class="number">8</span> &gt; <span class="number">24</span> ? (<span class="built_in">int</span>.Parse(strHour) + <span class="number">8</span> - <span class="number">24</span>).ToString() : (<span class="built_in">int</span>.Parse(strHour) + <span class="number">8</span>).ToString();</span><br><span class="line">    <span class="keyword">return</span> <span class="string">$&quot;<span class="subst">&#123;DateTime.Now.ToShortDateString()&#125;</span> <span class="subst">&#123;strHour&#125;</span>:<span class="subst">&#123;strMinute&#125;</span>:<span class="subst">&#123;strSecond&#125;</span>.<span class="subst">&#123;strMilliSecond&#125;</span>&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="1020245"><span/></p>
+<h4 id="I020-245"><a href="#I020-245" class="headerlink" title="I020/245"></a>I020/245</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析I020/245目标识别</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">I020_245</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> str = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; byteData.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 把第一位去掉</span></span><br><span class="line">        str += Convert.ToString(byteData[i], <span class="number">2</span>).PadLeft(<span class="number">8</span>, <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">char</span>[] strCharArray = str.ToCharArray();</span><br><span class="line">    <span class="built_in">string</span> flno2BinaryStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="built_in">string</span> result = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; strCharArray.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        flno2BinaryStr += strCharArray[i] + <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> ((i + <span class="number">1</span>) % <span class="number">6</span> == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">string</span> flightNumberValue = flightNumberMap[flno2BinaryStr];</span><br><span class="line">            <span class="keyword">if</span> (!<span class="built_in">string</span>.IsNullOrEmpty(flightNumberValue))</span><br><span class="line">            &#123;</span><br><span class="line">                result += flightNumberValue;</span><br><span class="line">            &#125;</span><br><span class="line">            flno2BinaryStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>NOTE: See ICAO document Annex 10, Volume IV, section 3.1.2.9<br>for the coding rules.<br>每六字节代表一个字母或数字<br><img src="https://sadness96.github.io/images/blog/csharp-Cat020015/TheCodingRules.png"/></p>
+<p><span id="1020041"><span/></p>
+<h4 id="I020-041"><a href="#I020-041" class="headerlink" title="I020/041"></a>I020/041</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析I020_041在WGS-84中的坐标位置</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span>[] <span class="title">I020_041</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">double</span>[] relDataArray = <span class="keyword">new</span> <span class="built_in">double</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span> (byteData.Length == <span class="number">8</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 16进制转成10进制（4位一转）</span></span><br><span class="line">        <span class="built_in">string</span> xCoordinate10 = byteData[<span class="number">0</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">1</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">2</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">3</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="built_in">string</span> yCoordinate10 = byteData[<span class="number">4</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">5</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">6</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">7</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="comment">// 10进制计算规则（xCoordinate10 * 180 /2^25）</span></span><br><span class="line">        relDataArray[<span class="number">0</span>] = <span class="built_in">double</span>.Parse(Convert.ToInt32(xCoordinate10, <span class="number">16</span>).ToString()) * <span class="number">180</span> / <span class="number">33554432</span>;</span><br><span class="line">        relDataArray[<span class="number">1</span>] = <span class="built_in">double</span>.Parse(Convert.ToInt32(yCoordinate10, <span class="number">16</span>).ToString()) * <span class="number">180</span> / <span class="number">33554432</span>;</span><br><span class="line">        <span class="keyword">return</span> relDataArray;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="1020042"><span/></p>
+<h4 id="I020-042"><a href="#I020-042" class="headerlink" title="I020/042"></a>I020/042</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析I020_042轨道位置(直角)</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span>[] <span class="title">I020_042</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">double</span>[] relDataArray = <span class="keyword">new</span> <span class="built_in">double</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span> (byteData.Length == <span class="number">6</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 16进制转成10进制</span></span><br><span class="line">        <span class="built_in">string</span> xAngle16 = byteData[<span class="number">0</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">1</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">2</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="built_in">string</span> yAngle16 = byteData[<span class="number">3</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">4</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">5</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="built_in">string</span> xAngle10 = Convert.ToInt32(xAngle16, <span class="number">16</span>).ToString();</span><br><span class="line">        <span class="built_in">string</span> yAngle10 = Convert.ToInt32(yAngle16, <span class="number">16</span>).ToString();</span><br><span class="line">        <span class="comment">// 10进制计算规则（xAngle10 * 0.5）</span></span><br><span class="line">        relDataArray[<span class="number">0</span>] = <span class="built_in">double</span>.Parse(xAngle10) * <span class="number">0.5</span>;</span><br><span class="line">        relDataArray[<span class="number">1</span>] = <span class="built_in">double</span>.Parse(yAngle10) * <span class="number">0.5</span>;</span><br><span class="line">        <span class="keyword">return</span> relDataArray;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="1020161"><span/></p>
+<h4 id="I020-161"><a href="#I020-161" class="headerlink" title="I020/161"></a>I020/161</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析I020_161</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">int</span> <span class="title">I020_161</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Convert.ToInt32(byteData[<span class="number">0</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">1</span>].ToString(<span class="string">&quot;X2&quot;</span>), <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="1020110"><span/></p>
+<h4 id="I020-110"><a href="#I020-110" class="headerlink" title="I020/110"></a>I020/110</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析I020_110</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span> <span class="title">I020_110</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> strByteData = byteData[<span class="number">0</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">1</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">    <span class="built_in">double</span> dByteData = Convert.ToInt32(strByteData, <span class="number">16</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (Convert.ToString(byteData[<span class="number">0</span>], <span class="number">2</span>).Substring(<span class="number">0</span>, <span class="number">1</span>).Equals(<span class="string">&quot;1&quot;</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 如果2进制长度为16，说明第16位一定为1，则为负数</span></span><br><span class="line">        <span class="keyword">return</span> -(Math.Pow(<span class="number">2</span>, <span class="number">16</span>) - dByteData) * <span class="number">6.25</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 如果2进制长度不为16，说明第16位一定为0，则为正数</span></span><br><span class="line">        <span class="keyword">return</span> dByteData * <span class="number">6.25</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C#.Net</category>
+      </categories>
+      <tags>
+        <tag>c#</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cat021 报文解析</title>
+    <url>/blog/2019/08/19/csharp-Cat021026/</url>
+    <content><![CDATA[<h3 id="ADS-B-CAT021-0-26-报文协议解析"><a href="#ADS-B-CAT021-0-26-报文协议解析" class="headerlink" title="ADS-B CAT021 0.26 报文协议解析"></a>ADS-B CAT021 0.26 报文协议解析</h3><a id="more"></a>
+<h3 id="简介-声明"><a href="#简介-声明" class="headerlink" title="简介/声明"></a>简介/声明</h3><p><a href="https://baike.baidu.com/item/ADS-B/9750451?fr=aladdin">ADS-B</a> 全称是Automatic Dependent Surveillance - Broadcast，中文是广播式自动相关监视，即无需人工操作或者询问，可以自动地从相关机载设备获取飞机或地面站广播飞机的位置、高度、速度、航向、识别号等参数信息，以供管制员对飞机状态进行监控。它衍生于ADS（自动相关监视），最初是为越洋飞行的航空器在无法进行雷达监视的情况下，希望利用卫星实施监视所提出的解决方案。</p>
+<p>解析文档均为<a href="https://www.eurocontrol.int/">欧洲航空交通管理</a>官方提供。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><h3 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h3><p><a href="https://www.eurocontrol.int">EuroControl</a>：<a href="https://www.eurocontrol.int/sites/default/files/content/documents/nm/asterix/20150615-asterix-adsbtr-cat021-part12-v2.4.pdf">cat021p12ed026.pdf</a></p>
+<h2 id="测试数据解析"><a href="#测试数据解析" class="headerlink" title="测试数据解析"></a>测试数据解析</h2><p>15002efba1df80000100302327660055a0b60144ae0a7802610006080388000a077e043e0d33b3c72de000800002</p>
+<h3 id="解析步骤"><a href="#解析步骤" class="headerlink" title="解析步骤"></a>解析步骤</h3><h4 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h4><table>
+<thead>
+<tr>
+<th>CAT = 021</th>
+<th>LEN</th>
+<th>FSPEC</th>
+<th>Items of the first record</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="解析报文区域数据"><a href="#解析报文区域数据" class="headerlink" title="解析报文区域数据"></a>解析报文区域数据</h4><table>
+<thead>
+<tr>
+<th>16进制代码</th>
+<th>解析值（二进制或十进制）</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x15</td>
+<td>21</td>
+<td>报文头，转换十进制为21</td>
+</tr>
+<tr>
+<td>0x00</td>
+<td>00</td>
+<td>报文长度起始位</td>
+</tr>
+<tr>
+<td>0x2e</td>
+<td>46</td>
+<td>报文长度 LEN，为报文数据字节数，两个字节表示，该报文长度为0x00*256+0x2e=0x2e=46字节</td>
+</tr>
+<tr>
+<td>0xfb</td>
+<td>1111 1011</td>
+<td>1021/010，1021/040，1021/030，1021/130，1021/080，1021/090</td>
+</tr>
+<tr>
+<td>0xa1</td>
+<td>1010 0001</td>
+<td>1021/210，1021/145</td>
+</tr>
+<tr>
+<td>0xdf</td>
+<td>1101 1111</td>
+<td>1021/157，1021/160，1021/170，1021/095，1021/032，1021/200</td>
+</tr>
+<tr>
+<td>0x80</td>
+<td>1000 0000</td>
+<td>1021/020（FSPEC 字段，该字段可变，(x&lt;&lt;=7;x&gt;&gt;=7)==0 下一条数据不为 FSPEC）</td>
+</tr>
+<tr>
+<td>0x00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0x01</td>
+<td></td>
+<td>1021/010</td>
+</tr>
+<tr>
+<td>0x00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0x30</td>
+<td></td>
+<td>1021/040</td>
+</tr>
+<tr>
+<td>0x23</td>
+<td>35</td>
+<td></td>
+</tr>
+<tr>
+<td>0x27</td>
+<td>39</td>
+<td></td>
+</tr>
+<tr>
+<td>0x66</td>
+<td>102</td>
+<td><a href="#1021030">1021/030</a> 日时间项</td>
+</tr>
+<tr>
+<td>0x00</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>0x55</td>
+<td>85</td>
+<td></td>
+</tr>
+<tr>
+<td>0xa0</td>
+<td>160</td>
+<td></td>
+</tr>
+<tr>
+<td>0xb6</td>
+<td>182</td>
+<td></td>
+</tr>
+<tr>
+<td>0x01</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>0x44</td>
+<td>68</td>
+<td></td>
+</tr>
+<tr>
+<td>0xae</td>
+<td>174</td>
+<td></td>
+</tr>
+<tr>
+<td>0x0a</td>
+<td>10</td>
+<td><a href="#1021130">1021/130</a> 位置坐标（WGS-84）项，前四位为纬度值，后四位为经度值</td>
+</tr>
+<tr>
+<td>0x78</td>
+<td>120</td>
+<td></td>
+</tr>
+<tr>
+<td>0x02</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>0x61</td>
+<td>97</td>
+<td><a href="#1021080">1021/080</a> 目标地址项</td>
+</tr>
+<tr>
+<td>0x00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0x06</td>
+<td></td>
+<td>1021/090</td>
+</tr>
+<tr>
+<td>0x08</td>
+<td></td>
+<td>1021/210</td>
+</tr>
+<tr>
+<td>0x03</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0x88</td>
+<td></td>
+<td>1021/145</td>
+</tr>
+<tr>
+<td>0x00</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>0x0a</td>
+<td>10</td>
+<td><a href="#1021157">1021/157</a></td>
+</tr>
+<tr>
+<td>0x07</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0x7e</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0x04</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0x3e</td>
+<td></td>
+<td>1021/160</td>
+</tr>
+<tr>
+<td>0x0d</td>
+<td>13</td>
+<td></td>
+</tr>
+<tr>
+<td>0x33</td>
+<td>51</td>
+<td></td>
+</tr>
+<tr>
+<td>0xb3</td>
+<td>179</td>
+<td></td>
+</tr>
+<tr>
+<td>0xc7</td>
+<td>199</td>
+<td></td>
+</tr>
+<tr>
+<td>0x2d</td>
+<td>45</td>
+<td></td>
+</tr>
+<tr>
+<td>0xe0</td>
+<td>224</td>
+<td><a href="#1021170">1021/170</a></td>
+</tr>
+<tr>
+<td>0x00</td>
+<td></td>
+<td>1021/095</td>
+</tr>
+<tr>
+<td>0x80</td>
+<td></td>
+<td>1021/032</td>
+</tr>
+<tr>
+<td>0x00</td>
+<td></td>
+<td>1021/200</td>
+</tr>
+<tr>
+<td>0x02</td>
+<td></td>
+<td>1021/020</td>
+</tr>
+</tbody>
+</table>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><span id="1021030"><span/></p>
+<h4 id="1021-030"><a href="#1021-030" class="headerlink" title="1021/030"></a>1021/030</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 计算日时间项(I021/030)对应的值</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">I021_030</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//将几个独立字节合并为一个字节</span></span><br><span class="line">    uint rhs = ((uint)byteData[<span class="number">0</span>] &lt;&lt; <span class="number">16</span>) + ((uint)byteData[<span class="number">1</span>] &lt;&lt; <span class="number">8</span>) + byteData[<span class="number">2</span>];</span><br><span class="line">    <span class="comment">//总秒数</span></span><br><span class="line">    uint value0 = rhs / <span class="number">128</span>;</span><br><span class="line">    <span class="comment">//小时数</span></span><br><span class="line">    uint value1 = value0 / <span class="number">3600</span>;</span><br><span class="line">    <span class="comment">//分钟数</span></span><br><span class="line">    uint value2 = (value0 - value1 * <span class="number">3600</span>) / <span class="number">60</span>;</span><br><span class="line">    <span class="comment">//秒数</span></span><br><span class="line">    uint value3 = (value0 - value1 * <span class="number">3600</span>) % <span class="number">60</span>;</span><br><span class="line">    <span class="comment">//毫秒数</span></span><br><span class="line">    uint value4 = ((rhs % <span class="number">128</span>) * <span class="number">1000</span>) / <span class="number">128</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">$&quot;<span class="subst">&#123;DateTime.Now.ToShortDateString()&#125;</span> <span class="subst">&#123;value1&#125;</span>:<span class="subst">&#123;value2&#125;</span>:<span class="subst">&#123;value3&#125;</span>.<span class="subst">&#123;value4&#125;</span>&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="1021130"><span/></p>
+<h4 id="1021-130"><a href="#1021-130" class="headerlink" title="1021/130"></a>1021/130</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 计算位置坐标(WGS-84中)项(I021/130)对应的值</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span>[] <span class="title">I021_130</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">double</span>[] res = &#123; <span class="number">0</span>, <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="built_in">int</span> value1;</span><br><span class="line">    <span class="comment">//将容器中前4个字节合并为一个字节，用以计算纬度。</span></span><br><span class="line">    value1 = (byteData[<span class="number">0</span>] &lt;&lt; <span class="number">24</span>) + (byteData[<span class="number">1</span>] &lt;&lt; <span class="number">16</span>) + (byteData[<span class="number">2</span>] &lt;&lt; <span class="number">8</span>) + byteData[<span class="number">3</span>];</span><br><span class="line">    <span class="built_in">double</span> temp1 = value1 * (<span class="number">5.364418e-6</span>);</span><br><span class="line">    <span class="comment">//Console.WriteLine($&quot;坐标值:纬度值&#123;temp1&#125;&quot;);</span></span><br><span class="line">    res[<span class="number">1</span>] = temp1;</span><br><span class="line">    <span class="built_in">int</span> value0;</span><br><span class="line">    <span class="comment">//将容器中后4个字节合并为一个字节，用以计算经度。</span></span><br><span class="line">    value0 = (byteData[<span class="number">4</span>] &lt;&lt; <span class="number">24</span>) + (byteData[<span class="number">5</span>] &lt;&lt; <span class="number">16</span>) + (byteData[<span class="number">6</span>] &lt;&lt; <span class="number">8</span>) + byteData[<span class="number">7</span>];</span><br><span class="line">    <span class="built_in">double</span> temp0 = value0 * (<span class="number">5.364418e-6</span>);</span><br><span class="line">    <span class="comment">//Console.WriteLine($&quot;经度值&#123;temp0&#125;&quot;);</span></span><br><span class="line">    res[<span class="number">0</span>] = temp0;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="1021080"><span/></p>
+<h4 id="1021-080"><a href="#1021-080" class="headerlink" title="1021/080"></a>1021/080</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 计算目标地址项(I021/080)对应的值</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">I021_080</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    uint rhs = ((uint)byteData[<span class="number">0</span>] &lt;&lt; <span class="number">16</span>) + ((uint)byteData[<span class="number">1</span>] &lt;&lt; <span class="number">8</span>) + byteData[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">string</span>.Format(<span class="string">&quot;&#123;0:X&#125;&quot;</span>, rhs);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="1021157"><span/></p>
+<h4 id="1021-157"><a href="#1021-157" class="headerlink" title="1021/157"></a>1021/157</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 计算几何垂直速率项(I021/157)对应的值</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span> <span class="title">I021_157</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    uint rhs = byteData[<span class="number">0</span>] + (uint)byteData[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> rhs * <span class="number">6.25</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="1021170"><span/></p>
+<h4 id="1021-170"><a href="#1021-170" class="headerlink" title="1021/170"></a>1021/170</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 计算目标识别项(I021/170)对应的值</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">I021_170</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> res = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="comment">//将6个独立字节合并为一个字节</span></span><br><span class="line">    <span class="built_in">long</span> rhs = ((<span class="built_in">long</span>)byteData[<span class="number">0</span>] &lt;&lt; <span class="number">40</span>) + ((<span class="built_in">long</span>)byteData[<span class="number">1</span>] &lt;&lt; <span class="number">32</span>) + ((<span class="built_in">long</span>)byteData[<span class="number">2</span>] &lt;&lt; <span class="number">24</span>) + ((<span class="built_in">long</span>)byteData[<span class="number">3</span>] &lt;&lt; <span class="number">16</span>) + ((<span class="built_in">long</span>)byteData[<span class="number">4</span>] &lt;&lt; <span class="number">8</span>) + byteData[<span class="number">5</span>];</span><br><span class="line">    <span class="comment">//取出第42~47位</span></span><br><span class="line">    <span class="built_in">long</span> value0 = (rhs &gt;&gt; <span class="number">42</span>) &amp; <span class="number">63</span>;</span><br><span class="line">    <span class="comment">//取出新的二进制数的第5位，并判断为0还是1.</span></span><br><span class="line">    <span class="built_in">long</span> value01 = (value0 &gt;&gt; <span class="number">5</span>) &amp; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (value01 == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">char</span> value02 = (<span class="built_in">char</span>)value0;</span><br><span class="line">        res += value02;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//value0 = (value0^(1 &lt;&lt; 6));</span></span><br><span class="line">        <span class="comment">//如果第5位为1，则将第6位取反。</span></span><br><span class="line">        value0 ^= (<span class="number">1</span> &lt;&lt; <span class="number">6</span>);</span><br><span class="line">        <span class="built_in">char</span> value03 = (<span class="built_in">char</span>)value0;</span><br><span class="line">        res += value03;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//取出第36~41位</span></span><br><span class="line">    <span class="built_in">long</span> value1 = (rhs &gt;&gt; <span class="number">36</span>) &amp; <span class="number">63</span>;</span><br><span class="line">    <span class="built_in">long</span> value11 = (value1 &gt;&gt; <span class="number">5</span>) &amp; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (value11 == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">char</span> value12 = (<span class="built_in">char</span>)value1;</span><br><span class="line">        res += value12;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        value1 ^= (<span class="number">1</span> &lt;&lt; <span class="number">6</span>);</span><br><span class="line">        <span class="built_in">char</span> value13 = (<span class="built_in">char</span>)value1;</span><br><span class="line">        res += value13;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//取出第30~35位</span></span><br><span class="line">    <span class="built_in">long</span> value2 = (rhs &gt;&gt; <span class="number">30</span>) &amp; <span class="number">63</span>;</span><br><span class="line">    <span class="built_in">long</span> value21 = (value2 &gt;&gt; <span class="number">5</span>) &amp; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (value21 == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">char</span> value22 = (<span class="built_in">char</span>)value2;</span><br><span class="line">        res += value22;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        value2 ^= (<span class="number">1</span> &lt;&lt; <span class="number">6</span>);</span><br><span class="line">        <span class="built_in">char</span> value23 = (<span class="built_in">char</span>)value2;</span><br><span class="line">        res += value23;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//取出第24~29位</span></span><br><span class="line">    <span class="built_in">long</span> value3 = (rhs &gt;&gt; <span class="number">24</span>) &amp; <span class="number">63</span>;</span><br><span class="line">    <span class="built_in">long</span> value31 = (value3 &gt;&gt; <span class="number">5</span>) &amp; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (value31 == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">char</span> value32 = (<span class="built_in">char</span>)value3;</span><br><span class="line">        res += value32;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        value3 ^= (<span class="number">1</span> &lt;&lt; <span class="number">6</span>);</span><br><span class="line">        <span class="built_in">char</span> value33 = (<span class="built_in">char</span>)value3;</span><br><span class="line">        res += value33;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//取出第18~23位</span></span><br><span class="line">    <span class="built_in">long</span> value4 = (rhs &gt;&gt; <span class="number">18</span>) &amp; <span class="number">63</span>;</span><br><span class="line">    <span class="built_in">long</span> value41 = (value4 &gt;&gt; <span class="number">5</span>) &amp; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (value41 == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">char</span> value42 = (<span class="built_in">char</span>)value4;</span><br><span class="line">        res += value42; ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        value4 ^= (<span class="number">1</span> &lt;&lt; <span class="number">6</span>);</span><br><span class="line">        <span class="built_in">char</span> value43 = (<span class="built_in">char</span>)value4;</span><br><span class="line">        res += value43;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//取出第12~17位</span></span><br><span class="line">    <span class="built_in">long</span> value5 = (rhs &gt;&gt; <span class="number">12</span>) &amp; <span class="number">63</span>;</span><br><span class="line">    <span class="built_in">long</span> value51 = (value5 &gt;&gt; <span class="number">5</span>) &amp; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (value51 == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">char</span> value52 = (<span class="built_in">char</span>)value5;</span><br><span class="line">        res += value52;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        value5 ^= (<span class="number">1</span> &lt;&lt; <span class="number">6</span>);</span><br><span class="line">        <span class="built_in">char</span> value53 = (<span class="built_in">char</span>)value5;</span><br><span class="line">        res += value53;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//取出第6~11位</span></span><br><span class="line">    <span class="built_in">long</span> value6 = (rhs &gt;&gt; <span class="number">6</span>) &amp; <span class="number">63</span>;</span><br><span class="line">    <span class="built_in">long</span> value61 = (value6 &gt;&gt; <span class="number">5</span>) &amp; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (value61 == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">char</span> value62 = (<span class="built_in">char</span>)value6;</span><br><span class="line">        res += value62;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        value6 ^= (<span class="number">1</span> &lt;&lt; <span class="number">6</span>);</span><br><span class="line">        <span class="built_in">char</span> value63 = (<span class="built_in">char</span>)value6;</span><br><span class="line">        res += value63;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//取出第0~5位</span></span><br><span class="line">    <span class="built_in">long</span> value7 = rhs &amp; <span class="number">63</span>;</span><br><span class="line">    <span class="built_in">long</span> value71 = (value7 &gt;&gt; <span class="number">5</span>) &amp; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (value71 == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">char</span> value72 = (<span class="built_in">char</span>)value7;</span><br><span class="line">        res += value72;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        value7 ^= (<span class="number">1</span> &lt;&lt; <span class="number">6</span>);</span><br><span class="line">        <span class="built_in">char</span> value73 = (<span class="built_in">char</span>)value7;</span><br><span class="line">        res += value73;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="1021140"><span/></p>
+<h4 id="1021-140"><a href="#1021-140" class="headerlink" title="1021/140"></a>1021/140</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 计算几何高度项(I021/140)对应的值</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span> <span class="title">I021_140</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    uint rhs = ((uint)byteData[<span class="number">0</span>] &lt;&lt; <span class="number">8</span>) + byteData[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> rhs * <span class="number">6.25</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C#.Net</category>
+      </categories>
+      <tags>
+        <tag>c#</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cat062 报文解析</title>
+    <url>/blog/2019/10/15/csharp-Cat062118/</url>
+    <content><![CDATA[<h3 id="Radar-CAT062-1-18-报文协议解析"><a href="#Radar-CAT062-1-18-报文协议解析" class="headerlink" title="Radar CAT062 1.18 报文协议解析"></a>Radar CAT062 1.18 报文协议解析</h3><a id="more"></a>
+<h3 id="简介-声明"><a href="#简介-声明" class="headerlink" title="简介/声明"></a>简介/声明</h3><p><a href="https://baike.baidu.com/item/%E9%9B%B7%E8%BE%BE/10485?fr=aladdin">Radar</a> 雷达，源于radio detection and ranging的缩写，意思为”无线电探测和测距”，即用无线电的方法发现目标并测定它们的空间位置。因此，雷达也被称为“无线电定位”。雷达是利用电磁波探测目标的电子设备。雷达发射电磁波对目标进行照射并接收其回波，由此获得目标至电磁波发射点的距离、距离变化率（径向速度）、方位、高度等信息。</p>
+<p>解析文档均为<a href="https://www.eurocontrol.int/">欧洲航空交通管理</a>官方提供。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><h3 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h3><p><a href="https://www.eurocontrol.int">EuroControl</a>：<a href="https://www.eurocontrol.int/sites/default/files/content/documents/nm/asterix/cat062p9ed118.pdf">cat062p9ed118.pdf</a></p>
+<h2 id="测试数据解析"><a href="#测试数据解析" class="headerlink" title="测试数据解析"></a>测试数据解析</h2><p>3E0034BB7D25040203000E584F003806E501460641FD2601B70D4A000D33B3C37E2080780CCB000601000550000028002A003E04</p>
+<h3 id="解析步骤"><a href="#解析步骤" class="headerlink" title="解析步骤"></a>解析步骤</h3><h4 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h4><table>
+<thead>
+<tr>
+<th>CAT = 062</th>
+<th>LEN</th>
+<th>FSPEC</th>
+<th>Items of the first record</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="解析报文区域数据"><a href="#解析报文区域数据" class="headerlink" title="解析报文区域数据"></a>解析报文区域数据</h4><table>
+<thead>
+<tr>
+<th>16进制代码</th>
+<th>解析值（二进制或十进制）</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x3E</td>
+<td>62</td>
+<td>报文头，转换十进制为62</td>
+</tr>
+<tr>
+<td>0x00</td>
+<td>00</td>
+<td>报文长度起始位</td>
+</tr>
+<tr>
+<td>0x34</td>
+<td>52</td>
+<td>报文长度 LEN，为报文数据字节数</td>
+</tr>
+<tr>
+<td>0xBB</td>
+<td>10111011</td>
+<td>I062/010、I062/015、I062/070、I062/105、I062/185</td>
+</tr>
+<tr>
+<td>0x7D</td>
+<td>01111101</td>
+<td>I062/060、I062/245、I062/380、I062/040、I062/080</td>
+</tr>
+<tr>
+<td>0x25</td>
+<td>00100101</td>
+<td>I062/136、I062/220、</td>
+</tr>
+<tr>
+<td>0x04</td>
+<td>00000100</td>
+<td>I062/500</td>
+</tr>
+<tr>
+<td>02</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>03</td>
+<td>3</td>
+<td>I062/010</td>
+</tr>
+<tr>
+<td>00</td>
+<td>0</td>
+<td>I062/015</td>
+</tr>
+<tr>
+<td>0E</td>
+<td>14</td>
+<td></td>
+</tr>
+<tr>
+<td>58</td>
+<td>88</td>
+<td></td>
+</tr>
+<tr>
+<td>4F</td>
+<td>79</td>
+<td><a href="#1062070">I062/070</a> 日时间项</td>
+</tr>
+<tr>
+<td>00</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>38</td>
+<td>56</td>
+<td></td>
+</tr>
+<tr>
+<td>06</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>E5</td>
+<td>229</td>
+<td></td>
+</tr>
+<tr>
+<td>01</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>46</td>
+<td>70</td>
+<td></td>
+</tr>
+<tr>
+<td>06</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>41</td>
+<td>65</td>
+<td><a href="#1062105">I062/105</a> 经纬度坐标</td>
+</tr>
+<tr>
+<td>FD</td>
+<td>253</td>
+<td></td>
+</tr>
+<tr>
+<td>26</td>
+<td>38</td>
+<td></td>
+</tr>
+<tr>
+<td>01</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>B7</td>
+<td>183</td>
+<td>I062/185</td>
+</tr>
+<tr>
+<td>0D</td>
+<td>13</td>
+<td></td>
+</tr>
+<tr>
+<td>4A</td>
+<td>74</td>
+<td>I062/060</td>
+</tr>
+<tr>
+<td>00</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>0D</td>
+<td>13</td>
+<td></td>
+</tr>
+<tr>
+<td>33</td>
+<td>51</td>
+<td></td>
+</tr>
+<tr>
+<td>B3</td>
+<td>179</td>
+<td></td>
+</tr>
+<tr>
+<td>C3</td>
+<td>195</td>
+<td></td>
+</tr>
+<tr>
+<td>7E</td>
+<td>126</td>
+<td></td>
+</tr>
+<tr>
+<td>20</td>
+<td>32</td>
+<td><a href="#1062245">I062/245</a> 目标识别</td>
+</tr>
+<tr>
+<td>80</td>
+<td>128</td>
+<td>I062/380</td>
+</tr>
+<tr>
+<td>78</td>
+<td>120</td>
+<td></td>
+</tr>
+<tr>
+<td>0C</td>
+<td>12</td>
+<td>I062/040</td>
+</tr>
+<tr>
+<td>CB</td>
+<td>203</td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td>0</td>
+<td>I062/080</td>
+</tr>
+<tr>
+<td>06</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>01</td>
+<td>1</td>
+<td>I062/136</td>
+</tr>
+<tr>
+<td>00</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>05</td>
+<td>5</td>
+<td>I062/220</td>
+</tr>
+<tr>
+<td>50</td>
+<td>80</td>
+<td>I062/500</td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>28</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2A</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>00</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3E</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>04</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="代码-部分解析可参考Cat020"><a href="#代码-部分解析可参考Cat020" class="headerlink" title="代码(部分解析可参考Cat020)"></a>代码(部分解析可参考Cat020)</h3><p><span id="1062070"><span/></p>
+<h4 id="I062-070"><a href="#I062-070" class="headerlink" title="I062/070"></a>I062/070</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 计算日时间项(I062/070)对应的值</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">I062_070</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//将几个独立字节合并为一个字节</span></span><br><span class="line">    uint rhs = ((uint)byteData[<span class="number">0</span>] &lt;&lt; <span class="number">16</span>) + ((uint)byteData[<span class="number">1</span>] &lt;&lt; <span class="number">8</span>) + byteData[<span class="number">2</span>];</span><br><span class="line">    <span class="comment">//总秒数</span></span><br><span class="line">    uint value0 = rhs / <span class="number">128</span>;</span><br><span class="line">    <span class="comment">//小时数</span></span><br><span class="line">    uint value1 = value0 / <span class="number">3600</span>;</span><br><span class="line">    <span class="comment">//分钟数</span></span><br><span class="line">    uint value2 = (value0 - value1 * <span class="number">3600</span>) / <span class="number">60</span>;</span><br><span class="line">    <span class="comment">//秒数</span></span><br><span class="line">    uint value3 = (value0 - value1 * <span class="number">3600</span>) % <span class="number">60</span>;</span><br><span class="line">    <span class="comment">//毫秒数</span></span><br><span class="line">    uint value4 = ((rhs % <span class="number">128</span>) * <span class="number">1000</span>) / <span class="number">128</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">$&quot;<span class="subst">&#123;DateTime.Now.ToShortDateString()&#125;</span> <span class="subst">&#123;value1&#125;</span>:<span class="subst">&#123;value2&#125;</span>:<span class="subst">&#123;value3&#125;</span>.<span class="subst">&#123;value4&#125;</span>&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="1062245"><span/></p>
+<h4 id="I062-245"><a href="#I062-245" class="headerlink" title="I062/245"></a>I062/245</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析(I062_245)目标识别</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">I062_245</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> str = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; byteData.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 把第一位去掉</span></span><br><span class="line">        str += Convert.ToString(byteData[i], <span class="number">2</span>).PadLeft(<span class="number">8</span>, <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">char</span>[] strCharArray = str.ToCharArray();</span><br><span class="line">    <span class="built_in">string</span> flno2BinaryStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="built_in">string</span> result = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; strCharArray.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        flno2BinaryStr += strCharArray[i] + <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> ((i + <span class="number">1</span>) % <span class="number">6</span> == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">string</span> flightNumberValue = Constants.flightNumberMap[flno2BinaryStr];</span><br><span class="line">            <span class="keyword">if</span> (!<span class="built_in">string</span>.IsNullOrEmpty(flightNumberValue))</span><br><span class="line">            &#123;</span><br><span class="line">                result += flightNumberValue;</span><br><span class="line">            &#125;</span><br><span class="line">            flno2BinaryStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="1062105"><span/></p>
+<h4 id="I062-105"><a href="#I062-105" class="headerlink" title="I062/105"></a>I062/105</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析(I062_070)经纬度坐标</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span>[] <span class="title">I062_105</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">double</span>[] relDataArray = <span class="keyword">new</span> <span class="built_in">double</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span> (byteData.Length == <span class="number">8</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 16进制转成10进制（4位一转）</span></span><br><span class="line">        <span class="built_in">string</span> xCoordinate10 = byteData[<span class="number">0</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">1</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">2</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">3</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="built_in">string</span> yCoordinate10 = byteData[<span class="number">4</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">5</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">6</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">7</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="comment">// 10进制计算规则（xCoordinate10 * 180 /2^25）</span></span><br><span class="line">        relDataArray[<span class="number">0</span>] = <span class="built_in">double</span>.Parse(Convert.ToInt32(xCoordinate10, <span class="number">16</span>).ToString()) * <span class="number">180</span> / <span class="number">33554432</span>;</span><br><span class="line">        relDataArray[<span class="number">1</span>] = <span class="built_in">double</span>.Parse(Convert.ToInt32(yCoordinate10, <span class="number">16</span>).ToString()) * <span class="number">180</span> / <span class="number">33554432</span>;</span><br><span class="line">        <span class="keyword">return</span> relDataArray;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="1062100"><span/></p>
+<h4 id="I062-100"><a href="#I062-100" class="headerlink" title="I062/100"></a>I062/100</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析(I062_100)卡迪尔坐标</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span>[] <span class="title">I062_100</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">double</span>[] relDataArray = <span class="keyword">new</span> <span class="built_in">double</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span> (byteData.Length == <span class="number">6</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> xAngle16 = byteData[<span class="number">0</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">1</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">2</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="built_in">string</span> yAngle16 = byteData[<span class="number">3</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">4</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">5</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="built_in">string</span> xAngle10 = Convert.ToInt32(xAngle16, <span class="number">16</span>).ToString();</span><br><span class="line">        <span class="built_in">string</span> yAngle10 = Convert.ToInt32(yAngle16, <span class="number">16</span>).ToString();</span><br><span class="line">        <span class="comment">// 10进制计算规则（xAngle10 * 0.5）</span></span><br><span class="line">        relDataArray[<span class="number">0</span>] = <span class="built_in">double</span>.Parse(xAngle10) * <span class="number">0.5</span>;</span><br><span class="line">        relDataArray[<span class="number">1</span>] = <span class="built_in">double</span>.Parse(yAngle10) * <span class="number">0.5</span>;</span><br><span class="line">        <span class="keyword">return</span> relDataArray;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C#.Net</category>
+      </categories>
+      <tags>
+        <tag>c#</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于 CEF 控件在桌面应用中加载百度地图</title>
+    <url>/blog/2020/08/11/csharp-CefBaiduMap/</url>
+    <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/csharp-CefBaiduMap/CefBaiduMapDemo.png"/></p>
+<a id="more"></a>
+<h3 id="在-WPF-中调用-CEF-加载百度地图"><a href="#在-WPF-中调用-CEF-加载百度地图" class="headerlink" title="在 WPF 中调用 CEF 加载百度地图"></a>在 WPF 中调用 CEF 加载百度地图</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>最近有需求需要把带定位的百度地图加载到桌面应用中</p>
+<h4 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h4><p><a href="https://sadness96.github.io/blog/2020/08/11/csharp-CefSharp/">使用 CEF 在 PC 客户端中加载网页</a></p>
+<h4 id="开发-BaiduMap-用户控件"><a href="#开发-BaiduMap-用户控件" class="headerlink" title="开发 BaiduMap 用户控件"></a>开发 BaiduMap 用户控件</h4><h5 id="创建带参数百度地图-WEB-页面"><a href="#创建带参数百度地图-WEB-页面" class="headerlink" title="创建带参数百度地图 WEB 页面"></a>创建带参数百度地图 WEB 页面</h5><p>map.baidu.html?Lon=116.4716&amp;Lat=40.01849<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://api.map.baidu.com/api?v=3.0&amp;您的ak&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line">        body &#123;</span><br><span class="line">            margin: 0;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line"><span class="css">        <span class="selector-id">#allmap</span> &#123;</span></span><br><span class="line">            width: 100%;</span><br><span class="line">            height: 100%;</span><br><span class="line">            overflow: hidden;</span><br><span class="line">            margin: 0;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;allmap&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//获取经纬度参数</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">getUrlParam</span>(<span class="params">name</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">&quot;(^|&amp;)&quot;</span> + name + <span class="string">&quot;=([^&amp;]*)(&amp;|$)&quot;</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> r = <span class="built_in">window</span>.location.search.substr(<span class="number">1</span>).match(reg);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (r != <span class="literal">null</span>) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="built_in">unescape</span>(r[<span class="number">2</span>]);</span></span><br><span class="line"><span class="javascript">        &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="literal">null</span>;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> vLon = getUrlParam(<span class="string">&#x27;Lon&#x27;</span>);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> vLat = getUrlParam(<span class="string">&#x27;Lat&#x27;</span>);</span></span><br><span class="line"><span class="javascript">    <span class="comment">//加载百度地图</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//创建Map实例</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> map = <span class="keyword">new</span> BMap.Map(<span class="string">&quot;allmap&quot;</span>);</span></span><br><span class="line"><span class="javascript">    <span class="comment">//创建点坐标</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> point = <span class="keyword">new</span> BMap.Point(vLon, vLat);</span></span><br><span class="line">    map.centerAndZoom(point, 17);</span><br><span class="line"><span class="javascript">    <span class="comment">//启用滚轮放大缩小</span></span></span><br><span class="line">    map.enableScrollWheelZoom();</span><br><span class="line"><span class="javascript">    <span class="comment">//创建标注</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> marker = <span class="keyword">new</span> BMap.Marker(point);</span></span><br><span class="line"><span class="javascript">    <span class="comment">//将标注添加到地图中</span></span></span><br><span class="line">    map.addOverlay(marker);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="BaiduMap-xaml-用户控件"><a href="#BaiduMap-xaml-用户控件" class="headerlink" title="BaiduMap.xaml 用户控件"></a>BaiduMap.xaml 用户控件</h5><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">UserControl</span> <span class="attr">x:Class</span>=<span class="string">&quot;Ice.BaiduMap.Control.BaiduMap&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">xmlns</span>=<span class="string">&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">xmlns:x</span>=<span class="string">&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">xmlns:mc</span>=<span class="string">&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;</span> </span></span><br><span class="line"><span class="tag">             <span class="attr">xmlns:d</span>=<span class="string">&quot;http://schemas.microsoft.com/expression/blend/2008&quot;</span> </span></span><br><span class="line"><span class="tag">             <span class="attr">xmlns:chrome</span>=<span class="string">&quot;clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">xmlns:local</span>=<span class="string">&quot;clr-namespace:Ice.BaiduMap.Control&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">mc:Ignorable</span>=<span class="string">&quot;d&quot;</span> </span></span><br><span class="line"><span class="tag">             <span class="attr">d:DesignHeight</span>=<span class="string">&quot;450&quot;</span> <span class="attr">d:DesignWidth</span>=<span class="string">&quot;800&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grid</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">chrome:ChromiumWebBrowser</span> <span class="attr">x:Name</span>=<span class="string">&quot;Browser&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">UserControl</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="BaiduMap-xaml-cs-用户控件后台"><a href="#BaiduMap-xaml-cs-用户控件后台" class="headerlink" title="BaiduMap.xaml.cs 用户控件后台"></a>BaiduMap.xaml.cs 用户控件后台</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> CefSharp.Wpf;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.IO;</span><br><span class="line"><span class="keyword">using</span> System.Windows;</span><br><span class="line"><span class="keyword">using</span> System.Windows.Controls;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Ice.BaiduMap.Control</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> BaiduMap.xaml 的交互逻辑</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">BaiduMap</span> : <span class="title">UserControl</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">BaiduMap</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            InitializeComponent();</span><br><span class="line">            <span class="keyword">this</span>.Loaded += BaiduMap_Loaded;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">BaiduMap_Loaded</span>(<span class="params"><span class="built_in">object</span> sender, RoutedEventArgs e</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">if</span> (File.Exists(_webapp_baidumap_path) &amp;&amp; !<span class="built_in">string</span>.IsNullOrEmpty(Lon) &amp;&amp; !<span class="built_in">string</span>.IsNullOrEmpty(Lat))</span><br><span class="line">            &#123;</span><br><span class="line">                Browser.Address = <span class="string">$&quot;<span class="subst">&#123;_webapp_baidumap_path&#125;</span>?Lon=<span class="subst">&#123;Lon&#125;</span>&amp;Lat=<span class="subst">&#123;Lat&#125;</span>&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 百度地图加载文件</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">string</span> _webapp_baidumap_path = <span class="string">$&quot;<span class="subst">&#123;AppDomain.CurrentDomain.BaseDirectory&#125;</span>WebApp\\map.baidu.html&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 经度</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Lon</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span> &#123; <span class="keyword">return</span> (<span class="built_in">string</span>)GetValue(LonProperty); &#125;</span><br><span class="line">            <span class="keyword">set</span> &#123; SetValue(LonProperty, <span class="keyword">value</span>); &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">readonly</span> DependencyProperty LonProperty =</span><br><span class="line">            DependencyProperty.Register(<span class="string">&quot;Lon&quot;</span>, <span class="keyword">typeof</span>(<span class="built_in">string</span>), <span class="keyword">typeof</span>(BaiduMap));</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 纬度</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Lat</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span> &#123; <span class="keyword">return</span> (<span class="built_in">string</span>)GetValue(LatProperty); &#125;</span><br><span class="line">            <span class="keyword">set</span> &#123; SetValue(LatProperty, <span class="keyword">value</span>); &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">readonly</span> DependencyProperty LatProperty =</span><br><span class="line">            DependencyProperty.Register(<span class="string">&quot;Lat&quot;</span>, <span class="keyword">typeof</span>(<span class="built_in">string</span>), <span class="keyword">typeof</span>(BaiduMap));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="在使用的地方引用"><a href="#在使用的地方引用" class="headerlink" title="在使用的地方引用"></a>在使用的地方引用</h5><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Grid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">control:BaiduMap</span> <span class="attr">Lon</span>=<span class="string">&quot;116.4716&quot;</span> <span class="attr">Lat</span>=<span class="string">&quot;40.01849&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C#.Net</category>
+      </categories>
+      <tags>
+        <tag>baidu</tag>
+        <tag>c#</tag>
+        <tag>wpf</tag>
+        <tag>cef</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用 CEF 在 PC 客户端中加载网页</title>
+    <url>/blog/2020/08/11/csharp-CefSharp/</url>
+    <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/csharp-CefSharp/CEFLogo.png"/></p>
+<a id="more"></a>
+<h3 id="在-WPF-中调用-CEF-加载网页"><a href="#在-WPF-中调用-CEF-加载网页" class="headerlink" title="在 WPF 中调用 CEF 加载网页"></a>在 WPF 中调用 CEF 加载网页</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>最近有需求在 wpf 中加载网页，尝试使用 CEF 加载 Chrome 内核浏览器显示。</p>
+<h4 id="引用库介绍"><a href="#引用库介绍" class="headerlink" title="引用库介绍"></a>引用库介绍</h4><p>NuGet 中引用 <a href="https://github.com/cefsharp/cefsharp">CefSharp.Wpf</a></p>
+<h4 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h4><p>需要在项目 .csproj 文件中增加代码<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ItemGroup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Reference</span> <span class="attr">Update</span>=<span class="string">&quot;CefSharp&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Private</span>&gt;</span>true<span class="tag">&lt;/<span class="name">Private</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Reference</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Reference</span> <span class="attr">Update</span>=<span class="string">&quot;CefSharp.Core&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Private</span>&gt;</span>true<span class="tag">&lt;/<span class="name">Private</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Reference</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Reference</span> <span class="attr">Update</span>=<span class="string">&quot;CefSharp.Wpf&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Private</span>&gt;</span>true<span class="tag">&lt;/<span class="name">Private</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Reference</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ItemGroup</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>.xaml 文件中 增加引用和样式<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">xmlns:chrome=&quot;clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf&quot;</span><br></pre></td></tr></table></figure><br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Grid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">chrome:ChromiumWebBrowser</span> <span class="attr">x:Name</span>=<span class="string">&quot;Browser&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br></pre></td></tr></table></figure><br>.xaml.cs 文件中增加代码<br><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">Browser.Address = <span class="string">@&quot;https://www.baidu.com/&quot;</span>;</span><br></pre></td></tr></table></figure><br>即可显示<br><img src="https://sadness96.github.io/images/blog/csharp-CefSharp/CEFDemo.png"/></p>
+<h4 id="CefSharp-使用优化"><a href="#CefSharp-使用优化" class="headerlink" title="CefSharp 使用优化"></a>CefSharp 使用优化</h4><h5 id="屏蔽或修改右键菜单"><a href="#屏蔽或修改右键菜单" class="headerlink" title="屏蔽或修改右键菜单"></a>屏蔽或修改右键菜单</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> CefSharp;</span><br><span class="line"></span><br><span class="line">namespace *</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 关联 Cef 右键菜单</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RightMenuHandler</span> : <span class="title">IContextMenuHandler</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnBeforeContextMenu</span>(<span class="params">IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="comment">//主要修改代码在此处;如果需要完完全全重新添加菜单项,首先执行model.Clear()清空菜单列表即可.</span></span><br><span class="line">            <span class="comment">//需要自定义菜单项的,可以在这里添加按钮;</span></span><br><span class="line">            <span class="keyword">if</span> (model.Count &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                model.AddSeparator();<span class="comment">//添加分隔符;</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//清理所有右键菜单</span></span><br><span class="line">            model.Clear();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//打开调试</span></span><br><span class="line">            <span class="comment">//model.AddItem((CefMenuCommand)26501, &quot;Show DevTools&quot;);</span></span><br><span class="line">            <span class="comment">//model.AddItem((CefMenuCommand)26502, &quot;Close DevTools&quot;);</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">OnContextMenuCommand</span>(<span class="params">IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="comment">//命令的执行,点击菜单做什么事写在这里.</span></span><br><span class="line">            <span class="keyword">if</span> (commandId == (CefMenuCommand)<span class="number">26501</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                browser.GetHost().ShowDevTools();</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (commandId == (CefMenuCommand)<span class="number">26502</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                browser.GetHost().CloseDevTools();</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnContextMenuDismissed</span>(<span class="params">IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">RunContextMenu</span>(<span class="params">IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="comment">//return false 才可以弹出</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用时引用</p>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 关联右键菜单</span></span><br><span class="line">Browser.MenuHandler = <span class="keyword">new</span> RightMenuHandler();</span><br></pre></td></tr></table></figure>
+<h5 id="捕获快捷键-调试使用"><a href="#捕获快捷键-调试使用" class="headerlink" title="捕获快捷键(调试使用)"></a>捕获快捷键(调试使用)</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> CefSharp;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Windows.Forms;</span><br><span class="line"></span><br><span class="line">namespace *</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 捕获 Cef 快捷键</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">KeyBoardHandler</span> : <span class="title">IKeyboardHandler</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">OnKeyEvent</span>(<span class="params">IWebBrowser browserControl, IBrowser browser, KeyType type, <span class="built_in">int</span> windowsKeyCode, <span class="built_in">int</span> nativeKeyCode, CefEventFlags modifiers, <span class="built_in">bool</span> isSystemKey</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">if</span> (type == KeyType.KeyUp &amp;&amp; Enum.IsDefined(<span class="keyword">typeof</span>(Keys), windowsKeyCode))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">var</span> key = (Keys)windowsKeyCode;</span><br><span class="line">                <span class="keyword">switch</span> (key)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">case</span> Keys.F12:</span><br><span class="line">                        browser.ShowDevTools();</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> Keys.F5:</span><br><span class="line">                        <span class="keyword">if</span> (modifiers == CefEventFlags.ControlDown)</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="comment">//MessageBox.Show(&quot;ctrl+f5&quot;);</span></span><br><span class="line">                            browser.Reload(<span class="literal">true</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="comment">//MessageBox.Show(&quot;f5&quot;);</span></span><br><span class="line">                            browser.Reload();</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">OnPreKeyEvent</span>(<span class="params">IWebBrowser browserControl, IBrowser browser, KeyType type, <span class="built_in">int</span> windowsKeyCode, <span class="built_in">int</span> nativeKeyCode, CefEventFlags modifiers, <span class="built_in">bool</span> isSystemKey, <span class="keyword">ref</span> <span class="built_in">bool</span> isKeyboardShortcut</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用时引用</p>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> DEBUG</span></span><br><span class="line">    <span class="comment">// 关联快捷键</span></span><br><span class="line">    Browser.KeyboardHandler = <span class="keyword">new</span> KeyBoardHandler();</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<h5 id="CefSharp-以-Any-CPU-平台编译并且使文件生成在子目录"><a href="#CefSharp-以-Any-CPU-平台编译并且使文件生成在子目录" class="headerlink" title="CefSharp 以 Any CPU 平台编译并且使文件生成在子目录"></a>CefSharp 以 Any CPU 平台编译并且使文件生成在子目录</h5><h6 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h6><p><a href="https://github.com/cefsharp/CefSharp/issues/1714">Add AnyCPU Support</a><br><a href="https://github.com/cefsharp/CefSharp/pull/1753">Copy CefSharp Files</a></p>
+<h6 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h6><p>编辑项目文件 project.csproj 加入以下内容<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Project</span> <span class="attr">Sdk</span>=<span class="string">&quot;Microsoft.NET.Sdk.WindowsDesktop&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--允许在 Any CPU 平台下允许编译--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">CefSharpAnyCpuSupport</span>&gt;</span>true<span class="tag">&lt;/<span class="name">CefSharpAnyCpuSupport</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--拷贝 CefSharp 相关文件至 \CefSharp 子文件夹--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--x86 与 x64 平台下编译会生成在 \CefSharp 目录下--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Any CPU 平台下编译会在 \CefSharp 下生成 \x86 与 \x64 子文件夹--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">CefSharpTargetDir</span>&gt;</span>\CefSharp<span class="tag">&lt;/<span class="name">CefSharpTargetDir</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">Project</span>&gt;</span></span><br></pre></td></tr></table></figure><br>在运行初始时执行代码 WPF 为：App.xaml.cs 文件<br><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> CefSharp;</span><br><span class="line"><span class="keyword">using</span> CefSharp.Wpf;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.IO;</span><br><span class="line"><span class="keyword">using</span> System.Reflection;</span><br><span class="line"><span class="keyword">using</span> System.Runtime.CompilerServices;</span><br><span class="line"><span class="keyword">using</span> System.Threading;</span><br><span class="line"><span class="keyword">using</span> System.Windows;</span><br><span class="line"></span><br><span class="line">namespace *</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> Interaction logic for App.xaml</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">App</span> : <span class="title">Application</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnStartup</span>(<span class="params">StartupEventArgs e</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="comment">// Add Custom assembly resolver</span></span><br><span class="line">            AppDomain.CurrentDomain.AssemblyResolve += Resolver;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Any CefSharp references have to be in another method with NonInlining</span></span><br><span class="line">            <span class="comment">// attribute so the assembly rolver has time to do it&#x27;s thing.</span></span><br><span class="line">            InitializeCefSharp();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 启动主程序</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">MethodImpl(MethodImplOptions.NoInlining)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">InitializeCefSharp</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">var</span> settings = <span class="keyword">new</span> CefSettings();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 不对日志进行保存</span></span><br><span class="line">            settings.LogSeverity = LogSeverity.Disable;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Set BrowserSubProcessPath based on app bitness at runtime</span></span><br><span class="line">            settings.BrowserSubprocessPath = GetCefSharpFilePath(<span class="string">&quot;CefSharp.BrowserSubprocess.exe&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Make sure you set performDependencyCheck false</span></span><br><span class="line">            Cef.Initialize(settings, performDependencyCheck: <span class="literal">false</span>, browserProcessHandler: <span class="literal">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Will attempt to load missing assembly from either x86 or x64 subdir</span></span><br><span class="line">        <span class="comment">// Required by CefSharp to load the unmanaged dependencies when running using AnyCPU</span></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Assembly <span class="title">Resolver</span>(<span class="params"><span class="built_in">object</span> sender, ResolveEventArgs args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">if</span> (args.Name.StartsWith(<span class="string">&quot;CefSharp&quot;</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">string</span> assemblyName = args.Name.Split(<span class="keyword">new</span>[] &#123; <span class="string">&#x27;,&#x27;</span> &#125;, <span class="number">2</span>)[<span class="number">0</span>] + <span class="string">&quot;.dll&quot;</span>;</span><br><span class="line">                <span class="built_in">string</span> archSpecificPath = GetCefSharpFilePath(assemblyName);</span><br><span class="line">                <span class="keyword">return</span> File.Exists(archSpecificPath) ? Assembly.LoadFile(archSpecificPath) : <span class="literal">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 获取 CefSharp 文件路径</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;assemblyName&quot;&gt;</span>文件名称<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">GetCefSharpFilePath</span>(<span class="params"><span class="built_in">string</span> assemblyName</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">var</span> vAnyCpuPath = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, <span class="string">&quot;CefSharp&quot;</span>, Environment.Is64BitProcess ? <span class="string">&quot;x64&quot;</span> : <span class="string">&quot;x86&quot;</span>, assemblyName);</span><br><span class="line">            <span class="keyword">var</span> vNoAnyCpuPath = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, <span class="string">&quot;CefSharp&quot;</span>, assemblyName);</span><br><span class="line">            <span class="keyword">return</span> Directory.Exists(Path.GetDirectoryName(vAnyCpuPath)) ? vAnyCpuPath : vNoAnyCpuPath;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="CefSharp-报错：试图加载格式不正确的程序。"><a href="#CefSharp-报错：试图加载格式不正确的程序。" class="headerlink" title="CefSharp 报错：试图加载格式不正确的程序。"></a>CefSharp 报错：试图加载格式不正确的程序。</h5><p>默认 CefSharp 仅允许在设置为 x86 或 x64 平台下运行，修改设置即可。<br>但是有时会在配置了允许 Any CPU 后出现 x86 平台下正常 x64 平台下运行报同样错误，最后找到问题出现在独立创建用的于调用 Cef 库不知何时生成出一些不必要的内容，删除 project.csproj 文件下不必要的内容即可。<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">PropertyGroup</span> <span class="attr">Condition</span>=<span class="string">&quot;&#x27;$(Configuration)|$(Platform)&#x27;==&#x27;Debug|AnyCPU&#x27;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PlatformTarget</span>&gt;</span>x86<span class="tag">&lt;/<span class="name">PlatformTarget</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">PropertyGroup</span> <span class="attr">Condition</span>=<span class="string">&quot;&#x27;$(Configuration)|$(Platform)&#x27;==&#x27;Debug|x86&#x27;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PlatformTarget</span>&gt;</span>x86<span class="tag">&lt;/<span class="name">PlatformTarget</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">PropertyGroup</span> <span class="attr">Condition</span>=<span class="string">&quot;&#x27;$(Configuration)|$(Platform)&#x27;==&#x27;Debug|x64&#x27;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">PlatformTarget</span>&gt;</span>x86<span class="tag">&lt;/<span class="name">PlatformTarget</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>C#.Net</category>
+      </categories>
+      <tags>
+        <tag>c#</tag>
+        <tag>wpf</tag>
+        <tag>cef</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>电脑挂机锁</title>
     <url>/blog/2016/05/31/csharp-DesktopLock/</url>
     <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/main.png"/></p>
@@ -768,8 +1913,8 @@
       </categories>
       <tags>
         <tag>c#</tag>
-        <tag>wpf</tag>
         <tag>helper</tag>
+        <tag>wpf</tag>
         <tag>devexpress</tag>
       </tags>
   </entry>
@@ -928,6 +2073,25 @@ Host 文件所在目录：<br>| 系统 | 目录 |<br>| —- | —- |<br>| Window
       <tags>
         <tag>c#</tag>
         <tag>rabbitmq</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C# Reflection(反射)</title>
+    <url>/blog/2016/12/10/csharp-Reflection/</url>
+    <content><![CDATA[<h3 id="通过反射动态调用方法"><a href="#通过反射动态调用方法" class="headerlink" title="通过反射动态调用方法"></a>通过反射动态调用方法</h3><a id="more"></a>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><a href="https://docs.microsoft.com/zh-cn/dotnet/api/system.reflection?view=netframework-4.5">System.Reflection</a> 命名空间包含通过检查托管代码中程序集、模块、成员、参数和其他实体的元数据来检索其相关信息的类型。 这些类型还可用于操作加载类型的实例，例如挂钩事件或调用方法。<br>↑上边是微软 <a href="https://docs.microsoft.com/zh-cn/">MSDN</a> 的介绍，balabala一大堆…，总之反射调用它就对了，通过类库类名以及方法名称调用方法。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="通过反射运行方法"><a href="#通过反射运行方法" class="headerlink" title="通过反射运行方法"></a>通过反射运行方法</h4><h5 id="调用方法代码"><a href="#调用方法代码" class="headerlink" title="调用方法代码"></a>调用方法代码</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 运行方法</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;strLibraryName&quot;&gt;</span>库名<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;strClassName&quot;&gt;</span>类名(带路径)<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;strMethodName&quot;&gt;</span>方法名<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;parameters&quot;&gt;</span>参数<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>返回结果<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">object</span> <span class="title">RunMethod</span>(<span class="params"><span class="built_in">string</span> strLibraryName, <span class="built_in">string</span> strClassName, <span class="built_in">string</span> strMethodName, <span class="built_in">object</span>[] parameters</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        Type type = Type.GetType(<span class="string">$&quot;<span class="subst">&#123;strLibraryName&#125;</span>.<span class="subst">&#123;strClassName&#125;</span>&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (type != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> vMethod = type.GetMethod(strMethodName);</span><br><span class="line">            <span class="keyword">if</span> (vMethod != <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> vMethod.Invoke(Activator.CreateInstance(type), parameters);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    catch (Exception)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="调用方法示例"><a href="#调用方法示例" class="headerlink" title="调用方法示例"></a>调用方法示例</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> parameters = <span class="keyword">new</span> <span class="built_in">object</span>[] &#123; item &#125;;</span><br><span class="line">RunMethod(<span class="string">&quot;ReflectionProject_Test&quot;</span>, <span class="string">&quot;ClassName&quot;</span>, <span class="string">&quot;MethodName&quot;</span>, parameters);</span><br></pre></td></tr></table></figure>
+<h4 id="通过反射接口插件式开发"><a href="#通过反射接口插件式开发" class="headerlink" title="通过反射接口插件式开发"></a>通过反射接口插件式开发</h4><h5 id="定义接口"><a href="#定义接口" class="headerlink" title="定义接口"></a>定义接口</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 菜单插件接口</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">MenuPluginInterface</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 菜单单击事件</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Click</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 功能名称</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="built_in">string</span> strFunctionName &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 功能分组</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="built_in">string</span> strFunctionGroup &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="插件继承接口"><a href="#插件继承接口" class="headerlink" title="插件继承接口"></a>插件继承接口</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 功能按钮测试Command</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestCommand</span> : <span class="title">MenuPluginInterface</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> Click Command</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Click</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// 打开插件功能</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 功能名称</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> strFunctionName</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123; <span class="keyword">return</span> <span class="string">&quot;测试功能&quot;</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 功能分组</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> strFunctionGroup</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123; <span class="keyword">return</span> <span class="string">&quot;测试分组&quot;</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="反射方法"><a href="#反射方法" class="headerlink" title="反射方法"></a>反射方法</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 运行插件窗体</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;strDllPath&quot;&gt;</span>Dll路径<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;strClassName&quot;&gt;</span>全类名<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>成功返回true,失败返回false<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="title">RunPluginClick</span>(<span class="params"><span class="built_in">string</span> strDllPath, <span class="built_in">string</span> strClassName</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//反射获得Class Type</span></span><br><span class="line">        Assembly assembly = Assembly.LoadFrom(strDllPath);</span><br><span class="line">        Type type = assembly.GetType(strClassName);</span><br><span class="line">        <span class="keyword">if</span> (type != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> container = <span class="keyword">new</span> UnityContainer();</span><br><span class="line">            container.RegisterType&lt;MenuPluginInterface&gt;(<span class="keyword">new</span> ContainerControlledLifetimeManager());</span><br><span class="line">            container.RegisterType(<span class="keyword">typeof</span>(MenuPluginInterface), type);</span><br><span class="line">            <span class="keyword">var</span> manager = container.Resolve&lt;MenuPluginInterface&gt;();</span><br><span class="line">            manager.Click();</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch (Exception)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="通过反射打开插件"><a href="#通过反射打开插件" class="headerlink" title="通过反射打开插件"></a>通过反射打开插件</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span> strProjectDll = <span class="string">&quot;ReflectionProject_Test.dll&quot;</span>;</span><br><span class="line">RunPluginClick(strProjectDll, <span class="string">&quot;ReflectionProject_Test.TestCommand&quot;</span>);</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C#.Net</category>
+      </categories>
+      <tags>
+        <tag>c#</tag>
+        <tag>reflection</tag>
       </tags>
   </entry>
   <entry>
@@ -1110,6 +2274,34 @@ table {
       </tags>
   </entry>
   <entry>
+    <title>网页使用 iframe 嵌入部分其他网页</title>
+    <url>/blog/2021/01/02/html-IframeEmbed/</url>
+    <content><![CDATA[<h3 id="在网页中嵌入其他网页中的一部分"><a href="#在网页中嵌入其他网页中的一部分" class="headerlink" title="在网页中嵌入其他网页中的一部分"></a>在网页中嵌入其他网页中的一部分</h3><a id="more"></a>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><a href="https://www.w3school.com.cn/tags/tag_iframe.asp">iframe</a> 元素会创建包含另外一个文档的内联框架，平时使用不多，但是也确实蛮好用的，比如在<a href="https://sadness96.github.io/blog/about/">博客关于页面</a>中嵌入了一个<a href="https://music.163.com/#/outchain/2/28445602/">网易云音乐的播放插件</a>，但是有时在嵌入其他页面时直想截取部分嵌入，再此解决。</p>
+<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><h4 id="最简单的加载"><a href="#最简单的加载" class="headerlink" title="最简单的加载"></a>最简单的加载</h4><p>加载一个中国天气网中北京的天气预报，看起来很简单，伴随这一篇没用的广告，不认真看甚至根本不敢相信这是中国天气预报的官方网站。</p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;http://www.weather.com.cn/weather/101010100.shtml&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">height</span>=<span class="string">&quot;400px&quot;</span> <span class="attr">sframeborder</span>=<span class="string">&quot;0&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><iframe src="http://www.weather.com.cn/weather/101010100.shtml" width="100%" height="400px" sframeborder="0"></iframe>
+
+<h4 id="仅截取天气预报地图部分并嵌入在网页中"><a href="#仅截取天气预报地图部分并嵌入在网页中" class="headerlink" title="仅截取天气预报地图部分并嵌入在网页中"></a>仅截取天气预报地图部分并嵌入在网页中</h4><h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><ol>
+<li>加载一个 iframe 标签，设置网页长度宽度拉伸网页确保样式符合预期，重要内容无广告遮挡。<br> <img src="https://sadness96.github.io/images/blog/html-IframeEmbed/iframe1.jpg"/></li>
+<li>iframe 外层添加 div 标签，用于移动 iframe 嵌入网页的坐标，宽度高度为实际选取内容宽度高度，参考 <a href="https://www.w3school.com.cn/cssref/pr_margin.asp">CSS margin 属性</a> 设置偏移量</li>
+<li>div 外层在添加一层 div 标签作为遮罩层，用于遮罩偏移量产生的多余信息，宽度高度为实际选取内容宽度高度，设置边框 0 与溢出隐藏 <a href="https://www.w3school.com.cn/css/pr_pos_overflow.asp">CSS overflow 属性</a><br> <img src="https://sadness96.github.io/images/blog/html-IframeEmbed/iframe2.jpg"/></li>
+</ol>
+<h5 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;width:680px;height:640px;overflow:hidden;border:0px;&quot;</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;width:680px;height:640px;margin:-145px 0px 0px -140px;&quot;</span>&gt;</span> </span><br><span class="line">   <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;http://www.weather.com.cn/weather/101010100.shtml&quot;</span> <span class="attr">height</span>=<span class="string">&quot;850&quot;</span> <span class="attr">width</span>=<span class="string">&quot;1280&quot;</span> <span class="attr">frameborder</span>=<span class="string">&quot;0&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h5><div style="width:680px;height:640px;overflow:hidden;border:0px;"><br>  <div style="width:680px;height:640px;margin:-145px 0px 0px -140px;"><br>   <iframe src="http://www.weather.com.cn/weather/101010100.shtml" height="850" width="1280" frameborder="0"></iframe><br>  </div><br></div>
+
+<h4 id="其他示例-嵌入可交互网页"><a href="#其他示例-嵌入可交互网页" class="headerlink" title="其他示例(嵌入可交互网页)"></a>其他示例(嵌入可交互网页)</h4><p>另一篇博客 <a href="https://sadness96.github.io/blog/2021/01/02/repair-Luminox8821/">Luminox 8821 更换电池</a> 中嵌入日本官网(瑞士官网仅有文档美国官网被跳转成某东了)中的可交互页面</p>
+<h5 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;width:100%;height:820px;overflow:hidden;border:0px;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;width:100%;height:820px;margin:-90px 0px 0px 0px;&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;https://luminox.jp/watch-collection/land/recon-point-man-8820-series-ref8821-km/&quot;</span> <span class="attr">scrolling</span>=<span class="string">&quot;no&quot;</span> <span class="attr">height</span>=<span class="string">&quot;900&quot;</span> <span class="attr">width</span>=<span class="string">&quot;767&quot;</span> <span class="attr">frameborder</span>=<span class="string">&quot;0&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h5><div style="width:100%;height:820px;overflow:hidden;border:0px;"><br>  <div style="width:100%;height:820px;margin:-90px 0px 0px 0px;"><br>   <iframe src="https://luminox.jp/watch-collection/land/recon-point-man-8820-series-ref8821-km/" scrolling="no" height="900" width="767" frameborder="0"></iframe><br>  </div><br></div>]]></content>
+      <categories>
+        <category>Html</category>
+      </categories>
+      <tags>
+        <tag>html</tag>
+        <tag>iframe</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Html 中嵌入 Office 文件</title>
     <url>/blog/2017/08/05/office-HtmlEmbed/</url>
     <content><![CDATA[<h3 id="Html-静态网页中嵌入-Word、Excel、PPT、PDF-文件"><a href="#Html-静态网页中嵌入-Word、Excel、PPT、PDF-文件" class="headerlink" title="Html 静态网页中嵌入 Word、Excel、PPT、PDF 文件"></a>Html 静态网页中嵌入 Word、Excel、PPT、PDF 文件</h3><a id="more"></a>
@@ -1127,6 +2319,27 @@ table {
       </categories>
       <tags>
         <tag>office</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Luminox 8821 更换电池</title>
+    <url>/blog/2021/01/02/repair-Luminox8821/</url>
+    <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/repair-Luminox8821/BlogLogo.png"/></p>
+<a id="more"></a>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><a href="https://luminox.com/">Luminox 8821</a> 最开始是13年在蚂蚁甩棍论坛看到棍友发的，一直很喜欢这块石英表，工作后17年才买到手，就在前几天没电了，戴了三年多，简单的换一下电池。<br><img src="https://sadness96.github.io/images/blog/repair-Luminox8821/20210102_130609.jpg"/></p>
+<h3 id="氚气发光还是很不错的"><a href="#氚气发光还是很不错的" class="headerlink" title="氚气发光还是很不错的"></a>氚气发光还是很不错的</h3><p>官网的展示，可以拖动显示正常和夜间的效果</p>
+<div style="width:100%;height:820px;overflow:hidden;border:0px;"><br>  <div style="width:100%;height:820px;margin:-90px 0px 0px 0px;"><br>   <iframe src="https://luminox.jp/watch-collection/land/recon-point-man-8820-series-ref8821-km/" scrolling="no" height="900" width="767" frameborder="0"></iframe><br>  </div><br></div>
+
+<h3 id="更换电池"><a href="#更换电池" class="headerlink" title="更换电池"></a>更换电池</h3><h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p>背后四颗螺丝，型号：十字 PH00。<br>电池型号：原厂 RENATA 395，店家给我发货发的 RENATA 371，厚度上薄不到1毫米，可以替换使用。<br><img src="https://sadness96.github.io/images/blog/repair-Luminox8821/20210102_134945.jpg"/></p>
+<h4 id="更换"><a href="#更换" class="headerlink" title="更换"></a>更换</h4><p>螺丝拧开后盖后向上拨开电池上的压片换上新电池后复原就好，可以在防水胶圈上涂一层防水膏。<br><img src="https://sadness96.github.io/images/blog/repair-Luminox8821/20210102_132517.jpg"/><br><img src="https://sadness96.github.io/images/blog/repair-Luminox8821/20210102_132846.jpg"/></p>
+]]></content>
+      <categories>
+        <category>Repair</category>
+      </categories>
+      <tags>
+        <tag>repair</tag>
+        <tag>watch</tag>
+        <tag>luminox</tag>
       </tags>
   </entry>
   <entry>
@@ -1167,6 +2380,93 @@ table {
       </tags>
   </entry>
   <entry>
+    <title>ArcGIS API for JavaScript 使用介绍</title>
+    <url>/blog/2019/11/04/software-ArcGisForJS/</url>
+    <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ArcGISForJavaScript.png"/></p>
+<a id="more"></a>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>现工作中 GIS 地图使用客户提供的 AutoCAD 图纸提取图层到 ArcGIS 中导出图片模拟 GIS 显示，存在一定弊端（1.不包含经纬度数据，需要进行图像标定坐标转换；2.图像中边线粗的越放大越粗，边线细的缩放时不足一像素颜色减淡。），尝试以客户端加载 WebJS 的方式使用 GIS。</p>
+<h3 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h3><p>基于 ArcGIS 提供的桌面端（用于编辑地图），服务端（用于发布地图服务）以及 ArcGIS API for JavaScript（开发 WebJS）。</p>
+<h4 id="搭建-ArcGIS-Server-10-2"><a href="#搭建-ArcGIS-Server-10-2" class="headerlink" title="搭建 ArcGIS Server 10.2"></a>搭建 ArcGIS Server 10.2</h4><p><a href="https://blog.csdn.net/qq_36213352/article/details/80646940">参考资料</a></p>
+<h5 id="安装后默认值"><a href="#安装后默认值" class="headerlink" title="安装后默认值"></a>安装后默认值</h5><p>地图服务地址：<a href="http://localhost:6080/arcgis/manager/">http://localhost:6080/arcgis/manager/</a><br>地图服务账号：siteadmin</p>
+<h4 id="搭建-ArcGIS-Desktop-10-2"><a href="#搭建-ArcGIS-Desktop-10-2" class="headerlink" title="搭建 ArcGIS Desktop 10.2"></a>搭建 ArcGIS Desktop 10.2</h4><p><a href="https://blog.csdn.net/bigemap/article/details/81131840">参考资料</a></p>
+<h5 id="地图服务发布"><a href="#地图服务发布" class="headerlink" title="地图服务发布"></a>地图服务发布</h5><h6 id="1-编辑好的地图保存为-mxd-格式"><a href="#1-编辑好的地图保存为-mxd-格式" class="headerlink" title="1.编辑好的地图保存为 .mxd 格式"></a>1.编辑好的地图保存为 .mxd 格式</h6><p><img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/SaveMxd.png"/></p>
+<h6 id="2-在-ArcMap-目录中选择-GIS-服务器-→-添加-ArcGIS-Server-→-发布-GIS-服务"><a href="#2-在-ArcMap-目录中选择-GIS-服务器-→-添加-ArcGIS-Server-→-发布-GIS-服务" class="headerlink" title="2.在 ArcMap 目录中选择 GIS 服务器 → 添加 ArcGIS Server → 发布 GIS 服务"></a>2.在 ArcMap 目录中选择 GIS 服务器 → 添加 ArcGIS Server → 发布 GIS 服务</h6><p>选择发布 GIS 服务<br><img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/PublishingService1.png"/></p>
+<p>设置服务器 URL 与用户名密码<br><img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/PublishingService2.png"/></p>
+<h6 id="4-在-ArcMap-目录中选择-mxd-文件右键选择：共享为服务-S-…"><a href="#4-在-ArcMap-目录中选择-mxd-文件右键选择：共享为服务-S-…" class="headerlink" title="4.在 ArcMap 目录中选择 .mxd 文件右键选择：共享为服务(S)…"></a>4.在 ArcMap 目录中选择 .mxd 文件右键选择：共享为服务(S)…</h6><p>选择发布服务<br><img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ShareForService1.png"/></p>
+<p>设置服务名称<br><img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ShareForService2.png"/></p>
+<p>默认发布为根<br><img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ShareForService3.png"/></p>
+<p>1.点击分析，解决错误（例：图层坐标系异常）；2.发布<br><img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ShareForService4.png"/></p>
+<p>选择发布图层等待服务发布<br><img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ShareForService5.png"/></p>
+<p><a href="http://localhost:6080/arcgis/manager/">ArcGIS Server Manager</a> 中查看服务<br><img src="https://sadness96.github.io/images/blog/software-ArcGisForJS/ShareForService6.png"/></p>
+<h4 id="搭建-ArcGIS-API-for-JavaScript"><a href="#搭建-ArcGIS-API-for-JavaScript" class="headerlink" title="搭建 ArcGIS API for JavaScript"></a>搭建 ArcGIS API for JavaScript</h4><p>未完成</p>
+]]></content>
+      <categories>
+        <category>Software</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
+        <tag>arcgis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Clumsy 使用介绍</title>
+    <url>/blog/2020/03/20/software-Clumsy/</url>
+    <content><![CDATA[<p><img src="http://jagt.github.io/clumsy/clumsy-demo.gif"/></p>
+<a id="more"></a>
+<h3 id="用于模拟极端网络环境的网络干扰软件"><a href="#用于模拟极端网络环境的网络干扰软件" class="headerlink" title="用于模拟极端网络环境的网络干扰软件"></a>用于模拟极端网络环境的网络干扰软件</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p><a href="https://github.com/jagt/clumsy">Clumsy</a> makes your network condition on Windows significantly worse, but in a controlled and interactive manner.<br>公司工作需要，使用该软件模拟测试极端网络情况下的软件稳定性。</p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>官方手册：<a href="http://jagt.github.io/clumsy/manual.html">http://jagt.github.io/clumsy/manual.html</a></p>
+<h5 id="配置过滤条件"><a href="#配置过滤条件" class="headerlink" title="配置过滤条件"></a>配置过滤条件</h5><p>参考 <a href="https://reqrypt.org/windivert-doc.html#filter_language">WinDivert</a> 配置文档</p>
+<h5 id="干扰方式"><a href="#干扰方式" class="headerlink" title="干扰方式"></a>干扰方式</h5><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>翻译</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lag</td>
+<td>滞后</td>
+<td>将数据包保留一小段时间以模拟网络滞后</td>
+</tr>
+<tr>
+<td>Dorp</td>
+<td>丢弃</td>
+<td>随机丢弃数据包</td>
+</tr>
+<tr>
+<td>Throttle</td>
+<td>节流阀</td>
+<td>在给定的时间段内阻塞流量，然后分批发送</td>
+</tr>
+<tr>
+<td>Duplicate</td>
+<td>复制</td>
+<td>将克隆后的数据包立即发送到原始数据包</td>
+</tr>
+<tr>
+<td>Out of order</td>
+<td>乱序</td>
+<td>重新排列数据包的顺序</td>
+</tr>
+<tr>
+<td>Tamper</td>
+<td>篡改</td>
+<td>微调数据包内容的位</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>Software</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
+        <tag>clumsy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Depends 使用介绍</title>
     <url>/blog/2018/08/01/software-Depends/</url>
     <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/software-Depends/depends.jpg"/></p>
@@ -1179,8 +2479,8 @@ table {
         <category>Software</category>
       </categories>
       <tags>
-        <tag>software</tag>
         <tag>depends</tag>
+        <tag>software</tag>
       </tags>
   </entry>
   <entry>
@@ -1258,6 +2558,51 @@ table {
       </tags>
   </entry>
   <entry>
+    <title>Jmeter 使用介绍</title>
+    <url>/blog/2020/12/25/software-Jmeter/</url>
+    <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/software-Jmeter/JMeterLogo.png"/></p>
+<a id="more"></a>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><a href="https://jmeter.apache.org/">Apache JMeter</a> 是Apache组织开发的基于Java的压力测试工具。用于对软件做压力测试，它最初被设计用于Web应用测试，但后来扩展到其他测试领域。<br>对测试并不是很熟悉，跟朋友聊天时提到了这个软件，正好也想对自己原来做的东西做一下压力测试，结果实实在在的发现了不少问题。</p>
+<h3 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h3><h4 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h4><p><a href="https://www.oracle.com/java/technologies/">Java 8+</a></p>
+<h4 id="下载安装-Jmeter"><a href="#下载安装-Jmeter" class="headerlink" title="下载安装 Jmeter"></a>下载安装 Jmeter</h4><p><a href="https://jmeter.apache.org/download_jmeter.cgi">apache jmeter</a><br>解压文件</p>
+<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>变量值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JMETER_HOME</td>
+<td>解压路径</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>%JMETER_HOME%\bin</td>
+</tr>
+</tbody>
+</table>
+<h4 id="控制台输入-jmeter-即可运行"><a href="#控制台输入-jmeter-即可运行" class="headerlink" title="控制台输入 jmeter 即可运行"></a>控制台输入 jmeter 即可运行</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">PS C:\Users\Administrator&gt; jmeter</span><br><span class="line">================================================================================</span><br><span class="line">Don&#x27;t use GUI <span class="built_in">mode</span> <span class="keyword">for</span> load testing !, only <span class="keyword">for</span> Test creation and Test debugging.</span><br><span class="line"><span class="keyword">For</span> load testing, use CLI <span class="built_in">Mode</span> (was NON GUI):</span><br><span class="line">   jmeter -n -t [jmx file] -l [results file] -e -o [<span class="built_in">Path</span> to web report folder]</span><br><span class="line">&amp; increase Java Heap to meet your test requirements:</span><br><span class="line">   Modify current env variable HEAP=&quot;-Xms1g -Xmx1g -XX:MaxMetaspaceSize=<span class="number">256</span>m&quot; <span class="keyword">in</span> the jmeter batch file</span><br><span class="line">Check : https://jmeter.apache.org/usermanual/best-practices.html</span><br><span class="line">================================================================================</span><br></pre></td></tr></table></figure>
+<h4 id="初步使用"><a href="#初步使用" class="headerlink" title="初步使用"></a>初步使用</h4><h5 id="添加线程组"><a href="#添加线程组" class="headerlink" title="添加线程组"></a>添加线程组</h5><p>可在线程组中设置压力测试线程数量以及重复次数<br><img src="https://sadness96.github.io/images/blog/software-Jmeter/添加线程组.png"/></p>
+<h5 id="添加自定义变量"><a href="#添加自定义变量" class="headerlink" title="添加自定义变量"></a>添加自定义变量</h5><p>创建自定义变量，在后续的配置中使用可随时调用<br><img src="https://sadness96.github.io/images/blog/software-Jmeter/添加自定义变量.png"/></p>
+<h5 id="添加信息头管理器"><a href="#添加信息头管理器" class="headerlink" title="添加信息头管理器"></a>添加信息头管理器</h5><p>用于请求默认信息头，例如：<br>content-type：application/json; charset=UTF-8<br><img src="https://sadness96.github.io/images/blog/software-Jmeter/添加信息头管理器.png"/></p>
+<h5 id="http-请求"><a href="#http-请求" class="headerlink" title="http 请求"></a>http 请求</h5><p>可直接用 “${}” 的方式直接使用前面添加的自定义变量<br><img src="https://sadness96.github.io/images/blog/software-Jmeter/http请求_用户登录.png"/></p>
+<h5 id="正则表达式提取-Token"><a href="#正则表达式提取-Token" class="headerlink" title="正则表达式提取 Token"></a>正则表达式提取 Token</h5><p>正常情况下多数接口都需要通过 Token 认证在能访问，但是 Token 通常从登录接口中返回，通过正则表达式匹配到 Token 数据存为自定义变量使用<br><img src="https://sadness96.github.io/images/blog/software-Jmeter/正则提取器_提取token存为变量.png"/></p>
+<h5 id="提取到的-Token-变量存入信息头管理器"><a href="#提取到的-Token-变量存入信息头管理器" class="headerlink" title="提取到的 Token 变量存入信息头管理器"></a>提取到的 Token 变量存入信息头管理器</h5><p>Token 的使用方法可能不仅限于通过参数传递，也可能通过信息头来传递<br><img src="https://sadness96.github.io/images/blog/software-Jmeter/Token添加至头信息管理器.png"/></p>
+<h5 id="调用带-Token-认证的-http-请求"><a href="#调用带-Token-认证的-http-请求" class="headerlink" title="调用带 Token 认证的 http 请求"></a>调用带 Token 认证的 http 请求</h5><p><img src="https://sadness96.github.io/images/blog/software-Jmeter/需要Token认证的http请求.png"/></p>
+<h5 id="添加结果树与报告"><a href="#添加结果树与报告" class="headerlink" title="添加结果树与报告"></a>添加结果树与报告</h5><p>可在线程组下添加结果树与报告树图标等统计结果，点击顶部绿色三角等待完成压力测试<br><img src="https://sadness96.github.io/images/blog/software-Jmeter/添加结果树与报告.png"/></p>
+<h4 id="使用-Badboy-录制"><a href="#使用-Badboy-录制" class="headerlink" title="使用 Badboy 录制"></a>使用 Badboy 录制</h4><p>个人感觉配置 Jmeter 是一件很麻烦的事情，可以使用第三方工具 <a href="http://www.badboy.com.au/">Badboy</a> 录制操作并导出为 .jmx 格式后由 Jmeter 测试。<br>官方网站打不开可以从 <a href="https://badboy.en.softonic.com/">softonic</a> 下载</p>
+]]></content>
+      <categories>
+        <category>Software</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
+        <tag>jmeter</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Nsis 使用介绍</title>
     <url>/blog/2018/11/24/software-Nsis/</url>
     <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/software-Nsis/HM-VNISEdit.jpg"/></p>
@@ -1273,6 +2618,36 @@ table {
       <tags>
         <tag>software</tag>
         <tag>nsis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Rose 使用介绍</title>
+    <url>/blog/2020/05/11/software-Rose/</url>
+    <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/software-Rose/rose_log.png"/></p>
+<a id="more"></a>
+<h3 id="本地灾备、远程容灾，快速恢复数据和业务"><a href="#本地灾备、远程容灾，快速恢复数据和业务" class="headerlink" title="本地灾备、远程容灾，快速恢复数据和业务"></a>本地灾备、远程容灾，快速恢复数据和业务</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p><a href="http://www.rosedata.com/index.php/Prodetail/index/proid/24">RoseReplicator</a>是基于网络的实时数据容灾复制以及业务连续性保护产品，实现生产数据的本地/远程实时容灾备份，保证数据的安全。实时监测应用资源运行状态，实现资源故障时自动/手动应急切换，解决软、硬件的单点故障，提供高级别的容灾保护。</p>
+<h4 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h4><p>1.虚拟机（VMware）测试，两台（Windows Server 2016）<br>2.两台机器部署 MySQL，版本 5.7.29<br>3.两台机器部署 RoseReplicatorPlus，版本 5.8.0<br>4.Rose 客服人员微信号：cathy_shen1001<br>5.两台虚拟机IP地址：<br>  主机：192.168.5.210;192.168.6.210;<br>  备机：192.168.5.215;192.168.6.215;<br>  虚拟地址：192.168.5.212;</p>
+<h4 id="创建管理软件账户（主备都要创建）"><a href="#创建管理软件账户（主备都要创建）" class="headerlink" title="创建管理软件账户（主备都要创建）"></a>创建管理软件账户（主备都要创建）</h4><p>1.进入安装目录 C:\Program Files\ReplicatorPlus\bin 以管理员方式运行（否则会报 File open error 错误） account.exe 应用程序。<br>2.根据需求创建不同权限的用户。<br>3.输入用户名密码，显示 Change successfully! 注册成功。<br><img src="https://sadness96.github.io/images/blog/software-Rose/注册.png"/></p>
+<h4 id="向导安装"><a href="#向导安装" class="headerlink" title="向导安装"></a>向导安装</h4><p>1.选择：系统→配置向导<br><img src="https://sadness96.github.io/images/blog/software-Rose/向导1.png"/></p>
+<p>2.选择活动主机登录<br><img src="https://sadness96.github.io/images/blog/software-Rose/向导2.png"/></p>
+<p>3.选择备用主机登录<br><img src="https://sadness96.github.io/images/blog/software-Rose/向导3.png"/></p>
+<p>4.添加客服手里要来的注册码<br><img src="https://sadness96.github.io/images/blog/software-Rose/向导4.png"/></p>
+<p>5.创建主机关系，创建心跳网(心跳要求与局域网IP不同网段，添加一个新网段后可在主机列表更新系统信息后重新创建心跳，测试使用时把心跳IP网段改为了6网段)<br><img src="https://sadness96.github.io/images/blog/software-Rose/架构设计.png"/><br><img src="https://sadness96.github.io/images/blog/software-Rose/向导5.png"/></p>
+<p>6.选择应用服务类型，类型中不包含MySQL，客服建议选择USERDEF（用户自定义）<br><img src="https://sadness96.github.io/images/blog/software-Rose/向导6.png"/></p>
+<p>7.应用服务数据→勾选绑定数据→添加一对心跳包网段的IP对，定制用于复制的数据集合点击修改→选择mysql数据库data目录（Rose会同步MySQL的Data目录）。<br><img src="https://sadness96.github.io/images/blog/software-Rose/向导7.png"/></p>
+<p>8.设置IP资源：勾选主机网卡中局域网IP对，活动IP中新增一个局域网中未规划的IP。<br><img src="https://sadness96.github.io/images/blog/software-Rose/向导8.png"/></p>
+<p>9.仲裁磁盘：跳过<br>10.选择共享卷：跳过<br>11.选择NT服务：添加MySQL57服务，弹出确定将非手动启动类型的NT服务修改为手动启动类型选择是。<br><img src="https://sadness96.github.io/images/blog/software-Rose/向导9.png"/></p>
+<p>12.设置文件共享：跳过<br>13.进程：跳过，这个主要是针对第三方开发的应用程序，通过exe启动，没有在Windows服务列表中注册服务的，如果是mysql应用不需要配置。<br>14.设置代理参数：跳过，这个主要是针对bat启动的应用<br>15.配置详细信息：确认无误点击完成开始配置。<br><img src="https://sadness96.github.io/images/blog/software-Rose/向导10.png"/></p>
+<p>16.关闭后咨询是否带入，点击否。</p>
+<h4 id="后续操作"><a href="#后续操作" class="headerlink" title="后续操作"></a>后续操作</h4><p>1.手动停止两台电脑MySQL，手动备份Data目录。<br>2.在RoseReplicatorPlus 控制中心点击中间方块右键带入。<br><img src="https://sadness96.github.io/images/blog/software-Rose/主界面.png"/></p>
+<p>3.修改数据库内容后，数据同步正常。<br>4.在方块上右键转移，连接数据库同步后同步正常。<br>5.关闭一台机器后，另一台电脑 MySQL 服务正常启动。</p>
+]]></content>
+      <categories>
+        <category>Software</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
+        <tag>rose</tag>
       </tags>
   </entry>
   <entry>
@@ -1493,11 +2868,51 @@ table {
         <category>Work</category>
       </categories>
       <tags>
-        <tag>c#</tag>
         <tag>asp</tag>
         <tag>c++</tag>
+        <tag>c#</tag>
         <tag>mysql</tag>
         <tag>axure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Xcode IOS 真机调试</title>
+    <url>/blog/2020/10/23/xcode-RealMachineDebugging/</url>
+    <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/xcode-RealMachineDebugging/xcode_logo.jpg"/></p>
+<a id="more"></a>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>IOS 开发使用真机有线调试和无线 Wi-Fi 调试</p>
+<h3 id="调试环境"><a href="#调试环境" class="headerlink" title="调试环境"></a>调试环境</h3><p>电脑：MacBook pro 16<br>电脑系统：macOS Catalina 10.15.7<br>手机：iPhone 6s<br>手机系统：IOS 13.6.1<br>开发软件：Xcode 12.1</p>
+<h3 id="配置方式"><a href="#配置方式" class="headerlink" title="配置方式"></a>配置方式</h3><h4 id="有线调试"><a href="#有线调试" class="headerlink" title="有线调试"></a>有线调试</h4><h5 id="设置证书"><a href="#设置证书" class="headerlink" title="设置证书"></a>设置证书</h5><ol>
+<li><p>打开用户菜单<br>Xcode → Preferences<br><img src="https://sadness96.github.io/images/blog/xcode-RealMachineDebugging/选择菜单Preferences.png"/></p>
+</li>
+<li><p>添加用户<br>菜单中选择 Accounts 添加一个用户<br><img src="https://sadness96.github.io/images/blog/xcode-RealMachineDebugging/添加账户.png"/></p>
+</li>
+<li><p>添加证书<br>点击右下角 Manage Certificates… → 添加 Apple Development 证书<br><img src="https://sadness96.github.io/images/blog/xcode-RealMachineDebugging/添加证书.png"/></p>
+</li>
+<li><p>证书管理<br>如果需要删除证书，在 keychain access 程序中删除<br><img src="https://sadness96.github.io/images/blog/xcode-RealMachineDebugging/钥匙串管理.png"/></p>
+</li>
+<li><p>在应用中添加组织<br>编辑 .xcodeproj 配置 → Signing &amp; Capabilities → 选择刚才添加的用户<br><img src="https://sadness96.github.io/images/blog/xcode-RealMachineDebugging/添加组织.png"/></p>
+</li>
+<li><p>手机数据线链接至电脑</p>
+</li>
+<li><p>iPhone 中设置信任<br>设置 → 通用 → 设备管理<br><img src="https://sadness96.github.io/images/blog/xcode-RealMachineDebugging/ios设备管理.png"/></p>
+</li>
+<li><p>运行程序选择真机设备<br>如需登录输入钥匙串密码，输入系统密码即可<br><img src="https://sadness96.github.io/images/blog/xcode-RealMachineDebugging/钥匙串密码.png"/></p>
+</li>
+</ol>
+<h4 id="无线调试（需完成有线调试步骤）"><a href="#无线调试（需完成有线调试步骤）" class="headerlink" title="无线调试（需完成有线调试步骤）"></a>无线调试（需完成有线调试步骤）</h4><ol>
+<li><p>打开链接设备菜单<br>Window → DevicesAndSimulators<br><img src="https://sadness96.github.io/images/blog/xcode-RealMachineDebugging/选择菜单DevicesAndSimulators.png"/></p>
+</li>
+<li><p>开启远程 Wi-Fi 调试<br>保证电脑与手机在同一网络下 → 勾选 Connect via network → 左侧设备中显示一个地球则可以 Wi-Fi 调试<br><img src="https://sadness96.github.io/images/blog/xcode-RealMachineDebugging/无线调试.png"/></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>IOS</category>
+      </categories>
+      <tags>
+        <tag>ios</tag>
+        <tag>xcode</tag>
       </tags>
   </entry>
   <entry>
