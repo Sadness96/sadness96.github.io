@@ -38,7 +38,7 @@ npm update
 ```
 
 ##### 安装 swig
-如果直接生成博客则会出现 “ {% extends ‘_layout.swig‘ %} {% import ‘_macro/post.swig‘ as post_template %}“ 问题。
+如果直接生成博客则会出现 “ { % extends ‘_layout.swig‘ % } { % import ‘_macro/post.swig‘ as post_template % }“ 问题。
 原因是 hexo 在 5.0 之后把 swig 给删除了需要自己手动安装。
 ``` shell
 npm i hexo-renderer-swig
