@@ -71,7 +71,6 @@
 
         .GitHub,
         .Blog,
-        .Resume,
         .Company,
         .About {
             width: 70px;
@@ -135,17 +134,6 @@
             border-radius: 0.25rem;
         }
 
-        #dialog-problem {
-            height: 160px;
-            width: 350px;
-            font-size: 14px;
-            margin-left: 15px;
-            margin-top: 15px;
-            float: left;
-            color: #000000;
-            text-align: left;
-        }
-
         #dialog-form {
             margin-top: 20px;
         }
@@ -205,53 +193,10 @@
                 $("body").css("margin-top", vResize <= 0 ? 0 : vResize);
             });
         });
-        // 简历问题悬浮框
-        // 改变悬浮窗位置
-        $(document).ready(function () {
-            $("#dialog").css("top", ($(window).height() - parseInt($("#dialog").css("height"))) / 2);
-            var vLeft = ($(window).width() - parseInt($("#dialog").css("width"))) / 2;
-            $("#dialog").css("left", vLeft <= 0 ? 0 : vLeft);
-        });
-        // 窗口改变大小
-        $(window).resize(function () {
-            if ($("#dialog").css("display") == "block") {
-                $("#dialog").css("top", ($(window).height() - parseInt($("#dialog").css("height"))) / 2);
-                var vLeft = ($(window).width() - parseInt($("#dialog").css("width"))) / 2;
-                $("#dialog").css("left", vLeft <= 0 ? 0 : vLeft);
-            }
-        });
         $(function () {
             // 打开问题框
-            $("#OpenResume").click(function () {
-                // 显示悬浮窗
-                $("#dialog").css("display", "block");
-                $("#layer-shade").css("display", "block");
-                // 清除悬浮窗上的数据
-                $("#textAnswer").val("");
-            });
-
-            // 验证答案进入简历页
-            $("#btn-Verification").click(function () {
-                var textAnswer = $("#textAnswer").val();
-                var str = "";
-                var arr = new Array(0, 3, 3, 2, 9, 8, 1, 6, 5, 8);
-                var index = new Array(7, 3, 2, 6, 8, 8, 6, 7, 7);
-                index.forEach(function (item) {
-                    str += arr[item];
-                });
-                if (textAnswer == str) {
-                    $("#dialog").css("display", "none");
-                    $("#layer-shade").css("display", "none");
-                    $(location).attr("href", "/resume/");
-                } else {
-                    alert("答案错误请重试！");
-                }
-            });
-
-            // 关闭悬浮窗
-            $(".dialog-close").click(function () {
-                $("#dialog").css("display", "none");
-                $("#layer-shade").css("display", "none");
+            $("#OpenCompany").click(function () {
+                alert("暂不开放！");
             });
         });
     </script>
@@ -295,24 +240,7 @@
                     </svg>
                     <p class="FunctionalTitle">Blog</p>
                 </div>
-                <!-- 简历页 -->
-                <!-- <div class="Resume" id="OpenResume">
-                    <svg t="1557201285190" class="icon" viewbox="0 0 1024 1024" version="1.1"
-                        xmlns="http://www.w3.org/2000/svg" p-id="6908" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        width="50" height="50">
-                        <defs>
-                            <style type="text/css"></style>
-                        </defs>
-                        <path
-                            d="M918.966857 249.508571L725.174857 56.155429a45.476571 45.476571 0 0 0-19.821714-11.465143H180.443429C130.870857 48.054857 91.428571 88.96 91.428571 139.282286v744.795428c0 52.498286 42.825143 95.213714 95.451429 95.213715h650.166857c52.644571 0 95.469714-42.715429 95.469714-95.213715l-0.036571-598.125714a46.390857 46.390857 0 0 0-13.513143-36.443429z m-81.060571 610.541715c0 13.714286-11.190857 24.886857-24.941715 24.886857H210.944a24.941714 24.941714 0 0 1-24.941714-24.886857V163.309714c0-13.714286 11.190857-24.886857 24.941714-24.886857h408.649143v209.974857c0 15.634286 12.763429 28.361143 28.452571 28.361143h188.16l1.700572 1.92v481.371429z m-63.012572-549.028572h-98.432V137.581714l173.787429 173.421715h-75.355429z"
-                            p-id="6909" fill="#ffffff"></path>
-                        <path
-                            d="M447.030857 330.148571a85.613714 85.613714 0 0 0 22.180572-57.526857 86.162286 86.162286 0 0 0-86.125715-86.125714 86.144 86.144 0 0 0-86.089143 86.125714c0 22.162286 8.429714 42.294857 22.180572 57.545143-51.126857 24.100571-86.729143 76.032-86.729143 136.210286a21.522286 21.522286 0 1 0 43.044571 0 107.757714 107.757714 0 0 1 107.611429-107.629714 107.757714 107.757714 0 0 1 107.629714 107.629714 21.504 21.504 0 1 0 43.026286 0c-0.036571-60.251429-35.584-112.146286-86.729143-136.228572z m-63.945143-100.553142a43.008 43.008 0 0 1 43.026286 43.026285c0 23.826286-19.2 43.026286-43.026286 43.026286a43.008 43.008 0 1 1 0-86.052571zM555.721143 637.165714H257.28c-13.641143 0-24.850286-11.172571-24.850286-24.813714s11.209143-24.850286 24.850286-24.850286h298.532571c13.641143 0 24.813714 11.209143 24.813715 24.850286a24.941714 24.941714 0 0 1-24.905143 24.813714zM704.896 780.196571H257.28c-13.641143 0-24.850286-11.209143-24.850286-24.850285s11.209143-24.813714 24.850286-24.813715h447.725714c13.622857 0 24.850286 11.172571 24.850286 24.813715s-11.209143 24.850286-24.96 24.850285z"
-                            p-id="6910" fill="#ffffff"></path>
-                    </svg>
-                    <p class="FunctionalTitle">Resume</p>
-                </div> -->
-                <div class="Company" onclick="window.location.href='/'">
+                <div class="Company" id="OpenCompany">
                     <svg t="1557201285190" class="icon" viewbox="0 0 1024 1024" version="1.1"
                         xmlns="http://www.w3.org/2000/svg" p-id="6908" xmlns:xlink="http://www.w3.org/1999/xlink"
                         width="50" height="50">
@@ -339,38 +267,6 @@
                     <p class="FunctionalTitle">About</p>
                 </div>
             </div>
-        </div>
-    </div>
-    <div id="layer-shade"></div>
-    <div id="dialog">
-        <div id="dialog-title">
-            <span>输入答案查看简历-暂不求职</span>
-            <button id="dialog-close" class="dialog-close">X</button>
-        </div>
-        <div id="dialog-problem">
-            <label>int[] arr = new int[] { 0, 3, 3, 2, 9, 8, 1, 6, 5, 8 };</label>
-            <br />
-            <label>int[] index = new int[] { 7, 3, 2, 6, 8, 8, 6, 7, 7 };</label>
-            <br />
-            <label>string str = string.Empty;</label>
-            <br />
-            <label>foreach (var item in index)</label>
-            <br />
-            <label>&nbsp;&nbsp;&nbsp;&nbsp;{</label>
-            <br />
-            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str += arr[item];</label>
-            <br />
-            <label>&nbsp;&nbsp;&nbsp;&nbsp;}</label>
-            <br />
-            <label>Console.WriteLine(str);</label>
-        </div>
-        <div id="dialog-form">
-            <label>解答：</label>
-            <div class="PassText">
-                <input id="textAnswer" type="text" placeholder="请输入答案" />
-            </div>
-            <button id="btn-Verification">验证</button>
-            <button class="dialog-close" id="btn-close">取消</button>
         </div>
     </div>
 </body>
