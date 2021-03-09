@@ -26,18 +26,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[网页使用 iframe 嵌入部分其他网页]]></title>
-    <url>%2Fblog%2F2021%2F01%2F02%2Fhtml-IframeEmbed%2F</url>
-    <content type="text"><![CDATA[在网页中嵌入其他网页中的一部分 简介iframe 元素会创建包含另外一个文档的内联框架，平时使用不多，但是也确实蛮好用的，比如在博客关于页面中嵌入了一个网易云音乐的播放插件，但是有时在嵌入其他页面时直想截取部分嵌入，再此解决。 如何使用最简单的加载加载一个中国天气网中北京的天气预报，看起来很简单，伴随这一篇没用的广告，不认真看甚至根本不敢相信这是中国天气预报的官方网站。 代码1&lt;iframe src="http://www.weather.com.cn/weather/101010100.shtml" width="100%" height="400px" sframeborder="0"&gt;&lt;/iframe&gt; 示例 仅截取天气预报地图部分并嵌入在网页中原理 加载一个 iframe 标签，设置网页长度宽度拉伸网页确保样式符合预期，重要内容无广告遮挡。 iframe 外层添加 div 标签，用于移动 iframe 嵌入网页的坐标，宽度高度为实际选取内容宽度高度，参考 CSS margin 属性 设置偏移量 div 外层在添加一层 div 标签作为遮罩层，用于遮罩偏移量产生的多余信息，宽度高度为实际选取内容宽度高度，设置边框 0 与溢出隐藏 CSS overflow 属性 代码12345&lt;div style="width:680px;height:640px;overflow:hidden;border:0px;"&gt; &lt;div style="width:680px;height:640px;margin:-145px 0px 0px -140px;"&gt; &lt;iframe src="http://www.weather.com.cn/weather/101010100.shtml" height="850" width="1280" frameborder="0"&gt;&lt;/iframe&gt; &lt;/div&gt; &lt;/div&gt; 示例 其他示例(嵌入可交互网页)另一篇博客 Luminox 8821 更换电池 中嵌入日本官网(瑞士官网仅有文档美国官网被跳转成某东了)中的可交互页面 代码12345&lt;div style="width:100%;height:820px;overflow:hidden;border:0px;"&gt; &lt;div style="width:100%;height:820px;margin:-90px 0px 0px 0px;"&gt; &lt;iframe src="https://luminox.jp/watch-collection/land/recon-point-man-8820-series-ref8821-km/" scrolling="no" height="900" width="767" frameborder="0"&gt;&lt;/iframe&gt; &lt;/div&gt;&lt;/div&gt; 示例]]></content>
-      <categories>
-        <category>Html</category>
-      </categories>
-      <tags>
-        <tag>html</tag>
-        <tag>iframe</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Luminox 8821 更换电池]]></title>
     <url>%2Fblog%2F2021%2F01%2F02%2Frepair-Luminox8821%2F</url>
     <content type="text"><![CDATA[简介Luminox 8821 最开始是13年在蚂蚁甩棍论坛看到棍友发的，一直很喜欢这块石英表，工作后17年才买到手，就在前几天没电了，戴了三年多，简单的换一下电池。 氚气发光还是很不错的官网的展示，可以拖动显示正常和夜间的效果 更换电池参数背后四颗螺丝，型号：十字 PH00。电池型号：原厂 RENATA 395，店家给我发货发的 RENATA 371，厚度上薄不到1毫米，可以替换使用。 更换螺丝拧开后盖后向上拨开电池上的压片换上新电池后复原就好，可以在防水胶圈上涂一层防水膏。]]></content>
@@ -758,8 +746,8 @@
       </categories>
       <tags>
         <tag>c#</tag>
-        <tag>wpf</tag>
         <tag>helper</tag>
+        <tag>wpf</tag>
         <tag>devexpress</tag>
       </tags>
   </entry>
