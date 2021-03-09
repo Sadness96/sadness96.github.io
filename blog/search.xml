@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[VPN 导致的网页显示异常]]></title>
+    <url>%2Fblog%2F2021%2F01%2F28%2Fwindows-VPNWebpageAbnormal%2F</url>
+    <content type="text"><![CDATA[未启动 VPN 程序时网络正常，网页显示异常 简介电脑装有梯子软件，但是有时存在未启动程序时网络正常，但是网页显示异常的情况，由于安装过 VPN 后软件设置了默认代理导致。 解决方法 打开 Internet 选项，可通过 IE 设置中打开或通过运行输入打开 1inetcpl.cpl 选择菜单： 连接 → 局域网(LAN)设置 → 局域网设置(L) 取消勾选： 代理服务器 → 为 LAN 使用代理服务器(这些设置不用于拨号或 VPN 连接)(X) 确认应用保存]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+        <tag>ie</tag>
+        <tag>vpn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hexo 博客升级]]></title>
     <url>%2Fblog%2F2021%2F01%2F11%2Fblog-IndexNull%2F</url>
-    <content type="text"><![CDATA[Hexo 博客生成后 Index 文件为空 简介出差时在一台新系统中装环境，执行生成博客命令 hexo generate 后检查生成目录 public 中的 index.html 文件都为空。调试后发现是新装的 Node.js 版本与 Hexo 版本不匹配，旧版 Nodejs 版本为 v12.14.0，新装版本为 v14.15.4，Hexo 版本为 v3.9。 解决办法降级 Nodejs降级 Nodejs 版本至 v12 升级 Hexo升级 Hexo 版本至与 Nodejs v14.15 匹配的 Hexo v5.3.0 修改配置文件版本修改 Hexo 目录中 package.json 文件12345678910&#123; ··· "hexo": &#123; "version": "5.3.0" &#125;, "dependencies": &#123; "hexo": "^5.3.0", ··· &#125;&#125; 执行命令升级版本1npm update 安装 swig如果直接生成博客则会出现 “ { % extends ‘_layout.swig‘ % } { % import ‘_macro/post.swig‘ as post_template % }“ 问题。原因是 hexo 在 5.0 之后把 swig 给删除了需要自己手动安装。1npm i hexo-renderer-swig 修改 external_link生成博客提示异常信息12INFO Validating configWARN Deprecated config detected: &quot;external_link&quot; with a Boolean value is deprecated. See https://hexo.io/docs/configuration for more details. 修改文件 _config.yml 中的节点12external_link: enable: true|false 改为1234external_link: enable: true # Open external links in new tab field: site # Apply to the whole site exclude: '' Next 主题分页显示异常参考最新的 pagination.swig修改 Next 主题的配置文件 ../themes/next/layout/_partials/pagination.swig123456789101112&#123;%- if page.prev or page.next %&#125; &lt;nav class=&quot;pagination&quot;&gt; &#123;&#123; paginator(&#123; prev_text: &apos;&lt;i class=&quot;fa fa-angle-left&quot; aria-label=&quot;&apos; + __(&apos;accessibility.prev_page&apos;) + &apos;&quot;&gt;&lt;/i&gt;&apos;, next_text: &apos;&lt;i class=&quot;fa fa-angle-right&quot; aria-label=&quot;&apos; + __(&apos;accessibility.next_page&apos;) + &apos;&quot;&gt;&lt;/i&gt;&apos;, mid_size : 1, escape : false &#125;) &#125;&#125; &lt;/nav&gt;&#123;%- endif %&#125;]]></content>
+    <content type="text"><![CDATA[Hexo 博客生成后 Index 文件为空 简介出差时在一台新系统中装环境，执行生成博客命令 hexo generate 后检查生成目录 public 中的 index.html 文件都为空。调试后发现是新装的 Node.js 版本与 Hexo 版本不匹配，旧版 Nodejs 版本为 v12.14.0，新装版本为 v14.15.4，Hexo 版本为 v3.9。 解决办法降级 Nodejs降级 Nodejs 版本至 v12 升级 Hexo升级 Hexo 版本至与 Nodejs v14.15 匹配的 Hexo v5.3.0 修改配置文件版本修改 Hexo 目录中 package.json 文件12345678910&#123; ··· "hexo": &#123; "version": "5.3.0" &#125;, "dependencies": &#123; "hexo": "^5.3.0", ··· &#125;&#125; 执行命令升级版本1npm update 安装 swig如果直接生成博客则会出现 “ { % extends ‘_layout.swig‘ % } { % import ‘_macro/post.swig‘ as post_template % }“ 问题。原因是 hexo 在 5.0 之后把 swig 给删除了需要自己手动安装。1npm i hexo-renderer-swig 修改 external_link生成博客提示异常信息12INFO Validating configWARN Deprecated config detected: &quot;external_link&quot; with a Boolean value is deprecated. See https://hexo.io/docs/configuration for more details. 修改文件 _config.yml 中的节点12external_link: enable: true|false 改为1234external_link: enable: true # Open external links in new tab field: site # Apply to the whole site exclude: '' Next 主题分页显示异常参考最新的 pagination.swig修改 Next 主题的配置文件 ../themes/next/layout/_partials/pagination.swig123456789101112&#123;%- if page.prev or page.next %&#125; &lt;nav class=&quot;pagination&quot;&gt; &#123;&#123; paginator(&#123; prev_text: &apos;&lt;i class=&quot;fa fa-angle-left&quot; aria-label=&quot;&apos; + __(&apos;accessibility.prev_page&apos;) + &apos;&quot;&gt;&lt;/i&gt;&apos;, next_text: &apos;&lt;i class=&quot;fa fa-angle-right&quot; aria-label=&quot;&apos; + __(&apos;accessibility.next_page&apos;) + &apos;&quot;&gt;&lt;/i&gt;&apos;, mid_size : 1, escape : false &#125;) &#125;&#125; &lt;/nav&gt;&#123;%- endif %&#125; Hexo 无法解析特殊字符导致生成失败标题中的中括号，例如：1title: 网页使用 &lt;iframe&gt; 嵌入部分其他网页 文章中的特殊字符，例如：1&#123;&#123; &#125;&#125;、&#123;% %&#125; 推荐避免使用类似字符或使用HTML转义字符对照表进行转义。]]></content>
       <categories>
         <category>Blog</category>
       </categories>
@@ -106,10 +119,10 @@
         <category>C#.Net</category>
       </categories>
       <tags>
+        <tag>baidu</tag>
         <tag>c#</tag>
         <tag>wpf</tag>
         <tag>cef</tag>
-        <tag>baidu</tag>
       </tags>
   </entry>
   <entry>
