@@ -331,9 +331,9 @@
       </categories>
       <tags>
         <tag>asp</tag>
-        <tag>c++</tag>
         <tag>c#</tag>
         <tag>mysql</tag>
+        <tag>c++</tag>
         <tag>axure</tag>
       </tags>
   </entry>
@@ -345,8 +345,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>c++</tag>
         <tag>c#</tag>
+        <tag>c++</tag>
         <tag>sdses</tag>
       </tags>
   </entry>
@@ -419,8 +419,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>c++</tag>
         <tag>c#</tag>
+        <tag>c++</tag>
         <tag>depends</tag>
       </tags>
   </entry>
@@ -772,8 +772,8 @@
       </categories>
       <tags>
         <tag>c#</tag>
-        <tag>wpf</tag>
         <tag>helper</tag>
+        <tag>wpf</tag>
         <tag>devexpress</tag>
       </tags>
   </entry>

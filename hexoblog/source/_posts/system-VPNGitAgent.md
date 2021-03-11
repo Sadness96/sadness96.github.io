@@ -30,6 +30,7 @@ git config --global https.proxy http://127.0.0.1:{port}
 git config --global http.proxy socks5://127.0.0.1:{port}
 git config --global https.proxy socks5://127.0.0.1:{port}
 ```
+
 <img src="https://sadness96.github.io/images/blog/system-VPNGitAgent/GitConfigProxy.png"/>
 
 配置成功后可尝试查询配置或重新使用 git 命令
