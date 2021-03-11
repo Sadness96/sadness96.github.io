@@ -1,8 +1,8 @@
 ---
 title: VPN 导致的网页显示异常
-date: 2021-01-28 11:42:00
+date: 2020-01-28 11:42:00
 tags: [windows,ie,vpn]
-categories: Windows
+categories: System
 ---
 ### 未启动 VPN 程序时网络正常，网页显示异常
 <!-- more -->
@@ -19,6 +19,6 @@ categories: Windows
     连接 → 局域网(LAN)设置 → 局域网设置(L)
 1. 取消勾选：
     代理服务器 → 为 LAN 使用代理服务器(这些设置不用于拨号或 VPN 连接)(X)
-    <img src="https://sadness96.github.io/images/blog/windows-VPNWebpageAbnormal/SetUpProxy.png"/>
+    <img src="https://sadness96.github.io/images/blog/system-VPNWebpageAbnormal/SetUpProxy.png"/>
 
 1. 确认应用保存

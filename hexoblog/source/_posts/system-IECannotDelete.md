@@ -2,7 +2,7 @@
 title: Win10 无法删除 IE 桌面图标
 date: 2017-07-22 11:54:00
 tags: [windows,registry]
-categories: Windows
+categories: System
 ---
 ### 通过编辑注册表以删除默认的顽固图标
 <!-- more -->

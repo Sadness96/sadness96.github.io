@@ -2,7 +2,7 @@
 title: 插入无线网卡后局域网无法连接
 date: 2020-7-16 22:14:30
 tags: [windows,cmd,rount]
-categories: Windows
+categories: System
 ---
 ### 通过 rount 命令编辑路由表
 <!-- more -->

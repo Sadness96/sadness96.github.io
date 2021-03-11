@@ -2,7 +2,7 @@
 title: Win10 在此处打开命令窗口
 date: 2017-01-26 10:23:19
 tags: [windows,cmd,registry]
-categories: Windows
+categories: System
 ---
 ### Win10 鼠标右键在此处打开CMD窗口
 <!-- more -->
