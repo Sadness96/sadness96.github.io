@@ -22,16 +22,17 @@ categories: Blog
 修改 Hexo 目录中 package.json 文件
 ``` json
 {
-  ···
+  /* ··· */
   "hexo": {
     "version": "5.3.0"
   },
   "dependencies": {
     "hexo": "^5.3.0",
-    ···
+    /* ··· */
   }
 }
 ```
+
 ##### 执行命令升级版本
 ``` shell
 npm update
