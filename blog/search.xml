@@ -114,6 +114,28 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo 博客升级</title>
+    <url>/blog/2021/01/11/blog-IndexNull/</url>
+    <content><![CDATA[<h3 id="Hexo-博客生成后-Index-文件为空"><a href="#Hexo-博客生成后-Index-文件为空" class="headerlink" title="Hexo 博客生成后 Index 文件为空"></a>Hexo 博客生成后 Index 文件为空</h3><a id="more"></a>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>出差时在一台新系统中装环境，执行生成博客命令 hexo generate 后检查生成目录 public 中的 index.html 文件都为空。<br>调试后发现是新装的 <a href="https://nodejs.org/zh-cn/">Node.js</a> 版本与 <a href="https://hexo.io/">Hexo</a> 版本不匹配，旧版 Nodejs 版本为 v12.14.0，新装版本为 v14.15.4，Hexo 版本为 v3.9。</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><h4 id="降级-Nodejs"><a href="#降级-Nodejs" class="headerlink" title="降级 Nodejs"></a>降级 Nodejs</h4><p>降级 Nodejs 版本至 v12</p>
+<h4 id="升级-Hexo"><a href="#升级-Hexo" class="headerlink" title="升级 Hexo"></a>升级 Hexo</h4><p>升级 Hexo 版本至与 Nodejs v14.15 匹配的 Hexo v5.3.0</p>
+<h5 id="修改配置文件版本"><a href="#修改配置文件版本" class="headerlink" title="修改配置文件版本"></a>修改配置文件版本</h5><p>修改 Hexo 目录中 package.json 文件<br><figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">/* ··· */</span></span><br><span class="line">  <span class="attr">&quot;hexo&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;5.3.0&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;hexo&quot;</span>: <span class="string">&quot;^5.3.0&quot;</span>,</span><br><span class="line">    <span class="comment">/* ··· */</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="执行命令升级版本"><a href="#执行命令升级版本" class="headerlink" title="执行命令升级版本"></a>执行命令升级版本</h5><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm update</span><br></pre></td></tr></table></figure>
+<h5 id="安装-swig"><a href="#安装-swig" class="headerlink" title="安装 swig"></a>安装 swig</h5><p>如果直接生成博客则会出现 “ { % extends ‘_layout.swig‘ % } { % import ‘_macro/post.swig‘ as post_template % }“ 问题。<br>原因是 hexo 在 5.0 之后把 swig 给删除了需要自己手动安装。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i hexo-renderer-swig</span><br></pre></td></tr></table></figure></p>
+<h5 id="修改-external-link"><a href="#修改-external-link" class="headerlink" title="修改 external_link"></a>修改 external_link</h5><p>生成博客提示异常信息<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INFO  Validating config</span><br><span class="line">WARN  Deprecated config detected: &quot;external_link&quot; with a Boolean value is deprecated. See https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;configuration for more details.</span><br></pre></td></tr></table></figure><br>修改文件 _config.yml 中的节点<br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">external_link:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span><span class="string">|false</span></span><br></pre></td></tr></table></figure><br>改为<br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">external_link:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># Open external links in new tab</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">site</span> <span class="comment"># Apply to the whole site</span></span><br><span class="line">  <span class="attr">exclude:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="Next-主题分页显示异常"><a href="#Next-主题分页显示异常" class="headerlink" title="Next 主题分页显示异常"></a>Next 主题分页显示异常</h5><p>参考最新的 <a href="https://github.com/theme-next/hexo-theme-next/blob/master/layout/_partials/pagination.swig">pagination.swig</a><br>修改 Next 主题的配置文件 ../themes/next/layout/_partials/pagination.swig<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;%- if page.prev or page.next %&#125;</span><br><span class="line">  &lt;nav class&#x3D;&quot;pagination&quot;&gt;</span><br><span class="line">    &#123;&#123;</span><br><span class="line">      paginator(&#123;</span><br><span class="line">        prev_text: &#39;&lt;i class&#x3D;&quot;fa fa-angle-left&quot; aria-label&#x3D;&quot;&#39; + __(&#39;accessibility.prev_page&#39;) + &#39;&quot;&gt;&lt;&#x2F;i&gt;&#39;,</span><br><span class="line">        next_text: &#39;&lt;i class&#x3D;&quot;fa fa-angle-right&quot; aria-label&#x3D;&quot;&#39; + __(&#39;accessibility.next_page&#39;) + &#39;&quot;&gt;&lt;&#x2F;i&gt;&#39;,</span><br><span class="line">        mid_size : 1,</span><br><span class="line">        escape   : false</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;&#125;</span><br><span class="line">  &lt;&#x2F;nav&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="Hexo-无法解析特殊字符导致生成失败"><a href="#Hexo-无法解析特殊字符导致生成失败" class="headerlink" title="Hexo 无法解析特殊字符导致生成失败"></a>Hexo 无法解析特殊字符导致生成失败</h5><p>标题中的中括号，例如：<br><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">title: 网页使用 <span class="xml"><span class="tag">&lt;<span class="name">iframe</span>&gt;</span></span> 嵌入部分其他网页</span><br></pre></td></tr></table></figure><br>文章中的特殊字符，例如：<br><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;&#123; &#125;&#125;、&#123;% %&#125;</span><br></pre></td></tr></table></figure><br>推荐避免使用类似字符或使用<a href="https://tool.oschina.net/commons?type=2">HTML转义字符对照表</a>进行转义。</p>
+]]></content>
+      <categories>
+        <category>Blog</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>迁移博客至 GitHub Pages + Hexo</title>
     <url>/blog/2019/06/18/blog-TransferHexo/</url>
     <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/blog-TransferHexo/BlogLogo.png"/></p>
@@ -188,28 +210,6 @@
         <tag>python</tag>
         <tag>cmd</tag>
         <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo 博客升级</title>
-    <url>/blog/2021/01/11/blog-IndexNull/</url>
-    <content><![CDATA[<h3 id="Hexo-博客生成后-Index-文件为空"><a href="#Hexo-博客生成后-Index-文件为空" class="headerlink" title="Hexo 博客生成后 Index 文件为空"></a>Hexo 博客生成后 Index 文件为空</h3><a id="more"></a>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>出差时在一台新系统中装环境，执行生成博客命令 hexo generate 后检查生成目录 public 中的 index.html 文件都为空。<br>调试后发现是新装的 <a href="https://nodejs.org/zh-cn/">Node.js</a> 版本与 <a href="https://hexo.io/">Hexo</a> 版本不匹配，旧版 Nodejs 版本为 v12.14.0，新装版本为 v14.15.4，Hexo 版本为 v3.9。</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><h4 id="降级-Nodejs"><a href="#降级-Nodejs" class="headerlink" title="降级 Nodejs"></a>降级 Nodejs</h4><p>降级 Nodejs 版本至 v12</p>
-<h4 id="升级-Hexo"><a href="#升级-Hexo" class="headerlink" title="升级 Hexo"></a>升级 Hexo</h4><p>升级 Hexo 版本至与 Nodejs v14.15 匹配的 Hexo v5.3.0</p>
-<h5 id="修改配置文件版本"><a href="#修改配置文件版本" class="headerlink" title="修改配置文件版本"></a>修改配置文件版本</h5><p>修改 Hexo 目录中 package.json 文件<br><figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">/* ··· */</span></span><br><span class="line">  <span class="attr">&quot;hexo&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;5.3.0&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;hexo&quot;</span>: <span class="string">&quot;^5.3.0&quot;</span>,</span><br><span class="line">    <span class="comment">/* ··· */</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="执行命令升级版本"><a href="#执行命令升级版本" class="headerlink" title="执行命令升级版本"></a>执行命令升级版本</h5><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm update</span><br></pre></td></tr></table></figure>
-<h5 id="安装-swig"><a href="#安装-swig" class="headerlink" title="安装 swig"></a>安装 swig</h5><p>如果直接生成博客则会出现 “ { % extends ‘_layout.swig‘ % } { % import ‘_macro/post.swig‘ as post_template % }“ 问题。<br>原因是 hexo 在 5.0 之后把 swig 给删除了需要自己手动安装。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i hexo-renderer-swig</span><br></pre></td></tr></table></figure></p>
-<h5 id="修改-external-link"><a href="#修改-external-link" class="headerlink" title="修改 external_link"></a>修改 external_link</h5><p>生成博客提示异常信息<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INFO  Validating config</span><br><span class="line">WARN  Deprecated config detected: &quot;external_link&quot; with a Boolean value is deprecated. See https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;configuration for more details.</span><br></pre></td></tr></table></figure><br>修改文件 _config.yml 中的节点<br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">external_link:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span><span class="string">|false</span></span><br></pre></td></tr></table></figure><br>改为<br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">external_link:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># Open external links in new tab</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">site</span> <span class="comment"># Apply to the whole site</span></span><br><span class="line">  <span class="attr">exclude:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></p>
-<h5 id="Next-主题分页显示异常"><a href="#Next-主题分页显示异常" class="headerlink" title="Next 主题分页显示异常"></a>Next 主题分页显示异常</h5><p>参考最新的 <a href="https://github.com/theme-next/hexo-theme-next/blob/master/layout/_partials/pagination.swig">pagination.swig</a><br>修改 Next 主题的配置文件 ../themes/next/layout/_partials/pagination.swig<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;%- if page.prev or page.next %&#125;</span><br><span class="line">  &lt;nav class&#x3D;&quot;pagination&quot;&gt;</span><br><span class="line">    &#123;&#123;</span><br><span class="line">      paginator(&#123;</span><br><span class="line">        prev_text: &#39;&lt;i class&#x3D;&quot;fa fa-angle-left&quot; aria-label&#x3D;&quot;&#39; + __(&#39;accessibility.prev_page&#39;) + &#39;&quot;&gt;&lt;&#x2F;i&gt;&#39;,</span><br><span class="line">        next_text: &#39;&lt;i class&#x3D;&quot;fa fa-angle-right&quot; aria-label&#x3D;&quot;&#39; + __(&#39;accessibility.next_page&#39;) + &#39;&quot;&gt;&lt;&#x2F;i&gt;&#39;,</span><br><span class="line">        mid_size : 1,</span><br><span class="line">        escape   : false</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;&#125;</span><br><span class="line">  &lt;&#x2F;nav&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="Hexo-无法解析特殊字符导致生成失败"><a href="#Hexo-无法解析特殊字符导致生成失败" class="headerlink" title="Hexo 无法解析特殊字符导致生成失败"></a>Hexo 无法解析特殊字符导致生成失败</h5><p>标题中的中括号，例如：<br><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">title: 网页使用 <span class="xml"><span class="tag">&lt;<span class="name">iframe</span>&gt;</span></span> 嵌入部分其他网页</span><br></pre></td></tr></table></figure><br>文章中的特殊字符，例如：<br><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;&#123; &#125;&#125;、&#123;% %&#125;</span><br></pre></td></tr></table></figure><br>推荐避免使用类似字符或使用<a href="https://tool.oschina.net/commons?type=2">HTML转义字符对照表</a>进行转义。</p>
-]]></content>
-      <categories>
-        <category>Blog</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>nodejs</tag>
       </tags>
   </entry>
   <entry>
@@ -817,6 +817,22 @@
       </tags>
   </entry>
   <entry>
+    <title>在 Release 下输出堆栈信息</title>
+    <url>/blog/2020/11/25/csharp-CallerMemberName/</url>
+    <content><![CDATA[<h3 id="使用-CallerMemberNameAttribute-类获取堆栈信息"><a href="#使用-CallerMemberNameAttribute-类获取堆栈信息" class="headerlink" title="使用 CallerMemberNameAttribute 类获取堆栈信息"></a>使用 CallerMemberNameAttribute 类获取堆栈信息</h3><a id="more"></a>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>在项目中需要在打印日志同时打印堆栈信息，通常使用 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/system.diagnostics.stacktrace">StackTrace</a> 来捕获堆栈信息，并跟随日志一同打印，但是生产环境部署通常使用 Release 方式打包，这会导致 StackTrace 方法失效。测试改用 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/System.Runtime.CompilerServices.CallerMemberNameAttribute">CallerMemberNameAttribute</a> 方式可以解决。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><h5 id="StackTrace-方式获取堆栈信息"><a href="#StackTrace-方式获取堆栈信息" class="headerlink" title="StackTrace 方式获取堆栈信息"></a>StackTrace 方式获取堆栈信息</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SaveError</span>(<span class="params"><span class="built_in">string</span> message</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> stackTrace = <span class="keyword">new</span> StackTrace(<span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">var</span> stackFrame = stackTrace.GetFrame(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (stackFrame != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        logger.Error(<span class="string">$&quot;[<span class="subst">&#123;stackFrame?.GetMethod()?.DeclaringType?.Name&#125;</span>][<span class="subst">&#123;stackFrame?.GetMethod()?.Name&#125;</span>] <span class="subst">&#123;message&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="CallerMemberNameAttribute-改用方式获取堆栈信息"><a href="#CallerMemberNameAttribute-改用方式获取堆栈信息" class="headerlink" title="CallerMemberNameAttribute 改用方式获取堆栈信息"></a>CallerMemberNameAttribute 改用方式获取堆栈信息</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SaveError</span>(<span class="params"><span class="built_in">string</span> message,</span></span></span><br><span class="line"><span class="function"><span class="params">[System.Runtime.CompilerServices.CallerMemberName] <span class="built_in">string</span> memberName = <span class="string">&quot;&quot;</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">[System.Runtime.CompilerServices.CallerFilePath] <span class="built_in">string</span> sourceFilePath = <span class="string">&quot;&quot;</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">[System.Runtime.CompilerServices.CallerLineNumber] <span class="built_in">int</span> sourceLineNumber = <span class="number">0</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    logger.Error(<span class="string">$&quot;[<span class="subst">&#123;System.IO.Path.GetFileName(sourceFilePath)&#125;</span>][<span class="subst">&#123;memberName&#125;</span>] <span class="subst">&#123;message&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C#.Net</category>
+      </categories>
+      <tags>
+        <tag>c#</tag>
+        <tag>.net core</tag>
+        <tag>stack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Cat020 报文解析</title>
     <url>/blog/2019/09/09/csharp-Cat020015/</url>
     <content><![CDATA[<h3 id="MLAT-CAT020-0-15-报文协议解析"><a href="#MLAT-CAT020-0-15-报文协议解析" class="headerlink" title="MLAT CAT020 0.15 报文协议解析"></a>MLAT CAT020 0.15 报文协议解析</h3><a id="more"></a>
@@ -1217,22 +1233,6 @@
       </categories>
       <tags>
         <tag>c#</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在 Release 下输出堆栈信息</title>
-    <url>/blog/2020/11/25/csharp-CallerMemberName/</url>
-    <content><![CDATA[<h3 id="使用-CallerMemberNameAttribute-类获取堆栈信息"><a href="#使用-CallerMemberNameAttribute-类获取堆栈信息" class="headerlink" title="使用 CallerMemberNameAttribute 类获取堆栈信息"></a>使用 CallerMemberNameAttribute 类获取堆栈信息</h3><a id="more"></a>
-<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>在项目中需要在打印日志同时打印堆栈信息，通常使用 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/system.diagnostics.stacktrace">StackTrace</a> 来捕获堆栈信息，并跟随日志一同打印，但是生产环境部署通常使用 Release 方式打包，这会导致 StackTrace 方法失效。测试改用 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/System.Runtime.CompilerServices.CallerMemberNameAttribute">CallerMemberNameAttribute</a> 方式可以解决。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><h5 id="StackTrace-方式获取堆栈信息"><a href="#StackTrace-方式获取堆栈信息" class="headerlink" title="StackTrace 方式获取堆栈信息"></a>StackTrace 方式获取堆栈信息</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SaveError</span>(<span class="params"><span class="built_in">string</span> message</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> stackTrace = <span class="keyword">new</span> StackTrace(<span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">var</span> stackFrame = stackTrace.GetFrame(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (stackFrame != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        logger.Error(<span class="string">$&quot;[<span class="subst">&#123;stackFrame?.GetMethod()?.DeclaringType?.Name&#125;</span>][<span class="subst">&#123;stackFrame?.GetMethod()?.Name&#125;</span>] <span class="subst">&#123;message&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="CallerMemberNameAttribute-改用方式获取堆栈信息"><a href="#CallerMemberNameAttribute-改用方式获取堆栈信息" class="headerlink" title="CallerMemberNameAttribute 改用方式获取堆栈信息"></a>CallerMemberNameAttribute 改用方式获取堆栈信息</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SaveError</span>(<span class="params"><span class="built_in">string</span> message,</span></span></span><br><span class="line"><span class="function"><span class="params">[System.Runtime.CompilerServices.CallerMemberName] <span class="built_in">string</span> memberName = <span class="string">&quot;&quot;</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">[System.Runtime.CompilerServices.CallerFilePath] <span class="built_in">string</span> sourceFilePath = <span class="string">&quot;&quot;</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">[System.Runtime.CompilerServices.CallerLineNumber] <span class="built_in">int</span> sourceLineNumber = <span class="number">0</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    logger.Error(<span class="string">$&quot;[<span class="subst">&#123;System.IO.Path.GetFileName(sourceFilePath)&#125;</span>][<span class="subst">&#123;memberName&#125;</span>] <span class="subst">&#123;message&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>C#.Net</category>
-      </categories>
-      <tags>
-        <tag>c#</tag>
-        <tag>.net core</tag>
-        <tag>stack</tag>
       </tags>
   </entry>
   <entry>
@@ -1876,31 +1876,25 @@
       </tags>
   </entry>
   <entry>
-    <title>EntityFramework Demo</title>
-    <url>/blog/2018/07/02/csharp-EntityFramework/</url>
-    <content><![CDATA[<h3 id="EntityFramework-框架使用介绍"><a href="#EntityFramework-框架使用介绍" class="headerlink" title="EntityFramework 框架使用介绍"></a>EntityFramework 框架使用介绍</h3><a id="more"></a>
-<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p><a href="https://baike.baidu.com/item/ADO.NET%20Entity%20Framework/6444727?fr=aladdin">Entity Framework</a> 是微软以 ADO.NET 为基础所发展出来的对象关系对应 (<a href="https://baike.baidu.com/item/%E5%AF%B9%E8%B1%A1%E5%85%B3%E7%B3%BB%E6%98%A0%E5%B0%84/311152?fromtitle=O%2FR%20Mapping&amp;fromid=1229659">O/R Mapping</a>) 解决方案。<br>在.NET 3.5之前，开发者通常使用 <a href="/blog/2016/12/21/csharp-ADOHelper/">ADO.NET</a> 直接连接操作数据库，而Entity Framework的出现可以让开发者更多的从代码层面考虑数据交互，Entity Framework 会把字段映射为实体模型，通过 <a href="https://baike.baidu.com/item/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/4585794?fr=aladdin">Lambda表达式</a> 来操作数据，不需要考虑各种类型数据库和拼写SQL语句。同时也有效的防止了 <a href="https://baike.baidu.com/item/sql%E6%B3%A8%E5%85%A5">SQL注入</a>。</p>
-<h4 id="搭建-以MySQL为例"><a href="#搭建-以MySQL为例" class="headerlink" title="搭建-以MySQL为例"></a>搭建-以MySQL为例</h4><h5 id="类库或应用程序项目下新建项"><a href="#类库或应用程序项目下新建项" class="headerlink" title="类库或应用程序项目下新建项"></a>类库或应用程序项目下新建项</h5><p><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef1.png"/></p>
-<h5 id="实体模型向导"><a href="#实体模型向导" class="headerlink" title="实体模型向导"></a>实体模型向导</h5><p>从EF 4.X开始支持三种构建方法：<br>Database First：数据库优先，你的项目已经有一个数据库，并且使用工具（如Visual Studio中的EF设计器)依据数据库生成C#或VB类。你可以通过EF设计器修改这些创建的类以及类和数据库之间的映射关系；这种方式的关键是先要有数据，然后才有代码和模型。<br>Model First：模型优先，通过在EF设计器中创建一个空的容器，在其中设计实体数据模型。这个模型将用于生成数据库以及C#或者VB类。这种方式的关键是先要有模型，然后才有数据库和代码。<br>Code First：代码优先，开发者只需要写代码，将会自动创建模型和数据库。<br>现采用基础又最常用的 Database First 方式创建！<br><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef2.png"/></p>
-<h5 id="更改数据源"><a href="#更改数据源" class="headerlink" title="更改数据源"></a>更改数据源</h5><p>连接MySQL需要单独安装 <a href="https://dev.mysql.com/downloads/connector/net/">mysql-connector-net</a> 与 <a href="https://dev.mysql.com/downloads/windows/visualstudio/">mysql-for-visualstudio</a><br><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef3.png"/></p>
-<h5 id="修改连接属性"><a href="#修改连接属性" class="headerlink" title="修改连接属性"></a>修改连接属性</h5><p><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef4.png"/></p>
-<h5 id="添加连接串"><a href="#添加连接串" class="headerlink" title="添加连接串"></a>添加连接串</h5><p><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef5.png"/></p>
-<h5 id="选择框架版本"><a href="#选择框架版本" class="headerlink" title="选择框架版本"></a>选择框架版本</h5><p><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef6.png"/></p>
-<h5 id="添加数据库表模型，完成"><a href="#添加数据库表模型，完成" class="headerlink" title="添加数据库表模型，完成"></a>添加数据库表模型，完成</h5><p><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef7.png"/></p>
-<h5 id="如果出现闪退、无法编辑数据，尝试修改引用库版本"><a href="#如果出现闪退、无法编辑数据，尝试修改引用库版本" class="headerlink" title="如果出现闪退、无法编辑数据，尝试修改引用库版本"></a>如果出现闪退、无法编辑数据，尝试修改引用库版本</h5><p>EntityFramework：6.0.0.0<br>EntityFramework.SqlServer：6.0.0.0<br>MySql.Data：6.9.9.0<br>MySql.Data.Entity.EF6：6.9.9.0</p>
-<h4 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//新增</span></span><br><span class="line">officeautomationEntities ef = <span class="keyword">new</span> officeautomationEntities();</span><br><span class="line">user_info user = <span class="keyword">new</span> user_info();</span><br><span class="line">user.UserName = <span class="string">&quot;00006&quot;</span>;</span><br><span class="line">user.Password = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line">ef.user_info.Add(user);</span><br><span class="line">ef.SaveChanges();</span><br><span class="line"><span class="comment">//修改</span></span><br><span class="line"><span class="keyword">var</span> query = ef.user_info.Where(o =&gt; o.UserName.Equals(<span class="string">&quot;00006&quot;</span>)).FirstOrDefault();</span><br><span class="line">query.Password = <span class="string">&quot;mq1i1JC92zal7nnbFZjtPQ==&quot;</span>;</span><br><span class="line">ef.SaveChanges();</span><br><span class="line"><span class="comment">//删除</span></span><br><span class="line">ef.user_info.Remove(query);</span><br><span class="line">ef.SaveChanges();</span><br><span class="line"><span class="comment">//查询</span></span><br><span class="line"><span class="keyword">var</span> v = ef.user_info.Where(o =&gt; o.UserName.Equals(<span class="string">&quot;00003&quot;</span>)).ToList();</span><br></pre></td></tr></table></figure>
-<h4 id="错误及处理"><a href="#错误及处理" class="headerlink" title="错误及处理"></a>错误及处理</h4><h5 id="EF创建时崩溃"><a href="#EF创建时崩溃" class="headerlink" title="EF创建时崩溃"></a>EF创建时崩溃</h5><p>MySql引用库版本修改为6.9.9</p>
-<h5 id="报错：Host-“”is-not-allowed-to-connect-to-this-MySQL-server"><a href="#报错：Host-“”is-not-allowed-to-connect-to-this-MySQL-server" class="headerlink" title="报错：Host “”is not allowed to connect to this MySQL server"></a>报错：Host “”is not allowed to connect to this MySQL server</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;192.168.0.1&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;密码&#x27;</span>;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;%&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;密码&#x27;</span>;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
-<h5 id="报错：Mysql表-“TableDetails”-中列-“IsPrimaryKey”-的值位-DBNull。"><a href="#报错：Mysql表-“TableDetails”-中列-“IsPrimaryKey”-的值位-DBNull。" class="headerlink" title="报错：Mysql表 “TableDetails” 中列 “IsPrimaryKey” 的值位 DBNull。"></a>报错：Mysql表 “TableDetails” 中列 “IsPrimaryKey” 的值位 DBNull。</h5><p><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/error1.png"/><br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">use 库名;</span><br><span class="line"><span class="keyword">SET</span> <span class="keyword">GLOBAL</span> optimizer_switch<span class="operator">=</span><span class="string">&#x27;derived_merge=off&#x27;</span>;</span><br><span class="line"><span class="keyword">SET</span> optimizer_switch<span class="operator">=</span><span class="string">&#x27;derived_merge=off&#x27;</span>;</span><br></pre></td></tr></table></figure></p>
-<h5 id="报错：其他信息-对一个或多个实体的验证失败。有关详细信息，请参见“EntityValidationErrors”属性。"><a href="#报错：其他信息-对一个或多个实体的验证失败。有关详细信息，请参见“EntityValidationErrors”属性。" class="headerlink" title="报错：其他信息: 对一个或多个实体的验证失败。有关详细信息，请参见“EntityValidationErrors”属性。"></a>报错：其他信息: 对一个或多个实体的验证失败。有关详细信息，请参见“EntityValidationErrors”属性。</h5><p>写入数据与表设定不一致<br>SaveChanges();方法前后使用：Configuration.ValidateOnSaveEnabled<br><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">ef.Configuration.ValidateOnSaveEnabled = <span class="literal">false</span>;</span><br><span class="line">ef.SaveChanges();</span><br><span class="line">ef.Configuration.ValidateOnSaveEnabled = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure></p>
+    <title>电脑挂机锁</title>
+    <url>/blog/2016/05/31/csharp-DesktopLock/</url>
+    <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/main.png"/></p>
+<a id="more"></a>
+<h3 id="初学C-开发，Windows平台电脑挂机锁"><a href="#初学C-开发，Windows平台电脑挂机锁" class="headerlink" title="初学C#开发，Windows平台电脑挂机锁"></a>初学C#开发，Windows平台电脑挂机锁</h3><p>项目介绍：大学临毕业前想要做出点成品，漂洋过海跑到北京作为面试的资本。没有什么好点子，是一个同学的主意，本着学习的目的，还是比较实用的功能（没人会用的…）就做这个了。<br>曾经一度认为只有桌面端软件才叫软件，奈何学校教学只有基础的语法还有偏向于WEB开发，有试过用java的awt和swing设计图形化界面，但是效果并不是很理想，后来有了解到微软平台MFC、QT、Winform,但是界面的画风显得很古老，使用异形窗体后会有很严重的锯齿，最后选用WPF作为主界面。<br>项目开源地址：<a href="https://github.com/Sadness96/DesktopLock">https://github.com/Sadness96/DesktopLock</a><br>贴吧发布地址：<a href="http://tieba.baidu.com/p/4584097900">http://tieba.baidu.com/p/4584097900</a><br>项目虽然简单，BUG还有很多，甚至不如Windows自带的Win+L锁屏好使，但是经过几天的边学边做，真的给我明确了未来的方向。</p>
+<h4 id="设置菜单界面"><a href="#设置菜单界面" class="headerlink" title="设置菜单界面"></a>设置菜单界面</h4><p>可通过三种方式设置挂机锁，1.密码解锁；2.时间解锁（根据系统当前时间拼接作为密码）；3.U盘解锁（通过写入加密数据到U盘，插入U盘时即可解锁）；<br><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/config.png"/></p>
+<h4 id="修改锁屏壁纸"><a href="#修改锁屏壁纸" class="headerlink" title="修改锁屏壁纸"></a>修改锁屏壁纸</h4><p>默认三种锁屏图片可选或自定义图片。<br><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/style.png"/></p>
+<h4 id="定时锁屏关机界面"><a href="#定时锁屏关机界面" class="headerlink" title="定时锁屏关机界面"></a>定时锁屏关机界面</h4><p>可定时多长时间后锁屏或关机。<br><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/timing.png"/></p>
+<h4 id="USB写入密码"><a href="#USB写入密码" class="headerlink" title="USB写入密码"></a>USB写入密码</h4><p>插入U盘后写入加密秘钥，可通过设置U盘解锁方式，在插入U盘后系统自动解锁。<br><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/usb.png"/></p>
+<h4 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h4><p><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/about.png"/></p>
+<h4 id="锁屏"><a href="#锁屏" class="headerlink" title="锁屏"></a>锁屏</h4><p>可调节透明度，挂机时显示桌面运行的程序。<br><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/lock.png"/></p>
 ]]></content>
       <categories>
         <category>C#.Net</category>
       </categories>
       <tags>
         <tag>c#</tag>
-        <tag>mysql</tag>
-        <tag>ef</tag>
+        <tag>wpf</tag>
+        <tag>ini</tag>
       </tags>
   </entry>
   <entry>
@@ -1926,25 +1920,31 @@
       </tags>
   </entry>
   <entry>
-    <title>电脑挂机锁</title>
-    <url>/blog/2016/05/31/csharp-DesktopLock/</url>
-    <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/main.png"/></p>
-<a id="more"></a>
-<h3 id="初学C-开发，Windows平台电脑挂机锁"><a href="#初学C-开发，Windows平台电脑挂机锁" class="headerlink" title="初学C#开发，Windows平台电脑挂机锁"></a>初学C#开发，Windows平台电脑挂机锁</h3><p>项目介绍：大学临毕业前想要做出点成品，漂洋过海跑到北京作为面试的资本。没有什么好点子，是一个同学的主意，本着学习的目的，还是比较实用的功能（没人会用的…）就做这个了。<br>曾经一度认为只有桌面端软件才叫软件，奈何学校教学只有基础的语法还有偏向于WEB开发，有试过用java的awt和swing设计图形化界面，但是效果并不是很理想，后来有了解到微软平台MFC、QT、Winform,但是界面的画风显得很古老，使用异形窗体后会有很严重的锯齿，最后选用WPF作为主界面。<br>项目开源地址：<a href="https://github.com/Sadness96/DesktopLock">https://github.com/Sadness96/DesktopLock</a><br>贴吧发布地址：<a href="http://tieba.baidu.com/p/4584097900">http://tieba.baidu.com/p/4584097900</a><br>项目虽然简单，BUG还有很多，甚至不如Windows自带的Win+L锁屏好使，但是经过几天的边学边做，真的给我明确了未来的方向。</p>
-<h4 id="设置菜单界面"><a href="#设置菜单界面" class="headerlink" title="设置菜单界面"></a>设置菜单界面</h4><p>可通过三种方式设置挂机锁，1.密码解锁；2.时间解锁（根据系统当前时间拼接作为密码）；3.U盘解锁（通过写入加密数据到U盘，插入U盘时即可解锁）；<br><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/config.png"/></p>
-<h4 id="修改锁屏壁纸"><a href="#修改锁屏壁纸" class="headerlink" title="修改锁屏壁纸"></a>修改锁屏壁纸</h4><p>默认三种锁屏图片可选或自定义图片。<br><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/style.png"/></p>
-<h4 id="定时锁屏关机界面"><a href="#定时锁屏关机界面" class="headerlink" title="定时锁屏关机界面"></a>定时锁屏关机界面</h4><p>可定时多长时间后锁屏或关机。<br><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/timing.png"/></p>
-<h4 id="USB写入密码"><a href="#USB写入密码" class="headerlink" title="USB写入密码"></a>USB写入密码</h4><p>插入U盘后写入加密秘钥，可通过设置U盘解锁方式，在插入U盘后系统自动解锁。<br><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/usb.png"/></p>
-<h4 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h4><p><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/about.png"/></p>
-<h4 id="锁屏"><a href="#锁屏" class="headerlink" title="锁屏"></a>锁屏</h4><p>可调节透明度，挂机时显示桌面运行的程序。<br><img src="https://sadness96.github.io/images/blog/csharp-DesktopLock/lock.png"/></p>
+    <title>EntityFramework Demo</title>
+    <url>/blog/2018/07/02/csharp-EntityFramework/</url>
+    <content><![CDATA[<h3 id="EntityFramework-框架使用介绍"><a href="#EntityFramework-框架使用介绍" class="headerlink" title="EntityFramework 框架使用介绍"></a>EntityFramework 框架使用介绍</h3><a id="more"></a>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p><a href="https://baike.baidu.com/item/ADO.NET%20Entity%20Framework/6444727?fr=aladdin">Entity Framework</a> 是微软以 ADO.NET 为基础所发展出来的对象关系对应 (<a href="https://baike.baidu.com/item/%E5%AF%B9%E8%B1%A1%E5%85%B3%E7%B3%BB%E6%98%A0%E5%B0%84/311152?fromtitle=O%2FR%20Mapping&amp;fromid=1229659">O/R Mapping</a>) 解决方案。<br>在.NET 3.5之前，开发者通常使用 <a href="/blog/2016/12/21/csharp-ADOHelper/">ADO.NET</a> 直接连接操作数据库，而Entity Framework的出现可以让开发者更多的从代码层面考虑数据交互，Entity Framework 会把字段映射为实体模型，通过 <a href="https://baike.baidu.com/item/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/4585794?fr=aladdin">Lambda表达式</a> 来操作数据，不需要考虑各种类型数据库和拼写SQL语句。同时也有效的防止了 <a href="https://baike.baidu.com/item/sql%E6%B3%A8%E5%85%A5">SQL注入</a>。</p>
+<h4 id="搭建-以MySQL为例"><a href="#搭建-以MySQL为例" class="headerlink" title="搭建-以MySQL为例"></a>搭建-以MySQL为例</h4><h5 id="类库或应用程序项目下新建项"><a href="#类库或应用程序项目下新建项" class="headerlink" title="类库或应用程序项目下新建项"></a>类库或应用程序项目下新建项</h5><p><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef1.png"/></p>
+<h5 id="实体模型向导"><a href="#实体模型向导" class="headerlink" title="实体模型向导"></a>实体模型向导</h5><p>从EF 4.X开始支持三种构建方法：<br>Database First：数据库优先，你的项目已经有一个数据库，并且使用工具（如Visual Studio中的EF设计器)依据数据库生成C#或VB类。你可以通过EF设计器修改这些创建的类以及类和数据库之间的映射关系；这种方式的关键是先要有数据，然后才有代码和模型。<br>Model First：模型优先，通过在EF设计器中创建一个空的容器，在其中设计实体数据模型。这个模型将用于生成数据库以及C#或者VB类。这种方式的关键是先要有模型，然后才有数据库和代码。<br>Code First：代码优先，开发者只需要写代码，将会自动创建模型和数据库。<br>现采用基础又最常用的 Database First 方式创建！<br><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef2.png"/></p>
+<h5 id="更改数据源"><a href="#更改数据源" class="headerlink" title="更改数据源"></a>更改数据源</h5><p>连接MySQL需要单独安装 <a href="https://dev.mysql.com/downloads/connector/net/">mysql-connector-net</a> 与 <a href="https://dev.mysql.com/downloads/windows/visualstudio/">mysql-for-visualstudio</a><br><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef3.png"/></p>
+<h5 id="修改连接属性"><a href="#修改连接属性" class="headerlink" title="修改连接属性"></a>修改连接属性</h5><p><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef4.png"/></p>
+<h5 id="添加连接串"><a href="#添加连接串" class="headerlink" title="添加连接串"></a>添加连接串</h5><p><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef5.png"/></p>
+<h5 id="选择框架版本"><a href="#选择框架版本" class="headerlink" title="选择框架版本"></a>选择框架版本</h5><p><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef6.png"/></p>
+<h5 id="添加数据库表模型，完成"><a href="#添加数据库表模型，完成" class="headerlink" title="添加数据库表模型，完成"></a>添加数据库表模型，完成</h5><p><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef7.png"/></p>
+<h5 id="如果出现闪退、无法编辑数据，尝试修改引用库版本"><a href="#如果出现闪退、无法编辑数据，尝试修改引用库版本" class="headerlink" title="如果出现闪退、无法编辑数据，尝试修改引用库版本"></a>如果出现闪退、无法编辑数据，尝试修改引用库版本</h5><p>EntityFramework：6.0.0.0<br>EntityFramework.SqlServer：6.0.0.0<br>MySql.Data：6.9.9.0<br>MySql.Data.Entity.EF6：6.9.9.0</p>
+<h4 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//新增</span></span><br><span class="line">officeautomationEntities ef = <span class="keyword">new</span> officeautomationEntities();</span><br><span class="line">user_info user = <span class="keyword">new</span> user_info();</span><br><span class="line">user.UserName = <span class="string">&quot;00006&quot;</span>;</span><br><span class="line">user.Password = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line">ef.user_info.Add(user);</span><br><span class="line">ef.SaveChanges();</span><br><span class="line"><span class="comment">//修改</span></span><br><span class="line"><span class="keyword">var</span> query = ef.user_info.Where(o =&gt; o.UserName.Equals(<span class="string">&quot;00006&quot;</span>)).FirstOrDefault();</span><br><span class="line">query.Password = <span class="string">&quot;mq1i1JC92zal7nnbFZjtPQ==&quot;</span>;</span><br><span class="line">ef.SaveChanges();</span><br><span class="line"><span class="comment">//删除</span></span><br><span class="line">ef.user_info.Remove(query);</span><br><span class="line">ef.SaveChanges();</span><br><span class="line"><span class="comment">//查询</span></span><br><span class="line"><span class="keyword">var</span> v = ef.user_info.Where(o =&gt; o.UserName.Equals(<span class="string">&quot;00003&quot;</span>)).ToList();</span><br></pre></td></tr></table></figure>
+<h4 id="错误及处理"><a href="#错误及处理" class="headerlink" title="错误及处理"></a>错误及处理</h4><h5 id="EF创建时崩溃"><a href="#EF创建时崩溃" class="headerlink" title="EF创建时崩溃"></a>EF创建时崩溃</h5><p>MySql引用库版本修改为6.9.9</p>
+<h5 id="报错：Host-“”is-not-allowed-to-connect-to-this-MySQL-server"><a href="#报错：Host-“”is-not-allowed-to-connect-to-this-MySQL-server" class="headerlink" title="报错：Host “”is not allowed to connect to this MySQL server"></a>报错：Host “”is not allowed to connect to this MySQL server</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;192.168.0.1&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;密码&#x27;</span>;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;%&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;密码&#x27;</span>;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<h5 id="报错：Mysql表-“TableDetails”-中列-“IsPrimaryKey”-的值位-DBNull。"><a href="#报错：Mysql表-“TableDetails”-中列-“IsPrimaryKey”-的值位-DBNull。" class="headerlink" title="报错：Mysql表 “TableDetails” 中列 “IsPrimaryKey” 的值位 DBNull。"></a>报错：Mysql表 “TableDetails” 中列 “IsPrimaryKey” 的值位 DBNull。</h5><p><img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/error1.png"/><br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">use 库名;</span><br><span class="line"><span class="keyword">SET</span> <span class="keyword">GLOBAL</span> optimizer_switch<span class="operator">=</span><span class="string">&#x27;derived_merge=off&#x27;</span>;</span><br><span class="line"><span class="keyword">SET</span> optimizer_switch<span class="operator">=</span><span class="string">&#x27;derived_merge=off&#x27;</span>;</span><br></pre></td></tr></table></figure></p>
+<h5 id="报错：其他信息-对一个或多个实体的验证失败。有关详细信息，请参见“EntityValidationErrors”属性。"><a href="#报错：其他信息-对一个或多个实体的验证失败。有关详细信息，请参见“EntityValidationErrors”属性。" class="headerlink" title="报错：其他信息: 对一个或多个实体的验证失败。有关详细信息，请参见“EntityValidationErrors”属性。"></a>报错：其他信息: 对一个或多个实体的验证失败。有关详细信息，请参见“EntityValidationErrors”属性。</h5><p>写入数据与表设定不一致<br>SaveChanges();方法前后使用：Configuration.ValidateOnSaveEnabled<br><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">ef.Configuration.ValidateOnSaveEnabled = <span class="literal">false</span>;</span><br><span class="line">ef.SaveChanges();</span><br><span class="line">ef.Configuration.ValidateOnSaveEnabled = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure></p>
 ]]></content>
       <categories>
         <category>C#.Net</category>
       </categories>
       <tags>
         <tag>c#</tag>
-        <tag>wpf</tag>
-        <tag>ini</tag>
+        <tag>mysql</tag>
+        <tag>ef</tag>
       </tags>
   </entry>
   <entry>
@@ -2344,6 +2344,24 @@ table {
       </tags>
   </entry>
   <entry>
+    <title>哈尔滨信息工程学院</title>
+    <url>/blog/2016/05/10/school-University/</url>
+    <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/memory-University/school.png"/></p>
+<a id="more"></a>
+<h3 id="选择不同，命运自然不同"><a href="#选择不同，命运自然不同" class="headerlink" title="选择不同，命运自然不同"></a>选择不同，命运自然不同</h3><p>我不喜欢这个学校，因为在我来这之前，就已经发生了很多让人厌恶的故事。但是我还是来了，人生总要伴随着痛苦嘛。接受了，就是成长。但是我也很感谢这里，让我拥有两年的时间，得到足够成长，一切都按照计划进行着，下一步…等发生了再去记录吧！</p>
+<h4 id="记录做过的成品，真正成长的开始："><a href="#记录做过的成品，真正成长的开始：" class="headerlink" title="记录做过的成品，真正成长的开始："></a>记录做过的成品，真正成长的开始：</h4><h5 id="c（企业员工信息管理系统）"><a href="#c（企业员工信息管理系统）" class="headerlink" title="c（企业员工信息管理系统）"></a>c（企业员工信息管理系统）</h5><p>使用C语言编写简易的控制台管理程序，实训有录像剪辑视频（使用会声会影）。由于涉及到她人肖像问题，不方便发布，感兴趣可以单独联系博主。<br>插曲：制作视频的时候很赶工，几个小女生视频录一半着急忙慌就回家放假了，我带着朋友跑网吧通宵剪辑视频，他玩着联盟看我剪了一宿…然后在最后渲染的时候已经凌晨五点了，非常幸运的死机了，我凭着记忆快速重启电脑，安装好软件后重新剪辑，在通宵下机之前完成了。<br><img src="https://sadness96.github.io/images/blog/memory-University/c-登录.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/c-主界面.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/c-主界面2.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/c-查询.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/c-修改.png"/></p>
+<h5 id="java（学生成绩管理系统）"><a href="#java（学生成绩管理系统）" class="headerlink" title="java（学生成绩管理系统）"></a>java（学生成绩管理系统）</h5><p>使用Java的awt和swing设计开发C/S端程序，使用SQL Server数据库管理，exe4j打包为exe程序。<br><img src="https://sadness96.github.io/images/blog/memory-University/java-Login.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/java-主界面.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/java-查询界面.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/java-添加界面.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/java-删除界面.png"/></p>
+]]></content>
+      <categories>
+        <category>School</category>
+      </categories>
+      <tags>
+        <tag>c</tag>
+        <tag>java</tag>
+        <tag>会声会影</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>齐齐哈尔职业教育中心学校</title>
     <url>/blog/2014/10/05/school-HighSchool/</url>
     <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/memory-HighSchool/school.png"/></p>
@@ -2360,24 +2378,6 @@ table {
       <tags>
         <tag>photoshop</tag>
         <tag>flash</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>哈尔滨信息工程学院</title>
-    <url>/blog/2016/05/10/school-University/</url>
-    <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/memory-University/school.png"/></p>
-<a id="more"></a>
-<h3 id="选择不同，命运自然不同"><a href="#选择不同，命运自然不同" class="headerlink" title="选择不同，命运自然不同"></a>选择不同，命运自然不同</h3><p>我不喜欢这个学校，因为在我来这之前，就已经发生了很多让人厌恶的故事。但是我还是来了，人生总要伴随着痛苦嘛。接受了，就是成长。但是我也很感谢这里，让我拥有两年的时间，得到足够成长，一切都按照计划进行着，下一步…等发生了再去记录吧！</p>
-<h4 id="记录做过的成品，真正成长的开始："><a href="#记录做过的成品，真正成长的开始：" class="headerlink" title="记录做过的成品，真正成长的开始："></a>记录做过的成品，真正成长的开始：</h4><h5 id="c（企业员工信息管理系统）"><a href="#c（企业员工信息管理系统）" class="headerlink" title="c（企业员工信息管理系统）"></a>c（企业员工信息管理系统）</h5><p>使用C语言编写简易的控制台管理程序，实训有录像剪辑视频（使用会声会影）。由于涉及到她人肖像问题，不方便发布，感兴趣可以单独联系博主。<br>插曲：制作视频的时候很赶工，几个小女生视频录一半着急忙慌就回家放假了，我带着朋友跑网吧通宵剪辑视频，他玩着联盟看我剪了一宿…然后在最后渲染的时候已经凌晨五点了，非常幸运的死机了，我凭着记忆快速重启电脑，安装好软件后重新剪辑，在通宵下机之前完成了。<br><img src="https://sadness96.github.io/images/blog/memory-University/c-登录.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/c-主界面.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/c-主界面2.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/c-查询.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/c-修改.png"/></p>
-<h5 id="java（学生成绩管理系统）"><a href="#java（学生成绩管理系统）" class="headerlink" title="java（学生成绩管理系统）"></a>java（学生成绩管理系统）</h5><p>使用Java的awt和swing设计开发C/S端程序，使用SQL Server数据库管理，exe4j打包为exe程序。<br><img src="https://sadness96.github.io/images/blog/memory-University/java-Login.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/java-主界面.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/java-查询界面.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/java-添加界面.png"/><br><img src="https://sadness96.github.io/images/blog/memory-University/java-删除界面.png"/></p>
-]]></content>
-      <categories>
-        <category>School</category>
-      </categories>
-      <tags>
-        <tag>c</tag>
-        <tag>java</tag>
-        <tag>会声会影</tag>
       </tags>
   </entry>
   <entry>
