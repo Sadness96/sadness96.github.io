@@ -1,8 +1,8 @@
 ---
 title: Html 中嵌入 Office 文件
 date: 2017-08-05 23:23:00
-tags: [office]
-categories: Office
+tags: [html,office]
+categories: Html
 ---
 ### Html 静态网页中嵌入 Word、Excel、PPT、PDF 文件
 <!-- more -->
