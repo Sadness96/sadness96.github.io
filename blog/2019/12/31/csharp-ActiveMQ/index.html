@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
-<link rel="stylesheet" href="/blog/css/main.css?v=7.1.1">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="/blog/css/main.css?v=7.1.1"/>
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/Logo300.png?v=7.1.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/Logo30.png?v=7.1.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/Logo16.png?v=7.1.1">
@@ -14,7 +14,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/blog/',
+    root: '',
     scheme: 'Pisces',
     version: '7.1.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -35,18 +35,19 @@
   };
 </script>
   <meta name="description" content="ActiveMQ 消息队列使用介绍">
-<meta name="keywords" content="c#,activemq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ActiveMQ Demo">
 <meta property="og:url" content="http://sadness96.github.io/blog/2019/12/31/csharp-ActiveMQ/index.html">
 <meta property="og:site_name" content="个人博客 - 刘佳华">
 <meta property="og:description" content="ActiveMQ 消息队列使用介绍">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-03T16:16:00.693Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-31T09:50:00.000Z">
+<meta property="article:modified_time" content="2020-05-19T09:17:30.438Z">
+<meta property="article:author" content="LiuJiaHua">
+<meta property="article:tag" content="c#">
+<meta property="article:tag" content="activemq">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ActiveMQ Demo">
-<meta name="twitter:description" content="ActiveMQ 消息队列使用介绍">
-  <link rel="canonical" href="http://sadness96.github.io/blog/2019/12/31/csharp-ActiveMQ/">
+  <link rel="canonical" href="http://sadness96.github.io/blog/2019/12/31/csharp-ActiveMQ/"/>
 <script id="page.configurations">
   CONFIG.page = {
     sidebar: "",
@@ -75,7 +76,7 @@
   .use-motion .logo-line-after i { right: initial; }
   </style>
 </noscript>
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -101,26 +102,26 @@
 <nav class="site-nav">
     <ul id="menu" class="menu">
           <li class="menu-item menu-item-home">
-    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
   </li>
           <li class="menu-item menu-item-archives">
-    <a href="/blog/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/blog/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
   </li>
           <li class="menu-item menu-item-categories">
-    <a href="/blog/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/blog/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
   </li>
           <li class="menu-item menu-item-tags">
-    <a href="/blog/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/blog/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
   </li>
           <li class="menu-item menu-item-about">
-    <a href="/blog/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/blog/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br/>关于</a>
   </li>
           <li class="menu-item menu-item-github">
-    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="menu-item-icon fa fa-fw fa-github"></i> <br>GitHub</a>
+    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="menu-item-icon fa fa-fw fa-github"></i> <br/>GitHub</a>
   </li>
         <li class="menu-item menu-item-search">
             <a href="javascript:;" class="popup-trigger">
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
     </ul>
     <div class="site-search">
@@ -133,7 +134,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -149,14 +152,14 @@
   <div id="posts" class="posts-expand">
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/blog/2019/12/31/csharp-ActiveMQ/">
+    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/blog/2019/12/31/csharp-ActiveMQ/"/>
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LiuJiaHua">
-      <meta itemprop="description" content="记录生活,记录学习,记录成长!">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+      <meta itemprop="name" content="LiuJiaHua"/>
+      <meta itemprop="description" content="记录生活,记录学习,记录成长!"/>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4"/>
     </span>
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客 - 刘佳华">
+      <meta itemprop="name" content="个人博客 - 刘佳华"/>
     </span>
       <header class="post-header">
           <h1 class="post-title" itemprop="name headline">ActiveMQ Demo
@@ -180,16 +183,14 @@
         </div>
       </header>
     <div class="post-body" itemprop="articleBody">
-        <h3 id="ActiveMQ-消息队列使用介绍"><a href="#ActiveMQ-消息队列使用介绍" class="headerlink" title="ActiveMQ 消息队列使用介绍"></a>ActiveMQ 消息队列使用介绍</h3><a id="more"></a>
-<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p><a href="https://activemq.apache.org/" target="_blank" rel="noopener">Apache ActiveMQ</a> 是一个开放源代码的消息中间件。</p>
-<h4 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h4><p>请参阅<a href="https://activemq.apache.org/components/classic/documentation" target="_blank" rel="noopener">官方文档</a></p>
+        <h3 id="ActiveMQ-消息队列使用介绍"><a href="#ActiveMQ-消息队列使用介绍" class="headerlink" title="ActiveMQ 消息队列使用介绍"></a>ActiveMQ 消息队列使用介绍</h3><span id="more"></span>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p><a target="_blank" rel="noopener" href="https://activemq.apache.org/">Apache ActiveMQ</a> 是一个开放源代码的消息中间件。</p>
+<h4 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h4><p>请参阅<a target="_blank" rel="noopener" href="https://activemq.apache.org/components/classic/documentation">官方文档</a></p>
 <h5 id="Docker-部署"><a href="#Docker-部署" class="headerlink" title="Docker 部署"></a>Docker 部署</h5><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">安装官方镜像</span><br><span class="line">docker pull webcenter/activemq</span><br><span class="line">启动 RabbitMQ 默认账户密码为 admin/admin</span><br><span class="line">docker run -d --name myactivemq -p <span class="number">61617</span>:<span class="number">61616</span> -p <span class="number">8162</span>:<span class="number">8161</span> webcenter/activemq</span><br><span class="line">WEB 端登录</span><br><span class="line"><span class="function">http://<span class="title">localhost</span>:8162/</span></span><br></pre></td></tr></table></figure>
-<h4 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h4><h5 id="未找到-61616-端口"><a href="#未找到-61616-端口" class="headerlink" title="未找到 61616 端口"></a>未找到 61616 端口</h5><p>错误信息：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Apache.NMS.NMSConnectionException: <span class="title">Error</span> <span class="title">connecting</span> <span class="title">to</span> <span class="title">localhost</span>:61616. ---&gt; <span class="title">System.Net.Sockets.SocketException</span>: <span class="title">Unknown</span> <span class="title">error</span> (0<span class="title">xfffffffe</span>)</span></span><br></pre></td></tr></table></figure></p>
-<p>使用命令查询端口号占用进程<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano|<span class="built_in">findstr</span> "PORT"</span><br><span class="line">tasklist|<span class="built_in">findstr</span> "PID"</span><br></pre></td></tr></table></figure></p>
-<p>未查到 61616 端口使用，但是开启了 61617 端口</p>
-<h4 id="C-代码调用"><a href="#C-代码调用" class="headerlink" title="C#代码调用"></a>C#代码调用</h4><p>引用 <a href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ" target="_blank" rel="noopener">Apache.NMS.ActiveMQ</a> 库</p>
-<h5 id="生产者"><a href="#生产者" class="headerlink" title="生产者"></a>生产者</h5><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Apache.NMS;</span><br><span class="line"><span class="keyword">using</span> Apache.NMS.ActiveMQ;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//Create the Connection Factory</span></span><br><span class="line">            IConnectionFactory factory = <span class="keyword">new</span> ConnectionFactory(<span class="string">"tcp://localhost:61617/"</span>);</span><br><span class="line">            <span class="keyword">using</span> (IConnection connection = factory.CreateConnection())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//Create the Session</span></span><br><span class="line">                <span class="keyword">using</span> (ISession session = connection.CreateSession())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//Create the Producer for the topic/queue</span></span><br><span class="line">                    IMessageProducer prod = session.CreateProducer(<span class="keyword">new</span> Apache.NMS.ActiveMQ.Commands.ActiveMQTopic(<span class="string">"testing"</span>));</span><br><span class="line">                    <span class="comment">//Send Messages</span></span><br><span class="line">                    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">while</span> (!Console.KeyAvailable)</span><br><span class="line">                    &#123;</span><br><span class="line">                        ITextMessage msg = prod.CreateTextMessage();</span><br><span class="line">                        msg.Text = i.ToString();</span><br><span class="line">                        Console.WriteLine(<span class="string">"Sending: "</span> + i.ToString());</span><br><span class="line">                        prod.Send(msg, Apache.NMS.MsgDeliveryMode.NonPersistent, Apache.NMS.MsgPriority.Normal, TimeSpan.MinValue);</span><br><span class="line">                        System.Threading.Thread.Sleep(<span class="number">5000</span>);</span><br><span class="line">                        i++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (System.Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"&#123;0&#125;"</span>, e.Message);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h5><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Apache.NMS;</span><br><span class="line"><span class="keyword">using</span> Apache.NMS.ActiveMQ;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//Create the Connection factory</span></span><br><span class="line">            IConnectionFactory factory = <span class="keyword">new</span> ConnectionFactory(<span class="string">"tcp://localhost:61617/"</span>);</span><br><span class="line">            <span class="comment">//Create the connection</span></span><br><span class="line">            <span class="keyword">using</span> (IConnection connection = factory.CreateConnection())</span><br><span class="line">            &#123;</span><br><span class="line">                connection.ClientId = <span class="string">"testing listener"</span>;</span><br><span class="line">                connection.Start();</span><br><span class="line">                <span class="comment">//Create the Session</span></span><br><span class="line">                <span class="keyword">using</span> (ISession session = connection.CreateSession())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//Create the Consumer</span></span><br><span class="line">                    IMessageConsumer consumer = session.CreateDurableConsumer(<span class="keyword">new</span> Apache.NMS.ActiveMQ.Commands.ActiveMQTopic(<span class="string">"testing"</span>), <span class="string">"testing listener"</span>, <span class="literal">null</span>, <span class="literal">false</span>);</span><br><span class="line">                    consumer.Listener += <span class="keyword">new</span> MessageListener(consumer_Listener);</span><br><span class="line">                    Console.ReadLine();</span><br><span class="line">                &#125;</span><br><span class="line">                connection.Stop();</span><br><span class="line">                connection.Close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (System.Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(e.Message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">consumer_Listener</span>(<span class="params">IMessage message</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            ITextMessage msg = (ITextMessage)message;</span><br><span class="line">            Console.WriteLine(<span class="string">"Receive: "</span> + msg.Text);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (System.Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(e.Message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h4><h5 id="未找到-61616-端口"><a href="#未找到-61616-端口" class="headerlink" title="未找到 61616 端口"></a>未找到 61616 端口</h5><p>错误信息：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Apache.NMS.NMSConnectionException: <span class="title">Error</span> <span class="title">connecting</span> <span class="title">to</span> <span class="title">localhost</span>:61616. ---&gt; <span class="title">System.Net.Sockets.SocketException</span>: <span class="title">Unknown</span> <span class="title">error</span> (0<span class="title">xfffffffe</span>)</span></span><br></pre></td></tr></table></figure><br>使用命令查询端口号占用进程<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano|<span class="built_in">findstr</span> &quot;PORT&quot;</span><br><span class="line">tasklist|<span class="built_in">findstr</span> &quot;PID&quot;</span><br></pre></td></tr></table></figure><br>未查到 61616 端口使用，但是开启了 61617 端口</p>
+<h4 id="C-代码调用"><a href="#C-代码调用" class="headerlink" title="C#代码调用"></a>C#代码调用</h4><p>引用 <a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ">Apache.NMS.ActiveMQ</a> 库</p>
+<h5 id="生产者"><a href="#生产者" class="headerlink" title="生产者"></a>生产者</h5><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Apache.NMS;</span><br><span class="line"><span class="keyword">using</span> Apache.NMS.ActiveMQ;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//Create the Connection Factory</span></span><br><span class="line">            IConnectionFactory factory = <span class="keyword">new</span> ConnectionFactory(<span class="string">&quot;tcp://localhost:61617/&quot;</span>);</span><br><span class="line">            <span class="keyword">using</span> (IConnection connection = factory.CreateConnection())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//Create the Session</span></span><br><span class="line">                <span class="keyword">using</span> (ISession session = connection.CreateSession())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//Create the Producer for the topic/queue</span></span><br><span class="line">                    IMessageProducer prod = session.CreateProducer(<span class="keyword">new</span> Apache.NMS.ActiveMQ.Commands.ActiveMQTopic(<span class="string">&quot;testing&quot;</span>));</span><br><span class="line">                    <span class="comment">//Send Messages</span></span><br><span class="line">                    <span class="built_in">int</span> i = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">while</span> (!Console.KeyAvailable)</span><br><span class="line">                    &#123;</span><br><span class="line">                        ITextMessage msg = prod.CreateTextMessage();</span><br><span class="line">                        msg.Text = i.ToString();</span><br><span class="line">                        Console.WriteLine(<span class="string">&quot;Sending: &quot;</span> + i.ToString());</span><br><span class="line">                        prod.Send(msg, Apache.NMS.MsgDeliveryMode.NonPersistent, Apache.NMS.MsgPriority.Normal, TimeSpan.MinValue);</span><br><span class="line">                        System.Threading.Thread.Sleep(<span class="number">5000</span>);</span><br><span class="line">                        i++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">        catch (System.Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;&#123;0&#125;&quot;</span>, e.Message);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h5><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Apache.NMS;</span><br><span class="line"><span class="keyword">using</span> Apache.NMS.ActiveMQ;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//Create the Connection factory</span></span><br><span class="line">            IConnectionFactory factory = <span class="keyword">new</span> ConnectionFactory(<span class="string">&quot;tcp://localhost:61617/&quot;</span>);</span><br><span class="line">            <span class="comment">//Create the connection</span></span><br><span class="line">            <span class="keyword">using</span> (IConnection connection = factory.CreateConnection())</span><br><span class="line">            &#123;</span><br><span class="line">                connection.ClientId = <span class="string">&quot;testing listener&quot;</span>;</span><br><span class="line">                connection.Start();</span><br><span class="line">                <span class="comment">//Create the Session</span></span><br><span class="line">                <span class="keyword">using</span> (ISession session = connection.CreateSession())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//Create the Consumer</span></span><br><span class="line">                    IMessageConsumer consumer = session.CreateDurableConsumer(<span class="keyword">new</span> Apache.NMS.ActiveMQ.Commands.ActiveMQTopic(<span class="string">&quot;testing&quot;</span>), <span class="string">&quot;testing listener&quot;</span>, <span class="literal">null</span>, <span class="literal">false</span>);</span><br><span class="line">                    consumer.Listener += <span class="keyword">new</span> MessageListener(consumer_Listener);</span><br><span class="line">                    Console.ReadLine();</span><br><span class="line">                &#125;</span><br><span class="line">                connection.Stop();</span><br><span class="line">                connection.Close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (System.Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(e.Message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">consumer_Listener</span>(<span class="params">IMessage message</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            ITextMessage msg = (ITextMessage)message;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Receive: &quot;</span> + msg.Text);</span><br><span class="line">        &#125;</span><br><span class="line">        catch (System.Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(e.Message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
     <footer class="post-footer">
         <div class="post-tags">
@@ -235,26 +236,28 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4" alt="LiuJiaHua">
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4"
+                alt="LiuJiaHua"/>
               <p class="site-author-name" itemprop="name">LiuJiaHua</p>
               <div class="site-description motion-element" itemprop="description">记录生活,记录学习,记录成长!</div>
           </div>
             <nav class="site-state motion-element">
                 <div class="site-state-item site-state-posts">
-                  <a href="/blog/archives">
-                    <span class="site-state-item-count">65</span>
+                  <a href="/blog/archives%20%7C%7C%20archive">
+                    <span class="site-state-item-count">66</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
                 <div class="site-state-item site-state-categories">
-                      <a href="/blog/categories">
+                      <a href="/blog/categories%20%7C%7C%20th">
                     <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
                 <div class="site-state-item site-state-tags">
-                      <a href="/blog/tags">
-                    <span class="site-state-item-count">94</span>
+                      <a href="/blog/tags%20%7C%7C%20tags">
+                    <span class="site-state-item-count">96</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -264,7 +267,7 @@
       <!--noindex-->
         <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ActiveMQ-消息队列使用介绍"><span class="nav-number">1.</span> <span class="nav-text">ActiveMQ 消息队列使用介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装部署"><span class="nav-number">1.2.</span> <span class="nav-text">安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker-部署"><span class="nav-number">1.2.1.</span> <span class="nav-text">Docker 部署</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遇到问题"><span class="nav-number">1.3.</span> <span class="nav-text">遇到问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#未找到-61616-端口"><span class="nav-number">1.3.1.</span> <span class="nav-text">未找到 61616 端口</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-代码调用"><span class="nav-number">1.4.</span> <span class="nav-text">C#代码调用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#生产者"><span class="nav-number">1.4.1.</span> <span class="nav-text">生产者</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#消费者"><span class="nav-number">1.4.2.</span> <span class="nav-text">消费者</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ActiveMQ-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">ActiveMQ 消息队列使用介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="nav-number">1.2.</span> <span class="nav-text">安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker-%E9%83%A8%E7%BD%B2"><span class="nav-number">1.2.1.</span> <span class="nav-text">Docker 部署</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.</span> <span class="nav-text">遇到问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%AA%E6%89%BE%E5%88%B0-61616-%E7%AB%AF%E5%8F%A3"><span class="nav-number">1.3.1.</span> <span class="nav-text">未找到 61616 端口</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-%E4%BB%A3%E7%A0%81%E8%B0%83%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">C#代码调用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85"><span class="nav-number">1.4.1.</span> <span class="nav-text">生产者</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-number">1.4.2.</span> <span class="nav-text">消费者</span></a></li></ol></li></ol></li></ol></div>
           </div>
         </div>
       <!--/noindex-->
@@ -285,7 +288,7 @@
   <span class="author" itemprop="copyrightHolder">LiuJiaHua</span>
 </div>
 <!-- 隐藏：由 Hexo 强力驱动 v3.8.0 | 主题 – NexT.Pisces v7.1.1
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0</div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
 -->

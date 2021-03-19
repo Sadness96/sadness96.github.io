@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
-<link rel="stylesheet" href="/blog/css/main.css?v=7.1.1">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="/blog/css/main.css?v=7.1.1"/>
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/Logo300.png?v=7.1.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/Logo30.png?v=7.1.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/Logo16.png?v=7.1.1">
@@ -14,7 +14,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/blog/',
+    root: '',
     scheme: 'Pisces',
     version: '7.1.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -35,18 +35,20 @@
   };
 </script>
   <meta name="description" content="截取Windows屏幕全屏或指定区域帮助类">
-<meta name="keywords" content="c#,helper,windows">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows屏幕截图帮助类">
 <meta property="og:url" content="http://sadness96.github.io/blog/2017/06/21/csharp-ScreenshotHelper/index.html">
 <meta property="og:site_name" content="个人博客 - 刘佳华">
 <meta property="og:description" content="截取Windows屏幕全屏或指定区域帮助类">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-03T16:16:00.698Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-06-21T08:47:10.000Z">
+<meta property="article:modified_time" content="2020-05-19T09:17:30.443Z">
+<meta property="article:author" content="LiuJiaHua">
+<meta property="article:tag" content="c#">
+<meta property="article:tag" content="helper">
+<meta property="article:tag" content="windows">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Windows屏幕截图帮助类">
-<meta name="twitter:description" content="截取Windows屏幕全屏或指定区域帮助类">
-  <link rel="canonical" href="http://sadness96.github.io/blog/2017/06/21/csharp-ScreenshotHelper/">
+  <link rel="canonical" href="http://sadness96.github.io/blog/2017/06/21/csharp-ScreenshotHelper/"/>
 <script id="page.configurations">
   CONFIG.page = {
     sidebar: "",
@@ -75,7 +77,7 @@
   .use-motion .logo-line-after i { right: initial; }
   </style>
 </noscript>
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -101,26 +103,26 @@
 <nav class="site-nav">
     <ul id="menu" class="menu">
           <li class="menu-item menu-item-home">
-    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
   </li>
           <li class="menu-item menu-item-archives">
-    <a href="/blog/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/blog/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
   </li>
           <li class="menu-item menu-item-categories">
-    <a href="/blog/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/blog/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
   </li>
           <li class="menu-item menu-item-tags">
-    <a href="/blog/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/blog/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
   </li>
           <li class="menu-item menu-item-about">
-    <a href="/blog/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/blog/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br/>关于</a>
   </li>
           <li class="menu-item menu-item-github">
-    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="menu-item-icon fa fa-fw fa-github"></i> <br>GitHub</a>
+    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="menu-item-icon fa fa-fw fa-github"></i> <br/>GitHub</a>
   </li>
         <li class="menu-item menu-item-search">
             <a href="javascript:;" class="popup-trigger">
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
     </ul>
     <div class="site-search">
@@ -133,7 +135,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -149,14 +153,14 @@
   <div id="posts" class="posts-expand">
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/blog/2017/06/21/csharp-ScreenshotHelper/">
+    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/blog/2017/06/21/csharp-ScreenshotHelper/"/>
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LiuJiaHua">
-      <meta itemprop="description" content="记录生活,记录学习,记录成长!">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+      <meta itemprop="name" content="LiuJiaHua"/>
+      <meta itemprop="description" content="记录生活,记录学习,记录成长!"/>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4"/>
     </span>
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客 - 刘佳华">
+      <meta itemprop="name" content="个人博客 - 刘佳华"/>
     </span>
       <header class="post-header">
           <h1 class="post-title" itemprop="name headline">Windows屏幕截图帮助类
@@ -180,9 +184,9 @@
         </div>
       </header>
     <div class="post-body" itemprop="articleBody">
-        <h3 id="截取Windows屏幕全屏或指定区域帮助类"><a href="#截取Windows屏幕全屏或指定区域帮助类" class="headerlink" title="截取Windows屏幕全屏或指定区域帮助类"></a>截取Windows屏幕全屏或指定区域帮助类</h3><a id="more"></a>
-<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>平时习惯于用QQ截图，但是公司一台电脑没有外网链接，登录不了QQ截图就很麻烦，通常是按PrtSc键截取全屏幕，然后在粘贴在Windows自带的画图应用中截取区域。原本计划自己实现一个仿制QQ截图（画笔、框选、编辑文字、提取颜色）的功能，但是一直也没有付诸行动，但是需要用到的技术栈都已经整理。屏幕录像的原理也是按照固定的<a href="https://baike.baidu.com/item/%E5%B8%A7%E7%8E%87/1052590" target="_blank" rel="noopener">FPS</a>写入视频流，但是实际测试截取速度比较慢，无法稳定在30FPS以上。</p>
-<h4 id="帮助类"><a href="#帮助类" class="headerlink" title="帮助类"></a>帮助类</h4><p><a href="https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Screenshot/ScreenshotHelper.cs" target="_blank" rel="noopener">ScreenshotHelper</a><br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 全屏幕截图</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>截图Bitmap<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">ScreenshotFullScreen</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//得到屏幕整体宽度</span></span><br><span class="line">        <span class="keyword">double</span> dPrimaryScreenWidth = SystemParameters.PrimaryScreenWidth;</span><br><span class="line">        <span class="comment">//得到屏幕整体高度</span></span><br><span class="line">        <span class="keyword">double</span> dPrimaryScreenHeight = SystemParameters.PrimaryScreenHeight;</span><br><span class="line">        <span class="comment">//初始化使用指定的大小(屏幕大小)的 System.Drawing.Bitmap 类的新实例.</span></span><br><span class="line">        Bitmap bitmapScreenshot = <span class="keyword">new</span> Bitmap((<span class="keyword">int</span>)dPrimaryScreenWidth, (<span class="keyword">int</span>)dPrimaryScreenHeight);</span><br><span class="line">        <span class="comment">//从指定的载入原创建新的 System.Drawing.Graphics.</span></span><br><span class="line">        Graphics graphicsScreenshot = Graphics.FromImage(bitmapScreenshot);</span><br><span class="line">        <span class="comment">//获取或设置绘制到此 System.Drawing.Graphics 的渲染质量:高质量 低速度合成.</span></span><br><span class="line">        graphicsScreenshot.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;</span><br><span class="line">        <span class="comment">//截取电脑屏幕:从屏幕到 System.Drawing.Graphics 的绘图图面.</span></span><br><span class="line">        graphicsScreenshot.CopyFromScreen((<span class="keyword">int</span>)<span class="number">0</span>, (<span class="keyword">int</span>)<span class="number">0</span>, (<span class="keyword">int</span>)<span class="number">0</span>, (<span class="keyword">int</span>)<span class="number">0</span>, <span class="keyword">new</span> System.Drawing.Size((<span class="keyword">int</span>)dPrimaryScreenWidth, (<span class="keyword">int</span>)dPrimaryScreenHeight));</span><br><span class="line">        <span class="keyword">return</span> bitmapScreenshot;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        TXTHelper.Logs(ex.ToString());</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 截取指定位置截图</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="iStartX"&gt;</span>截取起始坐标X<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="iStartY"&gt;</span>截取起始坐标Y<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="iInterceptWidth"&gt;</span>截取宽度<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="iInterceptHeight"&gt;</span>截取高度<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>截图Bitmap<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">ScreenshotsSpecifyLocation</span>(<span class="params"><span class="keyword">int</span> iStartX, <span class="keyword">int</span> iStartY, <span class="keyword">int</span> iInterceptWidth, <span class="keyword">int</span> iInterceptHeight</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//初始化使用指定的大小(屏幕大小)的 System.Drawing.Bitmap 类的新实例.</span></span><br><span class="line">        Bitmap bitmapScreenshot = <span class="keyword">new</span> Bitmap((<span class="keyword">int</span>)iInterceptWidth, (<span class="keyword">int</span>)iInterceptHeight);</span><br><span class="line">        <span class="comment">//从指定的载入原创建新的 System.Drawing.Graphics.</span></span><br><span class="line">        Graphics graphicsScreenshot = Graphics.FromImage(bitmapScreenshot);</span><br><span class="line">        <span class="comment">//获取或设置绘制到此 System.Drawing.Graphics 的渲染质量:高质量 低速度合成.</span></span><br><span class="line">        graphicsScreenshot.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;</span><br><span class="line">        <span class="comment">//截取电脑屏幕:从屏幕到 System.Drawing.Graphics 的绘图图面.</span></span><br><span class="line">        graphicsScreenshot.CopyFromScreen(iStartX, iStartY, (<span class="keyword">int</span>)<span class="number">0</span>, (<span class="keyword">int</span>)<span class="number">0</span>, <span class="keyword">new</span> System.Drawing.Size((<span class="keyword">int</span>)iInterceptWidth, (<span class="keyword">int</span>)iInterceptHeight));</span><br><span class="line">        <span class="keyword">return</span> bitmapScreenshot;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        TXTHelper.Logs(ex.ToString());</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <h3 id="截取Windows屏幕全屏或指定区域帮助类"><a href="#截取Windows屏幕全屏或指定区域帮助类" class="headerlink" title="截取Windows屏幕全屏或指定区域帮助类"></a>截取Windows屏幕全屏或指定区域帮助类</h3><span id="more"></span>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>平时习惯于用QQ截图，但是公司一台电脑没有外网链接，登录不了QQ截图就很麻烦，通常是按PrtSc键截取全屏幕，然后在粘贴在Windows自带的画图应用中截取区域。原本计划自己实现一个仿制QQ截图（画笔、框选、编辑文字、提取颜色）的功能，但是一直也没有付诸行动，但是需要用到的技术栈都已经整理。屏幕录像的原理也是按照固定的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%B8%A7%E7%8E%87/1052590">FPS</a>写入视频流，但是实际测试截取速度比较慢，无法稳定在30FPS以上。</p>
+<h4 id="帮助类"><a href="#帮助类" class="headerlink" title="帮助类"></a>帮助类</h4><p><a target="_blank" rel="noopener" href="https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Screenshot/ScreenshotHelper.cs">ScreenshotHelper</a><br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 全屏幕截图</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>截图Bitmap<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">ScreenshotFullScreen</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//得到屏幕整体宽度</span></span><br><span class="line">        <span class="built_in">double</span> dPrimaryScreenWidth = SystemParameters.PrimaryScreenWidth;</span><br><span class="line">        <span class="comment">//得到屏幕整体高度</span></span><br><span class="line">        <span class="built_in">double</span> dPrimaryScreenHeight = SystemParameters.PrimaryScreenHeight;</span><br><span class="line">        <span class="comment">//初始化使用指定的大小(屏幕大小)的 System.Drawing.Bitmap 类的新实例.</span></span><br><span class="line">        Bitmap bitmapScreenshot = <span class="keyword">new</span> Bitmap((<span class="built_in">int</span>)dPrimaryScreenWidth, (<span class="built_in">int</span>)dPrimaryScreenHeight);</span><br><span class="line">        <span class="comment">//从指定的载入原创建新的 System.Drawing.Graphics.</span></span><br><span class="line">        Graphics graphicsScreenshot = Graphics.FromImage(bitmapScreenshot);</span><br><span class="line">        <span class="comment">//获取或设置绘制到此 System.Drawing.Graphics 的渲染质量:高质量 低速度合成.</span></span><br><span class="line">        graphicsScreenshot.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;</span><br><span class="line">        <span class="comment">//截取电脑屏幕:从屏幕到 System.Drawing.Graphics 的绘图图面.</span></span><br><span class="line">        graphicsScreenshot.CopyFromScreen((<span class="built_in">int</span>)<span class="number">0</span>, (<span class="built_in">int</span>)<span class="number">0</span>, (<span class="built_in">int</span>)<span class="number">0</span>, (<span class="built_in">int</span>)<span class="number">0</span>, <span class="keyword">new</span> System.Drawing.Size((<span class="built_in">int</span>)dPrimaryScreenWidth, (<span class="built_in">int</span>)dPrimaryScreenHeight));</span><br><span class="line">        <span class="keyword">return</span> bitmapScreenshot;</span><br><span class="line">    &#125;</span><br><span class="line">    catch (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        TXTHelper.Logs(ex.ToString());</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 截取指定位置截图</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;iStartX&quot;&gt;</span>截取起始坐标X<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;iStartY&quot;&gt;</span>截取起始坐标Y<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;iInterceptWidth&quot;&gt;</span>截取宽度<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;iInterceptHeight&quot;&gt;</span>截取高度<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>截图Bitmap<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">ScreenshotsSpecifyLocation</span>(<span class="params"><span class="built_in">int</span> iStartX, <span class="built_in">int</span> iStartY, <span class="built_in">int</span> iInterceptWidth, <span class="built_in">int</span> iInterceptHeight</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//初始化使用指定的大小(屏幕大小)的 System.Drawing.Bitmap 类的新实例.</span></span><br><span class="line">        Bitmap bitmapScreenshot = <span class="keyword">new</span> Bitmap((<span class="built_in">int</span>)iInterceptWidth, (<span class="built_in">int</span>)iInterceptHeight);</span><br><span class="line">        <span class="comment">//从指定的载入原创建新的 System.Drawing.Graphics.</span></span><br><span class="line">        Graphics graphicsScreenshot = Graphics.FromImage(bitmapScreenshot);</span><br><span class="line">        <span class="comment">//获取或设置绘制到此 System.Drawing.Graphics 的渲染质量:高质量 低速度合成.</span></span><br><span class="line">        graphicsScreenshot.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;</span><br><span class="line">        <span class="comment">//截取电脑屏幕:从屏幕到 System.Drawing.Graphics 的绘图图面.</span></span><br><span class="line">        graphicsScreenshot.CopyFromScreen(iStartX, iStartY, (<span class="built_in">int</span>)<span class="number">0</span>, (<span class="built_in">int</span>)<span class="number">0</span>, <span class="keyword">new</span> System.Drawing.Size((<span class="built_in">int</span>)iInterceptWidth, (<span class="built_in">int</span>)iInterceptHeight));</span><br><span class="line">        <span class="keyword">return</span> bitmapScreenshot;</span><br><span class="line">    &#125;</span><br><span class="line">    catch (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        TXTHelper.Logs(ex.ToString());</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
     </div>
     <footer class="post-footer">
         <div class="post-tags">
@@ -229,26 +233,28 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4" alt="LiuJiaHua">
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4"
+                alt="LiuJiaHua"/>
               <p class="site-author-name" itemprop="name">LiuJiaHua</p>
               <div class="site-description motion-element" itemprop="description">记录生活,记录学习,记录成长!</div>
           </div>
             <nav class="site-state motion-element">
                 <div class="site-state-item site-state-posts">
-                  <a href="/blog/archives">
-                    <span class="site-state-item-count">65</span>
+                  <a href="/blog/archives%20%7C%7C%20archive">
+                    <span class="site-state-item-count">66</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
                 <div class="site-state-item site-state-categories">
-                      <a href="/blog/categories">
+                      <a href="/blog/categories%20%7C%7C%20th">
                     <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
                 <div class="site-state-item site-state-tags">
-                      <a href="/blog/tags">
-                    <span class="site-state-item-count">94</span>
+                      <a href="/blog/tags%20%7C%7C%20tags">
+                    <span class="site-state-item-count">96</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -258,7 +264,7 @@
       <!--noindex-->
         <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#截取Windows屏幕全屏或指定区域帮助类"><span class="nav-number">1.</span> <span class="nav-text">截取Windows屏幕全屏或指定区域帮助类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#帮助类"><span class="nav-number">1.2.</span> <span class="nav-text">帮助类</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%AA%E5%8F%96Windows%E5%B1%8F%E5%B9%95%E5%85%A8%E5%B1%8F%E6%88%96%E6%8C%87%E5%AE%9A%E5%8C%BA%E5%9F%9F%E5%B8%AE%E5%8A%A9%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">截取Windows屏幕全屏或指定区域帮助类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%AE%E5%8A%A9%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">帮助类</span></a></li></ol></li></ol></div>
           </div>
         </div>
       <!--/noindex-->
@@ -279,7 +285,7 @@
   <span class="author" itemprop="copyrightHolder">LiuJiaHua</span>
 </div>
 <!-- 隐藏：由 Hexo 强力驱动 v3.8.0 | 主题 – NexT.Pisces v7.1.1
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0</div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
 -->
