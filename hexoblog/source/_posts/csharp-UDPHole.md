@@ -6,22 +6,22 @@ categories: C#.Net
 ---
 ### Nat 穿透（UDP 打洞）
 <!-- more -->
-#### 简介
+### 简介
 最开始源于一次去用户现场出差，[TeamViewer](https://www.teamviewer.com/en/) 与 [向日葵](https://sunlogin.oray.com/) 都是开通了会员的，但还是受到各种稀奇古怪的问题阻挠无法远程到家里的电脑和公司的电脑，回来后尝试做一个内网穿透工具以 [Remote Desktop Connection(RDP)](https://support.microsoft.com/en-us/windows/how-to-use-remote-desktop-5fe128d5-8fb1-7a23-3b8a-41e636865e8c) 方式连接作为以后远程的备选方案。
 但是后期测试时发现 [Remote Desktop Connection(RDP)](https://support.microsoft.com/en-us/windows/how-to-use-remote-desktop-5fe128d5-8fb1-7a23-3b8a-41e636865e8c) 协议首先通过 TCP 进行第一次通讯建立连接以及输入用户名密码，验证用户凭据后重新以 TCP 进行远程通讯，UDP 仅作为辅助，所以改为 TCP 转发方式继续开发，UDP 打洞成功，或许以后或许可以在此基础上做些其他功能。
 
-#### 代码仓库
+### 代码仓库
 不确定当前仓库权限是否公有
 ``` cmd
 git clone https://github.com/iceelves/PenetrateRemote.git
 git reset fd217598
 ```
 
-#### 网络类型
-##### 检测网络 Nat 类型
+### 网络类型
+#### 检测网络 Nat 类型
 使用开源项目 [NatTypeTester](https://github.com/HMBSbige/NatTypeTester) 可检测本 地网络 Nat 类型。
 
-##### Nat 类型
+#### Nat 类型
 <img src="https://sadness96.github.io/images/blog/csharp-UDPHole/NatXmind.png"/>
 
 1. 全锥型(Full Cone)
@@ -33,11 +33,11 @@ git reset fd217598
 1. 对称型(Symmetric)
     即对 IP 和端口都有限制，只有和其建立连接的 IP 和端口向其发送数据才不会被丢弃。
 
-##### 不同 Nat 类型穿透性
+#### 不同 Nat 类型穿透性
 盗的图，出处见水印
 <img src="https://sadness96.github.io/images/blog/csharp-UDPHole/NatPierceThrough.webp"/>
 
-#### 运行流程
+### 运行流程
 如图所示：局域网 NatA 中的机器 192.168.5.13(以下简称 ClientA) 请求与局域网 NatB 中的机器 192.168.1.100(以下简称 ClientB) 通过 UDP 打洞通信。
 <img src="https://sadness96.github.io/images/blog/csharp-UDPHole/NatVisio.png"/>
 
@@ -49,8 +49,8 @@ git reset fd217598
 1. 服务端将 ClientA 信息发送到 ClientB。
 1. ClientB 向 ClientA 发送登录信息后，双方建立打洞通信，关闭服务端程序后依然可以通信。
 
-#### 核心代码
-##### Server
+### 核心代码
+#### Server
 ``` csharp 
 public class Udp_Server : IDisposable
 {
@@ -235,7 +235,7 @@ public class Udp_Server : IDisposable
 }
 ```
 
-##### Clent
+#### Clent
 ``` csharp 
 public class Udp_Client : IDisposable
 {
