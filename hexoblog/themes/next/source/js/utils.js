@@ -236,7 +236,7 @@ NexT.utils = NexT.$u = {
    * @returns {string|void|XML|*}
    */
   escapeSelector: function(selector) {
-    return selector.replace(/[!"$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&');
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, '\\$&');
   },
 
   displaySidebar: function() {
