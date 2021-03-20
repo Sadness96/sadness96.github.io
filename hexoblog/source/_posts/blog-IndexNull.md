@@ -88,9 +88,41 @@ external_link:
 title: 网页使用 <iframe> 嵌入部分其他网页
 ```
 
+###### 解决方法
 文章中的特殊字符，例如：
 ``` Markdown
 {{ }}、{% %}
 ```
 
 推荐避免使用类似字符或使用[HTML转义字符对照表](https://tool.oschina.net/commons?type=2)进行转义。
+
+##### NexT5 中文超链接乱码导致不能跳转
+博客文章左侧超链接点击无效无法跳转，控制台报错：Cannot read property 'top' of undefined。
+
+###### 解决方法
+由于 href 链接中文 url 未经转码导致中文链接无法跳转，使用 decodeURI() 方法进行重新编码。
+``` js
+// 对获取到的url进行重编码
+targetSelector = decodeURI(this.getAttribute('href'));
+```
+
+###### 完整段落代码
+``` js
+// TOC item animation navigate & prevent #item selector in adress bar.
+$('.post-toc a').on('click', function(e) {
+  e.preventDefault();
+  var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+  // 对获取到的url进行重编码
+  targetSelector = decodeURI(this.getAttribute('href'));
+  var offset = $(targetSelector).offset().top;
+
+  hasVelocity
+    ? html.velocity('stop').velocity('scroll', {
+      offset  : offset + 'px',
+      mobileHA: false
+    })
+    : $('html, body').stop().animate({
+      scrollTop: offset
+    }, 500);
+});
+```
