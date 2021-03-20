@@ -198,8 +198,8 @@
       <tags>
         <tag>git</tag>
         <tag>windows</tag>
-        <tag>vpn</tag>
         <tag>macos</tag>
+        <tag>vpn</tag>
       </tags>
   </entry>
   <entry>
@@ -211,8 +211,8 @@
       </categories>
       <tags>
         <tag>windows</tag>
-        <tag>ie</tag>
         <tag>vpn</tag>
+        <tag>ie</tag>
       </tags>
   </entry>
   <entry>
@@ -344,9 +344,9 @@
       </categories>
       <tags>
         <tag>asp</tag>
-        <tag>c++</tag>
         <tag>c#</tag>
         <tag>mysql</tag>
+        <tag>c++</tag>
         <tag>axure</tag>
       </tags>
   </entry>
@@ -358,8 +358,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>c++</tag>
         <tag>c#</tag>
+        <tag>c++</tag>
         <tag>sdses</tag>
       </tags>
   </entry>
@@ -432,8 +432,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>c++</tag>
         <tag>c#</tag>
+        <tag>c++</tag>
         <tag>depends</tag>
       </tags>
   </entry>
