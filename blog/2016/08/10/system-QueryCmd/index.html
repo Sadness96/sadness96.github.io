@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="https://sadness96.github.io/images/Logo300.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://sadness96.github.io/images/Logo30.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://sadness96.github.io/images/Logo16.png">
@@ -18,22 +18,23 @@
     var CONFIG = {"hostname":"sadness96.github.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
   <meta name="description" content="通过运行或CMD命令启动软件">
-<meta name="keywords" content="cmd,windows">
 <meta property="og:type" content="article">
 <meta property="og:title" content="命令启动程序">
 <meta property="og:url" content="http://sadness96.github.io/blog/2016/08/10/system-QueryCmd/index.html">
 <meta property="og:site_name" content="个人博客 - 刘佳华">
 <meta property="og:description" content="通过运行或CMD命令启动软件">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/system-QueryCmd/1.jpg">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/system-QueryCmd/2.jpg">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/system-QueryCmd/3.png">
 <meta property="og:image" content="https://sadness96.github.io/images/blog/system-QueryCmd/4.png">
 <meta property="og:image" content="http://www.wox.one/images/wox_preview.jpg">
-<meta property="og:updated_time" content="2021-03-11T16:57:57.321Z">
+<meta property="article:published_time" content="2016-08-10T02:55:11.000Z">
+<meta property="article:modified_time" content="2021-03-21T13:09:31.860Z">
+<meta property="article:author" content="LiuJiaHua">
+<meta property="article:tag" content="cmd">
+<meta property="article:tag" content="windows">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="命令启动程序">
-<meta name="twitter:description" content="通过运行或CMD命令启动软件">
 <meta name="twitter:image" content="https://sadness96.github.io/images/blog/system-QueryCmd/1.jpg">
 <link rel="canonical" href="http://sadness96.github.io/blog/2016/08/10/system-QueryCmd/">
 <script id="page-configurations">
@@ -153,13 +154,13 @@
         </div>
       </header>
     <div class="post-body" itemprop="articleBody">
-        <h3 id="通过运行或CMD命令启动软件"><a href="#通过运行或CMD命令启动软件" class="headerlink" title="通过运行或CMD命令启动软件"></a>通过运行或CMD命令启动软件</h3><a id="more"></a>
-<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>作为一个强迫症来说，电脑桌面当然是越精简越好，杂乱的文件不能有，甚至想干掉所有图标…Windows的强大足以完全用快捷键操作系统了，鼠标用得少了效率也提高不少。<br>之前有想过用 <a href="https://baike.baidu.com/item/Mac%20OS/2840867?fr=aladdin" target="_blank" rel="noopener">Mac OS</a> 的 Dock 的工具栏样式显示软件图标，但是没有MAC总觉得少点什么。<br>通过 <a href="https://baike.baidu.com/item/%E8%BF%90%E8%A1%8C/13132909?fr=aladdin" target="_blank" rel="noopener">运行（Win+R）</a> 的方式启动软件或许是个不错的方式，系统有集成很多自带的软件或者安装打包有环境变量的软件都可以输入名称运行（例如：calc、notepad、mspaint、mstsc）。</p>
-<h4 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h4><h5 id="创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称"><a href="#创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称" class="headerlink" title="创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称"></a>创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称</h5><p><img src="https://sadness96.github.io/images/blog/system-QueryCmd/1.jpg"></p>
-<h5 id="配置环境变量（在环境变量Path下增加启动目录）"><a href="#配置环境变量（在环境变量Path下增加启动目录）" class="headerlink" title="配置环境变量（在环境变量Path下增加启动目录）"></a>配置环境变量（在环境变量Path下增加启动目录）</h5><h6 id="Win7"><a href="#Win7" class="headerlink" title="Win7"></a>Win7</h6><p><img src="https://sadness96.github.io/images/blog/system-QueryCmd/2.jpg"></p>
-<h6 id="Win10"><a href="#Win10" class="headerlink" title="Win10"></a>Win10</h6><p><img src="https://sadness96.github.io/images/blog/system-QueryCmd/3.png"></p>
-<h5 id="通过-Win-R-打开运行窗口，输入启动名称即可。"><a href="#通过-Win-R-打开运行窗口，输入启动名称即可。" class="headerlink" title="通过 Win+R 打开运行窗口，输入启动名称即可。"></a>通过 Win+R 打开运行窗口，输入启动名称即可。</h5><p>例：运行PS<br><img src="https://sadness96.github.io/images/blog/system-QueryCmd/4.png"></p>
-<h4 id="2019年7月16日补充"><a href="#2019年7月16日补充" class="headerlink" title="2019年7月16日补充"></a>2019年7月16日补充</h4><p>记录一个更好的替代或是搭配使用的工具<br>Wox：<a href="http://www.wox.one/" target="_blank" rel="noopener">官方网站</a>（An effective launcher for windows）<br>GitHub：<a href="https://github.com/Wox-launcher/Wox" target="_blank" rel="noopener">https://github.com/Wox-launcher/Wox</a><br><img src="http://www.wox.one/images/wox_preview.jpg"></p>
+        <h3 id="通过运行或CMD命令启动软件"><a href="#通过运行或CMD命令启动软件" class="headerlink" title="通过运行或CMD命令启动软件"></a>通过运行或CMD命令启动软件</h3><span id="more"></span>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>作为一个强迫症来说，电脑桌面当然是越精简越好，杂乱的文件不能有，甚至想干掉所有图标…Windows的强大足以完全用快捷键操作系统了，鼠标用得少了效率也提高不少。<br>之前有想过用 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Mac%20OS/2840867?fr=aladdin">Mac OS</a> 的 Dock 的工具栏样式显示软件图标，但是没有MAC总觉得少点什么。<br>通过 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%BF%90%E8%A1%8C/13132909?fr=aladdin">运行（Win+R）</a> 的方式启动软件或许是个不错的方式，系统有集成很多自带的软件或者安装打包有环境变量的软件都可以输入名称运行（例如：calc、notepad、mspaint、mstsc）。</p>
+<h4 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h4><h5 id="创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称"><a href="#创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称" class="headerlink" title="创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称"></a>创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称</h5><p><img src="https://sadness96.github.io/images/blog/system-QueryCmd/1.jpg"/></p>
+<h5 id="配置环境变量（在环境变量Path下增加启动目录）"><a href="#配置环境变量（在环境变量Path下增加启动目录）" class="headerlink" title="配置环境变量（在环境变量Path下增加启动目录）"></a>配置环境变量（在环境变量Path下增加启动目录）</h5><h6 id="Win7"><a href="#Win7" class="headerlink" title="Win7"></a>Win7</h6><p><img src="https://sadness96.github.io/images/blog/system-QueryCmd/2.jpg"/></p>
+<h6 id="Win10"><a href="#Win10" class="headerlink" title="Win10"></a>Win10</h6><p><img src="https://sadness96.github.io/images/blog/system-QueryCmd/3.png"/></p>
+<h5 id="通过-Win-R-打开运行窗口，输入启动名称即可。"><a href="#通过-Win-R-打开运行窗口，输入启动名称即可。" class="headerlink" title="通过 Win+R 打开运行窗口，输入启动名称即可。"></a>通过 Win+R 打开运行窗口，输入启动名称即可。</h5><p>例：运行PS<br><img src="https://sadness96.github.io/images/blog/system-QueryCmd/4.png"/></p>
+<h4 id="2019年7月16日补充"><a href="#2019年7月16日补充" class="headerlink" title="2019年7月16日补充"></a>2019年7月16日补充</h4><p>记录一个更好的替代或是搭配使用的工具<br>Wox：<a target="_blank" rel="noopener" href="http://www.wox.one/">官方网站</a>（An effective launcher for windows）<br>GitHub：<a target="_blank" rel="noopener" href="https://github.com/Wox-launcher/Wox">https://github.com/Wox-launcher/Wox</a><br><img src="http://www.wox.one/images/wox_preview.jpg"/></p>
     </div>
       <footer class="post-footer">
           <div class="post-tags">
@@ -218,7 +219,7 @@
       </ul>
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过运行或CMD命令启动软件"><span class="nav-number">1.</span> <span class="nav-text">通过运行或CMD命令启动软件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置"><span class="nav-number">1.2.</span> <span class="nav-text">设置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称"><span class="nav-number">1.2.1.</span> <span class="nav-text">创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置环境变量（在环境变量Path下增加启动目录）"><span class="nav-number">1.2.2.</span> <span class="nav-text">配置环境变量（在环境变量Path下增加启动目录）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Win7"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">Win7</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Win10"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">Win10</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过-Win-R-打开运行窗口，输入启动名称即可。"><span class="nav-number">1.2.3.</span> <span class="nav-text">通过 Win+R 打开运行窗口，输入启动名称即可。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2019年7月16日补充"><span class="nav-number">1.3.</span> <span class="nav-text">2019年7月16日补充</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E8%BF%90%E8%A1%8C%E6%88%96CMD%E5%91%BD%E4%BB%A4%E5%90%AF%E5%8A%A8%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">通过运行或CMD命令启动软件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">设置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%90%AF%E5%8A%A8%E7%9B%AE%E5%BD%95%EF%BC%8C%E5%AD%98%E6%94%BE%E6%83%B3%E8%A6%81%E5%90%AF%E5%8A%A8%E7%9A%84%E5%BF%AB%E6%8D%B7%E5%9B%BE%E6%A0%87%EF%BC%8C%E4%BF%AE%E6%94%B9%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F%E5%90%AF%E5%8A%A8%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">创建启动目录，存放想要启动的快捷图标，修改快捷方式启动的名称</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%88%E5%9C%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8FPath%E4%B8%8B%E5%A2%9E%E5%8A%A0%E5%90%AF%E5%8A%A8%E7%9B%AE%E5%BD%95%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">配置环境变量（在环境变量Path下增加启动目录）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Win7"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">Win7</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Win10"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">Win10</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-Win-R-%E6%89%93%E5%BC%80%E8%BF%90%E8%A1%8C%E7%AA%97%E5%8F%A3%EF%BC%8C%E8%BE%93%E5%85%A5%E5%90%AF%E5%8A%A8%E5%90%8D%E7%A7%B0%E5%8D%B3%E5%8F%AF%E3%80%82"><span class="nav-number">1.2.3.</span> <span class="nav-text">通过 Win+R 打开运行窗口，输入启动名称即可。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2019%E5%B9%B47%E6%9C%8816%E6%97%A5%E8%A1%A5%E5%85%85"><span class="nav-number">1.3.</span> <span class="nav-text">2019年7月16日补充</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
       <div class="site-overview-wrap sidebar-panel">
@@ -243,7 +244,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags">
-        <span class="site-state-item-count">97</span>
+        <span class="site-state-item-count">96</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -278,7 +279,8 @@
   <script src="/blog/lib/anime.min.js"></script>
   <script src="/blog/lib/velocity/velocity.min.js"></script>
   <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
-<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script>
+<script src="/blog/js/utils.js"></script>
+<script src="/blog/js/motion.js"></script>
 <script src="/blog/js/schemes/pisces.js"></script>
 <script src="/blog/js/next-boot.js"></script>
 </body>
