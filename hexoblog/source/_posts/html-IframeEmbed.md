@@ -11,15 +11,15 @@ categories: Html
 
 ### 如何使用
 #### 最简单的加载
-加载一个中国天气网中北京的天气预报，看起来很简单，伴随这一篇没用的广告，不认真看甚至根本不敢相信这是中国天气预报的官方网站。
+加载一个北京的天气预报，伴随着一堆广告与热搜。
 
 ##### 代码
 ``` html
-<iframe src="http://www.weather.com.cn/weather/101010100.shtml" width="100%" height="400px" sframeborder="0"></iframe>
+<iframe src="https://www.baidu.com/s?wd=天气预报" width="100%" height="400px" sframeborder="0"></iframe>
 ```
 
 ##### 示例
-<iframe src="http://www.weather.com.cn/weather/101010100.shtml" width="100%" height="400px" sframeborder="0"></iframe>
+<iframe src="https://www.baidu.com/s?wd=天气预报" width="100%" height="400px" sframeborder="0"></iframe>
 
 #### 仅截取天气预报地图部分并嵌入在网页中
 ##### 原理
@@ -31,17 +31,17 @@ categories: Html
 
 ##### 代码
 ``` html
-<div style="width:680px;height:640px;overflow:hidden;border:0px;"> 
-  <div style="width:680px;height:640px;margin:-145px 0px 0px -140px;"> 
-   <iframe src="http://www.weather.com.cn/weather/101010100.shtml" height="850" width="1280" frameborder="0"></iframe> 
+<div style="width:540px;height:417px;overflow:hidden;border:0px;"> 
+  <div style="width:720px;height:440px;margin:-238px 0px 0px -150px;"> 
+   <iframe src="https://www.baidu.com/s?wd=天气预报" height="600" width="1280" frameborder="0"></iframe> 
   </div> 
 </div>
 ```
 
 ##### 示例
-<div style="width:680px;height:640px;overflow:hidden;border:0px;"> 
-  <div style="width:680px;height:640px;margin:-145px 0px 0px -140px;"> 
-   <iframe src="http://www.weather.com.cn/weather/101010100.shtml" height="850" width="1280" frameborder="0"></iframe> 
+<div style="width:540px;height:417px;overflow:hidden;border:0px;"> 
+  <div style="width:720px;height:440px;margin:-238px 0px 0px -150px;"> 
+   <iframe src="https://www.baidu.com/s?wd=天气预报" height="600" width="1280" frameborder="0"></iframe> 
   </div> 
 </div>
 
@@ -50,7 +50,7 @@ categories: Html
 ##### 代码
 ``` html
 <div style="width:100%;height:820px;overflow:hidden;border:0px;">
-  <div style="width:100%;height:820px;margin:-90px 0px 0px 0px;">
+  <div style="width:100%;height:820px;margin:-152px 0px 0px 0px;">
    <iframe src="https://luminox.jp/watch-collection/land/recon-point-man-8820-series-ref8821-km/" scrolling="no" height="900" width="767" frameborder="0"></iframe>
   </div>
 </div>
@@ -58,7 +58,7 @@ categories: Html
 
 ##### 示例
 <div style="width:100%;height:820px;overflow:hidden;border:0px;">
-  <div style="width:100%;height:820px;margin:-90px 0px 0px 0px;">
+  <div style="width:100%;height:820px;margin:-152px 0px 0px 0px;">
    <iframe src="https://luminox.jp/watch-collection/land/recon-point-man-8820-series-ref8821-km/" scrolling="no" height="900" width="767" frameborder="0"></iframe>
   </div>
 </div>
