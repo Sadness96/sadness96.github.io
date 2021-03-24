@@ -17,26 +17,22 @@ categories: Work
 仲裁编号：京海劳人仲字[2019]第 20462 号
 案件编号：(2020)京0108执5448号
 
-#### 项目介绍（由于签署保密协议，仅介绍大致工作内容）
-人像识别重建系统，主要用于公安部门使用，当前视频监控得到了迅速发展。视频监控普遍存在的问题是：人脸图像分辨率低下。对于低分辨率的人脸图像，需要清晰化目标人的人脸图像和确定监控中目标人的真实身份，以便于公安部门提高破案率。现模拟画像破案率提高30% 指纹提高破案率10%。以及对于寻找失踪人口及儿童得到极大帮助！
+#### 项目介绍
+人像识别重建系统，主要用于公安部门使用，当前视频监控得到了迅速发展。视频监控普遍存在的问题是：人脸图像分辨率低下。对于低分辨率的人脸图像，需要清晰化目标人的人脸图像和确定监控中目标人的真实身份，以便于公安部门提高破案率。现模拟画像破案率提高30% 指纹提高破案率10%。以及对于寻找失踪人口及儿童得到极大帮助。项目主要使用技术有 [OpenCV](https://baike.baidu.com/item/opencv/10320623?fr=aladdin)、[深度学习](https://baike.baidu.com/item/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3729729?fr=aladdin)、[DNN（深度神经网络）](https://baike.baidu.com/item/DNN/19974079?fr=aladdin)、[Caffe（卷积神经网络框架）](https://baike.baidu.com/item/Caffe/16301044?fr=aladdin) 。
+
 ##### 声明
 该项目为：第八届国际警用装备及反恐技术装备展览会 展出产品，功能及介绍均为宣传内容，如有兴趣请联系科盾科技股份有限公司。
 <img src="https://sadness96.github.io/images/blog/work-KedunTech/20190521_164057.jpg"/>
 
-##### 项目背景
-该项目由清华大学 [苏光大](https://baike.baidu.com/item/%E8%8B%8F%E5%85%89%E5%A4%A7/4797223) 教授多项国家发明专利为基础研发。主要使用技术有 [OpenCV](https://baike.baidu.com/item/opencv/10320623?fr=aladdin)、[深度学习](https://baike.baidu.com/item/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3729729?fr=aladdin)、[DNN（深度神经网络）](https://baike.baidu.com/item/DNN/19974079?fr=aladdin)、[Caffe（卷积神经网络框架）](https://baike.baidu.com/item/Caffe/16301044?fr=aladdin) 构成。
-
 ##### 参与内容
-在该项目中负责完整的架构设计、系统原型设计（[Axure RP](https://baike.baidu.com/item/axure%20rp/9653646?fromtitle=axure&fromid=5056136&fr=aladdin)）、系统流程设计（[Visio](https://baike.baidu.com/item/Microsoft%20Office%20Visio/7180347?fromtitle=VISIO&fromid=357215)）、系统UI设计（[Photoshop](https://baike.baidu.com/item/Adobe%20Photoshop/2297297?fromtitle=PS&fromid=13323&fr=aladdin)、[Illustrator](https://baike.baidu.com/item/Adobe%20Illustrator/2297548?fromtitle=AI&fromid=1753722#viewPageContent)）、编码开发（不包含算法部分）。
+在该项目中负责完整的架构设计、系统原型设计（[Axure RP](https://baike.baidu.com/item/axure%20rp/9653646?fromtitle=axure&fromid=5056136&fr=aladdin)）、系统流程设计（[Visio](https://baike.baidu.com/item/Microsoft%20Office%20Visio/7180347?fromtitle=VISIO&fromid=357215)）、系统UI设计（[Photoshop](https://baike.baidu.com/item/Adobe%20Photoshop/2297297?fromtitle=PS&fromid=13323&fr=aladdin)、[Illustrator](https://baike.baidu.com/item/Adobe%20Illustrator/2297548?fromtitle=AI&fromid=1753722#viewPageContent)）、编码开发。
 
 ##### 设计概要
 系统现由服务端与客户端组成：
-服务端采用 ASP.NET MVC，后转 [.NET Core](https://baike.baidu.com/item/.net%20core/20130686?fr=aladdin) 框架。
-客户端采用 [WPF MVVM](https://baike.baidu.com/item/MVVM/96310?fr=aladdin)、[Prism](https://github.com/PrismLibrary/)、[NSIS](/blog/2018/11/24/software-Nsis/) 架构；
-其他技术使用：
-数据库：[MySQL](https://www.mysql.com/)
-高速缓存：[Redis](https://redis.io/)
-消息队列：[RabbitMQ](https://www.rabbitmq.com/)
+服务端使用 ASP.NET Core MVC 框架。
+客户端使用 WPF、Prism Mvvm 架构 C#/C++ 混合编程。
+数据库使用(Entity Framework) MySQL。
+高速缓存使用 Redis。
 ##### 重建流程
 <img src="https://sadness96.github.io/images/blog/work-KedunTech/%E4%BA%BA%E5%83%8F%E8%AF%86%E5%88%AB%E9%87%8D%E5%BB%BA%E6%B5%81%E7%A8%8B.png"/>
 
