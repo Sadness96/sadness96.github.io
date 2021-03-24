@@ -9,6 +9,7 @@ categories: School
 <!-- more -->
 ### 选择不同，命运自然不同
 我不喜欢这个学校，因为在我来这之前，就已经发生了很多让人厌恶的故事。但是我还是来了，人生总要伴随着痛苦嘛。接受了，就是成长。但是我也很感谢这里，让我拥有两年的时间，得到足够成长，一切都按照计划进行着，下一步…等发生了再去记录吧！
+
 #### 记录做过的成品，真正成长的开始：
 ##### c（企业员工信息管理系统）
 使用C语言编写简易的控制台管理程序，实训有录像剪辑视频（使用会声会影）。由于涉及到她人肖像问题，不方便发布。
@@ -18,6 +19,7 @@ categories: School
 <img src="https://sadness96.github.io/images/blog/memory-University/c-主界面2.png"/>
 <img src="https://sadness96.github.io/images/blog/memory-University/c-查询.png"/>
 <img src="https://sadness96.github.io/images/blog/memory-University/c-修改.png"/>
+
 ##### java（学生成绩管理系统）
 使用Java的awt和swing设计开发C/S端程序，使用SQL Server数据库管理，exe4j打包为exe程序。
 <img src="https://sadness96.github.io/images/blog/memory-University/java-Login.png"/>
