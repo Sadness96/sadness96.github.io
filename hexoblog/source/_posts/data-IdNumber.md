@@ -30,7 +30,8 @@ table {
 
 <img src="https://sadness96.github.io/images/blog/data-IdNumber/Clip2.bmp"/>
 
-### 正则表达式校验
+### 代码示例
+#### 正则表达式校验
 ``` CSharp
 /// <summary>
 /// 效验身份证号码
@@ -125,6 +126,57 @@ private static bool CheckIDCard18(string idNumber)
         return false;//校验码验证    
     }
     return true;//符合GB11643-1999标准    
+}
+```
+
+#### 补全身份证号
+``` CSharp
+class Program
+{
+    static void Main(string[] args)
+    {
+        string SavePath = @"C:\test.txt";
+        //在很多场景会获得不完整身份证号，例如火车票或APP上的社保信息
+        //通过校验的方式推算出正确的身份证号范围，至少输入校验位
+        Console.WriteLine("输入18位身份证号码（至少输入校验位）不知道的用*代替");
+        string strIDNumber = Console.ReadLine();
+        List<int> listSubscript = new List<int>();
+        List<char> listChar = strIDNumber.ToList();
+        for (int i = 0; i < listChar.Count; i++)
+        {
+            if (listChar[i].Equals('*'))
+            {
+                listSubscript.Add(i);
+            }
+        }
+        for (int i = 0; i <= int.Parse(new string('9', listSubscript.Count)); i++)
+        {
+            var vString = i.ToString().PadLeft(listSubscript.Count, '0');
+            for (int j = 0; j < listSubscript.Count; j++)
+            {
+                listChar[listSubscript[j]] = char.Parse(vString.Substring(j, 1));
+            }
+            var vIDNumber = string.Join("", listChar.ToArray());
+            if (CheckCorrectnessHelper.CheckIDNumber(vIDNumber))
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                AdoptIDNumber.Add(vIDNumber);
+                Console.WriteLine($"生成身份证号：{vIDNumber}");
+                TXTHelper.AppendFile(SavePath, vIDNumber, true);
+            }
+            else
+            {
+                //Console.ForegroundColor = ConsoleColor.Red;
+                //Console.WriteLine($"生成身份证号：{vIDNumber}");
+            }
+        }
+        Console.ReadLine();
+    }
+
+    /// <summary>
+    /// 测试通过的全局保存
+    /// </summary>
+    static List<string> AdoptIDNumber = new List<string>();
 }
 ```
 
