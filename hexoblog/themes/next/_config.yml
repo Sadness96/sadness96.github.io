@@ -724,6 +724,13 @@ busuanzi_count:
 # See: https://theme-next.org/docs/third-party-services/search-services
 # ---------------------------------------------------------------
 
+# Search 
+search:
+  path: ./public/search.xml
+  field: post
+  format: html
+  limit: 10000
+
 # Algolia Search
 # For more information: https://www.algolia.com
 algolia_search:
@@ -738,7 +745,7 @@ algolia_search:
 # Local Search
 # Dependencies: https://github.com/theme-next/hexo-generator-searchdb
 local_search:
-  enable: false
+  enable: true
   # If auto, trigger search by changing input.
   # If manual, trigger search by pressing enter key or search button.
   trigger: auto
