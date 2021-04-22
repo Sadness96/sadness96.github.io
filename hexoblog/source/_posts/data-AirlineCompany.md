@@ -13,12 +13,20 @@ categories: Data
 ### 航班号组成
 航空公司代码由民航局规定发布，包含 [IATA](https://www.iata.org/) 发布的[二字码](https://baike.baidu.com/item/%E4%BA%8C%E5%AD%97%E7%A0%81/8016030?fr=aladdin)和 [ICAO](https://www.icao.int/Pages/default.aspx) 发布的[三字码](https://baike.baidu.com/item/%E4%B8%89%E5%AD%97%E4%BB%A3%E7%A0%81/19936463?fr=aladdin)，航班号使用的是二字码加四或三位阿拉伯数字组成(不同的设备可能使用不同的标准)，还有各个航空公司向民航局自己登记的呼号，用于无线电通讯中使用的代号。
 ### 爬虫爬取携程网航空公司二字码LOGO
+#### 爬虫地址
+1. 携程旅行 32x32 864个有效图标
+    http://pic.c-ctrip.com/AssetCatalog/airline/32/MU.png
+1. 同程旅行 SVG 66个有效图标
+	https://m.elongstatic.com/flight/configmng/prod/airline/logo/MU.svg
+1. 飞友科技（字母小写） 50x50 313个有效图标
+	https://static.variflight.com/assets/image/aircorp/mu.png
+
+#### 爬虫代码
 ``` Python
 # _*_coding:utf-8_*_
 import requests
 import re
 import os
-
 
 class GetImage(object):
     def __init__(self, url):
@@ -54,7 +62,6 @@ class GetImage(object):
         # 保存
         self.save(res_img, file_name)
 
-
 if __name__ == '__main__':
     url_list = []
     Letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
@@ -68,7 +75,6 @@ if __name__ == '__main__':
         print(url)
         text = GetImage(url)
         text.run()
-
 ```
 ### 航空公司信息查询
 下载：[航空公司信息.xlsx](https://raw.githubusercontent.com/Sadness96/sadness96.github.io/master/file/data-AirlineCompany/航空公司信息.xlsx)
