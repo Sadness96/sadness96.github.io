@@ -32,6 +32,8 @@ Windows 10 家庭版不支持远程桌面([Remote Desktop Connection(RDP)](https
 #### 异常错误
 ##### Listener state 提示：Not listening
 由于配置文件中缺少当前版本的配置，版本由 "C:\Windows\System32\termsrv.dll" 文件而来，同 Windows 系统一起更新。
+<img src="https://sadness96.github.io/images/blog/software-RDPWrapper/RDPWrapperNotListenin.png"/>
+
 可从 RDP Wrapper Configurgation 中查看文件版本，例如当前版本为：10.0.19041.789，则 "C:\Program Files\RDP Wrapper\rdpwrap.ini" 文件中需包含以下内容，如不存在内容则下载最新版 rdpwrap.ini 文件，关闭 TermService 服务并替换，可参考以下任意最新文件：
 https://raw.githubusercontent.com/saurav-biswas/rdpwrap-1/master/res/rdpwrap.ini
 https://raw.githubusercontent.com/asmtron/rdpwrap/master/res/rdpwrap.ini
