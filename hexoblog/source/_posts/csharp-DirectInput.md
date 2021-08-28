@@ -12,7 +12,8 @@ categories: C#.Net
 <img src="https://sadness96.github.io/images/blog/csharp-DirectInput/722多光谱球机.jpg"/>
 
 ### 实现方式
-手头的摇杆型号为：[拳霸 Q1W](http://www.qanba.com/ProductDetail/2059904.html)，接入方式为 xbox360 驱动，使用 [DirectInput](https://docs.microsoft.com/en-us/previous-versions/windows/desktop/ee418273(v=vs.85)) 获取摇杆操作信息。
+手头的摇杆型号为：[拳霸 Q1W](http://www.qanba.com/ProductDetail/2059904.html)，接入方式为 xbox360 驱动，使用 DirectInput 获取摇杆操作信息。
+由于穷，只买了这一种摇杆，所以其他的品牌或型号的按键可能不太匹配，修改前端的判断即可。
 
 ### 核心代码
 完整代码查看：[GamepadController](https://github.com/Sadness96/GamepadController)
