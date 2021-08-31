@@ -4,11 +4,11 @@ date: 2021-08-15 14:30:18
 tags: [c#,excel]
 categories: C#.Net
 ---
-### 解决 Excel 单元格显示与复制不一样的情况
-<!-- more -->
-#### 简介
 <img src="https://sadness96.github.io/images/blog/csharp-ExcelCellDecryption/ExcelCellDecryption.png"/>
 
+<!-- more -->
+### 解决 Excel 单元格显示与复制不一样的情况
+#### 简介
 收到一份 Excel 文件，表面看起来一切正常，但是表格内所有数据单元格显示与表格上方编辑栏内容不符，复制单元格到记事本，显示内容与编辑栏一致，看起来是有人刻意对单元格文本进行加盐处理，应该是为了防止拷贝直接使用数据。
 
 #### 参考

@@ -4,7 +4,7 @@ date: 2021-06-02 10:39:45
 tags: [c#,windows 7,aero]
 categories: C#.Net
 ---
-### 在 Windwos 7 中开启 Aero 主题
+### 多个高分屏导致 Aero 主题无法开启
 <!-- more -->
 #### 简介
 [Aero 主题](https://baike.baidu.com/item/Windows%20Aero/6845089?fromtitle=Aero&fromid=3554670&fr=aladdin) 仅仅是一个受人追捧的毛玻璃效果而已，但是在项目实际使用的时候却发现与 [DirectX](https://www.microsoft.com/zh-cn/download/details.aspx?id=35) 渲染效率相关，在未开启 Aero 主题的情况下叠加透明窗体 [Device.Present() 方法](https://docs.microsoft.com/en-us/previous-versions/bb324100(v=vs.85)) 延迟约在 00:00:00.1258071 相比开启了 Aero 主题的延迟约在 00:00:00.0000365，千倍的时间差。
