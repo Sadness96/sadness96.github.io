@@ -79,7 +79,7 @@ video.requestVideoFrameCallback(updateCanvas);
     video.requestVideoFrameCallback(updateCanvas);
    };
 
-   video.src = "https://www.w3schools.com/html/mov_bbb.mp4";
+   video.src = "../../../../../video/test.mp4";
    video.muted = true;
    video.loop = 'loop';
    video.requestVideoFrameCallback(updateCanvas);
@@ -187,7 +187,7 @@ video.addEventListener('loadedmetadata', function (e) {
   var layer = new Konva.Layer();
   stage.add(layer);
   var video = document.createElement('video');
-  video.src = 'https://www.w3schools.com/html/mov_bbb.mp4';
+  video.src = '../../../../../video/test.mp4';
   var image = new Konva.Image({
     image: video,
     draggable: false,
@@ -266,7 +266,7 @@ stageZoom.on('wheel', e => {
   var layerZoom = new Konva.Layer();
   stageZoom.add(layerZoom);
   var videoZoom = document.createElement('video');
-  videoZoom.src = 'https://www.w3schools.com/html/mov_bbb.mp4';
+  videoZoom.src = '../../../../../video/test.mp4';
   var imageZoom = new Konva.Image({
     image: videoZoom,
     draggable: true,
