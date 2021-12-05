@@ -41,6 +41,7 @@ video.requestVideoFrameCallback(updateCanvas);
   canvas {
     max-width: 100%;
     height: auto;
+    align: "center";
  }
 </style>
 
@@ -84,9 +85,9 @@ video.requestVideoFrameCallback(updateCanvas);
 </script>
 
 #### 基于回调的区域裁切
-通过创建 Canvas 控件时的 drawImage() 方法控制裁切显示区域
+通过创建 Canvas 控件时的 drawImage 方法控制裁切显示区域
 参考：[Web Api drawImage](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/drawImage)
-例如：裁切起始坐标 50 * 50，裁切大小 160 * 90，显示坐标 0 , 0，显示大小 192 * 108
+例如：裁切起始坐标 50,50，裁切大小 160x90，显示坐标 0,0，显示大小 192x108
 
 ##### 核心代码
 
@@ -110,18 +111,18 @@ window.addEventListener('load', startDrawingCutting);
 <canvas id="videoCutting" ></canvas>
 
 <script>
-const startDrawingCutting = () => {
-  const video = document.querySelector("video");
-  const canvas = document.getElementById('videoCutting');
-  const ctx = canvas.getContext("2d");
-
-  const updateCanvasCutting = (now, metadata) => {
-    ctx.drawImage(video, 50, 50, 160, 90, 0, 0, 192, 108);
+  const startDrawingCutting = () => {
+    const video = document.querySelector("video");
+    const canvas = document.getElementById('videoCutting');
+    const ctx = canvas.getContext("2d");
+  
+    const updateCanvasCutting = (now, metadata) => {
+      ctx.drawImage(video, 50, 50, 160, 90, 0, 0, 192, 108);
+      video.requestVideoFrameCallback(updateCanvasCutting);
+    };
     video.requestVideoFrameCallback(updateCanvasCutting);
   };
-  video.requestVideoFrameCallback(updateCanvasCutting);
-};
-window.addEventListener('load', startDrawingCutting);
+  window.addEventListener('load', startDrawingCutting);
 </script>
 
 #### Konva.js
