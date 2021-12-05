@@ -15,6 +15,7 @@ categories: Html
 参考博客：[The requestVideoFrameCallback API](https://blog.tomayac.com/2020/05/15/the-requestvideoframecallback-api/)
 
 ##### 回调播放核心代码
+
 ``` js
 const video = document.querySelector("video");
 const canvas = document.querySelector("canvas");
@@ -29,6 +30,7 @@ video.requestVideoFrameCallback(updateCanvas);
 ```
 
 ##### 回调播放演示
+
 <video width="640px" height="360px" controls playsinline></video>
 <canvas width="640px" height="360px" style="border: 1px solid Gray;"></canvas>
 <p><span id="fps-info">0</span>fps</p>
@@ -93,6 +95,7 @@ video.requestVideoFrameCallback(updateCanvas);
 例如：裁切起始坐标 (50 * 50)，裁切大小 (160 * 90)，显示坐标 (0 , 0)，显示大小 (192 * 108)
 
 ##### 核心代码
+
 ``` js
 const startDrawingCutting = () => {
   const video = document.querySelector("video");
@@ -108,6 +111,7 @@ const startDrawingCutting = () => {
 window.addEventListener('load', startDrawingCutting);
 ```
 ##### 回调裁切演示
+
 <canvas id="videoCutting" ></canvas>
 
 <script>
@@ -125,13 +129,12 @@ const startDrawingCutting = () => {
 window.addEventListener('load', startDrawingCutting);
 </script>
 
-
-
 #### Konva.js
 [Konva.js](https://konvajs.org/) 是适用于桌面/移动端应用的 HTML5 2d canvas 库，将视频添加到 Konva 的舞台中，更适合后期操作。
 参考：[VideoOnCanvas](https://konvajs.org/docs/sandbox/Video_On_Canvas.html) 将视频加载到 Konva Canvas 中
 
 ##### Konva 播放核心代码
+
 ``` js
 var stage = new Konva.Stage({
   container: 'container',
@@ -159,6 +162,7 @@ video.addEventListener('loadedmetadata', function (e) {
 ```
 
 ##### Konva 播放演示
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/konva/8.3.0/konva.min.js"></script>
 
 <div id="container"></div>
@@ -212,6 +216,7 @@ video.addEventListener('loadedmetadata', function (e) {
 1. 缩放：监听 wheel 方法进行缩放操作
 
 ##### 鼠标滚轮缩放核心代码
+
 ``` js
 var scaleBy = 1.04;
 stageZoom.on('wheel', e => {
@@ -238,6 +243,7 @@ stageZoom.on('wheel', e => {
 ```
 
 ##### 拖拽和鼠标滚轮缩放演示
+
 <div id="containerZoom"></div>
 
 <style>

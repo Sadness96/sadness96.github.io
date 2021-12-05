@@ -15,7 +15,7 @@ categories: Html
 <script>
   const startDrawing = () => {
     const video = document.querySelector("video");
-    video.src = "https://sadness96.github.io/video/test.mp4";
+    video.src = "../../../../../video/test.mp4";
     video.muted = true;
     video.loop = 'loop';
     video.play();
