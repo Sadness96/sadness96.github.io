@@ -25,6 +25,52 @@ categories: Html
 </script>
 
 ### 截图
+#### 代码
+``` js
+// 截图
+function Screenshot() {
+  const video = document.querySelector("video");
+  var RecordCanvas = document.createElement('canvas');
+  RecordCanvas.width = video.videoWidth;
+  RecordCanvas.height = video.videoHeight;
+  RecordCanvas.getContext("2d").drawImage(
+    video,
+    0,
+    0,
+    RecordCanvas.width,
+    RecordCanvas.height
+  );
+  var img = document.createElement("img");
+  img.src = RecordCanvas.toDataURL("image/png");
+  DownloadBase64ImageFile(img.src, 'test.png')
+}
+
+// 下载 Base64 图片
+function DownloadBase64ImageFile(content, fileName) {
+  var base64ToBlob = function (code) {
+  const parts = code.split(";base64,");
+  const contentType = parts[0].split(":")[1];
+  const raw = window.atob(parts[1]);
+  const rawLength = raw.length;
+  const uInt8Array = new Uint8Array(rawLength);
+  for (let i = 0; i < rawLength; ++i) {
+    uInt8Array[i] = raw.charCodeAt(i);
+  }
+  return new Blob([uInt8Array], {
+      type: contentType,
+    });
+  };
+  const aLink = document.createElement("a");
+  const blob = base64ToBlob(content);
+  const evt = document.createEvent("HTMLEvents");
+  evt.initEvent("click", true, true);
+  aLink.download = fileName;
+  aLink.href = URL.createObjectURL(blob);
+  aLink.click();
+}
+```
+
+#### 演示
 <button type="button" onclick="Screenshot()">截图</button>
 
 <script>
@@ -41,7 +87,6 @@ function Screenshot() {
     RecordCanvas.height
   );
   var img = document.createElement("img");
-  img.crossOrigin = "Anonymous";
   img.src = RecordCanvas.toDataURL("image/png");
   DownloadBase64ImageFile(img.src, 'test.png')
 }

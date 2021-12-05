@@ -70,7 +70,6 @@ video.requestVideoFrameCallback(updateCanvas);
 例如：裁切起始坐标 50,50，裁切大小 160x90，显示坐标 0,0，显示大小 192x108
 
 ##### 核心代码
-
 ``` js
 const startDrawingCutting = () => {
   const video = document.querySelector("video");
@@ -87,7 +86,6 @@ window.addEventListener('load', startDrawingCutting);
 ```
 
 ##### 回调裁切演示
-
 <canvas id="videoCutting" ></canvas>
 
 <script>
@@ -110,7 +108,6 @@ window.addEventListener('load', startDrawingCutting);
 参考：[VideoOnCanvas](https://konvajs.org/docs/sandbox/Video_On_Canvas.html) 将视频加载到 Konva Canvas 中
 
 ##### Konva 播放核心代码
-
 ``` js
 var stage = new Konva.Stage({
   container: 'container',
@@ -138,7 +135,6 @@ video.addEventListener('loadedmetadata', function (e) {
 ```
 
 ##### Konva 播放演示
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/konva/8.3.0/konva.min.js"></script>
 
 <div id="container"></div>
@@ -192,7 +188,6 @@ video.addEventListener('loadedmetadata', function (e) {
 1. 缩放：监听 wheel 方法进行缩放操作
 
 ##### 鼠标滚轮缩放核心代码
-
 ``` js
 var scaleBy = 1.04;
 stageZoom.on('wheel', e => {
@@ -219,7 +214,6 @@ stageZoom.on('wheel', e => {
 ```
 
 ##### 拖拽和鼠标滚轮缩放演示
-
 <div id="containerZoom"></div>
 
 <style>
