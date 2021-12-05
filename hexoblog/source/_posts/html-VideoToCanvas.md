@@ -15,7 +15,6 @@ categories: Html
 参考博客：[The requestVideoFrameCallback API](https://blog.tomayac.com/2020/05/15/the-requestvideoframecallback-api/)
 
 ##### 回调播放核心代码
-
 ``` js
 const video = document.querySelector("video");
 const canvas = document.querySelector("canvas");
@@ -30,18 +29,13 @@ video.requestVideoFrameCallback(updateCanvas);
 ```
 
 ##### 回调播放演示
-
 <video width="640px" height="360px" controls playsinline></video>
 <canvas width="640px" height="360px" style="border: 1px solid Gray;"></canvas>
-<p><span id="fps-info">0</span>fps</p>
-<p><pre id="metadata-info"></pre></p>
 
 <style>
-  video,
-  canvas {
+  video,canvas {
     max-width: 100%;
     height: auto;
-    align: "center";
  }
 </style>
 
@@ -50,27 +44,12 @@ video.requestVideoFrameCallback(updateCanvas);
     const video = document.querySelector("video");
     const canvas = document.querySelector("canvas");
     const ctx = canvas.getContext("2d");
-    const fpsInfo = document.querySelector("#fps-info");
-    const metadataInfo = document.querySelector("#metadata-info");
     
     let width = canvas.width;
     let height = canvas.height;
-    
-    let paintCount = 0;
-    let startTime = 0.0;
-    
+
     const updateCanvas = (now, metadata) => {
-      if (startTime === 0.0) {
-        startTime = now;
-      }
-    
       ctx.drawImage(video, 0, 0, width, height);
-    
-      const elapsed = (now - startTime) / 1000.0;
-      const fps = (++paintCount / elapsed).toFixed(3);
-      fpsInfo.innerText = !isFinite(fps) ? 0 : fps;
-      metadataInfo.innerText = JSON.stringify(metadata, null, 2);
-    
       video.requestVideoFrameCallback(updateCanvas);
     };
     
