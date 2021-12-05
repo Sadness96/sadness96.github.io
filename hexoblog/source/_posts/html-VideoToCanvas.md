@@ -97,7 +97,7 @@ window.addEventListener('load', startDrawingCutting);
     const ctx = canvas.getContext("2d");
   
     const updateCanvasCutting = (now, metadata) => {
-      ctx.drawImage(video, 50, 50, 160, 90, 0, 0, 192, 108);
+      ctx.drawImage(video, 150, 150, 384, 216, 0, 0, 192, 108);
       video.requestVideoFrameCallback(updateCanvasCutting);
     };
     video.requestVideoFrameCallback(updateCanvasCutting);
