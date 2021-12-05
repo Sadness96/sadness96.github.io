@@ -86,7 +86,7 @@ video.requestVideoFrameCallback(updateCanvas);
 #### 基于回调的区域裁切
 通过创建 Canvas 控件时的 drawImage() 方法控制裁切显示区域
 参考：[Web Api drawImage](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/drawImage)
-例如：裁切起始坐标 (50 * 50)，裁切大小 (160 * 90)，显示坐标 (0 , 0)，显示大小 (192 * 108)
+例如：裁切起始坐标 50 * 50，裁切大小 160 * 90，显示坐标 0 , 0，显示大小 192 * 108
 
 ##### 核心代码
 
@@ -104,6 +104,7 @@ const startDrawingCutting = () => {
 };
 window.addEventListener('load', startDrawingCutting);
 ```
+
 ##### 回调裁切演示
 
 <canvas id="videoCutting" ></canvas>
