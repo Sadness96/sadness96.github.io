@@ -115,3 +115,19 @@ function DownloadBase64ImageFile(content, fileName) {
   aLink.click();
 }
 </script>
+
+### 录像
+#### 代码
+``` js
+
+```
+
+#### 演示
+<button type="button" onclick="Videotape()">录像</button>
+
+<script>
+function Videotape() {
+  const video = document.querySelector("video");
+
+}
+</script>
