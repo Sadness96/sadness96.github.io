@@ -42,7 +42,7 @@ function Screenshot() {
   );
   var img = document.createElement("img");
   img.src = RecordCanvas.toDataURL("image/png");
-  var savename = "img_" + new Date().toLocaleString();
+  var savename = "img_" + new Date().getTime();
   DownloadBase64ImageFile(img.src, savename)
 }
 
@@ -89,7 +89,7 @@ function Screenshot() {
   );
   var img = document.createElement("img");
   img.src = RecordCanvas.toDataURL("image/png");
-  var savename = "img_" + new Date().toLocaleString();
+  var savename = "img_" + new Date().getTime();
   DownloadBase64ImageFile(img.src, savename)
 }
 
