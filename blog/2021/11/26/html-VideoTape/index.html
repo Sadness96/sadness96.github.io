@@ -25,7 +25,7 @@
 <meta property="og:description" content="Video 视频画面截图与录像">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-26T06:24:00.000Z">
-<meta property="article:modified_time" content="2021-12-06T10:02:56.704Z">
+<meta property="article:modified_time" content="2021-12-06T11:17:03.994Z">
 <meta property="article:author" content="LiuJiaHua">
 <meta property="article:tag" content="html">
 <meta property="article:tag" content="video">
@@ -182,7 +182,7 @@
 <script>
   const startDrawing = () => {
     const video = document.querySelector("video");
-    video.src = "@/video/test.mp4";
+    video.src = "../../../../../video/test.mp4";
     video.muted = true;
     video.loop = 'loop';
     video.play();
@@ -234,10 +234,80 @@ function DownloadBase64ImageFile(content, fileName) {
 }
 </script>
 <h3 id="录像"><a href="#录像" class="headerlink" title="录像"></a>录像</h3><h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="演示-1"><a href="#演示-1" class="headerlink" title="演示"></a>演示</h4><button type="button" onclick="Videotape()">录像</button>
+<h4 id="演示-1"><a href="#演示-1" class="headerlink" title="演示"></a>演示</h4><div><br><button type="button" id="StartVideotape" onclick='VideotapeStart()'>录像</button><br><button type="button" id="StopVideotape" disabled='disabled' onclick='VideotapeStop()'>停止</button><br></div>
 <script>
-function Videotape() {
-  const video = document.querySelector("video");
+var isVideotape = false;
+var RecordCanvas = null;
+var CanvasContext = null;
+var Recorder = null;
+var FrameId = null;
+var Chunks = [];
+const video = document.querySelector("video");
+var StartVideotape = document.getElementById('StartVideotape');
+var StopVideotape = document.getElementById('StopVideotape');
+// 开始录像
+function VideotapeStart() {
+  StartVideotape.disabled = "disabled";
+  StopVideotape.disabled = "";
+  isVideotape = true;
+  // 开始录制
+  RecordCanvas = document.createElement('canvas');
+  RecordCanvas.width = video.videoWidth;
+  RecordCanvas.height = video.videoHeight;
+  CanvasContext = RecordCanvas.getContext("2d");
+  CanvasContext.fillStyle = "deepskyblue";
+  CanvasContext.fillRect(0, 0, RecordCanvas.videoWidth, RecordCanvas.videoHeight);
+  // 创建MediaRecorder，设置媒体参数
+  var frameRate = 60;
+  var stream = RecordCanvas.captureStream(frameRate);
+  Recorder = new MediaRecorder(stream, {
+    mimeType: "video/webm;codecs=vp8",
+  });
+  // 收集录制数据
+  Recorder.ondataavailable = (e) => {
+      Chunks.push(e.data);
+  };
+  Recorder.start(10);
+  // 播放视频
+  DrawFrame();
+}
+// 播放视频
+function DrawFrame() {
+  if (CanvasContext && RecordCanvas) {
+    CanvasContext.drawImage(
+      video,
+      0,
+      0,
+      video.videoWidth,
+      video.videoHeight
+    );
+    FrameId = requestAnimationFrame(this.DrawFrame);
+  }
+}
+// 停止录像
+function VideotapeStop() {
+  StartVideotape.disabled = "";
+  StopVideotape.disabled = "disabled";
+  isVideotape = false;
+  // 停止录制
+  Recorder.stop();
+  cancelAnimationFrame(FrameId);
+  // 下载录制内容
+  if (Chunks.length > 0) {
+    const blob = new Blob(Chunks);
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = new Date().getTime() + ".mp4";
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    const lenght = Chunks.length;
+    for (let i = 0; i <= lenght; i++) {
+      Chunks.pop();
+    }
+  }
 }
 </script>
     </div>

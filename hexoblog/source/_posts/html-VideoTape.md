@@ -15,7 +15,7 @@ categories: Html
 <script>
   const startDrawing = () => {
     const video = document.querySelector("video");
-    video.src = "@/video/test.mp4";
+    video.src = "../../../../../video/test.mp4";
     video.muted = true;
     video.loop = 'loop';
     video.play();
@@ -125,11 +125,83 @@ function DownloadBase64ImageFile(content, fileName) {
 ```
 
 #### 演示
-<button type="button" onclick="Videotape()">录像</button>
+<div>
+<button type="button" id="StartVideotape" onclick='VideotapeStart()'>录像</button>
+<button type="button" id="StopVideotape" disabled='disabled' onclick='VideotapeStop()'>停止</button>
+</div>
 
 <script>
-function Videotape() {
-  const video = document.querySelector("video");
-
+var isVideotape = false;
+var RecordCanvas = null;
+var CanvasContext = null;
+var Recorder = null;
+var FrameId = null;
+var Chunks = [];
+const video = document.querySelector("video");
+var StartVideotape = document.getElementById('StartVideotape');
+var StopVideotape = document.getElementById('StopVideotape');
+// 开始录像
+function VideotapeStart() {
+  StartVideotape.disabled = "disabled";
+  StopVideotape.disabled = "";
+  isVideotape = true;
+  // 开始录制
+  RecordCanvas = document.createElement('canvas');
+  RecordCanvas.width = video.videoWidth;
+  RecordCanvas.height = video.videoHeight;
+  CanvasContext = RecordCanvas.getContext("2d");
+  CanvasContext.fillStyle = "deepskyblue";
+  CanvasContext.fillRect(0, 0, RecordCanvas.videoWidth, RecordCanvas.videoHeight);
+  // 创建MediaRecorder，设置媒体参数
+  var frameRate = 60;
+  var stream = RecordCanvas.captureStream(frameRate);
+  Recorder = new MediaRecorder(stream, {
+    mimeType: "video/webm;codecs=vp8",
+  });
+  // 收集录制数据
+  Recorder.ondataavailable = (e) => {
+      Chunks.push(e.data);
+  };
+  Recorder.start(10);
+  // 播放视频
+  DrawFrame();
+}
+// 播放视频
+function DrawFrame() {
+  if (CanvasContext && RecordCanvas) {
+    CanvasContext.drawImage(
+      video,
+      0,
+      0,
+      video.videoWidth,
+      video.videoHeight
+    );
+    FrameId = requestAnimationFrame(this.DrawFrame);
+  }
+}
+// 停止录像
+function VideotapeStop() {
+  StartVideotape.disabled = "";
+  StopVideotape.disabled = "disabled";
+  isVideotape = false;
+  // 停止录制
+  Recorder.stop();
+  cancelAnimationFrame(FrameId);
+  // 下载录制内容
+  if (Chunks.length > 0) {
+    const blob = new Blob(Chunks);
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = new Date().getTime() + ".mp4";
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    const lenght = Chunks.length;
+    for (let i = 0; i <= lenght; i++) {
+      Chunks.pop();
+    }
+  }
 }
 </script>
