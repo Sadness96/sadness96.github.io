@@ -88,6 +88,7 @@ function Screenshot() {
   );
   var img = document.createElement("img");
   img.src = RecordCanvas.toDataURL("image/png");
+  var savename = "img_" + new Date().toLocaleString();
   DownloadBase64ImageFile(img.src, 'test.png')
 }
 
