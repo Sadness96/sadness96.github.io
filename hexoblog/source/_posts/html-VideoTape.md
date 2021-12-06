@@ -42,7 +42,8 @@ function Screenshot() {
   );
   var img = document.createElement("img");
   img.src = RecordCanvas.toDataURL("image/png");
-  DownloadBase64ImageFile(img.src, 'test.png')
+  var savename = "img_" + new Date().toLocaleString();
+  DownloadBase64ImageFile(img.src, savename)
 }
 
 // 下载 Base64 图片
@@ -89,7 +90,7 @@ function Screenshot() {
   var img = document.createElement("img");
   img.src = RecordCanvas.toDataURL("image/png");
   var savename = "img_" + new Date().toLocaleString();
-  DownloadBase64ImageFile(img.src, 'test.png')
+  DownloadBase64ImageFile(img.src, savename)
 }
 
 // 下载 Base64 图片
