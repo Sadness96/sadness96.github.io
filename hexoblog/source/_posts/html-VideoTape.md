@@ -30,18 +30,18 @@ categories: Html
 // 截图
 function Screenshot() {
   const video = document.querySelector("video");
-  var RecordCanvas = document.createElement('canvas');
-  RecordCanvas.width = video.videoWidth;
-  RecordCanvas.height = video.videoHeight;
-  RecordCanvas.getContext("2d").drawImage(
+  var imgRecordCanvas = document.createElement('canvas');
+  imgRecordCanvas.width = video.videoWidth;
+  imgRecordCanvas.height = video.videoHeight;
+  imgRecordCanvas.getContext("2d").drawImage(
     video,
     0,
     0,
-    RecordCanvas.width,
-    RecordCanvas.height
+    imgRecordCanvas.width,
+    imgRecordCanvas.height
   );
   var img = document.createElement("img");
-  img.src = RecordCanvas.toDataURL("image/png");
+  img.src = imgRecordCanvas.toDataURL("image/png");
   var savename = "img_" + new Date().getTime();
   DownloadBase64ImageFile(img.src, savename)
 }
@@ -75,20 +75,21 @@ function DownloadBase64ImageFile(content, fileName) {
 <button type="button" onclick="Screenshot()">截图</button>
 
 <script>
+// 截图
 function Screenshot() {
   const video = document.querySelector("video");
-  var RecordCanvas = document.createElement('canvas');
-  RecordCanvas.width = video.videoWidth;
-  RecordCanvas.height = video.videoHeight;
-  RecordCanvas.getContext("2d").drawImage(
+  var imgRecordCanvas = document.createElement('canvas');
+  imgRecordCanvas.width = video.videoWidth;
+  imgRecordCanvas.height = video.videoHeight;
+  imgRecordCanvas.getContext("2d").drawImage(
     video,
     0,
     0,
-    RecordCanvas.width,
-    RecordCanvas.height
+    imgRecordCanvas.width,
+    imgRecordCanvas.height
   );
   var img = document.createElement("img");
-  img.src = RecordCanvas.toDataURL("image/png");
+  img.src = imgRecordCanvas.toDataURL("image/png");
   var savename = "img_" + new Date().getTime();
   DownloadBase64ImageFile(img.src, savename)
 }
@@ -121,7 +122,79 @@ function DownloadBase64ImageFile(content, fileName) {
 ### 录像
 #### 代码
 ``` js
-
+var isVideotape = false;
+var videoRecordCanvas = null;
+var videoCanvasContext = null;
+var videoRecorder = null;
+var videoFrameId = null;
+var videoChunks = [];
+const video = document.querySelector("video");
+var StartVideotape = document.getElementById('StartVideotape');
+var StopVideotape = document.getElementById('StopVideotape');
+// 开始录像
+function VideotapeStart() {
+  StartVideotape.disabled = "disabled";
+  StopVideotape.disabled = "";
+  isVideotape = true;
+  // 开始录制
+  videoRecordCanvas = document.createElement('canvas');
+  videoRecordCanvas.width = video.videoWidth;
+  videoRecordCanvas.height = video.videoHeight;
+  videoCanvasContext = videoRecordCanvas.getContext("2d");
+  videoCanvasContext.fillStyle = "deepskyblue";
+  videoCanvasContext.fillRect(0, 0, videoRecordCanvas.videoWidth, videoRecordCanvas.videoHeight);
+  // 创建MediaRecorder，设置媒体参数
+  var frameRate = 60;
+  var stream = videoRecordCanvas.captureStream(frameRate);
+  videoRecorder = new MediaRecorder(stream, {
+    mimeType: "video/webm;codecs=vp8",
+  });
+  // 收集录制数据
+  videoRecorder.ondataavailable = (e) => {
+    videoChunks.push(e.data);
+  };
+  videoRecorder.start(10);
+  // 播放视频
+  DrawFrame();
+}
+// 播放视频
+function DrawFrame() {
+  if (videoCanvasContext && videoRecordCanvas) {
+    videoCanvasContext.drawImage(
+      video,
+      0,
+      0,
+      video.videoWidth,
+      video.videoHeight
+    );
+    videoFrameId = requestAnimationFrame(this.DrawFrame);
+  }
+}
+// 停止录像
+function VideotapeStop() {
+  StartVideotape.disabled = "";
+  StopVideotape.disabled = "disabled";
+  isVideotape = false;
+  // 停止录制
+  videoRecorder.stop();
+  cancelAnimationFrame(videoFrameId);
+  // 下载录制内容
+  if (videoChunks.length > 0) {
+    const blob = new Blob(videoChunks);
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = new Date().getTime() + ".mp4";
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    const lenght = videoChunks.length;
+    for (let i = 0; i <= lenght; i++) {
+      videoChunks.pop();
+    }
+  }
+}
 ```
 
 #### 演示
@@ -132,11 +205,11 @@ function DownloadBase64ImageFile(content, fileName) {
 
 <script>
 var isVideotape = false;
-var RecordCanvas = null;
-var CanvasContext = null;
-var Recorder = null;
-var FrameId = null;
-var Chunks = [];
+var videoRecordCanvas = null;
+var videoCanvasContext = null;
+var videoRecorder = null;
+var videoFrameId = null;
+var videoChunks = [];
 const video = document.querySelector("video");
 var StartVideotape = document.getElementById('StartVideotape');
 var StopVideotape = document.getElementById('StopVideotape');
@@ -146,37 +219,37 @@ function VideotapeStart() {
   StopVideotape.disabled = "";
   isVideotape = true;
   // 开始录制
-  RecordCanvas = document.createElement('canvas');
-  RecordCanvas.width = video.videoWidth;
-  RecordCanvas.height = video.videoHeight;
-  CanvasContext = RecordCanvas.getContext("2d");
-  CanvasContext.fillStyle = "deepskyblue";
-  CanvasContext.fillRect(0, 0, RecordCanvas.videoWidth, RecordCanvas.videoHeight);
+  videoRecordCanvas = document.createElement('canvas');
+  videoRecordCanvas.width = video.videoWidth;
+  videoRecordCanvas.height = video.videoHeight;
+  videoCanvasContext = videoRecordCanvas.getContext("2d");
+  videoCanvasContext.fillStyle = "deepskyblue";
+  videoCanvasContext.fillRect(0, 0, videoRecordCanvas.videoWidth, videoRecordCanvas.videoHeight);
   // 创建MediaRecorder，设置媒体参数
   var frameRate = 60;
-  var stream = RecordCanvas.captureStream(frameRate);
-  Recorder = new MediaRecorder(stream, {
+  var stream = videoRecordCanvas.captureStream(frameRate);
+  videoRecorder = new MediaRecorder(stream, {
     mimeType: "video/webm;codecs=vp8",
   });
   // 收集录制数据
-  Recorder.ondataavailable = (e) => {
-      Chunks.push(e.data);
+  videoRecorder.ondataavailable = (e) => {
+    videoChunks.push(e.data);
   };
-  Recorder.start(10);
+  videoRecorder.start(10);
   // 播放视频
   DrawFrame();
 }
 // 播放视频
 function DrawFrame() {
-  if (CanvasContext && RecordCanvas) {
-    CanvasContext.drawImage(
+  if (videoCanvasContext && videoRecordCanvas) {
+    videoCanvasContext.drawImage(
       video,
       0,
       0,
       video.videoWidth,
       video.videoHeight
     );
-    FrameId = requestAnimationFrame(this.DrawFrame);
+    videoFrameId = requestAnimationFrame(this.DrawFrame);
   }
 }
 // 停止录像
@@ -185,22 +258,22 @@ function VideotapeStop() {
   StopVideotape.disabled = "disabled";
   isVideotape = false;
   // 停止录制
-  Recorder.stop();
-  cancelAnimationFrame(FrameId);
+  videoRecorder.stop();
+  cancelAnimationFrame(videoFrameId);
   // 下载录制内容
-  if (Chunks.length > 0) {
-    const blob = new Blob(Chunks);
+  if (videoChunks.length > 0) {
+    const blob = new Blob(videoChunks);
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = new Date().getTime() + ".mp4";
+    link.download = 'video_' + new Date().getTime() + ".mp4";
     link.style.display = "none";
     document.body.appendChild(link);
     link.click();
     link.remove();
-    const lenght = Chunks.length;
+    const lenght = videoChunks.length;
     for (let i = 0; i <= lenght; i++) {
-      Chunks.pop();
+      videoChunks.pop();
     }
   }
 }

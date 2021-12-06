@@ -25,7 +25,7 @@
 <meta property="og:description" content="Video 视频画面截图与录像">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-26T06:24:00.000Z">
-<meta property="article:modified_time" content="2021-12-06T11:17:03.994Z">
+<meta property="article:modified_time" content="2021-12-06T11:28:53.265Z">
 <meta property="article:author" content="LiuJiaHua">
 <meta property="article:tag" content="html">
 <meta property="article:tag" content="video">
@@ -189,23 +189,24 @@
   };
   window.addEventListener('load', startDrawing);
 </script>
-<h3 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h3><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 截图</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Screenshot</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> video = <span class="built_in">document</span>.querySelector(<span class="string">&quot;video&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> RecordCanvas = <span class="built_in">document</span>.createElement(<span class="string">&#x27;canvas&#x27;</span>);</span><br><span class="line">  RecordCanvas.width = video.videoWidth;</span><br><span class="line">  RecordCanvas.height = video.videoHeight;</span><br><span class="line">  RecordCanvas.getContext(<span class="string">&quot;2d&quot;</span>).drawImage(</span><br><span class="line">    video,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    RecordCanvas.width,</span><br><span class="line">    RecordCanvas.height</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">var</span> img = <span class="built_in">document</span>.createElement(<span class="string">&quot;img&quot;</span>);</span><br><span class="line">  img.src = RecordCanvas.toDataURL(<span class="string">&quot;image/png&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> savename = <span class="string">&quot;img_&quot;</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">  DownloadBase64ImageFile(img.src, savename)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下载 Base64 图片</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DownloadBase64ImageFile</span>(<span class="params">content, fileName</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> base64ToBlob = <span class="function"><span class="keyword">function</span> (<span class="params">code</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> parts = code.split(<span class="string">&quot;;base64,&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> contentType = parts[<span class="number">0</span>].split(<span class="string">&quot;:&quot;</span>)[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">const</span> raw = <span class="built_in">window</span>.atob(parts[<span class="number">1</span>]);</span><br><span class="line">  <span class="keyword">const</span> rawLength = raw.length;</span><br><span class="line">  <span class="keyword">const</span> uInt8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(rawLength);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; rawLength; ++i) &#123;</span><br><span class="line">    uInt8Array[i] = raw.charCodeAt(i);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Blob([uInt8Array], &#123;</span><br><span class="line">      type: contentType,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">const</span> aLink = <span class="built_in">document</span>.createElement(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> blob = base64ToBlob(content);</span><br><span class="line">  <span class="keyword">const</span> evt = <span class="built_in">document</span>.createEvent(<span class="string">&quot;HTMLEvents&quot;</span>);</span><br><span class="line">  evt.initEvent(<span class="string">&quot;click&quot;</span>, <span class="literal">true</span>, <span class="literal">true</span>);</span><br><span class="line">  aLink.download = fileName;</span><br><span class="line">  aLink.href = URL.createObjectURL(blob);</span><br><span class="line">  aLink.click();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h3><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 截图</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Screenshot</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> video = <span class="built_in">document</span>.querySelector(<span class="string">&quot;video&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> imgRecordCanvas = <span class="built_in">document</span>.createElement(<span class="string">&#x27;canvas&#x27;</span>);</span><br><span class="line">  imgRecordCanvas.width = video.videoWidth;</span><br><span class="line">  imgRecordCanvas.height = video.videoHeight;</span><br><span class="line">  imgRecordCanvas.getContext(<span class="string">&quot;2d&quot;</span>).drawImage(</span><br><span class="line">    video,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    imgRecordCanvas.width,</span><br><span class="line">    imgRecordCanvas.height</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">var</span> img = <span class="built_in">document</span>.createElement(<span class="string">&quot;img&quot;</span>);</span><br><span class="line">  img.src = imgRecordCanvas.toDataURL(<span class="string">&quot;image/png&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> savename = <span class="string">&quot;img_&quot;</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">  DownloadBase64ImageFile(img.src, savename)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下载 Base64 图片</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DownloadBase64ImageFile</span>(<span class="params">content, fileName</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> base64ToBlob = <span class="function"><span class="keyword">function</span> (<span class="params">code</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> parts = code.split(<span class="string">&quot;;base64,&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> contentType = parts[<span class="number">0</span>].split(<span class="string">&quot;:&quot;</span>)[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">const</span> raw = <span class="built_in">window</span>.atob(parts[<span class="number">1</span>]);</span><br><span class="line">  <span class="keyword">const</span> rawLength = raw.length;</span><br><span class="line">  <span class="keyword">const</span> uInt8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(rawLength);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; rawLength; ++i) &#123;</span><br><span class="line">    uInt8Array[i] = raw.charCodeAt(i);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Blob([uInt8Array], &#123;</span><br><span class="line">      type: contentType,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">const</span> aLink = <span class="built_in">document</span>.createElement(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> blob = base64ToBlob(content);</span><br><span class="line">  <span class="keyword">const</span> evt = <span class="built_in">document</span>.createEvent(<span class="string">&quot;HTMLEvents&quot;</span>);</span><br><span class="line">  evt.initEvent(<span class="string">&quot;click&quot;</span>, <span class="literal">true</span>, <span class="literal">true</span>);</span><br><span class="line">  aLink.download = fileName;</span><br><span class="line">  aLink.href = URL.createObjectURL(blob);</span><br><span class="line">  aLink.click();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h4><button type="button" onclick="Screenshot()">截图</button>
 <script>
+// 截图
 function Screenshot() {
   const video = document.querySelector("video");
-  var RecordCanvas = document.createElement('canvas');
-  RecordCanvas.width = video.videoWidth;
-  RecordCanvas.height = video.videoHeight;
-  RecordCanvas.getContext("2d").drawImage(
+  var imgRecordCanvas = document.createElement('canvas');
+  imgRecordCanvas.width = video.videoWidth;
+  imgRecordCanvas.height = video.videoHeight;
+  imgRecordCanvas.getContext("2d").drawImage(
     video,
     0,
     0,
-    RecordCanvas.width,
-    RecordCanvas.height
+    imgRecordCanvas.width,
+    imgRecordCanvas.height
   );
   var img = document.createElement("img");
-  img.src = RecordCanvas.toDataURL("image/png");
+  img.src = imgRecordCanvas.toDataURL("image/png");
   var savename = "img_" + new Date().getTime();
   DownloadBase64ImageFile(img.src, savename)
 }
@@ -233,15 +234,15 @@ function DownloadBase64ImageFile(content, fileName) {
   aLink.click();
 }
 </script>
-<h3 id="录像"><a href="#录像" class="headerlink" title="录像"></a>录像</h3><h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="录像"><a href="#录像" class="headerlink" title="录像"></a>录像</h3><h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isVideotape = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> videoRecordCanvas = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> videoCanvasContext = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> videoRecorder = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> videoFrameId = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> videoChunks = [];</span><br><span class="line"><span class="keyword">const</span> video = <span class="built_in">document</span>.querySelector(<span class="string">&quot;video&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> StartVideotape = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;StartVideotape&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> StopVideotape = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;StopVideotape&#x27;</span>);</span><br><span class="line"><span class="comment">// 开始录像</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">VideotapeStart</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  StartVideotape.disabled = <span class="string">&quot;disabled&quot;</span>;</span><br><span class="line">  StopVideotape.disabled = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  isVideotape = <span class="literal">true</span>;</span><br><span class="line">  <span class="comment">// 开始录制</span></span><br><span class="line">  videoRecordCanvas = <span class="built_in">document</span>.createElement(<span class="string">&#x27;canvas&#x27;</span>);</span><br><span class="line">  videoRecordCanvas.width = video.videoWidth;</span><br><span class="line">  videoRecordCanvas.height = video.videoHeight;</span><br><span class="line">  videoCanvasContext = videoRecordCanvas.getContext(<span class="string">&quot;2d&quot;</span>);</span><br><span class="line">  videoCanvasContext.fillStyle = <span class="string">&quot;deepskyblue&quot;</span>;</span><br><span class="line">  videoCanvasContext.fillRect(<span class="number">0</span>, <span class="number">0</span>, videoRecordCanvas.videoWidth, videoRecordCanvas.videoHeight);</span><br><span class="line">  <span class="comment">// 创建MediaRecorder，设置媒体参数</span></span><br><span class="line">  <span class="keyword">var</span> frameRate = <span class="number">60</span>;</span><br><span class="line">  <span class="keyword">var</span> stream = videoRecordCanvas.captureStream(frameRate);</span><br><span class="line">  videoRecorder = <span class="keyword">new</span> MediaRecorder(stream, &#123;</span><br><span class="line">    mimeType: <span class="string">&quot;video/webm;codecs=vp8&quot;</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 收集录制数据</span></span><br><span class="line">  videoRecorder.ondataavailable = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    videoChunks.push(e.data);</span><br><span class="line">  &#125;;</span><br><span class="line">  videoRecorder.start(<span class="number">10</span>);</span><br><span class="line">  <span class="comment">// 播放视频</span></span><br><span class="line">  DrawFrame();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 播放视频</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DrawFrame</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (videoCanvasContext &amp;&amp; videoRecordCanvas) &#123;</span><br><span class="line">    videoCanvasContext.drawImage(</span><br><span class="line">      video,</span><br><span class="line">      <span class="number">0</span>,</span><br><span class="line">      <span class="number">0</span>,</span><br><span class="line">      video.videoWidth,</span><br><span class="line">      video.videoHeight</span><br><span class="line">    );</span><br><span class="line">    videoFrameId = requestAnimationFrame(<span class="built_in">this</span>.DrawFrame);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 停止录像</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">VideotapeStop</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  StartVideotape.disabled = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  StopVideotape.disabled = <span class="string">&quot;disabled&quot;</span>;</span><br><span class="line">  isVideotape = <span class="literal">false</span>;</span><br><span class="line">  <span class="comment">// 停止录制</span></span><br><span class="line">  videoRecorder.stop();</span><br><span class="line">  cancelAnimationFrame(videoFrameId);</span><br><span class="line">  <span class="comment">// 下载录制内容</span></span><br><span class="line">  <span class="keyword">if</span> (videoChunks.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> blob = <span class="keyword">new</span> Blob(videoChunks);</span><br><span class="line">    <span class="keyword">const</span> url = <span class="built_in">window</span>.URL.createObjectURL(blob);</span><br><span class="line">    <span class="keyword">const</span> link = <span class="built_in">document</span>.createElement(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    link.href = url;</span><br><span class="line">    link.download = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() + <span class="string">&quot;.mp4&quot;</span>;</span><br><span class="line">    link.style.display = <span class="string">&quot;none&quot;</span>;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(link);</span><br><span class="line">    link.click();</span><br><span class="line">    link.remove();</span><br><span class="line">    <span class="keyword">const</span> lenght = videoChunks.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt;= lenght; i++) &#123;</span><br><span class="line">      videoChunks.pop();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="演示-1"><a href="#演示-1" class="headerlink" title="演示"></a>演示</h4><div><br><button type="button" id="StartVideotape" onclick='VideotapeStart()'>录像</button><br><button type="button" id="StopVideotape" disabled='disabled' onclick='VideotapeStop()'>停止</button><br></div>
 <script>
 var isVideotape = false;
-var RecordCanvas = null;
-var CanvasContext = null;
-var Recorder = null;
-var FrameId = null;
-var Chunks = [];
+var videoRecordCanvas = null;
+var videoCanvasContext = null;
+var videoRecorder = null;
+var videoFrameId = null;
+var videoChunks = [];
 const video = document.querySelector("video");
 var StartVideotape = document.getElementById('StartVideotape');
 var StopVideotape = document.getElementById('StopVideotape');
@@ -251,37 +252,37 @@ function VideotapeStart() {
   StopVideotape.disabled = "";
   isVideotape = true;
   // 开始录制
-  RecordCanvas = document.createElement('canvas');
-  RecordCanvas.width = video.videoWidth;
-  RecordCanvas.height = video.videoHeight;
-  CanvasContext = RecordCanvas.getContext("2d");
-  CanvasContext.fillStyle = "deepskyblue";
-  CanvasContext.fillRect(0, 0, RecordCanvas.videoWidth, RecordCanvas.videoHeight);
+  videoRecordCanvas = document.createElement('canvas');
+  videoRecordCanvas.width = video.videoWidth;
+  videoRecordCanvas.height = video.videoHeight;
+  videoCanvasContext = videoRecordCanvas.getContext("2d");
+  videoCanvasContext.fillStyle = "deepskyblue";
+  videoCanvasContext.fillRect(0, 0, videoRecordCanvas.videoWidth, videoRecordCanvas.videoHeight);
   // 创建MediaRecorder，设置媒体参数
   var frameRate = 60;
-  var stream = RecordCanvas.captureStream(frameRate);
-  Recorder = new MediaRecorder(stream, {
+  var stream = videoRecordCanvas.captureStream(frameRate);
+  videoRecorder = new MediaRecorder(stream, {
     mimeType: "video/webm;codecs=vp8",
   });
   // 收集录制数据
-  Recorder.ondataavailable = (e) => {
-      Chunks.push(e.data);
+  videoRecorder.ondataavailable = (e) => {
+    videoChunks.push(e.data);
   };
-  Recorder.start(10);
+  videoRecorder.start(10);
   // 播放视频
   DrawFrame();
 }
 // 播放视频
 function DrawFrame() {
-  if (CanvasContext && RecordCanvas) {
-    CanvasContext.drawImage(
+  if (videoCanvasContext && videoRecordCanvas) {
+    videoCanvasContext.drawImage(
       video,
       0,
       0,
       video.videoWidth,
       video.videoHeight
     );
-    FrameId = requestAnimationFrame(this.DrawFrame);
+    videoFrameId = requestAnimationFrame(this.DrawFrame);
   }
 }
 // 停止录像
@@ -290,22 +291,22 @@ function VideotapeStop() {
   StopVideotape.disabled = "disabled";
   isVideotape = false;
   // 停止录制
-  Recorder.stop();
-  cancelAnimationFrame(FrameId);
+  videoRecorder.stop();
+  cancelAnimationFrame(videoFrameId);
   // 下载录制内容
-  if (Chunks.length > 0) {
-    const blob = new Blob(Chunks);
+  if (videoChunks.length > 0) {
+    const blob = new Blob(videoChunks);
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = new Date().getTime() + ".mp4";
+    link.download = 'video_' + new Date().getTime() + ".mp4";
     link.style.display = "none";
     document.body.appendChild(link);
     link.click();
     link.remove();
-    const lenght = Chunks.length;
+    const lenght = videoChunks.length;
     for (let i = 0; i <= lenght; i++) {
-      Chunks.pop();
+      videoChunks.pop();
     }
   }
 }
