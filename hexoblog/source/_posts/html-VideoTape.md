@@ -25,6 +25,10 @@ categories: Html
 </script>
 
 ### 截图
+#### 简介
+视频的一帧图像写入临时的 canvas 中，通过 [toDataURL](https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/toDataURL) 方法转换为 Base64 数据，下载 Base64 即可截图。
+注：toDataURL 方法引用外部文件会报 CORS 跨域错误，需要单独解决 CORS 跨域。
+
 #### 代码
 ``` js
 // 截图
@@ -40,10 +44,9 @@ function Screenshot() {
     imgRecordCanvas.width,
     imgRecordCanvas.height
   );
-  var img = document.createElement("img");
-  img.src = imgRecordCanvas.toDataURL("image/png");
+  var img_base64 = imgRecordCanvas.toDataURL("image/png");
   var savename = "img_" + new Date().getTime();
-  DownloadBase64ImageFile(img.src, savename)
+  DownloadBase64ImageFile(img_base64, savename)
 }
 
 // 下载 Base64 图片
@@ -88,10 +91,9 @@ function Screenshot() {
     imgRecordCanvas.width,
     imgRecordCanvas.height
   );
-  var img = document.createElement("img");
-  img.src = imgRecordCanvas.toDataURL("image/png");
+  var img_base64 = imgRecordCanvas.toDataURL("image/png");
   var savename = "img_" + new Date().getTime();
-  DownloadBase64ImageFile(img.src, savename)
+  DownloadBase64ImageFile(img_base64, savename)
 }
 
 // 下载 Base64 图片
@@ -120,6 +122,9 @@ function DownloadBase64ImageFile(content, fileName) {
 </script>
 
 ### 录像
+#### 简介
+视频录制与截图方式差不多，把图像缓存到 canvas 标签，然后通过接口 [MediaRecorder](https://developer.mozilla.org/zh-CN/docs/Web/API/MediaRecorder/MediaRecorder) 录制视频。
+
 #### 代码
 ``` js
 var isVideotape = false;

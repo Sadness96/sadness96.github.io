@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://sadness96.github.io/images/Logo300.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://sadness96.github.io/images/Logo30.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://sadness96.github.io/images/Logo16.png">
+  <link rel="mask-icon" href="https://sadness96.github.io/images/logo.svg" color="#222">
+<link rel="stylesheet" href="/blog/css/main.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link rel="stylesheet" href="/blog/lib/pace/pace-theme-minimal.min.css">
+  <script src="/blog/lib/pace/pace.min.js"></script>
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sadness96.github.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+  <meta name="description" content="Video 视频画面截图与录像">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Html Video 截图和录像">
+<meta property="og:url" content="http://sadness96.github.io/blog/2021/11/26/html-VideoTape/index.html">
+<meta property="og:site_name" content="个人博客 - 刘佳华">
+<meta property="og:description" content="Video 视频画面截图与录像">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-26T06:24:00.000Z">
+<meta property="article:modified_time" content="2021-12-10T02:22:19.913Z">
+<meta property="article:author" content="LiuJiaHua">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="video">
+<meta property="article:tag" content="canvas">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="http://sadness96.github.io/blog/2021/11/26/html-VideoTape/">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+  <title>Html Video 截图和录像 | 个人博客 - 刘佳华</title>
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+  <div class="site-meta">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人博客 - 刘佳华</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+  </li>
+        <li class="menu-item menu-item-archives">
+    <a href="/blog/archives" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+  </li>
+        <li class="menu-item menu-item-categories">
+    <a href="/blog/categories" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+  </li>
+        <li class="menu-item menu-item-tags">
+    <a href="/blog/tags" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+  </li>
+        <li class="menu-item menu-item-about">
+    <a href="/blog/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+  </li>
+        <li class="menu-item menu-item-github">
+    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+    </header>
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content post posts-expand">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/2021/11/26/html-VideoTape/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+      <meta itemprop="name" content="LiuJiaHua">
+      <meta itemprop="description" content="记录生活,记录学习,记录成长!">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客 - 刘佳华">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Html Video 截图和录像
+        </h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="创建时间：2021-11-26 14:24:00" itemprop="dateCreated datePublished" datetime="2021-11-26T14:24:00+08:00">2021-11-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Html/" itemprop="url" rel="index"><span itemprop="name">Html</span></a>
+                </span>
+            </span>
+        </div>
+      </header>
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="Video-视频画面截图与录像"><a href="#Video-视频画面截图与录像" class="headerlink" title="Video 视频画面截图与录像"></a>Video 视频画面截图与录像</h3><span id="more"></span>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>项目需要在视频上截图与录像，功能已实现，我在迁移时整理一遍。</p>
+<h3 id="演示视频"><a href="#演示视频" class="headerlink" title="演示视频"></a>演示视频</h3><video width="640px" height="360px" crossorigin="anonymous" controls playsinline></video>
+<script>
+  const startDrawing = () => {
+    const video = document.querySelector("video");
+    video.src = "../../../../../video/test.mp4";
+    video.muted = true;
+    video.loop = 'loop';
+    video.play();
+  };
+  window.addEventListener('load', startDrawing);
+</script>
+<h3 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h3><h4 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h4><p>视频的一帧图像写入临时的 canvas 中，通过 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/toDataURL">toDataURL</a> 方法转换为 Base64 数据，下载 Base64 即可截图。<br>注：toDataURL 方法引用外部文件会报 CORS 跨域错误，需要单独解决 CORS 跨域。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 截图</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Screenshot</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> video = <span class="built_in">document</span>.querySelector(<span class="string">&quot;video&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> imgRecordCanvas = <span class="built_in">document</span>.createElement(<span class="string">&#x27;canvas&#x27;</span>);</span><br><span class="line">  imgRecordCanvas.width = video.videoWidth;</span><br><span class="line">  imgRecordCanvas.height = video.videoHeight;</span><br><span class="line">  imgRecordCanvas.getContext(<span class="string">&quot;2d&quot;</span>).drawImage(</span><br><span class="line">    video,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    imgRecordCanvas.width,</span><br><span class="line">    imgRecordCanvas.height</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">var</span> img_base64 = imgRecordCanvas.toDataURL(<span class="string">&quot;image/png&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> savename = <span class="string">&quot;img_&quot;</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">  DownloadBase64ImageFile(img_base64, savename)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下载 Base64 图片</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DownloadBase64ImageFile</span>(<span class="params">content, fileName</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> base64ToBlob = <span class="function"><span class="keyword">function</span> (<span class="params">code</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> parts = code.split(<span class="string">&quot;;base64,&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> contentType = parts[<span class="number">0</span>].split(<span class="string">&quot;:&quot;</span>)[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">const</span> raw = <span class="built_in">window</span>.atob(parts[<span class="number">1</span>]);</span><br><span class="line">  <span class="keyword">const</span> rawLength = raw.length;</span><br><span class="line">  <span class="keyword">const</span> uInt8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(rawLength);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; rawLength; ++i) &#123;</span><br><span class="line">    uInt8Array[i] = raw.charCodeAt(i);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Blob([uInt8Array], &#123;</span><br><span class="line">      type: contentType,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">const</span> aLink = <span class="built_in">document</span>.createElement(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> blob = base64ToBlob(content);</span><br><span class="line">  <span class="keyword">const</span> evt = <span class="built_in">document</span>.createEvent(<span class="string">&quot;HTMLEvents&quot;</span>);</span><br><span class="line">  evt.initEvent(<span class="string">&quot;click&quot;</span>, <span class="literal">true</span>, <span class="literal">true</span>);</span><br><span class="line">  aLink.download = fileName;</span><br><span class="line">  aLink.href = URL.createObjectURL(blob);</span><br><span class="line">  aLink.click();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h4><button type="button" onclick="Screenshot()">截图</button>
+<script>
+// 截图
+function Screenshot() {
+  const video = document.querySelector("video");
+  var imgRecordCanvas = document.createElement('canvas');
+  imgRecordCanvas.width = video.videoWidth;
+  imgRecordCanvas.height = video.videoHeight;
+  imgRecordCanvas.getContext("2d").drawImage(
+    video,
+    0,
+    0,
+    imgRecordCanvas.width,
+    imgRecordCanvas.height
+  );
+  var img_base64 = imgRecordCanvas.toDataURL("image/png");
+  var savename = "img_" + new Date().getTime();
+  DownloadBase64ImageFile(img_base64, savename)
+}
+// 下载 Base64 图片
+function DownloadBase64ImageFile(content, fileName) {
+  var base64ToBlob = function (code) {
+  const parts = code.split(";base64,");
+  const contentType = parts[0].split(":")[1];
+  const raw = window.atob(parts[1]);
+  const rawLength = raw.length;
+  const uInt8Array = new Uint8Array(rawLength);
+  for (let i = 0; i < rawLength; ++i) {
+    uInt8Array[i] = raw.charCodeAt(i);
+  }
+  return new Blob([uInt8Array], {
+      type: contentType,
+    });
+  };
+  const aLink = document.createElement("a");
+  const blob = base64ToBlob(content);
+  const evt = document.createEvent("HTMLEvents");
+  evt.initEvent("click", true, true);
+  aLink.download = fileName;
+  aLink.href = URL.createObjectURL(blob);
+  aLink.click();
+}
+</script>
+<h3 id="录像"><a href="#录像" class="headerlink" title="录像"></a>录像</h3><h4 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h4><p>视频录制与截图方式差不多，把图像缓存到 canvas 标签，然后通过接口 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/MediaRecorder/MediaRecorder">MediaRecorder</a> 录制视频。</p>
+<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isVideotape = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> videoRecordCanvas = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> videoCanvasContext = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> videoRecorder = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> videoFrameId = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> videoChunks = [];</span><br><span class="line"><span class="keyword">const</span> video = <span class="built_in">document</span>.querySelector(<span class="string">&quot;video&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> StartVideotape = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;StartVideotape&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> StopVideotape = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;StopVideotape&#x27;</span>);</span><br><span class="line"><span class="comment">// 开始录像</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">VideotapeStart</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  StartVideotape.disabled = <span class="string">&quot;disabled&quot;</span>;</span><br><span class="line">  StopVideotape.disabled = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  isVideotape = <span class="literal">true</span>;</span><br><span class="line">  <span class="comment">// 开始录制</span></span><br><span class="line">  videoRecordCanvas = <span class="built_in">document</span>.createElement(<span class="string">&#x27;canvas&#x27;</span>);</span><br><span class="line">  videoRecordCanvas.width = video.videoWidth;</span><br><span class="line">  videoRecordCanvas.height = video.videoHeight;</span><br><span class="line">  videoCanvasContext = videoRecordCanvas.getContext(<span class="string">&quot;2d&quot;</span>);</span><br><span class="line">  videoCanvasContext.fillStyle = <span class="string">&quot;deepskyblue&quot;</span>;</span><br><span class="line">  videoCanvasContext.fillRect(<span class="number">0</span>, <span class="number">0</span>, videoRecordCanvas.videoWidth, videoRecordCanvas.videoHeight);</span><br><span class="line">  <span class="comment">// 创建MediaRecorder，设置媒体参数</span></span><br><span class="line">  <span class="keyword">var</span> frameRate = <span class="number">60</span>;</span><br><span class="line">  <span class="keyword">var</span> stream = videoRecordCanvas.captureStream(frameRate);</span><br><span class="line">  videoRecorder = <span class="keyword">new</span> MediaRecorder(stream, &#123;</span><br><span class="line">    mimeType: <span class="string">&quot;video/webm;codecs=vp8&quot;</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 收集录制数据</span></span><br><span class="line">  videoRecorder.ondataavailable = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    videoChunks.push(e.data);</span><br><span class="line">  &#125;;</span><br><span class="line">  videoRecorder.start(<span class="number">10</span>);</span><br><span class="line">  <span class="comment">// 播放视频</span></span><br><span class="line">  DrawFrame();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 播放视频</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DrawFrame</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (videoCanvasContext &amp;&amp; videoRecordCanvas) &#123;</span><br><span class="line">    videoCanvasContext.drawImage(</span><br><span class="line">      video,</span><br><span class="line">      <span class="number">0</span>,</span><br><span class="line">      <span class="number">0</span>,</span><br><span class="line">      video.videoWidth,</span><br><span class="line">      video.videoHeight</span><br><span class="line">    );</span><br><span class="line">    videoFrameId = requestAnimationFrame(<span class="built_in">this</span>.DrawFrame);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 停止录像</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">VideotapeStop</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  StartVideotape.disabled = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  StopVideotape.disabled = <span class="string">&quot;disabled&quot;</span>;</span><br><span class="line">  isVideotape = <span class="literal">false</span>;</span><br><span class="line">  <span class="comment">// 停止录制</span></span><br><span class="line">  videoRecorder.stop();</span><br><span class="line">  cancelAnimationFrame(videoFrameId);</span><br><span class="line">  <span class="comment">// 下载录制内容</span></span><br><span class="line">  <span class="keyword">if</span> (videoChunks.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> blob = <span class="keyword">new</span> Blob(videoChunks);</span><br><span class="line">    <span class="keyword">const</span> url = <span class="built_in">window</span>.URL.createObjectURL(blob);</span><br><span class="line">    <span class="keyword">const</span> link = <span class="built_in">document</span>.createElement(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    link.href = url;</span><br><span class="line">    link.download = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() + <span class="string">&quot;.mp4&quot;</span>;</span><br><span class="line">    link.style.display = <span class="string">&quot;none&quot;</span>;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(link);</span><br><span class="line">    link.click();</span><br><span class="line">    link.remove();</span><br><span class="line">    <span class="keyword">const</span> lenght = videoChunks.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt;= lenght; i++) &#123;</span><br><span class="line">      videoChunks.pop();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="演示-1"><a href="#演示-1" class="headerlink" title="演示"></a>演示</h4><div><br><button type="button" id="StartVideotape" onclick='VideotapeStart()'>录像</button><br><button type="button" id="StopVideotape" disabled='disabled' onclick='VideotapeStop()'>停止</button><br></div>
+<script>
+var isVideotape = false;
+var videoRecordCanvas = null;
+var videoCanvasContext = null;
+var videoRecorder = null;
+var videoFrameId = null;
+var videoChunks = [];
+const video = document.querySelector("video");
+var StartVideotape = document.getElementById('StartVideotape');
+var StopVideotape = document.getElementById('StopVideotape');
+// 开始录像
+function VideotapeStart() {
+  StartVideotape.disabled = "disabled";
+  StopVideotape.disabled = "";
+  isVideotape = true;
+  // 开始录制
+  videoRecordCanvas = document.createElement('canvas');
+  videoRecordCanvas.width = video.videoWidth;
+  videoRecordCanvas.height = video.videoHeight;
+  videoCanvasContext = videoRecordCanvas.getContext("2d");
+  videoCanvasContext.fillStyle = "deepskyblue";
+  videoCanvasContext.fillRect(0, 0, videoRecordCanvas.videoWidth, videoRecordCanvas.videoHeight);
+  // 创建MediaRecorder，设置媒体参数
+  var frameRate = 60;
+  var stream = videoRecordCanvas.captureStream(frameRate);
+  videoRecorder = new MediaRecorder(stream, {
+    mimeType: "video/webm;codecs=vp8",
+  });
+  // 收集录制数据
+  videoRecorder.ondataavailable = (e) => {
+    videoChunks.push(e.data);
+  };
+  videoRecorder.start(10);
+  // 播放视频
+  DrawFrame();
+}
+// 播放视频
+function DrawFrame() {
+  if (videoCanvasContext && videoRecordCanvas) {
+    videoCanvasContext.drawImage(
+      video,
+      0,
+      0,
+      video.videoWidth,
+      video.videoHeight
+    );
+    videoFrameId = requestAnimationFrame(this.DrawFrame);
+  }
+}
+// 停止录像
+function VideotapeStop() {
+  StartVideotape.disabled = "";
+  StopVideotape.disabled = "disabled";
+  isVideotape = false;
+  // 停止录制
+  videoRecorder.stop();
+  cancelAnimationFrame(videoFrameId);
+  // 下载录制内容
+  if (videoChunks.length > 0) {
+    const blob = new Blob(videoChunks);
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = 'video_' + new Date().getTime() + ".mp4";
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    const lenght = videoChunks.length;
+    for (let i = 0; i <= lenght; i++) {
+      videoChunks.pop();
+    }
+  }
+}
+</script>
+    </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/html/" rel="tag"># html</a>
+              <a href="/blog/tags/video/" rel="tag"># video</a>
+              <a href="/blog/tags/canvas/" rel="tag"># canvas</a>
+          </div>
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2021/08/15/csharp-ExcelCellDecryption/" rel="prev" title="Excel 单元格解密">
+      <i class="fa fa-chevron-left"></i> Excel 单元格解密
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+  </article>
+          </div>
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+        </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Video-%E8%A7%86%E9%A2%91%E7%94%BB%E9%9D%A2%E6%88%AA%E5%9B%BE%E4%B8%8E%E5%BD%95%E5%83%8F"><span class="nav-number">1.</span> <span class="nav-text">Video 视频画面截图与录像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%94%E7%A4%BA%E8%A7%86%E9%A2%91"><span class="nav-number">3.</span> <span class="nav-text">演示视频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%AA%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text">截图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B-1"><span class="nav-number">4.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">4.2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BC%94%E7%A4%BA"><span class="nav-number">4.3.</span> <span class="nav-text">演示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%95%E5%83%8F"><span class="nav-number">5.</span> <span class="nav-text">录像</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B-2"><span class="nav-number">5.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="nav-number">5.2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BC%94%E7%A4%BA-1"><span class="nav-number">5.3.</span> <span class="nav-text">演示</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LiuJiaHua"
+      src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+  <p class="site-author-name" itemprop="name">LiuJiaHua</p>
+  <div class="site-description" itemprop="description">记录生活,记录学习,记录成长!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags">
+        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="footer-inner">
+<div class="copyright">
+  &copy; 2014 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuJiaHua</span>
+</div>
+<!-- 隐藏：由 Hexo & NexT.Pisces 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+-->
+      </div>
+    </footer>
+  </div>
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+<script src="/blog/js/utils.js"></script>
+<script src="/blog/js/motion.js"></script>
+<script src="/blog/js/schemes/pisces.js"></script>
+<script src="/blog/js/next-boot.js"></script>
+<script src="/blog/js/local-search.js"></script>
+</body>
+</html>
