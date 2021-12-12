@@ -293,25 +293,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ActiveMQ Demo</title>
-    <url>/blog/2019/12/31/csharp-ActiveMQ/</url>
-    <content><![CDATA[<h3 id="ActiveMQ-消息队列使用介绍"><a href="#ActiveMQ-消息队列使用介绍" class="headerlink" title="ActiveMQ 消息队列使用介绍"></a>ActiveMQ 消息队列使用介绍</h3><span id="more"></span>
-<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p><a href="https://activemq.apache.org/">Apache ActiveMQ</a> 是一个开放源代码的消息中间件。</p>
-<h4 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h4><p>请参阅<a href="https://activemq.apache.org/components/classic/documentation">官方文档</a></p>
-<h5 id="Docker-部署"><a href="#Docker-部署" class="headerlink" title="Docker 部署"></a>Docker 部署</h5><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">安装官方镜像</span><br><span class="line">docker pull webcenter/activemq</span><br><span class="line">启动 RabbitMQ 默认账户密码为 admin/admin</span><br><span class="line">docker run -d --name myactivemq -p <span class="number">61617</span>:<span class="number">61616</span> -p <span class="number">8162</span>:<span class="number">8161</span> webcenter/activemq</span><br><span class="line">WEB 端登录</span><br><span class="line"><span class="function">http://<span class="title">localhost</span>:8162/</span></span><br></pre></td></tr></table></figure>
-<h4 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h4><h5 id="未找到-61616-端口"><a href="#未找到-61616-端口" class="headerlink" title="未找到 61616 端口"></a>未找到 61616 端口</h5><p>错误信息：<br><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="function">Apache.NMS.NMSConnectionException: <span class="title">Error</span> <span class="title">connecting</span> <span class="title">to</span> <span class="title">localhost</span>:61616. ---&gt; <span class="title">System.Net.Sockets.SocketException</span>: <span class="title">Unknown</span> <span class="title">error</span> (0<span class="title">xfffffffe</span>)</span></span><br></pre></td></tr></table></figure><br>使用命令查询端口号占用进程<br><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">netstat -ano|<span class="built_in">findstr</span> &quot;PORT&quot;</span><br><span class="line">tasklist|<span class="built_in">findstr</span> &quot;PID&quot;</span><br></pre></td></tr></table></figure><br>未查到 61616 端口使用，但是开启了 61617 端口</p>
-<h4 id="C-代码调用"><a href="#C-代码调用" class="headerlink" title="C#代码调用"></a>C#代码调用</h4><p>引用 <a href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ">Apache.NMS.ActiveMQ</a> 库</p>
-<h5 id="生产者"><a href="#生产者" class="headerlink" title="生产者"></a>生产者</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> Apache.NMS;</span><br><span class="line"><span class="keyword">using</span> Apache.NMS.ActiveMQ;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//Create the Connection Factory</span></span><br><span class="line">            IConnectionFactory factory = <span class="keyword">new</span> ConnectionFactory(<span class="string">&quot;tcp://localhost:61617/&quot;</span>);</span><br><span class="line">            <span class="keyword">using</span> (IConnection connection = factory.CreateConnection())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//Create the Session</span></span><br><span class="line">                <span class="keyword">using</span> (ISession session = connection.CreateSession())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//Create the Producer for the topic/queue</span></span><br><span class="line">                    IMessageProducer prod = session.CreateProducer(<span class="keyword">new</span> Apache.NMS.ActiveMQ.Commands.ActiveMQTopic(<span class="string">&quot;testing&quot;</span>));</span><br><span class="line">                    <span class="comment">//Send Messages</span></span><br><span class="line">                    <span class="built_in">int</span> i = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">while</span> (!Console.KeyAvailable)</span><br><span class="line">                    &#123;</span><br><span class="line">                        ITextMessage msg = prod.CreateTextMessage();</span><br><span class="line">                        msg.Text = i.ToString();</span><br><span class="line">                        Console.WriteLine(<span class="string">&quot;Sending: &quot;</span> + i.ToString());</span><br><span class="line">                        prod.Send(msg, Apache.NMS.MsgDeliveryMode.NonPersistent, Apache.NMS.MsgPriority.Normal, TimeSpan.MinValue);</span><br><span class="line">                        System.Threading.Thread.Sleep(<span class="number">5000</span>);</span><br><span class="line">                        i++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">        catch (System.Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;&#123;0&#125;&quot;</span>, e.Message);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> Apache.NMS;</span><br><span class="line"><span class="keyword">using</span> Apache.NMS.ActiveMQ;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//Create the Connection factory</span></span><br><span class="line">            IConnectionFactory factory = <span class="keyword">new</span> ConnectionFactory(<span class="string">&quot;tcp://localhost:61617/&quot;</span>);</span><br><span class="line">            <span class="comment">//Create the connection</span></span><br><span class="line">            <span class="keyword">using</span> (IConnection connection = factory.CreateConnection())</span><br><span class="line">            &#123;</span><br><span class="line">                connection.ClientId = <span class="string">&quot;testing listener&quot;</span>;</span><br><span class="line">                connection.Start();</span><br><span class="line">                <span class="comment">//Create the Session</span></span><br><span class="line">                <span class="keyword">using</span> (ISession session = connection.CreateSession())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//Create the Consumer</span></span><br><span class="line">                    IMessageConsumer consumer = session.CreateDurableConsumer(<span class="keyword">new</span> Apache.NMS.ActiveMQ.Commands.ActiveMQTopic(<span class="string">&quot;testing&quot;</span>), <span class="string">&quot;testing listener&quot;</span>, <span class="literal">null</span>, <span class="literal">false</span>);</span><br><span class="line">                    consumer.Listener += <span class="keyword">new</span> MessageListener(consumer_Listener);</span><br><span class="line">                    Console.ReadLine();</span><br><span class="line">                &#125;</span><br><span class="line">                connection.Stop();</span><br><span class="line">                connection.Close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (System.Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(e.Message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">consumer_Listener</span>(<span class="params">IMessage message</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            ITextMessage msg = (ITextMessage)message;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Receive: &quot;</span> + msg.Text);</span><br><span class="line">        &#125;</span><br><span class="line">        catch (System.Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(e.Message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>C#.Net</category>
-      </categories>
-      <tags>
-        <tag>c#</tag>
-        <tag>activemq</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>类库项目中新增 WPF 窗口</title>
     <url>/blog/2018/05/27/csharp-CSProjGUID/</url>
     <content><![CDATA[<h3 id="新创建类库只能添加-WPF-用户控件，无法添加-WPF-窗体"><a href="#新创建类库只能添加-WPF-用户控件，无法添加-WPF-窗体" class="headerlink" title="新创建类库只能添加 WPF 用户控件，无法添加 WPF 窗体"></a>新创建类库只能添加 WPF 用户控件，无法添加 WPF 窗体</h3><span id="more"></span>
@@ -809,6 +790,25 @@
       <tags>
         <tag>c#</tag>
         <tag>wpf</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ActiveMQ Demo</title>
+    <url>/blog/2019/12/31/csharp-ActiveMQ/</url>
+    <content><![CDATA[<h3 id="ActiveMQ-消息队列使用介绍"><a href="#ActiveMQ-消息队列使用介绍" class="headerlink" title="ActiveMQ 消息队列使用介绍"></a>ActiveMQ 消息队列使用介绍</h3><span id="more"></span>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p><a href="https://activemq.apache.org/">Apache ActiveMQ</a> 是一个开放源代码的消息中间件。</p>
+<h4 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h4><p>请参阅<a href="https://activemq.apache.org/components/classic/documentation">官方文档</a></p>
+<h5 id="Docker-部署"><a href="#Docker-部署" class="headerlink" title="Docker 部署"></a>Docker 部署</h5><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">安装官方镜像</span><br><span class="line">docker pull webcenter/activemq</span><br><span class="line">启动 RabbitMQ 默认账户密码为 admin/admin</span><br><span class="line">docker run -d --name myactivemq -p <span class="number">61617</span>:<span class="number">61616</span> -p <span class="number">8162</span>:<span class="number">8161</span> webcenter/activemq</span><br><span class="line">WEB 端登录</span><br><span class="line"><span class="function">http://<span class="title">localhost</span>:8162/</span></span><br></pre></td></tr></table></figure>
+<h4 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h4><h5 id="未找到-61616-端口"><a href="#未找到-61616-端口" class="headerlink" title="未找到 61616 端口"></a>未找到 61616 端口</h5><p>错误信息：<br><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="function">Apache.NMS.NMSConnectionException: <span class="title">Error</span> <span class="title">connecting</span> <span class="title">to</span> <span class="title">localhost</span>:61616. ---&gt; <span class="title">System.Net.Sockets.SocketException</span>: <span class="title">Unknown</span> <span class="title">error</span> (0<span class="title">xfffffffe</span>)</span></span><br></pre></td></tr></table></figure><br>使用命令查询端口号占用进程<br><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">netstat -ano|<span class="built_in">findstr</span> &quot;PORT&quot;</span><br><span class="line">tasklist|<span class="built_in">findstr</span> &quot;PID&quot;</span><br></pre></td></tr></table></figure><br>未查到 61616 端口使用，但是开启了 61617 端口</p>
+<h4 id="C-代码调用"><a href="#C-代码调用" class="headerlink" title="C#代码调用"></a>C#代码调用</h4><p>引用 <a href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ">Apache.NMS.ActiveMQ</a> 库</p>
+<h5 id="生产者"><a href="#生产者" class="headerlink" title="生产者"></a>生产者</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> Apache.NMS;</span><br><span class="line"><span class="keyword">using</span> Apache.NMS.ActiveMQ;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//Create the Connection Factory</span></span><br><span class="line">            IConnectionFactory factory = <span class="keyword">new</span> ConnectionFactory(<span class="string">&quot;tcp://localhost:61617/&quot;</span>);</span><br><span class="line">            <span class="keyword">using</span> (IConnection connection = factory.CreateConnection())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//Create the Session</span></span><br><span class="line">                <span class="keyword">using</span> (ISession session = connection.CreateSession())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//Create the Producer for the topic/queue</span></span><br><span class="line">                    IMessageProducer prod = session.CreateProducer(<span class="keyword">new</span> Apache.NMS.ActiveMQ.Commands.ActiveMQTopic(<span class="string">&quot;testing&quot;</span>));</span><br><span class="line">                    <span class="comment">//Send Messages</span></span><br><span class="line">                    <span class="built_in">int</span> i = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">while</span> (!Console.KeyAvailable)</span><br><span class="line">                    &#123;</span><br><span class="line">                        ITextMessage msg = prod.CreateTextMessage();</span><br><span class="line">                        msg.Text = i.ToString();</span><br><span class="line">                        Console.WriteLine(<span class="string">&quot;Sending: &quot;</span> + i.ToString());</span><br><span class="line">                        prod.Send(msg, Apache.NMS.MsgDeliveryMode.NonPersistent, Apache.NMS.MsgPriority.Normal, TimeSpan.MinValue);</span><br><span class="line">                        System.Threading.Thread.Sleep(<span class="number">5000</span>);</span><br><span class="line">                        i++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">        catch (System.Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;&#123;0&#125;&quot;</span>, e.Message);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> Apache.NMS;</span><br><span class="line"><span class="keyword">using</span> Apache.NMS.ActiveMQ;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//Create the Connection factory</span></span><br><span class="line">            IConnectionFactory factory = <span class="keyword">new</span> ConnectionFactory(<span class="string">&quot;tcp://localhost:61617/&quot;</span>);</span><br><span class="line">            <span class="comment">//Create the connection</span></span><br><span class="line">            <span class="keyword">using</span> (IConnection connection = factory.CreateConnection())</span><br><span class="line">            &#123;</span><br><span class="line">                connection.ClientId = <span class="string">&quot;testing listener&quot;</span>;</span><br><span class="line">                connection.Start();</span><br><span class="line">                <span class="comment">//Create the Session</span></span><br><span class="line">                <span class="keyword">using</span> (ISession session = connection.CreateSession())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//Create the Consumer</span></span><br><span class="line">                    IMessageConsumer consumer = session.CreateDurableConsumer(<span class="keyword">new</span> Apache.NMS.ActiveMQ.Commands.ActiveMQTopic(<span class="string">&quot;testing&quot;</span>), <span class="string">&quot;testing listener&quot;</span>, <span class="literal">null</span>, <span class="literal">false</span>);</span><br><span class="line">                    consumer.Listener += <span class="keyword">new</span> MessageListener(consumer_Listener);</span><br><span class="line">                    Console.ReadLine();</span><br><span class="line">                &#125;</span><br><span class="line">                connection.Stop();</span><br><span class="line">                connection.Close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (System.Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(e.Message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">consumer_Listener</span>(<span class="params">IMessage message</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            ITextMessage msg = (ITextMessage)message;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Receive: &quot;</span> + msg.Text);</span><br><span class="line">        &#125;</span><br><span class="line">        catch (System.Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(e.Message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C#.Net</category>
+      </categories>
+      <tags>
+        <tag>c#</tag>
+        <tag>activemq</tag>
       </tags>
   </entry>
   <entry>
@@ -2503,352 +2503,6 @@ table {
       </tags>
   </entry>
   <entry>
-    <title>Html Video 截图和录像</title>
-    <url>/blog/2021/11/26/html-VideoTape/</url>
-    <content><![CDATA[<h3 id="Video-视频画面截图与录像"><a href="#Video-视频画面截图与录像" class="headerlink" title="Video 视频画面截图与录像"></a>Video 视频画面截图与录像</h3><span id="more"></span>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>项目需要在视频上截图与录像，功能已实现，我在迁移时整理一遍。</p>
-<h3 id="演示视频"><a href="#演示视频" class="headerlink" title="演示视频"></a>演示视频</h3><video width="640px" height="360px" crossorigin="anonymous" controls playsinline></video>
-
-<script>
-  const startDrawing = () => {
-    const video = document.querySelector("video");
-    video.src = "../../../../../video/test.mp4";
-    video.muted = true;
-    video.loop = 'loop';
-    video.play();
-  };
-
-  window.addEventListener('load', startDrawing);
-</script>
-
-<h3 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h3><h4 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h4><p>视频的一帧图像写入临时的 canvas 中，通过 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/toDataURL">toDataURL</a> 方法转换为 Base64 数据，下载 Base64 即可截图。<br>注：toDataURL 方法引用外部文件会报 CORS 跨域错误，需要单独解决 CORS 跨域。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 截图</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Screenshot</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> video = <span class="built_in">document</span>.querySelector(<span class="string">&quot;video&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> imgRecordCanvas = <span class="built_in">document</span>.createElement(<span class="string">&#x27;canvas&#x27;</span>);</span><br><span class="line">  imgRecordCanvas.width = video.videoWidth;</span><br><span class="line">  imgRecordCanvas.height = video.videoHeight;</span><br><span class="line">  imgRecordCanvas.getContext(<span class="string">&quot;2d&quot;</span>).drawImage(</span><br><span class="line">    video,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    imgRecordCanvas.width,</span><br><span class="line">    imgRecordCanvas.height</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">var</span> img_base64 = imgRecordCanvas.toDataURL(<span class="string">&quot;image/png&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> savename = <span class="string">&quot;img_&quot;</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">  DownloadBase64ImageFile(img_base64, savename)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下载 Base64 图片</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DownloadBase64ImageFile</span>(<span class="params">content, fileName</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> base64ToBlob = <span class="function"><span class="keyword">function</span> (<span class="params">code</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> parts = code.split(<span class="string">&quot;;base64,&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> contentType = parts[<span class="number">0</span>].split(<span class="string">&quot;:&quot;</span>)[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">const</span> raw = <span class="built_in">window</span>.atob(parts[<span class="number">1</span>]);</span><br><span class="line">  <span class="keyword">const</span> rawLength = raw.length;</span><br><span class="line">  <span class="keyword">const</span> uInt8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(rawLength);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; rawLength; ++i) &#123;</span><br><span class="line">    uInt8Array[i] = raw.charCodeAt(i);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Blob([uInt8Array], &#123;</span><br><span class="line">      type: contentType,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">const</span> aLink = <span class="built_in">document</span>.createElement(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> blob = base64ToBlob(content);</span><br><span class="line">  <span class="keyword">const</span> evt = <span class="built_in">document</span>.createEvent(<span class="string">&quot;HTMLEvents&quot;</span>);</span><br><span class="line">  evt.initEvent(<span class="string">&quot;click&quot;</span>, <span class="literal">true</span>, <span class="literal">true</span>);</span><br><span class="line">  aLink.download = fileName;</span><br><span class="line">  aLink.href = URL.createObjectURL(blob);</span><br><span class="line">  aLink.click();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h4><button type="button" onclick="Screenshot()">截图</button>
-
-<script>
-// 截图
-function Screenshot() {
-  const video = document.querySelector("video");
-  var imgRecordCanvas = document.createElement('canvas');
-  imgRecordCanvas.width = video.videoWidth;
-  imgRecordCanvas.height = video.videoHeight;
-  imgRecordCanvas.getContext("2d").drawImage(
-    video,
-    0,
-    0,
-    imgRecordCanvas.width,
-    imgRecordCanvas.height
-  );
-  var img_base64 = imgRecordCanvas.toDataURL("image/png");
-  var savename = "img_" + new Date().getTime();
-  DownloadBase64ImageFile(img_base64, savename)
-}
-
-// 下载 Base64 图片
-function DownloadBase64ImageFile(content, fileName) {
-  var base64ToBlob = function (code) {
-  const parts = code.split(";base64,");
-  const contentType = parts[0].split(":")[1];
-  const raw = window.atob(parts[1]);
-  const rawLength = raw.length;
-  const uInt8Array = new Uint8Array(rawLength);
-  for (let i = 0; i < rawLength; ++i) {
-    uInt8Array[i] = raw.charCodeAt(i);
-  }
-  return new Blob([uInt8Array], {
-      type: contentType,
-    });
-  };
-  const aLink = document.createElement("a");
-  const blob = base64ToBlob(content);
-  const evt = document.createEvent("HTMLEvents");
-  evt.initEvent("click", true, true);
-  aLink.download = fileName;
-  aLink.href = URL.createObjectURL(blob);
-  aLink.click();
-}
-</script>
-
-<h3 id="录像"><a href="#录像" class="headerlink" title="录像"></a>录像</h3><h4 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h4><p>视频录制与截图方式差不多，把图像缓存到 canvas 标签，然后通过接口 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MediaRecorder/MediaRecorder">MediaRecorder</a> 录制视频。</p>
-<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> isVideotape = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> videoRecordCanvas = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> videoCanvasContext = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> videoRecorder = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> videoFrameId = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> videoChunks = [];</span><br><span class="line"><span class="keyword">const</span> video = <span class="built_in">document</span>.querySelector(<span class="string">&quot;video&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> StartVideotape = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;StartVideotape&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> StopVideotape = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;StopVideotape&#x27;</span>);</span><br><span class="line"><span class="comment">// 开始录像</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">VideotapeStart</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  StartVideotape.disabled = <span class="string">&quot;disabled&quot;</span>;</span><br><span class="line">  StopVideotape.disabled = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  isVideotape = <span class="literal">true</span>;</span><br><span class="line">  <span class="comment">// 开始录制</span></span><br><span class="line">  videoRecordCanvas = <span class="built_in">document</span>.createElement(<span class="string">&#x27;canvas&#x27;</span>);</span><br><span class="line">  videoRecordCanvas.width = video.videoWidth;</span><br><span class="line">  videoRecordCanvas.height = video.videoHeight;</span><br><span class="line">  videoCanvasContext = videoRecordCanvas.getContext(<span class="string">&quot;2d&quot;</span>);</span><br><span class="line">  videoCanvasContext.fillStyle = <span class="string">&quot;deepskyblue&quot;</span>;</span><br><span class="line">  videoCanvasContext.fillRect(<span class="number">0</span>, <span class="number">0</span>, videoRecordCanvas.videoWidth, videoRecordCanvas.videoHeight);</span><br><span class="line">  <span class="comment">// 创建MediaRecorder，设置媒体参数</span></span><br><span class="line">  <span class="keyword">var</span> frameRate = <span class="number">60</span>;</span><br><span class="line">  <span class="keyword">var</span> stream = videoRecordCanvas.captureStream(frameRate);</span><br><span class="line">  videoRecorder = <span class="keyword">new</span> MediaRecorder(stream, &#123;</span><br><span class="line">    mimeType: <span class="string">&quot;video/webm;codecs=vp8&quot;</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 收集录制数据</span></span><br><span class="line">  videoRecorder.ondataavailable = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    videoChunks.push(e.data);</span><br><span class="line">  &#125;;</span><br><span class="line">  videoRecorder.start(<span class="number">10</span>);</span><br><span class="line">  <span class="comment">// 播放视频</span></span><br><span class="line">  DrawFrame();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 播放视频</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DrawFrame</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (videoCanvasContext &amp;&amp; videoRecordCanvas) &#123;</span><br><span class="line">    videoCanvasContext.drawImage(</span><br><span class="line">      video,</span><br><span class="line">      <span class="number">0</span>,</span><br><span class="line">      <span class="number">0</span>,</span><br><span class="line">      video.videoWidth,</span><br><span class="line">      video.videoHeight</span><br><span class="line">    );</span><br><span class="line">    videoFrameId = requestAnimationFrame(<span class="built_in">this</span>.DrawFrame);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 停止录像</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">VideotapeStop</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  StartVideotape.disabled = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  StopVideotape.disabled = <span class="string">&quot;disabled&quot;</span>;</span><br><span class="line">  isVideotape = <span class="literal">false</span>;</span><br><span class="line">  <span class="comment">// 停止录制</span></span><br><span class="line">  videoRecorder.stop();</span><br><span class="line">  cancelAnimationFrame(videoFrameId);</span><br><span class="line">  <span class="comment">// 下载录制内容</span></span><br><span class="line">  <span class="keyword">if</span> (videoChunks.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> blob = <span class="keyword">new</span> Blob(videoChunks);</span><br><span class="line">    <span class="keyword">const</span> url = <span class="built_in">window</span>.URL.createObjectURL(blob);</span><br><span class="line">    <span class="keyword">const</span> link = <span class="built_in">document</span>.createElement(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    link.href = url;</span><br><span class="line">    link.download = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() + <span class="string">&quot;.mp4&quot;</span>;</span><br><span class="line">    link.style.display = <span class="string">&quot;none&quot;</span>;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(link);</span><br><span class="line">    link.click();</span><br><span class="line">    link.remove();</span><br><span class="line">    <span class="keyword">const</span> lenght = videoChunks.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt;= lenght; i++) &#123;</span><br><span class="line">      videoChunks.pop();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="演示-1"><a href="#演示-1" class="headerlink" title="演示"></a>演示</h4><div><br><button type="button" id="StartVideotape" onclick='VideotapeStart()'>录像</button><br><button type="button" id="StopVideotape" disabled='disabled' onclick='VideotapeStop()'>停止</button><br></div>
-
-<script>
-var isVideotape = false;
-var videoRecordCanvas = null;
-var videoCanvasContext = null;
-var videoRecorder = null;
-var videoFrameId = null;
-var videoChunks = [];
-const video = document.querySelector("video");
-var StartVideotape = document.getElementById('StartVideotape');
-var StopVideotape = document.getElementById('StopVideotape');
-// 开始录像
-function VideotapeStart() {
-  StartVideotape.disabled = "disabled";
-  StopVideotape.disabled = "";
-  isVideotape = true;
-  // 开始录制
-  videoRecordCanvas = document.createElement('canvas');
-  videoRecordCanvas.width = video.videoWidth;
-  videoRecordCanvas.height = video.videoHeight;
-  videoCanvasContext = videoRecordCanvas.getContext("2d");
-  videoCanvasContext.fillStyle = "deepskyblue";
-  videoCanvasContext.fillRect(0, 0, videoRecordCanvas.videoWidth, videoRecordCanvas.videoHeight);
-  // 创建MediaRecorder，设置媒体参数
-  var frameRate = 60;
-  var stream = videoRecordCanvas.captureStream(frameRate);
-  videoRecorder = new MediaRecorder(stream, {
-    mimeType: "video/webm;codecs=vp8",
-  });
-  // 收集录制数据
-  videoRecorder.ondataavailable = (e) => {
-    videoChunks.push(e.data);
-  };
-  videoRecorder.start(10);
-  // 播放视频
-  DrawFrame();
-}
-// 播放视频
-function DrawFrame() {
-  if (videoCanvasContext && videoRecordCanvas) {
-    videoCanvasContext.drawImage(
-      video,
-      0,
-      0,
-      video.videoWidth,
-      video.videoHeight
-    );
-    videoFrameId = requestAnimationFrame(this.DrawFrame);
-  }
-}
-// 停止录像
-function VideotapeStop() {
-  StartVideotape.disabled = "";
-  StopVideotape.disabled = "disabled";
-  isVideotape = false;
-  // 停止录制
-  videoRecorder.stop();
-  cancelAnimationFrame(videoFrameId);
-  // 下载录制内容
-  if (videoChunks.length > 0) {
-    const blob = new Blob(videoChunks);
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = 'video_' + new Date().getTime() + ".mp4";
-    link.style.display = "none";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    const lenght = videoChunks.length;
-    for (let i = 0; i <= lenght; i++) {
-      videoChunks.pop();
-    }
-  }
-}
-</script>]]></content>
-      <categories>
-        <category>Html</category>
-      </categories>
-      <tags>
-        <tag>html</tag>
-        <tag>video</tag>
-        <tag>canvas</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Html Video 显示到 Canvas 中</title>
-    <url>/blog/2021/12/02/html-VideoToCanvas/</url>
-    <content><![CDATA[<h3 id="Video-视频画面加载到-Canvas-中并限制显示区域与缩放"><a href="#Video-视频画面加载到-Canvas-中并限制显示区域与缩放" class="headerlink" title="Video 视频画面加载到 Canvas 中并限制显示区域与缩放"></a>Video 视频画面加载到 Canvas 中并限制显示区域与缩放</h3><span id="more"></span>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>由于项目需要在视频上放大指定区域播放、视频滚轮缩放、绘制特定内容，H5 原生的 <a href="https://www.w3school.com.cn/tags/tag_video.asp">Video</a> 控件无法满足需求。但是同样的 Canvas 也有不如 Video 的弊端，比如全屏。</p>
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h4 id="requestVideoFrameCallback"><a href="#requestVideoFrameCallback" class="headerlink" title="requestVideoFrameCallback"></a>requestVideoFrameCallback</h4><p><a href="https://wicg.github.io/video-rvfc/">HTMLVideoElement.requestVideoFrameCallback()</a> 用于注册回调，在渲染一帧图像时触发。<br>参考博客：<a href="https://blog.tomayac.com/2020/05/15/the-requestvideoframecallback-api/">The requestVideoFrameCallback API</a></p>
-<h5 id="回调播放核心代码"><a href="#回调播放核心代码" class="headerlink" title="回调播放核心代码"></a>回调播放核心代码</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> video = <span class="built_in">document</span>.querySelector(<span class="string">&quot;video&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> canvas = <span class="built_in">document</span>.querySelector(<span class="string">&quot;canvas&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> ctx = canvas.getContext(<span class="string">&quot;2d&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> updateCanvas = <span class="function">(<span class="params">now, metadata</span>) =&gt;</span> &#123;</span><br><span class="line">  ctx.drawImage(video, <span class="number">0</span>, <span class="number">0</span>, width, height);</span><br><span class="line">  video.requestVideoFrameCallback(updateCanvas);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">video.requestVideoFrameCallback(updateCanvas);</span><br></pre></td></tr></table></figure>
-<h5 id="回调播放演示"><a href="#回调播放演示" class="headerlink" title="回调播放演示"></a>回调播放演示</h5><p><video width="640px" height="360px" controls playsinline></video></p>
-<canvas width="640px" height="360px" style="border: 1px solid Gray;"></canvas>
-
-<style>
-  video,canvas {
-    max-width: 100%;
-    height: auto;
-    display: initial;
- }
-</style>
-
-<script>
-  const startDrawing = () => {
-    const video = document.querySelector("video");
-    const canvas = document.querySelector("canvas");
-    const ctx = canvas.getContext("2d");
-
-    let width = canvas.width;
-    let height = canvas.height;
-
-    const updateCanvas = (now, metadata) => {
-      ctx.drawImage(video, 0, 0, width, height);
-      video.requestVideoFrameCallback(updateCanvas);
-    };
-
-    video.src = "../../../../../video/test.mp4";
-    video.muted = true;
-    video.loop = 'loop';
-    video.requestVideoFrameCallback(updateCanvas);
-    video.play();
-  };
-
-  window.addEventListener('load', startDrawing);
-</script>
-
-<h4 id="基于回调的区域裁切"><a href="#基于回调的区域裁切" class="headerlink" title="基于回调的区域裁切"></a>基于回调的区域裁切</h4><p>通过创建 Canvas 控件时的 drawImage 方法控制裁切显示区域<br>参考：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/drawImage">Web Api drawImage</a><br>例如：裁切起始坐标 150,150，裁切大小 576x324，显示坐标 0,0，显示大小 384x216</p>
-<h5 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> startDrawingCutting = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> video = <span class="built_in">document</span>.querySelector(<span class="string">&quot;video&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;videoCutting&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> ctx = canvas.getContext(<span class="string">&quot;2d&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> updateCanvasCutting = <span class="function">(<span class="params">now, metadata</span>) =&gt;</span> &#123;</span><br><span class="line">    ctx.drawImage(video, <span class="number">150</span>, <span class="number">150</span>, <span class="number">576</span>, <span class="number">324</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">384</span>, <span class="number">216</span>);</span><br><span class="line">    video.requestVideoFrameCallback(updateCanvasCutting);</span><br><span class="line">  &#125;;</span><br><span class="line">  video.requestVideoFrameCallback(updateCanvasCutting);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&#x27;load&#x27;</span>, startDrawingCutting);</span><br></pre></td></tr></table></figure>
-<h5 id="回调裁切演示"><a href="#回调裁切演示" class="headerlink" title="回调裁切演示"></a>回调裁切演示</h5><canvas id="videoCutting" ></canvas>
-
-<script>
-  const startDrawingCutting = () => {
-    const video = document.querySelector("video");
-    const canvas = document.getElementById('videoCutting');
-    const ctx = canvas.getContext("2d");
-
-    const updateCanvasCutting = (now, metadata) => {
-      ctx.drawImage(video, 150, 150, 576, 324, 0, 0, 384, 216);
-      video.requestVideoFrameCallback(updateCanvasCutting);
-    };
-    video.requestVideoFrameCallback(updateCanvasCutting);
-  };
-  window.addEventListener('load', startDrawingCutting);
-</script>
-
-<h4 id="Konva-js"><a href="#Konva-js" class="headerlink" title="Konva.js"></a>Konva.js</h4><p><a href="https://konvajs.org/">Konva.js</a> 是适用于桌面/移动端应用的 HTML5 2d canvas 库，将视频添加到 Konva 的舞台中，更适合后期操作。<br>参考：<a href="https://konvajs.org/docs/sandbox/Video_On_Canvas.html">VideoOnCanvas</a> 将视频加载到 Konva Canvas 中</p>
-<h5 id="Konva-播放核心代码"><a href="#Konva-播放核心代码" class="headerlink" title="Konva 播放核心代码"></a>Konva 播放核心代码</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> stage = <span class="keyword">new</span> Konva.Stage(&#123;</span><br><span class="line">  container: <span class="string">&#x27;container&#x27;</span>,</span><br><span class="line">  width: width,</span><br><span class="line">  height: height,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">var</span> layer = <span class="keyword">new</span> Konva.Layer();</span><br><span class="line">stage.add(layer);</span><br><span class="line"><span class="keyword">var</span> video = <span class="built_in">document</span>.createElement(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> image = <span class="keyword">new</span> Konva.Image(&#123;</span><br><span class="line">  image: video,</span><br><span class="line">  draggable: <span class="literal">true</span>,</span><br><span class="line">  x: <span class="number">0</span>,</span><br><span class="line">  y: <span class="number">0</span>,</span><br><span class="line">&#125;);</span><br><span class="line">layer.add(image);</span><br><span class="line"><span class="keyword">var</span> anim = <span class="keyword">new</span> Konva.Animation(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// do nothing, animation just need to update the layer</span></span><br><span class="line">&#125;, layer);</span><br><span class="line"><span class="comment">// update Konva.Image size when meta is loaded</span></span><br><span class="line">video.addEventListener(<span class="string">&#x27;loadedmetadata&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  image.width(width);</span><br><span class="line">  image.height(height);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h5 id="Konva-播放演示"><a href="#Konva-播放演示" class="headerlink" title="Konva 播放演示"></a>Konva 播放演示</h5><script src="https://cdn.bootcdn.net/ajax/libs/konva/8.1.1/konva.min.js"></script>
-
-<div id="container"></div>
-
-<style>
-  #container {
-    width: 640px;
-    height: 360px;
-    border: 1px solid Gray;
- }
-</style>
-
-<script>
-  var width = 640;
-  var height = 360;
-
-  var stage = new Konva.Stage({
-    container: 'container',
-    width: width,
-    height: height,
-  });
-  var layer = new Konva.Layer();
-  stage.add(layer);
-  var video = document.createElement('video');
-  video.src = '../../../../../video/test.mp4';
-  var image = new Konva.Image({
-    image: video,
-    draggable: false,
-    x: 0,
-    y: 0,
-  });
-  layer.add(image);
-  var anim = new Konva.Animation(function () {
-    // do nothing, animation just need to update the layer
-  }, layer);
-  // update Konva.Image size when meta is loaded
-  video.addEventListener('loadedmetadata', function (e) {
-    image.width(width);
-    image.height(height);
-  });
-
-  video.muted = true;
-  video.loop = 'loop';
-  video.play();
-  anim.start();
-</script>
-
-<h4 id="基于-Konva-js-的拖拽和鼠标滚轮缩放"><a href="#基于-Konva-js-的拖拽和鼠标滚轮缩放" class="headerlink" title="基于 Konva.js 的拖拽和鼠标滚轮缩放"></a>基于 Konva.js 的拖拽和鼠标滚轮缩放</h4><ol>
-<li>拖拽：创建 Konva 对象时设置 draggable: true 即可拖动<br> 参考 <a href="http://konvajs-doc.bluehymn.com/docs/drag_and_drop/Complex_Drag_and_Drop.html">复杂的拖拽区域</a> 可以设置更为详细的拖拽规则</li>
-<li>缩放：监听 wheel 方法进行缩放操作</li>
-</ol>
-<h5 id="鼠标滚轮缩放核心代码"><a href="#鼠标滚轮缩放核心代码" class="headerlink" title="鼠标滚轮缩放核心代码"></a>鼠标滚轮缩放核心代码</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> scaleBy = <span class="number">1.04</span>;</span><br><span class="line">stageZoom.on(<span class="string">&#x27;wheel&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">  e.evt.preventDefault();</span><br><span class="line">  <span class="keyword">var</span> oldScale = stageZoom.scaleX();</span><br><span class="line">  <span class="keyword">var</span> mousePointTo = &#123;</span><br><span class="line">    x: stageZoom.getPointerPosition().x / oldScale - stageZoom.x() / oldScale,</span><br><span class="line">    y: stageZoom.getPointerPosition().y / oldScale - stageZoom.y() / oldScale</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">var</span> newScale =</span><br><span class="line">    e.evt.deltaY &lt; <span class="number">0</span> ? oldScale * scaleBy : oldScale / scaleBy;</span><br><span class="line">  stageZoom.scale(&#123; <span class="attr">x</span>: newScale, <span class="attr">y</span>: newScale &#125;);</span><br><span class="line">  <span class="keyword">var</span> newPos = &#123;</span><br><span class="line">    x:</span><br><span class="line">      -(mousePointTo.x - stageZoom.getPointerPosition().x / newScale) *</span><br><span class="line">      newScale,</span><br><span class="line">    y:</span><br><span class="line">      -(mousePointTo.y - stageZoom.getPointerPosition().y / newScale) *</span><br><span class="line">      newScale</span><br><span class="line">  &#125;;</span><br><span class="line">  stageZoom.position(newPos);</span><br><span class="line">  stageZoom.batchDraw();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h5 id="拖拽和鼠标滚轮缩放演示"><a href="#拖拽和鼠标滚轮缩放演示" class="headerlink" title="拖拽和鼠标滚轮缩放演示"></a>拖拽和鼠标滚轮缩放演示</h5><div id="containerZoom"></div>
-
-<style>
-  #containerZoom {
-    width: 640px;
-    height: 360px;
-    border: 1px solid Gray;
- }
-</style>
-
-<script>
-  var widthZoom = 640;
-  var heightZoom = 360;
-
-  var stageZoom = new Konva.Stage({
-    container: 'containerZoom',
-    width: widthZoom,
-    height: heightZoom,
-  });
-  var layerZoom = new Konva.Layer();
-  stageZoom.add(layerZoom);
-  var videoZoom = document.createElement('video');
-  videoZoom.src = '../../../../../video/test.mp4';
-  var imageZoom = new Konva.Image({
-    image: videoZoom,
-    draggable: true,
-    x: 0,
-    y: 0,
-  });
-  layerZoom.add(imageZoom);
-  var animZoom = new Konva.Animation(function () {
-    // do nothing, animation just need to update the layer
-  }, layerZoom);
-  // update Konva.Image size when meta is loaded
-  videoZoom.addEventListener('loadedmetadata', function (e) {
-    imageZoom.width(widthZoom);
-    imageZoom.height(heightZoom);
-  });
-
-  videoZoom.muted = true;
-  videoZoom.loop = 'loop';
-  videoZoom.play();
-  animZoom.start();
-
-  var scaleBy = 1.04;
-  stageZoom.on('wheel', e => {
-    e.evt.preventDefault();
-    var oldScale = stageZoom.scaleX();
-    var mousePointTo = {
-      x: stageZoom.getPointerPosition().x / oldScale - stageZoom.x() / oldScale,
-      y: stageZoom.getPointerPosition().y / oldScale - stageZoom.y() / oldScale
-    };
-    var newScale =
-      e.evt.deltaY < 0 ? oldScale * scaleBy : oldScale / scaleBy;
-    stageZoom.scale({ x: newScale, y: newScale });
-    var newPos = {
-      x:
-        -(mousePointTo.x - stageZoom.getPointerPosition().x / newScale) *
-        newScale,
-      y:
-        -(mousePointTo.y - stageZoom.getPointerPosition().y / newScale) *
-        newScale
-    };
-    stageZoom.position(newPos);
-    stageZoom.batchDraw();
-  });
-</script>]]></content>
-      <categories>
-        <category>Html</category>
-      </categories>
-      <tags>
-        <tag>html</tag>
-        <tag>video</tag>
-        <tag>canvas</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Luminox 8821 更换电池</title>
     <url>/blog/2021/01/02/repair-Luminox8821/</url>
     <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/repair-Luminox8821/BlogLogo.png"/></p>
@@ -3171,26 +2825,6 @@ function VideotapeStop() {
       </tags>
   </entry>
   <entry>
-    <title>RDP Wrapper</title>
-    <url>/blog/2021/04/22/software-RDPWrapper/</url>
-    <content><![CDATA[<h3 id="Windows-家庭版使用-RDP-远程"><a href="#Windows-家庭版使用-RDP-远程" class="headerlink" title="Windows 家庭版使用 RDP 远程"></a>Windows 家庭版使用 RDP 远程</h3><span id="more"></span>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Windows 10 家庭版不支持远程桌面(<a href="https://support.microsoft.com/en-us/windows/how-to-use-remote-desktop-5fe128d5-8fb1-7a23-3b8a-41e636865e8c">Remote Desktop Connection(RDP)</a>)功能，微软对其进行了限制，但是可以通过开源项目 <a href="https://github.com/asmtron/rdpwrap">RDP Wrapper</a> 在功能简化的系统上启用远程桌面主机支持和并发RDP会话。</p>
-<h3 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h3><h4 id="下载最新发布版本"><a href="#下载最新发布版本" class="headerlink" title="下载最新发布版本"></a>下载最新发布版本</h4><p>下载安装或解压缩软件 <a href="https://github.com/stascorp/rdpwrap/releases/">RDP Wrapper Releases</a></p>
-<h4 id="安装服务"><a href="#安装服务" class="headerlink" title="安装服务"></a>安装服务</h4><p>以管理员权限运行 Install.bat 文件。<br>安装成功后 “C:\Program Files\RDP Wrapper” 包含配置文件。<br><img src="https://sadness96.github.io/images/blog/software-RDPWrapper/RDPWrapperInstall.png"/></p>
-<h4 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h4><h5 id="运行-RDPConf-exe"><a href="#运行-RDPConf-exe" class="headerlink" title="运行 RDPConf.exe"></a>运行 RDPConf.exe</h5><p>显示 Service state: Running<br>显示 Listener state: Listening [fully supported]<br>则为安装成功<br><img src="https://sadness96.github.io/images/blog/software-RDPWrapper/RDPWrapperListenin.png"/></p>
-<h5 id="或运行-RDPCheck-exe"><a href="#或运行-RDPCheck-exe" class="headerlink" title="或运行 RDPCheck.exe"></a>或运行 RDPCheck.exe</h5><p>测试远程到本地，显示为远程自身则为安装成功<br><img src="https://sadness96.github.io/images/blog/software-RDPWrapper/RDPWrapperChecker.png"/></p>
-<h4 id="异常错误"><a href="#异常错误" class="headerlink" title="异常错误"></a>异常错误</h4><h5 id="Listener-state-提示：Not-listening"><a href="#Listener-state-提示：Not-listening" class="headerlink" title="Listener state 提示：Not listening"></a>Listener state 提示：Not listening</h5><p>由于配置文件中缺少当前版本的配置，版本由 “C:\Windows\System32\termsrv.dll” 文件而来，同 Windows 系统一起更新。<br><img src="https://sadness96.github.io/images/blog/software-RDPWrapper/RDPWrapperNotListenin.png"/></p>
-<p>可从 RDP Wrapper Configurgation 中查看文件版本，例如当前版本为：10.0.19041.789，则 “C:\Program Files\RDP Wrapper\rdpwrap.ini” 文件中需包含以下内容，如不存在内容则下载最新版 rdpwrap.ini 文件，关闭 TermService 服务并替换，可参考以下任意最新文件：<br><a href="https://raw.githubusercontent.com/saurav-biswas/rdpwrap-1/master/res/rdpwrap.ini">https://raw.githubusercontent.com/saurav-biswas/rdpwrap-1/master/res/rdpwrap.ini</a><br><a href="https://raw.githubusercontent.com/asmtron/rdpwrap/master/res/rdpwrap.ini">https://raw.githubusercontent.com/asmtron/rdpwrap/master/res/rdpwrap.ini</a><br><a href="https://raw.githubusercontent.com/sebaxakerhtc/rdpwrap.ini/master/rdpwrap.ini">https://raw.githubusercontent.com/sebaxakerhtc/rdpwrap.ini/master/rdpwrap.ini</a><br><a href="https://raw.githubusercontent.com/affinityv/INI-RDPWRAP/master/rdpwrap.ini">https://raw.githubusercontent.com/affinityv/INI-RDPWRAP/master/rdpwrap.ini</a><br><a href="https://raw.githubusercontent.com/DrDrrae/rdpwrap/master/res/rdpwrap.ini">https://raw.githubusercontent.com/DrDrrae/rdpwrap/master/res/rdpwrap.ini</a><br><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[10.0.19041.789]</span></span><br><span class="line"><span class="attr">LocalOnlyPatch.x86</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">LocalOnlyOffset.x86</span>=B59D9</span><br><span class="line"><span class="attr">LocalOnlyCode.x86</span>=jmpshort</span><br><span class="line"><span class="attr">LocalOnlyPatch.x64</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">LocalOnlyOffset.x64</span>=<span class="number">88</span>F41</span><br><span class="line"><span class="attr">LocalOnlyCode.x64</span>=jmpshort</span><br><span class="line"><span class="attr">SingleUserPatch.x86</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">SingleUserOffset.x86</span>=<span class="number">3</span>BC45</span><br><span class="line"><span class="attr">SingleUserCode.x86</span>=nop</span><br><span class="line"><span class="attr">SingleUserPatch.x64</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">SingleUserOffset.x64</span>=<span class="number">0</span>CA4C</span><br><span class="line"><span class="attr">SingleUserCode.x64</span>=Zero</span><br><span class="line"><span class="attr">DefPolicyPatch.x86</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">DefPolicyOffset.x86</span>=<span class="number">3</span>E7C9</span><br><span class="line"><span class="attr">DefPolicyCode.x86</span>=CDefPolicy_Query_eax_ecx</span><br><span class="line"><span class="attr">DefPolicyPatch.x64</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">DefPolicyOffset.x64</span>=<span class="number">18</span>A15</span><br><span class="line"><span class="attr">DefPolicyCode.x64</span>=CDefPolicy_Query_eax_rcx</span><br><span class="line"><span class="attr">SLInitHook.x86</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">SLInitOffset.x86</span>=<span class="number">67</span>BF8</span><br><span class="line"><span class="attr">SLInitFunc.x86</span>=New_CSLQuery_Initialize</span><br><span class="line"><span class="attr">SLInitHook.x64</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">SLInitOffset.x64</span>=<span class="number">1</span>D5BC</span><br><span class="line"><span class="attr">SLInitFunc.x64</span>=New_CSLQuery_Initialize</span><br><span class="line"></span><br><span class="line"><span class="section">[10.0.19041.789-SLInit]</span></span><br><span class="line"><span class="attr">bInitialized.x86</span>      =D0954</span><br><span class="line"><span class="attr">bServerSku.x86</span>        =D0958</span><br><span class="line"><span class="attr">lMaxUserSessions.x86</span>  =D095C</span><br><span class="line"><span class="attr">bAppServerAllowed.x86</span> =D0964</span><br><span class="line"><span class="attr">bRemoteConnAllowed.x86</span>=D096C</span><br><span class="line"><span class="attr">bMultimonAllowed.x86</span>  =D0970</span><br><span class="line"><span class="attr">ulMaxDebugSessions.x86</span>=D0974</span><br><span class="line"><span class="attr">bFUSEnabled.x86</span>       =D0978</span><br><span class="line"><span class="attr">bInitialized.x64</span>      =<span class="number">106028</span></span><br><span class="line"><span class="attr">bServerSku.x64</span>        =<span class="number">10602</span>C</span><br><span class="line"><span class="attr">lMaxUserSessions.x64</span>  =<span class="number">106030</span></span><br><span class="line"><span class="attr">bAppServerAllowed.x64</span> =<span class="number">106038</span></span><br><span class="line"><span class="attr">bRemoteConnAllowed.x64</span>=<span class="number">106040</span></span><br><span class="line"><span class="attr">bMultimonAllowed.x64</span>  =<span class="number">106044</span></span><br><span class="line"><span class="attr">ulMaxDebugSessions.x64</span>=<span class="number">106048</span></span><br><span class="line"><span class="attr">bFUSEnabled.x64</span>       =<span class="number">10604</span>C</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>Software</category>
-      </categories>
-      <tags>
-        <tag>software</tag>
-        <tag>rdpwrap</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Rose 使用介绍</title>
     <url>/blog/2020/05/11/software-Rose/</url>
     <content><![CDATA[<p><img src="https://sadness96.github.io/images/blog/software-Rose/rose_log.png"/></p>
@@ -3218,6 +2852,26 @@ function VideotapeStop() {
       <tags>
         <tag>software</tag>
         <tag>rose</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RDP Wrapper</title>
+    <url>/blog/2021/04/22/software-RDPWrapper/</url>
+    <content><![CDATA[<h3 id="Windows-家庭版使用-RDP-远程"><a href="#Windows-家庭版使用-RDP-远程" class="headerlink" title="Windows 家庭版使用 RDP 远程"></a>Windows 家庭版使用 RDP 远程</h3><span id="more"></span>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Windows 10 家庭版不支持远程桌面(<a href="https://support.microsoft.com/en-us/windows/how-to-use-remote-desktop-5fe128d5-8fb1-7a23-3b8a-41e636865e8c">Remote Desktop Connection(RDP)</a>)功能，微软对其进行了限制，但是可以通过开源项目 <a href="https://github.com/asmtron/rdpwrap">RDP Wrapper</a> 在功能简化的系统上启用远程桌面主机支持和并发RDP会话。</p>
+<h3 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h3><h4 id="下载最新发布版本"><a href="#下载最新发布版本" class="headerlink" title="下载最新发布版本"></a>下载最新发布版本</h4><p>下载安装或解压缩软件 <a href="https://github.com/stascorp/rdpwrap/releases/">RDP Wrapper Releases</a></p>
+<h4 id="安装服务"><a href="#安装服务" class="headerlink" title="安装服务"></a>安装服务</h4><p>以管理员权限运行 Install.bat 文件。<br>安装成功后 “C:\Program Files\RDP Wrapper” 包含配置文件。<br><img src="https://sadness96.github.io/images/blog/software-RDPWrapper/RDPWrapperInstall.png"/></p>
+<h4 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h4><h5 id="运行-RDPConf-exe"><a href="#运行-RDPConf-exe" class="headerlink" title="运行 RDPConf.exe"></a>运行 RDPConf.exe</h5><p>显示 Service state: Running<br>显示 Listener state: Listening [fully supported]<br>则为安装成功<br><img src="https://sadness96.github.io/images/blog/software-RDPWrapper/RDPWrapperListenin.png"/></p>
+<h5 id="或运行-RDPCheck-exe"><a href="#或运行-RDPCheck-exe" class="headerlink" title="或运行 RDPCheck.exe"></a>或运行 RDPCheck.exe</h5><p>测试远程到本地，显示为远程自身则为安装成功<br><img src="https://sadness96.github.io/images/blog/software-RDPWrapper/RDPWrapperChecker.png"/></p>
+<h4 id="异常错误"><a href="#异常错误" class="headerlink" title="异常错误"></a>异常错误</h4><h5 id="Listener-state-提示：Not-listening"><a href="#Listener-state-提示：Not-listening" class="headerlink" title="Listener state 提示：Not listening"></a>Listener state 提示：Not listening</h5><p>由于配置文件中缺少当前版本的配置，版本由 “C:\Windows\System32\termsrv.dll” 文件而来，同 Windows 系统一起更新。<br><img src="https://sadness96.github.io/images/blog/software-RDPWrapper/RDPWrapperNotListenin.png"/></p>
+<p>可从 RDP Wrapper Configurgation 中查看文件版本，例如当前版本为：10.0.19041.789，则 “C:\Program Files\RDP Wrapper\rdpwrap.ini” 文件中需包含以下内容，如不存在内容则下载最新版 rdpwrap.ini 文件，关闭 TermService 服务并替换，可参考以下任意最新文件：<br><a href="https://raw.githubusercontent.com/saurav-biswas/rdpwrap-1/master/res/rdpwrap.ini">https://raw.githubusercontent.com/saurav-biswas/rdpwrap-1/master/res/rdpwrap.ini</a><br><a href="https://raw.githubusercontent.com/asmtron/rdpwrap/master/res/rdpwrap.ini">https://raw.githubusercontent.com/asmtron/rdpwrap/master/res/rdpwrap.ini</a><br><a href="https://raw.githubusercontent.com/sebaxakerhtc/rdpwrap.ini/master/rdpwrap.ini">https://raw.githubusercontent.com/sebaxakerhtc/rdpwrap.ini/master/rdpwrap.ini</a><br><a href="https://raw.githubusercontent.com/affinityv/INI-RDPWRAP/master/rdpwrap.ini">https://raw.githubusercontent.com/affinityv/INI-RDPWRAP/master/rdpwrap.ini</a><br><a href="https://raw.githubusercontent.com/DrDrrae/rdpwrap/master/res/rdpwrap.ini">https://raw.githubusercontent.com/DrDrrae/rdpwrap/master/res/rdpwrap.ini</a><br><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[10.0.19041.789]</span></span><br><span class="line"><span class="attr">LocalOnlyPatch.x86</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">LocalOnlyOffset.x86</span>=B59D9</span><br><span class="line"><span class="attr">LocalOnlyCode.x86</span>=jmpshort</span><br><span class="line"><span class="attr">LocalOnlyPatch.x64</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">LocalOnlyOffset.x64</span>=<span class="number">88</span>F41</span><br><span class="line"><span class="attr">LocalOnlyCode.x64</span>=jmpshort</span><br><span class="line"><span class="attr">SingleUserPatch.x86</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">SingleUserOffset.x86</span>=<span class="number">3</span>BC45</span><br><span class="line"><span class="attr">SingleUserCode.x86</span>=nop</span><br><span class="line"><span class="attr">SingleUserPatch.x64</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">SingleUserOffset.x64</span>=<span class="number">0</span>CA4C</span><br><span class="line"><span class="attr">SingleUserCode.x64</span>=Zero</span><br><span class="line"><span class="attr">DefPolicyPatch.x86</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">DefPolicyOffset.x86</span>=<span class="number">3</span>E7C9</span><br><span class="line"><span class="attr">DefPolicyCode.x86</span>=CDefPolicy_Query_eax_ecx</span><br><span class="line"><span class="attr">DefPolicyPatch.x64</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">DefPolicyOffset.x64</span>=<span class="number">18</span>A15</span><br><span class="line"><span class="attr">DefPolicyCode.x64</span>=CDefPolicy_Query_eax_rcx</span><br><span class="line"><span class="attr">SLInitHook.x86</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">SLInitOffset.x86</span>=<span class="number">67</span>BF8</span><br><span class="line"><span class="attr">SLInitFunc.x86</span>=New_CSLQuery_Initialize</span><br><span class="line"><span class="attr">SLInitHook.x64</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">SLInitOffset.x64</span>=<span class="number">1</span>D5BC</span><br><span class="line"><span class="attr">SLInitFunc.x64</span>=New_CSLQuery_Initialize</span><br><span class="line"></span><br><span class="line"><span class="section">[10.0.19041.789-SLInit]</span></span><br><span class="line"><span class="attr">bInitialized.x86</span>      =D0954</span><br><span class="line"><span class="attr">bServerSku.x86</span>        =D0958</span><br><span class="line"><span class="attr">lMaxUserSessions.x86</span>  =D095C</span><br><span class="line"><span class="attr">bAppServerAllowed.x86</span> =D0964</span><br><span class="line"><span class="attr">bRemoteConnAllowed.x86</span>=D096C</span><br><span class="line"><span class="attr">bMultimonAllowed.x86</span>  =D0970</span><br><span class="line"><span class="attr">ulMaxDebugSessions.x86</span>=D0974</span><br><span class="line"><span class="attr">bFUSEnabled.x86</span>       =D0978</span><br><span class="line"><span class="attr">bInitialized.x64</span>      =<span class="number">106028</span></span><br><span class="line"><span class="attr">bServerSku.x64</span>        =<span class="number">10602</span>C</span><br><span class="line"><span class="attr">lMaxUserSessions.x64</span>  =<span class="number">106030</span></span><br><span class="line"><span class="attr">bAppServerAllowed.x64</span> =<span class="number">106038</span></span><br><span class="line"><span class="attr">bRemoteConnAllowed.x64</span>=<span class="number">106040</span></span><br><span class="line"><span class="attr">bMultimonAllowed.x64</span>  =<span class="number">106044</span></span><br><span class="line"><span class="attr">ulMaxDebugSessions.x64</span>=<span class="number">106048</span></span><br><span class="line"><span class="attr">bFUSEnabled.x64</span>       =<span class="number">10604</span>C</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>Software</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
+        <tag>rdpwrap</tag>
       </tags>
   </entry>
   <entry>
