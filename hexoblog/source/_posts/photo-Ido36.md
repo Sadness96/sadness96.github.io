@@ -27,7 +27,7 @@ categories: Photo
 <link rel="stylesheet" type="text/css" href="/blog/css/masonry/component.css" />
 <script src="/blog/js/masonry/modernizr.custom.js"></script>
 <script src="/blog/js/masonry/masonry.pkgd.min.js"></script>
-<script src="/blog/js/masonry/imagesloaded.js"></script>
+<script src="/blog/js/masonry/imagesLoaded.js"></script>
 <script src="/blog/js/masonry/classie.js"></script>
 <script src="/blog/js/masonry/AnimOnScroll.js"></script>
 
