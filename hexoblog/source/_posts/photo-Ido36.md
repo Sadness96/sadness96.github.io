@@ -8,19 +8,19 @@ categories: Photo
 
 <!-- more -->
 <ul class="grid effect-1" id="grid">
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0778.jpg"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0781.jpg"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0788.jpg"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0796.jpg"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0799.jpg"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0809.jpg"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0850.jpg"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0853.jpg"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0860.jpg"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0862.jpg"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0868.jpg"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0889.jpg"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0897.jpg"></a></li>
+    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0778.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
+    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0781.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
+    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0788.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
+    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0796.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
+    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0799.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
+    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0809.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
+    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0850.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
+    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0853.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
+    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0860.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
+    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0862.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
+    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0868.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
+    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0889.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
+    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido36/554A0897.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
 </ul>
 
 <link rel="stylesheet" type="text/css" href="/blog/css/masonry/default.css" />
