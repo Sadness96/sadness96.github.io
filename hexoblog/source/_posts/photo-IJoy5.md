@@ -64,13 +64,13 @@ categories: Photo
     <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-IJoy5/554A1782.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
 </ul>
 
-<link rel="stylesheet" type="text/css" href="/blog/css/masonry/default.css" />
-<link rel="stylesheet" type="text/css" href="/blog/css/masonry/component.css" />
-<script src="/blog/js/masonry/modernizr.custom.js"></script>
-<script src="/blog/js/masonry/masonry.pkgd.min.js"></script>
-<script src="/blog/js/masonry/imagesloaded.pkgd.min.js"></script>
-<script src="/blog/js/masonry/classie.js"></script>
-<script src="/blog/js/masonry/AnimOnScroll.js"></script>
+<link rel="stylesheet" type="text/css" href="/blog/lib/masonry/default.css" />
+<link rel="stylesheet" type="text/css" href="/blog/lib/masonry/component.css" />
+<script src="/blog/lib/masonry/modernizr.custom.js"></script>
+<script src="/blog/lib/masonry/masonry.pkgd.min.js"></script>
+<script src="/blog/lib/masonry/imagesloaded.pkgd.min.js"></script>
+<script src="/blog/lib/masonry/classie.js"></script>
+<script src="/blog/lib/masonry/AnimOnScroll.js"></script>
 
 <script>
     new AnimOnScroll( document.getElementById( 'grid' ), {

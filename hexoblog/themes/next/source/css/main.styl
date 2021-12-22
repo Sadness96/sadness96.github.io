@@ -45,3 +45,33 @@ for $inject_mixin in hexo-config('injects.mixin')
 // --------------------------------------------------
 for $inject_style in hexo-config('injects.style')
   @import $inject_style;
+
+// 减少整体间距
+.content-wrap {
+  padding: 0;
+}
+
+.content {
+  padding-top: 10px;
+}
+
+// 文章阴影
+.post-block {
+  margin-top: 0px;
+  margin-bottom: 20px;
+  padding: 25px;
+  background: #FFF;
+  -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5);
+  -moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);
+}
+
+// 隐藏文章分割线
+.post-footer {
+  display: none;
+}
+
+// 底部页码格式
+.pagination {
+  margin: 20px 0 20px;
+  border-top: 0px;
+}

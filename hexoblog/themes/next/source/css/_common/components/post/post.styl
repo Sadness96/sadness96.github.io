@@ -33,16 +33,7 @@
 
 .use-motion {
   if (hexo-config('motion.transition.post_block')) {
-    .post-block{
-      margin-bottom: 30px;
-      padding-top: 25px;
-      padding-bottom: 25px;
-      padding-left: 20px;
-      padding-right: 20px;
-      -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5);
-      -moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);
-      }
-      .pagination, .comments {
+    .post-block, .pagination, .comments {
       opacity: 0;
     }
   }
@@ -67,6 +58,7 @@
 }
 
 @import 'post-collapse';
+@import 'post-eof';
 @import 'post-expand';
 @import 'post-gallery';
 @import 'post-header';
