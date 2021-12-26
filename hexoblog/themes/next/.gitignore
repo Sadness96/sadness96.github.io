@@ -13,7 +13,7 @@ source/lib/*
 source/lib/font-awesome/less/
 source/lib/font-awesome/scss/
 !source/lib/font-awesome/
-
 !source/lib/anime.min.js
-
 !source/lib/velocity/
+!source/lib/pace/
+!source/lib/masonry/
