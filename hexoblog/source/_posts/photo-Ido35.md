@@ -8,32 +8,49 @@ categories: Photo
 
 <!-- more -->
 <ul class="grid effect-1" id="grid">
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido35/554A0541.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido35/554A0557.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido35/554A0565.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido35/554A0570.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido35/554A0585.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido35/554A0590.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido35/554A0612.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido35/554A0645.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido35/554A0652.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido35/554A0665.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido35/554A0670.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
-    <li><a><img src="https://sadness.oss-cn-beijing.aliyuncs.com/images/photo-Ido35/554A0672.jpg?x-oss-process=image/resize,m_lfit,w_348"></a></li>
+
 </ul>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/masonry/default.css" />
 <link rel="stylesheet" type="text/css" href="/blog/lib/masonry/component.css" />
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script src="/blog/lib/masonry/modernizr.custom.js"></script>
 <script src="/blog/lib/masonry/masonry.pkgd.min.js"></script>
 <script src="/blog/lib/masonry/imagesloaded.pkgd.min.js"></script>
 <script src="/blog/lib/masonry/classie.js"></script>
 <script src="/blog/lib/masonry/AnimOnScroll.js"></script>
+<script src="/blog/lib/masonry/ImgPreview.js"></script>
 
 <script>
-    new AnimOnScroll( document.getElementById( 'grid' ), {
+    var vOssPath = 'https://sadness.oss-cn-beijing.aliyuncs.com/';
+    var vOssProcess = '?x-oss-process=image/resize,m_lfit,w_348';
+    var vPhotos = [
+        'images/photo-Ido35/554A0541.jpg',
+        'images/photo-Ido35/554A0557.jpg',
+        'images/photo-Ido35/554A0565.jpg',
+        'images/photo-Ido35/554A0570.jpg',
+        'images/photo-Ido35/554A0585.jpg',
+        'images/photo-Ido35/554A0590.jpg',
+        'images/photo-Ido35/554A0612.jpg',
+        'images/photo-Ido35/554A0645.jpg',
+        'images/photo-Ido35/554A0652.jpg',
+        'images/photo-Ido35/554A0665.jpg',
+        'images/photo-Ido35/554A0670.jpg',
+        'images/photo-Ido35/554A0672.jpg'
+    ];
+    vPhotos.forEach(element => {
+        $("#grid").append('<li><img class="photo" src="' + vOssPath + element + vOssProcess + '" alt="' + vOssPath + element + '" style="cursor: pointer;"></li>');
+    });
+
+    new AnimOnScroll(document.getElementById('grid'), {
         minDuration : 0.4,
         maxDuration : 0.7,
         viewportFactor : 0.2
-    } );
+    });
+    
+    $(function(){  
+        $(".photo").click(function(){  
+            imgShow("#outerdiv", "#innerdiv", "#bigimg", $(this));
+        });  
+    });  
 </script>
