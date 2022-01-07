@@ -25,4 +25,4 @@ categories: Software
 <img src="https://sadness96.github.io/images/blog/software-LocaleEmulator/style1.jpg"/>
 
 #### 修改后
-<img src="https://sadness96.github.io/images/blog/software-LocaleEmulator/style2.png"/>
+<img src="https://sadness96.github.io/images/blog/software-LocaleEmulator/style2.jpg"/>
