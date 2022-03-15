@@ -200,3 +200,28 @@ Expand-Archive -Path .\test.zip -DestinationPath .\test
 配置项 Project key 与 Project name 与 创建 SonarQube 中的 Project key 与 Project name 对应
 在 MSBuild 后选择： SonarScanner for MSBuild - End Analyoio
 <img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarScannerforMSBuild.png"/>
+
+#### 2022年3月15日补充
+##### 通过 WebHook 触发 tag 自动构建
+确保安装 [GitLab](https://plugins.jenkins.io/gitlab-plugin/) 插件
+先在 Jenkins 中创建构建触发器：
+构建触发器 -> 勾选：Build when a change is pushed to GitLab。
+右侧显示：GitLab webhook URL:…… 为 WebHook API 地址，用于填写到 GitLab 中。
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/构建触发器.jpg"/>
+
+点击标签内高级按钮 -> Allowed branches 选择触发的分支（默认 Allow all branches to trigger this job 为所有分支都可以触发） -> Secret token 点击 Generate 按钮 生成 Token，用于填写到 GitLab 中。
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/构建触发器高级.jpg"/>
+
+GitLab 中项目仓库：设置 -> 集成 -> 填写从 Jenkins 中获取的 WebHook Url 和 Secret Token -> 勾选 Trigger 中的触发类型，当前项目仅需要 Tag 触发。
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/设置Hook.jpg"/>
+
+点击 Add webhook 按钮 保存设置，在下方 Project Hooks 中显示所有已有信息，点击 Test 可测试请求。
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/测试请求.jpg"/>
+
+##### 构建后上传至 FTP
+确保安装 [Publish Over FTP](https://plugins.jenkins.io/publish-over-ftp/) 插件
+Jenkins 配置中添加：FTP repository hosts
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/设置FTP.jpg"/>
+
+项目构建后操作中添加：Send build artifacts over FTP -> 选择 FTP Name -> 填写匹配上传的 Source files -> 填写 Remote directory
+<img src="https://sadness96.github.io/images/blog/software-Jenkins/配置FTP.jpg"/>
