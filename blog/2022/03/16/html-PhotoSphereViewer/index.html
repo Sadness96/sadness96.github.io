@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://sadness96.github.io/images/Logo300.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://sadness96.github.io/images/Logo30.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://sadness96.github.io/images/Logo16.png">
+  <link rel="mask-icon" href="https://sadness96.github.io/images/logo.svg" color="#222">
+<link rel="stylesheet" href="/blog/css/main.css">
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/blog/lib/pace/pace-theme-minimal.min.css">
+  <script src="/blog/lib/pace/pace.min.js"></script>
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sadness96.github.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+  <meta name="description" content="通过 Photo Sphere Viewer 展示全景图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VR 全景图展示">
+<meta property="og:url" content="http://sadness96.github.io/blog/2022/03/16/html-PhotoSphereViewer/index.html">
+<meta property="og:site_name" content="个人博客 - 刘佳华">
+<meta property="og:description" content="通过 Photo Sphere Viewer 展示全景图">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sadness96.github.io/images/blog/html-PhotoSphereViewer/PhoneCamera.jpg">
+<meta property="og:image" content="https://sadness96.github.io/images/blog/html-PhotoSphereViewer/AutoStitch.jpg">
+<meta property="og:image" content="https://sadness96.github.io/images/blog/html-PhotoSphereViewer/pano.jpg">
+<meta property="og:image" content="https://sadness96.github.io/images/blog/html-PhotoSphereViewer/PSRestore.jpg">
+<meta property="article:published_time" content="2022-03-16T12:15:00.000Z">
+<meta property="article:modified_time" content="2022-03-17T13:14:27.816Z">
+<meta property="article:author" content="LiuJiaHua">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="vr">
+<meta property="article:tag" content="stitching">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sadness96.github.io/images/blog/html-PhotoSphereViewer/PhoneCamera.jpg">
+<link rel="canonical" href="http://sadness96.github.io/blog/2022/03/16/html-PhotoSphereViewer/">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+  <title>VR 全景图展示 | 个人博客 - 刘佳华</title>
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+  <div class="site-meta">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人博客 - 刘佳华</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+  </li>
+        <li class="menu-item menu-item-archives">
+    <a href="/blog/archives" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+  </li>
+        <li class="menu-item menu-item-categories">
+    <a href="/blog/categories" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+  </li>
+        <li class="menu-item menu-item-tags">
+    <a href="/blog/tags" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+  </li>
+        <li class="menu-item menu-item-about">
+    <a href="/blog/about" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+  </li>
+        <li class="menu-item menu-item-github">
+    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+    </header>
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content post posts-expand">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/2022/03/16/html-PhotoSphereViewer/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+      <meta itemprop="name" content="LiuJiaHua">
+      <meta itemprop="description" content="记录生活,记录学习,记录成长!">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客 - 刘佳华">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VR 全景图展示
+        </h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="创建时间：2022-03-16 20:15:00" itemprop="dateCreated datePublished" datetime="2022-03-16T20:15:00+08:00">2022-03-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Html/" itemprop="url" rel="index"><span itemprop="name">Html</span></a>
+                </span>
+            </span>
+        </div>
+      </header>
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="通过-Photo-Sphere-Viewer-展示全景图"><a href="#通过-Photo-Sphere-Viewer-展示全景图" class="headerlink" title="通过 Photo Sphere Viewer 展示全景图"></a>通过 Photo Sphere Viewer 展示全景图</h3><span id="more"></span>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>VR 图片广泛应用于房产、车辆、景区等展示推销和宣传作用，介于 360 全景相机较为昂贵，收费模式竟然按平米收取渲染费，国内这些厂家就很离谱。所以先以最低成本尝试实现一个 Demo，以后逐步完善成一个成品。</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><h4 id="下楼拍一组照片"><a href="#下楼拍一组照片" class="headerlink" title="下楼拍一组照片"></a>下楼拍一组照片</h4><p>下楼拍摄一组照片，全景相机的原理也是多个相机同时拍摄后拼接到一起，但是全景相机内使用的应该是鱼眼镜头，拥有超大广角，减少镜头数量就可以减少成本，如果使用手机拍摄就需要多拍一些了，把周身一圈 360 度拍满。<br><img src="https://sadness96.github.io/images/blog/html-PhotoSphereViewer/PhoneCamera.jpg"/></p>
+<h4 id="拼接图像"><a href="#拼接图像" class="headerlink" title="拼接图像"></a>拼接图像</h4><p>图像的拼接流程大概是：提取特征点 -&gt; 特征点匹配 -&gt; 对图片进行圆柱投影 -&gt; 图片拼接 -&gt; 色差矫正。<br>不过这里才不会实现这些内容呢，大部分软件都是集成了 <a target="_blank" rel="noopener" href="https://opencv.org/">OpenCV</a> 的 <a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d8/d19/tutorial_stitcher.html">Stitching</a> 库。<br>可以使用以下软件：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://matthewalunbrown.com/autostitch/autostitch.html">AutoStitch</a> （推荐）</li>
+<li><a target="_blank" rel="noopener" href="https://ptgui.com/">PTGui</a> （效果应该更好，但是付费）</li>
+<li><a href="www.photoshop.com/">Photoshop</a> Photomerge (可能是由于版本问题，效果不尽人意)</li>
+</ol>
+<p>以 <a target="_blank" rel="noopener" href="http://matthewalunbrown.com/autostitch/autostitch.html">AutoStitch</a> 举例，简单的添加所有图片后等待即可获得拼接后图片<br><img src="https://sadness96.github.io/images/blog/html-PhotoSphereViewer/AutoStitch.jpg"/></p>
+<p><img src="https://sadness96.github.io/images/blog/html-PhotoSphereViewer/pano.jpg"/></p>
+<h4 id="使用-PS-修复缺失部分（可选）"><a href="#使用-PS-修复缺失部分（可选）" class="headerlink" title="使用 PS 修复缺失部分（可选）"></a>使用 PS 修复缺失部分（可选）</h4><p>由于手动拍摄难免出现缝隙，或者上下存在黑洞，就算使用全景相机架着三脚架拍摄，也难免把三脚架拍摄在内，可通过 PS 的 3D 功能修复。<br>PS 打开全景图片 -&gt; 3D -&gt; 球面全景 -&gt; 通过选中的图层新建全景图图层 -&gt; 拖拽到瑕疵的区域覆盖或修复（就像普通的P图一样） -&gt; 导出全景图（PS会把内容自动抻展为平面）<br><img src="https://sadness96.github.io/images/blog/html-PhotoSphereViewer/PSRestore.jpg"/></p>
+<h4 id="展示"><a href="#展示" class="headerlink" title="展示"></a>展示</h4><p>使用 <a target="_blank" rel="noopener" href="https://photo-sphere-viewer.js.org/">Photo Sphere Viewer</a> 库渲染</p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- for optimal display on high DPI devices --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4/dist/photo-sphere-viewer.min.css&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/three/build/three.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/uevent@2/browser.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4/dist/photo-sphere-viewer.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;viewer&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 100vw; height: 100vh;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> viewer = <span class="keyword">new</span> PhotoSphereViewer.Viewer(&#123;</span></span><br><span class="line"><span class="javascript">      container: <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#viewer&#x27;</span>),</span></span><br><span class="line"><span class="javascript">      panorama: <span class="string">&#x27;image/pano.jpg&#x27;</span>,</span></span><br><span class="line">    &#125;);</span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">html</span>,</span></span><br><span class="line"><span class="css">    <span class="selector-tag">body</span>,</span></span><br><span class="line">    #viewer &#123;</span><br><span class="line"><span class="css">      <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">      <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="css">      <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h5><p><meta name="viewport" content="width=device-width, initial-scale=1.0"></p>
+<p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4/dist/photo-sphere-viewer.min.css"/></p>
+<script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uevent@2/browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4/dist/photo-sphere-viewer.min.js"></script>
+<div id="viewer" style="margin: 0;width: 100%; height: 75vh;"></div>
+<script>
+    const viewer = new PhotoSphereViewer.Viewer({
+        container: document.querySelector('#viewer'),
+        panorama: 'https://sadness96.github.io/images/blog/html-PhotoSphereViewer/pano.jpg',
+    });
+</script>
+    </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/html/" rel="tag"># html</a>
+              <a href="/blog/tags/vr/" rel="tag"># vr</a>
+              <a href="/blog/tags/stitching/" rel="tag"># stitching</a>
+          </div>
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2022/03/06/software-OnTopReplica/" rel="prev" title="OnTopReplica 使用介绍">
+      <i class="fa fa-chevron-left"></i> OnTopReplica 使用介绍
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+  </article>
+          </div>
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+        </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-Photo-Sphere-Viewer-%E5%B1%95%E7%A4%BA%E5%85%A8%E6%99%AF%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">通过 Photo Sphere Viewer 展示全景图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E6%A5%BC%E6%8B%8D%E4%B8%80%E7%BB%84%E7%85%A7%E7%89%87"><span class="nav-number">3.1.</span> <span class="nav-text">下楼拍一组照片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%BC%E6%8E%A5%E5%9B%BE%E5%83%8F"><span class="nav-number">3.2.</span> <span class="nav-text">拼接图像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-PS-%E4%BF%AE%E5%A4%8D%E7%BC%BA%E5%A4%B1%E9%83%A8%E5%88%86%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">使用 PS 修复缺失部分（可选）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%95%E7%A4%BA"><span class="nav-number">3.4.</span> <span class="nav-text">展示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.4.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%84%E8%A7%88"><span class="nav-number">3.4.2.</span> <span class="nav-text">预览</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LiuJiaHua"
+      src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+  <p class="site-author-name" itemprop="name">LiuJiaHua</p>
+  <div class="site-description" itemprop="description">记录生活,记录学习,记录成长!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags">
+        <span class="site-state-item-count">109</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="footer-inner">
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuJiaHua</span>
+</div>
+      </div>
+    </footer>
+  </div>
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+<script src="/blog/js/utils.js"></script>
+<script src="/blog/js/motion.js"></script>
+<script src="/blog/js/schemes/pisces.js"></script>
+<script src="/blog/js/next-boot.js"></script>
+<script src="/blog/js/local-search.js"></script>
+</body>
+</html>
