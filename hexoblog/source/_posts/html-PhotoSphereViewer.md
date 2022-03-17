@@ -85,6 +85,6 @@ PS 打开全景图片 -> 3D -> 球面全景 -> 通过选中的图层新建全景
 <script>
     const viewer = new PhotoSphereViewer.Viewer({
         container: document.querySelector('#viewer'),
-        panorama: 'https://sadness96.github.io/images/blog/html-PhotoSphereViewer/pano.jpg',
+        panorama: 'https://liujiahua.com/images/blog/html-PhotoSphereViewer/pano.jpg',
     });
 </script>
