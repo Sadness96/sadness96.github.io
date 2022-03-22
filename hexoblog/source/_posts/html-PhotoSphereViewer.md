@@ -20,7 +20,7 @@ VR 图片广泛应用于房产、车辆、景区等展示推销和宣传作用�
 可以使用以下软件：
 1. [AutoStitch](http://matthewalunbrown.com/autostitch/autostitch.html) （推荐）
 1. [PTGui](https://ptgui.com/) （效果应该更好，但是付费）
-1. [Photoshop](www.photoshop.com/) Photomerge (图片过多时效果不尽人意)
+1. [Photoshop](https://www.adobe.com/) Photomerge (图片过多时效果不尽人意)
 1. [Hugin](http://hugin.sourceforge.net/) （不好用）
 
 以 [AutoStitch](http://matthewalunbrown.com/autostitch/autostitch.html) 举例，简单的添加所有图片后等待即可获得拼接后图片
