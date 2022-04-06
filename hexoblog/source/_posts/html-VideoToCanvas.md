@@ -135,7 +135,7 @@ video.addEventListener('loadedmetadata', function (e) {
 ```
 
 ##### Konva 播放演示
-<script src="https://cdn.bootcdn.net/ajax/libs/konva/8.1.1/konva.min.js"></script>
+<script src="https://unpkg.com/konva@8/konva.min.js"></script>
 
 <div id="container"></div>
 
