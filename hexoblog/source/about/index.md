@@ -9,7 +9,7 @@ date: 2019-03-05 14:00:00
     padding: 20px;
 }
 </style>
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         var date = new Date;

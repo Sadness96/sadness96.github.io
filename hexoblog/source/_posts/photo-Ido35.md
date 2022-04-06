@@ -13,7 +13,7 @@ categories: Photo
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/masonry/default.css" />
 <link rel="stylesheet" type="text/css" href="/blog/lib/masonry/component.css" />
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/blog/lib/masonry/modernizr.custom.js"></script>
 <script src="/blog/lib/masonry/masonry.pkgd.min.js"></script>
 <script src="/blog/lib/masonry/imagesloaded.pkgd.min.js"></script>

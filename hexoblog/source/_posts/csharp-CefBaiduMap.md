@@ -19,7 +19,7 @@ map.baidu.html?Lon=116.4716&Lat=40.01849
 <html>
 
 <head>
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&您的ak"></script>
     <style type="text/css">
         body {
