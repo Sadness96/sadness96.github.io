@@ -32,7 +32,7 @@ if (pCodecCtx->hw_device_ctx)
 ```
 
 内存数据 NV12 格式为：(AVPixelFormat)AV_PIX_FMT_NV12。
-接下来使用 [memcpy](https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/memcpy-wmemcpy?view=msvc-170) 内存拷贝函数与 [cvtColor](https://docs.opencv.org/3.4/d8/d01/group__imgproc__color__conversions.html) 函数将图像转换为 Mat NV12。
+接下来使用 [memcpy](https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/memcpy-wmemcpy?view=msvc-170) 内存拷贝函数与 [cvtColor](https://docs.opencv.org/3.4/d8/d01/group__imgproc__color__conversions.html) 函数将图像转换为 Mat BGR_NV12。
 
 #### 转换代码
 ``` C++
