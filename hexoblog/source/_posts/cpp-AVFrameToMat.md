@@ -68,7 +68,10 @@ if (pCodecCtx->hw_device_ctx)
 /// <summary>
 /// 从 FFmpeg 图片类型转换为 OpenCV 类型
 /// </summary>
-Mat VideoDecoder::AVFrameToMat(const AVFrame* frame)
+/// <param name="frame">一帧图像</param>
+/// <param name="isfree">是否释放内存</param>
+/// <returns>Mat</returns>
+Mat VideoDecoder::AVFrameToMat(AVFrame* frame, bool isfree)
 {
 	int64 width = frame->width, height = frame->height;
 	Mat image(height, width, CV_8UC3);
@@ -77,6 +80,10 @@ Mat VideoDecoder::AVFrameToMat(const AVFrame* frame)
 	SwsContext* conversion = sws_getContext(width, height, srcFormat, width, height, AV_PIX_FMT_BGR24, SWS_FAST_BILINEAR, NULL, NULL, NULL);
 	sws_scale(conversion, frame->data, frame->linesize, 0, height, &image.data, cvLinesizes);
 	sws_freeContext(conversion);
+	if (isfree)
+	{
+		av_frame_free(&frame);
+	}
 	return image;
 }
 ```
