@@ -12,7 +12,7 @@ categories: C#.Net
 开源地址：[GitHub EasyDeploy](https://github.com/iceelves/EasyDeploy)
 
 #### 主界面
-<img src="https://github.com/iceelves/EasyDeploy/blob/main/images/MainWindow.jpg?raw=true"/>
+<img src="https://raw.githubusercontent.com/iceelves/EasyDeploy/main/images/MainWindow.jpg"/>
 
 #### 初衷
 做这个程序源于跟朋友的聊天
