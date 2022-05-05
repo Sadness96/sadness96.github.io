@@ -4,15 +4,13 @@ date: 2022-05-05 16:08:00
 tags: [c#,wpf]
 categories: C#.Net
 ---
-### 控制台程序轻松部署
+<img src="https://raw.githubusercontent.com/iceelves/EasyDeploy/main/images/MainWindow.jpg"/>
+
 <!-- more -->
 #### 简介
+控制台程序轻松部署：[EasyDeploy](https://github.com/iceelves/EasyDeploy)
 做这个东西是解决项目中实际遇到的一个问题，那就是内部在实际项目应用中，有很多的应用由于不需要 UI 界面，所以简便的使用控制台程序开发，而控制台程序在实际部署的时候，又存在很多问题，例如图标使用开发语言默认样式，或使用控制台默认图标，导致程序异常崩溃后不易排查缺少了哪些，或是需要配置开机自启，虽然公司已有解决方案，但还是按照自己理解做了一个版本。
 放弃了以服务方式启动而是以控制台程序启动，这样方便捕获输出的信息，监控进程 PID 以更方便控制。
-开源地址：[GitHub EasyDeploy](https://github.com/iceelves/EasyDeploy)
-
-#### 主界面
-<img src="https://raw.githubusercontent.com/iceelves/EasyDeploy/main/images/MainWindow.jpg"/>
 
 #### 初衷
 做这个程序源于跟朋友的聊天
