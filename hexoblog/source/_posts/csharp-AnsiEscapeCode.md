@@ -4,7 +4,7 @@ date: 2022-04-27 13:40:20
 tags: [c#,helper,wpf]
 categories: C#.Net
 ---
-### WPF 文本框像控制台做一个五彩斑斓的黑
+### WPF 文本框仿控制台做一个五彩斑斓的黑
 <!-- more -->
 #### 简介
 参考 [维基百科 ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code) 控制台程序使用 ANSI 转义来体现文字颜色，在控制台中显示出一个五彩斑斓的黑，也有很多控制台程序用这些带文字的颜色显示自家 LOGO。
