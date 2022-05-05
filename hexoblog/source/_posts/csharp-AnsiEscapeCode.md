@@ -8,8 +8,12 @@ categories: C#.Net
 <!-- more -->
 #### 简介
 参考 [维基百科 ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code) 控制台程序使用 ANSI 转义来体现文字颜色，在控制台中显示出一个五彩斑斓的黑，也有很多控制台程序用这些带文字的颜色显示自家 LOGO。
-WPF 想要在一行中加载不同颜色的文字，使用富文本控件 [RichTextBox](https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.controls.richtextbox?f1url=%3FappId%3DDev16IDEF1%26l%3DZH-CN%26k%3Dk(System.Windows.Controls.RichTextBox);k(DevLang-csharp)%26rd%3Dtrue&view=windowsdesktop-6.0) 即可，但是需要先解析文本中的 Ansi 字符。
+WPF 想要在一行中加载不同颜色的文字，使用富文本控件 [RichTextBox](https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.controls.richtextbox) 即可，但是需要先解析文本中的 Ansi 字符。
 完整参考代码在开源项目 [EasyDeploy](https://github.com/iceelves/EasyDeploy) 中有重写富文本控件。
+
+#### 控制台 Logo
+图片来源于网络
+<img src="https://sadness96.github.io/images/blog/csharp-AnsiEscapeCode/LinuxTerminal.jpg"/>
 
 #### 打印颜色板
 <img src="https://sadness96.github.io/images/blog/csharp-AnsiEscapeCode/ControlColor.jpg"/>
@@ -78,7 +82,7 @@ Ansi 编码由 \u001b[ 开头，加数值编码，由 m 结尾。
 数值 0 为默认值。
 数值 30-37;90-97 为文字颜色。
 数值 40-47;100-107 为背景颜色。
-通过正则表达式 @"\u001b\[(.*?)m" 匹配文本，后续的文本即为设定颜色。
+通过正则表达式 \u001b\[(.*?)m 匹配文本，后续的文本即为设定颜色。
 
 ##### 代码
 ``` CSharp
@@ -163,7 +167,7 @@ public static class AnsiHelper
 ```
 
 #### 把 Ansi 字符串解析为富文本所需的控件
-通过正则表达式拆分，后创建 [Run](https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.documents.run.-ctor?f1url=%3FappId%3DDev16IDEF1%26l%3DZH-CN%26k%3Dk(System.Windows.Documents.Run.%2523ctor);k(DevLang-csharp)%26rd%3Dtrue&view=windowsdesktop-6.0) 控件来创建前景色和背景色。
+通过正则表达式拆分，后创建 [Run](https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.documents.run.-ctor) 控件来创建前景色和背景色。
 
 ##### 代码
 ``` CSharp
