@@ -4,7 +4,7 @@ date: 2022-05-05 16:08:00
 tags: [c#,wpf]
 categories: C#.Net
 ---
-<img src="https://raw.githubusercontent.com/iceelves/EasyDeploy/main/images/MainWindow.jpg"/>
+<img src="https://sadness96.github.io/images/blog/csharp-EasyDeploy/MainWindow.jpg"/>
 
 <!-- more -->
 #### 简介
