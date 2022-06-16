@@ -23,16 +23,7 @@ categories: C++
 #### 重写代码
 ##### GaussianBlur
 对图像使用 OpenCV 官方推荐的卷积核进行卷积操作模糊图像。
-
-$$
-\dfrac{1}{256}
-\begin{bmatrix}
-1&4&6&4&1\\
-4&16&24&16&4\\
-6&24&36&24&6\\
-4&16&24&16&4\\
-1&4&6&4&1\\
-\end{bmatrix}$$
+<img src="https://sadness96.github.io/images/blog/cpp-PyramidCuda/Gaussian kernel.jpg"/>
 
 GaussianBlurGpu 高斯滤波函数用于下采样时使用。
 GaussianBlurFourfoldGpu 四倍高斯滤波函数用于上采样时使用。
