@@ -298,7 +298,7 @@ extern "C" Mat PyrUpGpu(Mat img, Size img_size)
 }
 ```
 
-#### subtract
+##### subtract
 计算两个数组或数组与标量之间的每元素差，生成拉普拉斯金字塔所需图像。
 
 ###### 效果
@@ -346,7 +346,7 @@ extern "C" Mat SubtractGpu(Mat img1, Mat img2)
 }
 ```
 
-#### add
+##### add
 计算两个数组或一个数组和一个标量的每元素和，使用上采样图像与拉普拉斯金字塔图像相加可还原图像
 
 ###### 效果
