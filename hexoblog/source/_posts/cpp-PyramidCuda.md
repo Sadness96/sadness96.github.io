@@ -313,14 +313,9 @@ __global__ void SubtractCore(PtrStepSz<uchar3> inputMat1, PtrStepSz<uchar3> inpu
 
 	if (tidx < outputMat.cols && tidy < outputMat.rows)
 	{
-		float b, g, r;
-		b = inputMat1(tidy, tidx).x - inputMat2(tidy, tidx).x;
-		g = inputMat1(tidy, tidx).y - inputMat2(tidy, tidx).y;
-		r = inputMat1(tidy, tidx).z - inputMat2(tidy, tidx).z;
-
-		outputMat(tidy, tidx).x = b;
-		outputMat(tidy, tidx).y = g;
-		outputMat(tidy, tidx).z = r;
+		outputMat(tidy, tidx).x = inputMat1(tidy, tidx).x - inputMat2(tidy, tidx).x;
+		outputMat(tidy, tidx).y = inputMat1(tidy, tidx).y - inputMat2(tidy, tidx).y;
+		outputMat(tidy, tidx).z = inputMat1(tidy, tidx).z - inputMat2(tidy, tidx).z;
 	}
 }
 
@@ -366,14 +361,9 @@ __global__ void AddCore(PtrStepSz<uchar3> inputMat1, PtrStepSz<uchar3> inputMat2
 
 	if (tidx < outputMat.cols && tidy < outputMat.rows)
 	{
-		float b, g, r;
-		b = inputMat1(tidy, tidx).x + inputMat2(tidy, tidx).x;
-		g = inputMat1(tidy, tidx).y + inputMat2(tidy, tidx).y;
-		r = inputMat1(tidy, tidx).z + inputMat2(tidy, tidx).z;
-
-		outputMat(tidy, tidx).x = b;
-		outputMat(tidy, tidx).y = g;
-		outputMat(tidy, tidx).z = r;
+		outputMat(tidy, tidx).x = inputMat1(tidy, tidx).x + inputMat2(tidy, tidx).x;
+		outputMat(tidy, tidx).y = inputMat1(tidy, tidx).y + inputMat2(tidy, tidx).y;
+		outputMat(tidy, tidx).z = inputMat1(tidy, tidx).z + inputMat2(tidy, tidx).z;
 	}
 }
 
