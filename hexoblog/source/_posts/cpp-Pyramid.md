@@ -160,3 +160,40 @@ int main()
 	imshow("result", result);
 }
 ```
+
+#### 羽化融合
+虽然拉普拉斯金字塔融合效果很好，但是多次生成高斯模糊和下采样上采样效率始终无法提升效率。可以退而求其次使用羽化融合（alpha blending），只需对蒙版高斯模糊一次即可。
+
+| 图片1 | 蒙版 | 图片2 | 结果 |
+| ---- | ---- | ---- | ---- |
+| <img src="https://sadness96.github.io/images/blog/cpp-Pyramid/apple.jpg" width='120px'/> | <img src="https://sadness96.github.io/images/blog/cpp-Pyramid/GaussianBlur_mask.jpg" width='120px'/> | <img src="https://sadness96.github.io/images/blog/cpp-Pyramid/orange.jpg" width='120px'/> | <img src="https://sadness96.github.io/images/blog/cpp-Pyramid/alpha_blending.jpg" width='120px'/> |
+
+##### 代码
+``` CPP
+int main()
+{
+	Mat img_apple = imread("apple.jpg");
+	Mat img_orange = imread("orange.jpg");
+	Mat img_mask = imread("mask.jpg");
+
+	// 使用高斯滤波模糊蒙版，高斯核大小越大，融合越好
+	GaussianBlur(img_mask, img_mask, Size(101, 101), 0);
+	img_mask.convertTo(img_mask, CV_32F, 1.0 / 255.0);
+
+	Mat result(img_apple.rows, img_apple.cols, CV_32FC3);
+	for (size_t w = 0; w < img_apple.cols; w++)
+	{
+		for (size_t h = 0; h < img_apple.rows; h++)
+		{
+			float alpha = img_mask.at<Vec3f>(h, w)[0];
+
+			result.at<Vec3f>(h, w)[0] = img_apple.at<Vec3b>(h, w)[0] * (1 - alpha) + img_orange.at<Vec3b>(h, w)[0] * alpha;
+			result.at<Vec3f>(h, w)[1] = img_apple.at<Vec3b>(h, w)[1] * (1 - alpha) + img_orange.at<Vec3b>(h, w)[1] * alpha;
+			result.at<Vec3f>(h, w)[2] = img_apple.at<Vec3b>(h, w)[2] * (1 - alpha) + img_orange.at<Vec3b>(h, w)[2] * alpha;
+		}
+	}
+	result.convertTo(result, CV_8UC3);
+	imshow("result", result);
+	waitKey(0);
+}
+```
