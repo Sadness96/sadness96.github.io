@@ -22,7 +22,9 @@ categories: Repair
 ### 更换电池
 #### 参数
 背后四颗螺丝，型号：十字 PH00。
-电池型号：原厂 RENATA 395，店家给我发货发的 RENATA 371，厚度上薄不到1毫米，可以替换使用。（后续又买了 395，太大了装不上！）
+机芯：Swiss Ronda 515 HH6
+电池型号：371, SR920SW (1.5 V)
+
 <img src="https://sadness96.github.io/images/blog/repair-Luminox8821/20210102_134945.jpg"/>
 
 #### 更换
