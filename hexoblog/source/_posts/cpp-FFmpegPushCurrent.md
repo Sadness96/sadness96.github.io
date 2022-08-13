@@ -110,7 +110,7 @@ int main()
 	}
 	else
 	{
-		av_log(NULL, AV_LOG_INFO, " Open output file success %s\n", input.c_str());
+		av_log(NULL, AV_LOG_INFO, " Open output file success %s\n", output.c_str());
 	}
 
 	// 转发数据流
