@@ -1,16 +1,16 @@
 ---
-title: AVFrame To Mat
+title: AVFrame And Mat Convert
 date: 2022-04-07 21:12:18
 tags: [c++,ffmpeg,opencv]
 categories: C++
 ---
-### FFmpeg(yuv420p、nv12) 转换为 OpenCV Mat 类型
+### FFmpeg(yuv420p、nv12) 与 OpenCV Mat 互相转换
 <!-- more -->
 #### 简介
 [OpenCV](https://opencv.org/) 可以使用 [VideoCapture](https://docs.opencv.org/3.4/d8/dfe/classcv_1_1VideoCapture.html) 类读取视频，虽然同样是封装了 [FFmpeg](https://ffmpeg.org/)，但是也屏蔽了很多接口，想做一些复杂操作就很不方便。
 所以改用 FFmpeg 读取视频传递给 OpenCV 使用，将视频帧 FFmpeg [AVFrame](https://www.ffmpeg.org/doxygen/4.1/structAVFrame.html) 转换为 OpenCV [Mat](https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html)。
 
-#### 详细转换
+#### 解码帧
 ##### 软解码
 软解码解析出的 AVFrame 格式为：(AVPixelFormat)AV_PIX_FMT_YUV420P。
 需要使用 [SwsContext](https://ffmpeg.org/doxygen/2.2/structSwsContext.html) 类转换为 Mat BGR24。
@@ -46,8 +46,11 @@ AVPixelFormat ConvertDeprecatedFormat(enum AVPixelFormat format)
 
 ##### 硬解码
 硬解码解析出的 AVFrame 格式为：显存 NV12。
-硬解码类型：AV_HWDEVICE_TYPE_DXVA2 解析结果为 (AVPixelFormat)AV_PIX_FMT_FXVA2_VLD。
 硬解码类型：AV_HWDEVICE_TYPE_CUDA 解析结果为 (AVPixelFormat)AV_PIX_FMT_CUDA。
+硬解码类型：AV_HWDEVICE_TYPE_DXVA2 解析结果为 (AVPixelFormat)AV_PIX_FMT_FXVA2_VLD。
+硬解码类型：AV_HWDEVICE_TYPE_D3D11VA 解析结果为 (AVPixelFormat)AV_PIX_FMT_D3D11。
+
+
 
 使用 [av_hwframe_transfer_data](https://ffmpeg.org/doxygen/3.2/hwcontext_8h.html) 函数把显存数据统一转换为内存数据 NV12。
 
@@ -63,7 +66,7 @@ if (pCodecCtx->hw_device_ctx)
 内存数据 NV12 格式为：(AVPixelFormat)AV_PIX_FMT_NV12。
 同样需要使用 [SwsContext](https://ffmpeg.org/doxygen/2.2/structSwsContext.html) 类转换为 Mat BGR24。
 
-#### 转换代码
+#### 转换 AVFrame To Mat
 ``` C++
 /// <summary>
 /// 从 FFmpeg 图片类型转换为 OpenCV 类型
@@ -71,7 +74,7 @@ if (pCodecCtx->hw_device_ctx)
 /// <param name="frame">一帧图像</param>
 /// <param name="isfree">是否释放内存</param>
 /// <returns>Mat</returns>
-Mat VideoDecoder::AVFrameToMat(AVFrame* frame, bool isfree)
+Mat AVFrameToMat(AVFrame* frame, bool isfree)
 {
 	int64 width = frame->width, height = frame->height;
 	Mat image(height, width, CV_8UC3);
@@ -85,5 +88,36 @@ Mat VideoDecoder::AVFrameToMat(AVFrame* frame, bool isfree)
 		av_frame_free(&frame);
 	}
 	return image;
+}
+```
+
+#### 转换 Mat To AVFrame
+``` cpp
+/// <summary>
+/// 从 OpenCV 图片类型转换为 FFmpeg 类型
+/// </summary>
+/// <param name="image">OpenCV 图像</param>
+/// <param name="frame">FFmpeg 图像</param>
+/// <returns>AVFrame</returns>
+AVFrame* MatToAVFrame(Mat* image, AVFrame* frame)
+{
+	int width = image->cols;
+	int height = image->rows;
+
+	if (frame == NULL)
+	{
+		frame = av_frame_alloc();
+		frame->format = AV_PIX_FMT_YUV420P;
+		frame->width = width;
+		frame->height = height;
+		av_frame_get_buffer(frame, 0);
+		av_frame_make_writable(frame);
+	}
+
+	int cvLinesizes[1]{ image->step1() };
+	SwsContext* conversion = sws_getContext(width, height, AV_PIX_FMT_BGR24, width, height, (AVPixelFormat)frame->format, SWS_FAST_BILINEAR, NULL, NULL, NULL);
+	sws_scale(conversion, &image->data, cvLinesizes, 0, height, frame->data, frame->linesize);
+	sws_freeContext(conversion);
+	return frame;
 }
 ```
