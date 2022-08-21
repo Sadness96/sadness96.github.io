@@ -22,7 +22,7 @@ categories: C++
 1. 项目属性中：VC++ 目录 → 包含目录，选择 .\include 文件夹。
 1. 项目属性中：VC++ 目录 → 库目录，选择 .\lib 文件夹。
 
-#### 开发
+#### 核心代码
 ##### 参数变量
 ``` cpp
 private:
@@ -75,7 +75,6 @@ extern "C"
 #include <libavfilter/buffersrc.h>
 #include <libswscale/swscale.h>
 #include <libswresample/swresample.h>
-#include <SDL.h>
 }
 
 #pragma comment(lib,"winmm.lib")
@@ -249,16 +248,17 @@ void main()
 			}
 			if (ret == 0)
 			{
-				hw_frame = frame;
+				auto pframe = frame;
 				if (pCodecCtx->hw_device_ctx)
 				{
 					// 硬解码转换 显存 => 内存
 					av_hwframe_transfer_data(hw_frame, frame, 0);
+					pframe = hw_frame;
 				}
 
 				// TODO: 可使用 SDL 或 OpenCV 显示视频
 				// 打印每一帧数据 AVFrame 编码类型
-				cout << hw_frame->format << endl;
+				cout << pframe->format << endl;
 
 				// 控制 FPS
 				if (is_control_fps_)
@@ -376,14 +376,15 @@ AVFrame* frame, * hw_frame;
 frame = av_frame_alloc();
 hw_frame = av_frame_alloc();
 ...
-hw_frame = frame;
+auto pframe = frame;
 if (pCodecCtx->hw_device_ctx)
 {
-    // 硬解码转换 显存 => 内存
-    av_hwframe_transfer_data(hw_frame, frame, 0);
+	// 硬解码转换 显存 => 内存
+	av_hwframe_transfer_data(hw_frame, frame, 0);
+	pframe = hw_frame;
 }
 // 打印每一帧数据 AVFrame 编码类型
-cout << hw_frame->format << endl;
+cout << pframe->format << endl;
 ```
 
 * 转换后数据类型为内存类型 NV12
