@@ -18,8 +18,6 @@ categories: Camera
 
 ##### EOS Utility
 相机连接 PC 后使用 EOS Utility 可以试试显示控制相机拍摄，或是用于传输图片。
-<img src="https://sadness96.github.io/images/blog/camera-ManageControl/EOSUtilityLogin.jpg"/>
-
 <img src="https://sadness96.github.io/images/blog/camera-ManageControl/EOSUtility.jpg"/>
 
 ##### EOS Webcam Utility

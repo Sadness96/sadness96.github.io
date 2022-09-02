@@ -28,7 +28,7 @@ categories: Camera
 
 <img src="https://sadness96.github.io/images/blog/camera-TimelapsePhotography/延时拍照3.jpg"/>
 
-### Adobe Premiere 导入
+##### Adobe Premiere 导入
 使用 [Adobe Premiere](https://www.adobe.com/products/premiere.html) 导入素材，导入媒体选择第一张图片，勾选：图像序列 即可，拖入时间轴即可编辑视频
 <img src="https://sadness96.github.io/images/blog/camera-TimelapsePhotography/PrImport.jpg"/>
 
