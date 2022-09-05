@@ -70,18 +70,24 @@ if (pCodecCtx->hw_device_ctx)
 ``` C++
 /// <summary>
 /// 从 FFmpeg 图片类型转换为 OpenCV 类型
+/// 修改尺寸
 /// </summary>
-/// <param name="frame">一帧图像</param>
+/// <param name="frame">FFmpeg 图像</param>
+/// <param name="dstWidth">输出图像宽度</param>
+/// <param name="dstHeight">输出图像高度</param>
 /// <param name="isfree">是否释放内存</param>
 /// <returns>Mat</returns>
-Mat AVFrameToMat(AVFrame* frame, bool isfree)
+Mat AVFrameToMat(AVFrame* frame, int dstWidth, int dstHeight, bool isfree)
 {
-	int64 width = frame->width, height = frame->height;
-	Mat image(height, width, CV_8UC3);
+	Mat image(dstHeight, dstWidth, CV_8UC3);
+
+	int srcWidth = frame->width;
+	int srcHeight = frame->height;
+
 	int cvLinesizes[1]{ image.step1() };
 	auto srcFormat = ConvertDeprecatedFormat((AVPixelFormat)frame->format);
-	SwsContext* conversion = sws_getContext(width, height, srcFormat, width, height, AV_PIX_FMT_BGR24, SWS_FAST_BILINEAR, NULL, NULL, NULL);
-	sws_scale(conversion, frame->data, frame->linesize, 0, height, &image.data, cvLinesizes);
+	SwsContext* conversion = sws_getContext(srcWidth, srcHeight, srcFormat, dstWidth, dstHeight, AV_PIX_FMT_BGR24, SWS_FAST_BILINEAR, NULL, NULL, NULL);
+	sws_scale(conversion, frame->data, frame->linesize, 0, srcHeight, &image.data, cvLinesizes);
 	sws_freeContext(conversion);
 	if (isfree)
 	{
@@ -89,10 +95,52 @@ Mat AVFrameToMat(AVFrame* frame, bool isfree)
 	}
 	return image;
 }
+
+/// <summary>
+/// 从 FFmpeg 图片类型转换为 OpenCV 类型
+/// </summary>
+/// <param name="frame">FFmpeg 图像</param>
+/// <param name="isfree">是否释放内存</param>
+/// <returns>Mat</returns>
+Mat AVFrameToMat(AVFrame* frame, bool isfree)
+{
+	return AVFrameToMat(frame, frame->width, frame->height, isfree);
+}
 ```
 
 #### 转换 Mat To AVFrame
 ``` cpp
+/// <summary>
+/// 从 OpenCV 图片类型转换为 FFmpeg 类型
+/// 修改尺寸
+/// </summary>
+/// <param name="image">OpenCV 图像</param>
+/// <param name="frame">FFmpeg 图像</param>
+/// <param name="dstWidth">输出图像宽度</param>
+/// <param name="dstHeight">输出图像高度</param>
+/// <returns>AVFrame</returns>
+AVFrame* MatToAVFrame(Mat* image, AVFrame* frame, int dstWidth, int dstHeight)
+{
+	if (frame == NULL)
+	{
+		frame = av_frame_alloc();
+		frame->format = AV_PIX_FMT_YUV420P;
+		frame->width = dstWidth;
+		frame->height = dstHeight;
+		av_frame_get_buffer(frame, 0);
+		av_frame_make_writable(frame);
+	}
+
+	int srcWidth = image->cols;
+	int srcHeight = image->rows;
+
+	int cvLinesizes[1]{ image->step1() };
+	SwsContext* conversion = sws_getContext(srcWidth, srcHeight, AV_PIX_FMT_BGR24, dstWidth, dstHeight, (AVPixelFormat)frame->format, SWS_FAST_BILINEAR, NULL, NULL, NULL);
+	sws_scale(conversion, &image->data, cvLinesizes, 0, srcHeight, frame->data, frame->linesize);
+	sws_freeContext(conversion);
+	return frame;
+}
+
 /// <summary>
 /// 从 OpenCV 图片类型转换为 FFmpeg 类型
 /// </summary>
@@ -101,23 +149,6 @@ Mat AVFrameToMat(AVFrame* frame, bool isfree)
 /// <returns>AVFrame</returns>
 AVFrame* MatToAVFrame(Mat* image, AVFrame* frame)
 {
-	int width = image->cols;
-	int height = image->rows;
-
-	if (frame == NULL)
-	{
-		frame = av_frame_alloc();
-		frame->format = AV_PIX_FMT_YUV420P;
-		frame->width = width;
-		frame->height = height;
-		av_frame_get_buffer(frame, 0);
-		av_frame_make_writable(frame);
-	}
-
-	int cvLinesizes[1]{ image->step1() };
-	SwsContext* conversion = sws_getContext(width, height, AV_PIX_FMT_BGR24, width, height, (AVPixelFormat)frame->format, SWS_FAST_BILINEAR, NULL, NULL, NULL);
-	sws_scale(conversion, &image->data, cvLinesizes, 0, height, frame->data, frame->linesize);
-	sws_freeContext(conversion);
-	return frame;
+	return MatToAVFrame(image, frame, image->cols, image->rows);
 }
 ```
