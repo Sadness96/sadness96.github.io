@@ -41,9 +41,7 @@ R:-179.456 - G:135.45984 - B:-226.816
 RGB 取值范围为正整数 0 ~ 255，所以显示为:
 R:0 - G:135 - B:0
 
-<div style="background: #008700;width: 120px;height: 30px;">
-	<p style="text-align: center;padding-top: 4px;color: white;">#008700</p>
-</div>
+<div style="background: #008700;width: 120px;height: 30px;text-align: center;color: white;">#008700</div>
 
 ##### 设置 YUV 为黑色
 设置 Y = 0; U = 128; V = 128;
