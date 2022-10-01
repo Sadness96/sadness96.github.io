@@ -1,6 +1,6 @@
 ---
 title: WPF 多国语言开发
-date: 2021-06-16 15:08:00
+date: 2018-06-18 15:08:00
 tags: [c#]
 categories: C#.Net
 ---
