@@ -7,11 +7,13 @@ categories: C#.Net
 <img src="http://www.bkill.com/u/upload/2017/08/17/172215508193.jpg"/>
 
 <!-- more -->
-### 关闭Windows计算机帮助类…鬼知道为什么我关电脑也能整理出一篇文章。
+### 有效的关闭 Windows 计算机帮助类
 #### 简介
 起初在刚接触C#时制作 [Desktop Lock](/blog/2016/05/31/csharp-DesktopLock/) 时有设置自动关机的功能，使用的是执行 [CMD](https://baike.baidu.com/item/%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6/998728?fromtitle=CMD&fromid=1193011&fr=aladdin) 的 [shutdown](https://baike.baidu.com/item/shutdown) 命令，但是极容易出现被杀毒软件误报毒或误被取消关机。然后又通过调用 [Win32 API](https://baike.baidu.com/item/Win32%20API) 的方式关闭计算机。
+
 #### 帮助类
 [ShutdownHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Shutdown/ShutdownHelper.cs)
+
 ##### CMD Shutdown
 ``` CSharp
 public void shutdown()
@@ -27,6 +29,7 @@ public void shutdown()
     myProcess.StandardInput.WriteLine("shutdown -s -f -t 0");
 }
 ```
+
 ##### Win32 API
 ``` CSharp
 [StructLayout(LayoutKind.Sequential, Pack = 1)]
