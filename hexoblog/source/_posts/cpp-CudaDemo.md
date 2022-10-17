@@ -1,6 +1,6 @@
 ---
-title: C++ Cuda 演示
-date: 2022-01-25 00:46:21
+title: C++ Cuda Demo
+date: 2021-09-14 00:46:21
 tags: [c++,cuda]
 categories: C++
 ---
@@ -10,10 +10,10 @@ categories: C++
 [CUDA](https://www.nvidia.cn/geforce/technologies/cuda/) 是 [NVIDIA](https://www.nvidia.cn/) 发明的一种并行计算平台和编程模型。它通过利用图形处理器 (GPU) 的处理能力，可大幅提升计算性能。
 参考：[CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html)
 
-#### 测试环境
-显卡：RTX 2060
-显卡驱动：512.15
-Cuda：[V10.2.89](https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Windows&target_arch=x86_64)
+#### 开发环境
+* Windows 10
+* [Visual Studio 2019](https://visualstudio.microsoft.com/zh-hans/)
+* [CUDA Toolkit 10.2](https://developer.nvidia.com/cuda-10.2-download-archive)
 
 #### 安装步骤
 1. 安装 Cuda 程序后使用命令 "nvcc -V" 验证安装完成。
