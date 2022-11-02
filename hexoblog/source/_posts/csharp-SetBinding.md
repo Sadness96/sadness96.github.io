@@ -8,7 +8,7 @@ categories: C#.Net
 <!-- more -->
 #### 简介
 WPF 中的 [Data binding](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/data/?view=netdesktop-6.0) 为应用程序呈现数据和与数据交互提供了一种简单且一致的方式。元素可以以 .NET 对象和 XML 的形式绑定到来自不同类型数据源的数据。
-但是有些特殊情况下只能通过后台 [FrameworkElement.SetBinding](https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.setbinding?view=windowsdesktop-6.0) 绑定数据，由于网上资料过少，所以做以记录。
+但是有些特殊情况下只能通过后台 [FrameworkElement.SetBinding](https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.setbinding?view=windowsdesktop-6.0) 绑定数据。
 
 #### 示例
 示例为项目需要迁移到 .Net Framework 4.5.2 的 [FFME](https://github.com/unosquare/ffmediaelement) 库。

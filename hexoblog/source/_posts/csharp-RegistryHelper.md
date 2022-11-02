@@ -116,6 +116,13 @@ public static Dictionary<string, string> GetAllStartupItems()
 }
 #endregion
 ```
+
+###### UAC 策略导致部分电脑无法开机自启
+[UAC (用户帐户控制)](https://learn.microsoft.com/zh-cn/previous-versions/mt634236(v=vs.85%29) 是由微软在其 Windows Vista 及更高版本操作系统中采用的一种控制机制。其原理是通知用户是否对应用程序使用硬盘驱动器和系统文件授权，以达到帮助阻止恶意程序损坏系统的效果。
+非管理员用户登录的 Windows 系统，设置注册表开机自启，要求以管理员权限运行的程序（软件图标右下角有个盾牌）无法自动启动，修改 UAC 策略禁用后即可开机自启，所有软件以管理员权限运行。
+运行 -> gpedit.msc -> 计算机配置 -> Windows 设置 -> 安全设置 -> 本地策略 -> 安全选项 -> 禁用：用户账户控制：以管理员批准模式运行所有管理员
+<img src="https://sadness96.github.io/images/blog/csharp-RegistryHelper/gpedit_uac.jpg"/>
+
 ##### 设置系统右键菜单
 ###### 桌面右键菜单项
 ``` CSharp
@@ -279,6 +286,7 @@ public static bool DeleteDesktopRightClickMenu(string strName)
 }
 #endregion
 ```
+
 ###### 文件夹右键菜单项
 ``` CSharp
 #region 注册表文件夹右键菜单项
@@ -441,6 +449,7 @@ public static bool DeleteFolderRightClickMenu(string strName)
 }
 #endregion
 ```
+
 ###### 文件右键菜单项
 ``` CSharp
 #region 注册表文件右键菜单项
@@ -603,6 +612,7 @@ public static bool DeleteFileRightClickMenu(string strName)
 }
 #endregion
 ```
+
 ###### 特定文件右键菜单项
 ``` CSharp
 #region 注册表特定文件右键菜单项
@@ -864,6 +874,7 @@ public static bool DeleteSpecificFileRightClickMenu(string strFileType, string s
 }
 #endregion
 ```
+
 ##### 设置系统特定文件后缀默认图标
 ``` CSharp
 #region Registry Default Icon
@@ -925,6 +936,7 @@ public static bool ModifyDefaultIcon(string strFileType, string strIcoPath)
 }
 #endregion
 ```
+
 ##### 设置系统特定后缀文件默认程序
 ``` CSharp
 #region Registry Default Programs
@@ -986,6 +998,7 @@ public static bool ModifyDefaultPrograms(string strFileType, string strSoftwareP
 }
 #endregion
 ```
+
 ##### 创建 URL Protocol 协议,通过网页打开本地应用
 由于公司业务需求，制作[单点登录](https://baike.baidu.com/item/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/4940767?fr=aladdin)功能，该方法作为比较常见的一种，安装C/S端软件时写入注册表，B/S程序通过A标签即可打开C/S端程序并且自动登录B/S的用户名密码。
 ``` CSharp
