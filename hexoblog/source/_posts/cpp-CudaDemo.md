@@ -39,7 +39,7 @@ int main()
     auto img1 = TestCuda1(img);
     auto img2 = TestCuda2(img);
 
-	imshow("1", img1);
+    imshow("1", img1);
     imshow("2", img2);
 }
 ```
