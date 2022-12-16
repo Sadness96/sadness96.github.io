@@ -123,6 +123,11 @@ public static Dictionary<string, string> GetAllStartupItems()
 运行 -> gpedit.msc -> 计算机配置 -> Windows 设置 -> 安全设置 -> 本地策略 -> 安全选项 -> 禁用：用户账户控制：以管理员批准模式运行所有管理员
 <img src="https://sadness96.github.io/images/blog/csharp-RegistryHelper/gpedit_uac.jpg"/>
 
+###### Windows 开机免密登录
+使用注册表方式启动软件，如果在系统启动后没有登录用户，是无法启动软件的，表现状态为开机后软件没有启动，输入密码后软件启动，需设置 Windows 开机免密登录。
+1. 运行中输入 netplwiz → 取消勾选：要使用本机算计，用户必须输入用户名和密码 → 点击应用后需要输入自动登录的用户名和密码 → 确定即可。
+1. 个别系统在 netplwiz 中没有（要使用本机算计，用户必须输入用户名和密码）选项，需要在注册表：[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device] 中修改 DevicePasswordLessBuildVersion 值为 0 即可。
+
 ##### 设置系统右键菜单
 ###### 桌面右键菜单项
 ``` CSharp
