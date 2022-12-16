@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://sadness96.github.io/images/Logo300.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://sadness96.github.io/images/Logo30.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://sadness96.github.io/images/Logo16.png">
+  <link rel="mask-icon" href="https://sadness96.github.io/images/logo.svg" color="#222">
+<link rel="stylesheet" href="/blog/css/main.css">
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/blog/lib/pace/pace-theme-minimal.min.css">
+  <script src="/blog/lib/pace/pace.min.js"></script>
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sadness96.github.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+  <meta name="description" content="由于分配过大导致文件实际大小与占用空间大小不符">
+<meta property="og:type" content="article">
+<meta property="og:title" content="磁盘分配单元大小">
+<meta property="og:url" content="http://sadness96.github.io/blog/2021/12/15/repair-DiskSector/index.html">
+<meta property="og:site_name" content="个人博客 - 刘佳华">
+<meta property="og:description" content="由于分配过大导致文件实际大小与占用空间大小不符">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sadness96.github.io/images/blog/repair-DiskSector/磁盘分区异常文件属性.jpg">
+<meta property="article:published_time" content="2021-12-15T02:55:45.000Z">
+<meta property="article:modified_time" content="2022-12-16T03:32:58.071Z">
+<meta property="article:author" content="LiuJiaHua">
+<meta property="article:tag" content="repair">
+<meta property="article:tag" content="computer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sadness96.github.io/images/blog/repair-DiskSector/磁盘分区异常文件属性.jpg">
+<link rel="canonical" href="http://sadness96.github.io/blog/2021/12/15/repair-DiskSector/">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+  <title>磁盘分配单元大小 | 个人博客 - 刘佳华</title>
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+  <div class="site-meta">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人博客 - 刘佳华</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+  </li>
+        <li class="menu-item menu-item-archives">
+    <a href="/blog/archives" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+  </li>
+        <li class="menu-item menu-item-categories">
+    <a href="/blog/categories" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+  </li>
+        <li class="menu-item menu-item-tags">
+    <a href="/blog/tags" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+  </li>
+        <li class="menu-item menu-item-about">
+    <a href="/blog/about" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+  </li>
+        <li class="menu-item menu-item-github">
+    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+    </header>
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content post posts-expand">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/2021/12/15/repair-DiskSector/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+      <meta itemprop="name" content="LiuJiaHua">
+      <meta itemprop="description" content="记录生活,记录学习,记录成长!">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客 - 刘佳华">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          磁盘分配单元大小
+        </h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="创建时间：2021-12-15 10:55:45" itemprop="dateCreated datePublished" datetime="2021-12-15T10:55:45+08:00">2021-12-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Repair/" itemprop="url" rel="index"><span itemprop="name">Repair</span></a>
+                </span>
+            </span>
+        </div>
+      </header>
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="由于分配过大导致文件实际大小与占用空间大小不符"><a href="#由于分配过大导致文件实际大小与占用空间大小不符" class="headerlink" title="由于分配过大导致文件实际大小与占用空间大小不符"></a>由于分配过大导致文件实际大小与占用空间大小不符</h3><span id="more"></span>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>由于格式化硬盘的时候设置分配单元大小过大，导致文件在存储的时候文件大小与在硬盘中占用的空间大小不符，占用的空间可能是实际大小的几倍不止，现在的硬盘一般还是比较大的，所以这是一个短时间可能无法发现的问题。<br>所谓分配单元大小，即是系统对磁盘设备进行读写的最小单位。在极限速度以内，分配单元大小越大读写速度越快，反之则越慢。但同时单元分配越大越会造成空间的浪费。现在 Windows 与其他磁盘工具格式化默认 4096 字节。<br><img src="https://sadness96.github.io/images/blog/repair-DiskSector/磁盘分区异常文件属性.jpg"/></p>
+<h3 id="排查问题"><a href="#排查问题" class="headerlink" title="排查问题"></a>排查问题</h3><p>通过命令可以得到磁盘分区当前状态<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsutil fsinfo ntfsinfo 盘符:</span><br></pre></td></tr></table></figure></p>
+<h4 id="异常盘符信息"><a href="#异常盘符信息" class="headerlink" title="异常盘符信息"></a>异常盘符信息</h4><p>其中每物理扇区字节数为 4096，每群集字节数却为 2097152，严重超出正常范围。<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">NTFS 卷序列号 ：        <span class="number">0</span>xac249e45249e1306</span><br><span class="line">NTFS 版本      ：                <span class="number">3</span>.<span class="number">1</span></span><br><span class="line">LFS 版本       ：                <span class="number">2</span>.<span class="number">0</span></span><br><span class="line">总扇区     ：                <span class="number">1</span>,<span class="number">000</span>,<span class="number">212</span>,<span class="number">479</span>  (<span class="number">476</span>.<span class="number">9</span> GB)</span><br><span class="line">总群集    ：                      <span class="number">244</span>,<span class="number">192</span>  (<span class="number">476</span>.<span class="number">9</span> GB)</span><br><span class="line">空余群集     ：                        <span class="number">4</span>,<span class="number">988</span>  (  <span class="number">9</span>.<span class="number">7</span> GB)</span><br><span class="line">总保留群集 ：                      <span class="number">2</span>  (  <span class="number">4</span>.<span class="number">0</span> MB)</span><br><span class="line">用于存储备用的保留 ：                 <span class="number">0</span>  (  <span class="number">0</span>.<span class="number">0</span> KB)</span><br><span class="line">每扇区字节数  ：                <span class="number">512</span></span><br><span class="line">每物理扇区字节数 ：        <span class="number">4096</span></span><br><span class="line">每群集字节数 ：                <span class="number">2097152</span></span><br><span class="line">每 FileRecord 分段字节数    ：  <span class="number">1024</span></span><br><span class="line">每 FileRecord 分段群集数 ：  <span class="number">0</span></span><br><span class="line">Mft 有效数据长度 ：            <span class="number">348</span>.<span class="number">00</span> MB</span><br><span class="line">Mft 开始 Lcn  ：                   <span class="number">0</span>x0000000000000600</span><br><span class="line">Mft2 开始 Lcn ：                   <span class="number">0</span>x0000000000000001</span><br><span class="line">Mft 区域开始 ：                   <span class="number">0</span>x000000000003b820</span><br><span class="line">Mft 区域结束   ：                   <span class="number">0</span>x000000000003b8a0</span><br><span class="line">MFT 区域大小  ：                   <span class="number">256</span>.<span class="number">00</span> MB</span><br><span class="line">最大设备修剪程度计数 ：     <span class="number">256</span></span><br><span class="line">最大设备修剪字节计数 ：       <span class="number">0</span>xffffffff</span><br><span class="line">最大卷修剪程度计数 ：     <span class="number">62</span></span><br><span class="line">最大卷修剪字节计数 ：       <span class="number">0</span>x40000000</span><br><span class="line">Resource Manager 标识符:     <span class="number">3</span>EFE31B9-FB44-<span class="number">11</span>EB-<span class="number">8</span>AD1-<span class="number">00</span>E04C3605F3</span><br></pre></td></tr></table></figure></p>
+<h4 id="重新格式化盘符信息"><a href="#重新格式化盘符信息" class="headerlink" title="重新格式化盘符信息"></a>重新格式化盘符信息</h4><p>经过尝试发现分配单元大小只能通过重新格式化修改，修改后其中每物理扇区字节数为 4096，每群集字节数却为 4096，测试文件存储显示占用空间正常。<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">NTFS 卷序列号 ：        <span class="number">0</span>x65f33762c14d581b</span><br><span class="line">NTFS 版本      ：                <span class="number">3</span>.<span class="number">1</span></span><br><span class="line">LFS 版本       ：                <span class="number">2</span>.<span class="number">0</span></span><br><span class="line">总扇区     ：                <span class="number">1</span>,<span class="number">000</span>,<span class="number">212</span>,<span class="number">479</span>  (<span class="number">476</span>.<span class="number">9</span> GB)</span><br><span class="line">总群集    ：                  <span class="number">125</span>,<span class="number">026</span>,<span class="number">559</span>  (<span class="number">476</span>.<span class="number">9</span> GB)</span><br><span class="line">空余群集     ：                  <span class="number">122</span>,<span class="number">800</span>,<span class="number">585</span>  (<span class="number">468</span>.<span class="number">4</span> GB)</span><br><span class="line">总保留群集 ：                  <span class="number">1</span>,<span class="number">024</span>  (  <span class="number">4</span>.<span class="number">0</span> MB)</span><br><span class="line">用于存储备用的保留 ：                 <span class="number">0</span>  (  <span class="number">0</span>.<span class="number">0</span> KB)</span><br><span class="line">每扇区字节数  ：                <span class="number">512</span></span><br><span class="line">每物理扇区字节数 ：        <span class="number">4096</span></span><br><span class="line">每群集字节数 ：                <span class="number">4096</span></span><br><span class="line">每 FileRecord 分段字节数    ：  <span class="number">1024</span></span><br><span class="line">每 FileRecord 分段群集数 ：  <span class="number">0</span></span><br><span class="line">Mft 有效数据长度 ：            <span class="number">69</span>.<span class="number">25</span> MB</span><br><span class="line">Mft 开始 Lcn  ：                   <span class="number">0</span>x00000000000c0000</span><br><span class="line">Mft2 开始 Lcn ：                   <span class="number">0</span>x0000000000000002</span><br><span class="line">Mft 区域开始 ：                   <span class="number">0</span>x0000000000000000</span><br><span class="line">Mft 区域结束   ：                   <span class="number">0</span>x0000000000000000</span><br><span class="line">MFT 区域大小  ：                   <span class="number">0</span>.<span class="number">00</span> KB</span><br><span class="line">最大设备修剪程度计数 ：     <span class="number">256</span></span><br><span class="line">最大设备修剪字节计数 ：       <span class="number">0</span>xffffffff</span><br><span class="line">最大卷修剪程度计数 ：     <span class="number">62</span></span><br><span class="line">最大卷修剪字节计数 ：       <span class="number">0</span>x40000000</span><br><span class="line">Resource Manager 标识符:     <span class="number">7</span>F073C2D-<span class="number">7</span>C25-<span class="number">11</span>ED-<span class="number">9084</span>-D85ED3244FF6</span><br></pre></td></tr></table></figure></p>
+    </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/repair/" rel="tag"># repair</a>
+              <a href="/blog/tags/computer/" rel="tag"># computer</a>
+          </div>
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2021/12/02/html-VideoToCanvas/" rel="prev" title="Html Video 显示到 Canvas 中">
+      <i class="fa fa-chevron-left"></i> Html Video 显示到 Canvas 中
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2021/12/28/software-LocaleEmulator/" rel="next" title="Locale-Emulator 使用介绍">
+      Locale-Emulator 使用介绍 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+  </article>
+          </div>
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+        </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B1%E4%BA%8E%E5%88%86%E9%85%8D%E8%BF%87%E5%A4%A7%E5%AF%BC%E8%87%B4%E6%96%87%E4%BB%B6%E5%AE%9E%E9%99%85%E5%A4%A7%E5%B0%8F%E4%B8%8E%E5%8D%A0%E7%94%A8%E7%A9%BA%E9%97%B4%E5%A4%A7%E5%B0%8F%E4%B8%8D%E7%AC%A6"><span class="nav-number">1.</span> <span class="nav-text">由于分配过大导致文件实际大小与占用空间大小不符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">排查问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E7%9B%98%E7%AC%A6%E4%BF%A1%E6%81%AF"><span class="nav-number">3.1.</span> <span class="nav-text">异常盘符信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%9B%98%E7%AC%A6%E4%BF%A1%E6%81%AF"><span class="nav-number">3.2.</span> <span class="nav-text">重新格式化盘符信息</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LiuJiaHua"
+      src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+  <p class="site-author-name" itemprop="name">LiuJiaHua</p>
+  <div class="site-description" itemprop="description">记录生活,记录学习,记录成长!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags">
+        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="footer-inner">
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuJiaHua</span>
+</div>
+      </div>
+    </footer>
+  </div>
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+<script src="/blog/js/utils.js"></script>
+<script src="/blog/js/motion.js"></script>
+<script src="/blog/js/schemes/pisces.js"></script>
+<script src="/blog/js/next-boot.js"></script>
+<script src="/blog/js/local-search.js"></script>
+</body>
+</html>
