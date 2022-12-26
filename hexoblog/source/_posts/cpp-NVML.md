@@ -35,16 +35,24 @@ int main()
 		for (i = 0; i < device_count; i++)
 		{
 			nvmlDevice_t device;
-			char name[NVML_DEVICE_NAME_BUFFER_SIZE];
-			nvmlPciInfo_t pci;
 			result = nvmlDeviceGetHandleByIndex(i, &device);
 			if (NVML_SUCCESS != result) {
 				std::cout << "get device failed " << endl;
+				continue;
 			}
+
+			char name[NVML_DEVICE_NAME_BUFFER_SIZE];
 			result = nvmlDeviceGetName(device, name, NVML_DEVICE_NAME_BUFFER_SIZE);
-			if (NVML_SUCCESS != result) {
+			if (NVML_SUCCESS == result) {
 				std::cout << "GPU name： " << name << endl;
 			}
+
+			char uuid[NVML_DEVICE_UUID_BUFFER_SIZE];
+			result = nvmlDeviceGetUUID(device, uuid, NVML_DEVICE_UUID_BUFFER_SIZE);
+			if (NVML_SUCCESS == result) {
+				std::cout << "GPU uuid： " << uuid << endl;
+			}
+
 			//使用率
 			nvmlUtilization_t utilization;
 			result = nvmlDeviceGetUtilizationRates(device, &utilization);
