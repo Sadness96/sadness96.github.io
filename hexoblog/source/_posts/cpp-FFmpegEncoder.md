@@ -8,7 +8,7 @@ categories: C++
 <!-- more -->
 #### 简介
 [FFmpeg](https://ffmpeg.org/) 是一个完整的跨平台解决方案，用于录制、转换和流式传输音频和视频。
-在处理 FFmpeg 编码视频前需了解 [FFmpeg 解码视频](https://sadness96.github.io/blog/2021/11/08/cpp-FFmpegDecoder/) 与 [FFmpeg 转发推流到 rtsp/rtmp](https://sadness96.github.io/blog/2022/07/11/cpp-FFmpegPushCurrent/)。
+在处理 FFmpeg 编码视频前需了解 [FFmpeg 解码视频](https://sadness96.github.io/blog/2021/11/08/cpp-FFmpegDecoder/) 与 [FFmpeg 转发推流到 rtsp/rtmp](https://sadness96.github.io/blog/2022/07/11/cpp-FFmpegPushCurrent/)，此文以编码推流为目的，当然也可以编码后储存为文件或作为其他作用。
 设置解码方式：TCP 优化、软解码（多线程）、硬解码（CUDA、DXVA2、D3D11VA）
 设置编码器：[H.264](https://zh.wikipedia.org/wiki/H.264/MPEG-4_AVC) 、 [H.265](https://zh.wikipedia.org/wiki/%E9%AB%98%E6%95%88%E7%8E%87%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81)
 设置推流方式：[RTSP](https://zh.wikipedia.org/wiki/%E5%8D%B3%E6%99%82%E4%B8%B2%E6%B5%81%E5%8D%94%E5%AE%9A) 、 [RTMP](https://zh.wikipedia.org/wiki/%E5%AE%9E%E6%97%B6%E6%B6%88%E6%81%AF%E5%8D%8F%E8%AE%AE)
@@ -214,7 +214,7 @@ void main()
 	string rtmpJudgment = "rtmp";
 
 	// 初始化 rtsp 连接
-	if (output.find(rtspJudgment) != string::npos)
+	if (output.rfind(rtspJudgment_, 0) == 0)
 	{
 		ret = avformat_alloc_output_context2(&outputContext, NULL, "rtsp", output.c_str());
 		if (ret < 0)
@@ -224,7 +224,7 @@ void main()
 	}
 
 	// 初始化 rtmp 连接
-	if (output.find(rtmpJudgment) != string::npos)
+	if (output.rfind(rtmpJudgment_, 0) == 0)
 	{
 		int ret = avformat_alloc_output_context2(&outputContext, nullptr, "flv", output.c_str());
 		if (ret < 0)
