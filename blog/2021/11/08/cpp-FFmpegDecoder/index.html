@@ -25,7 +25,7 @@
 <meta property="og:description" content="使用 FFmpeg 解码视频并显示">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-08T01:54:40.000Z">
-<meta property="article:modified_time" content="2022-12-31T04:02:37.741Z">
+<meta property="article:modified_time" content="2023-01-01T09:37:28.672Z">
 <meta property="article:author" content="LiuJiaHua">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="ffmpeg">
@@ -195,6 +195,7 @@
 <h5 id="硬解码（GPU-NV12）"><a href="#硬解码（GPU-NV12）" class="headerlink" title="硬解码（GPU NV12）"></a>硬解码（GPU NV12）</h5><p>FFmpeg 默认使用软解码（CPU），可设置以硬解码（GPU）的方式解码。</p>
 <h6 id="获取支持的硬解码类型"><a href="#获取支持的硬解码类型" class="headerlink" title="获取支持的硬解码类型"></a>获取支持的硬解码类型</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">AVCodecID codec_id = AV_CODEC_ID_H264;</span><br><span class="line"><span class="keyword">auto</span> codec = <span class="built_in">avcodec_find_decoder</span>(codec_id);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;; i++) &#123;</span><br><span class="line">    <span class="keyword">auto</span> config = <span class="built_in">avcodec_get_hw_config</span>(codec, i);</span><br><span class="line">    <span class="keyword">if</span> (!config)<span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">if</span> (config-&gt;device_type) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="built_in">av_hwdevice_get_type_name</span>(config-&gt;device_type) &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当前机器测试的支持环境有<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">AVHWDeviceType</span> &#123;</span></span><br><span class="line">    AV_HWDEVICE_TYPE_CUDA,</span><br><span class="line">    AV_HWDEVICE_TYPE_DXVA2,</span><br><span class="line">    AV_HWDEVICE_TYPE_D3D11VA</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用命令行查询<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:: 显示所有可用的硬件加速器</span><br><span class="line">ffmpeg -hwaccels</span><br></pre></td></tr></table></figure></p>
 <h6 id="启用硬解码"><a href="#启用硬解码" class="headerlink" title="启用硬解码"></a>启用硬解码</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">AVCodecContext* pCodecCtx;</span><br><span class="line">...</span><br><span class="line"><span class="comment">// 启用硬解码 例如：CUDA</span></span><br><span class="line">AVBufferRef* hw_ctx = <span class="literal">nullptr</span>;</span><br><span class="line"><span class="built_in">av_hwdevice_ctx_create</span>(&amp;hw_ctx, (AVHWDeviceType)AV_HWDEVICE_TYPE_CUDA, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">pCodecCtx-&gt;hw_device_ctx = <span class="built_in">av_buffer_ref</span>(hw_ctx);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <h6 id="硬解码转换"><a href="#硬解码转换" class="headerlink" title="硬解码转换"></a>硬解码转换</h6><ul>
 <li><p>使用硬解码返回的数据类型为显存类型</p>
@@ -280,7 +281,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives">
-          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-count">105</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -310,7 +311,7 @@
       <div class="footer-inner">
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

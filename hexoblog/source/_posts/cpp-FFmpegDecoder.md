@@ -349,6 +349,12 @@ enum AVHWDeviceType {
 };
 ```
 
+也可以使用命令行查询
+``` cmd
+:: 显示所有可用的硬件加速器
+ffmpeg -hwaccels
+```
+
 ###### 启用硬解码
 ``` cpp
 AVCodecContext* pCodecCtx;

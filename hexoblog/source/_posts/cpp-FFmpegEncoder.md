@@ -18,6 +18,16 @@ categories: C++
 ``` cpp
 private:
 	/// <summary>
+	/// RTSP 标识
+	/// </summary>
+	string rtspJudgment_ = "rtsp";
+
+	/// <summary>
+	/// RTMP 标识
+	/// </summary>
+	string rtmpJudgment_ = "rtmp";
+
+	/// <summary>
 	/// 是否启用 TCP 优化解码
 	/// </summary>
 	bool is_tcp_decode_ = true;
@@ -89,13 +99,23 @@ extern "C"
 
 using namespace std;
 
+/// <summary>
+/// 打印 FFmpeg 错误信息
+/// </summary>
+/// <param name="error">异常代码</param>
+void PrintError(int error)
+{
+	char buf[1024] = { 0 };
+	av_strerror(error, buf, sizeof(buf) - 1);
+	printf("FFmpeg Error Code:%d Info:%s\n", error, buf);
+}
+
 void main()
 {
 	/// <summary>
 	/// 视频路径
 	/// </summary>
-	string videoUrl_ = "rtsp://localhost:8554/live_1080_264";
-	//string videoUrl_ = "rtsp://localhost:8554/live_3840_264";
+	string videoUrl_ = "rtsp://localhost:8554/live";
 
 	/// <summary>
 	/// 推流路径
@@ -264,7 +284,6 @@ void main()
 	codecContext->height = height_;
 	codecContext->time_base = { 1, fps_ };
 	codecContext->pix_fmt = pix_fmt_;
-	codecContext->codec_type = AVMEDIA_TYPE_VIDEO;
 
 	ret = avcodec_open2(codecContext, codec, NULL);
 	if (ret != 0)
