@@ -85,6 +85,17 @@ extern "C"
 
 using namespace std;
 
+/// <summary>
+/// 打印 FFmpeg 错误信息
+/// </summary>
+/// <param name="error">异常代码</param>
+void PrintError(int error)
+{
+	char buf[1024] = { 0 };
+	av_strerror(error, buf, sizeof(buf) - 1);
+	printf("FFmpeg Error Code:%d Info:%s\n", error, buf);
+}
+
 void main()
 {
 	/// <summary>
@@ -217,8 +228,12 @@ void main()
 		if (!packet || packet->stream_index != videoStream->index)
 		{
 			// 判断是否是视频流
+			av_packet_free(&packet);
 			continue;
 		}
+
+		// 计算 packet 帧间隔，用于打开文件时控制 FPS
+		auto dur = av_rescale_q(packet->duration, inputContext->streams[packet->stream_index]->time_base, { 1,1000 });
 
 		ret = avcodec_send_packet(pCodecCtx, packet);
 		if (ret < 0)
@@ -263,7 +278,6 @@ void main()
 				// 控制 FPS
 				if (is_control_fps_)
 				{
-					auto dur = RescaleToMs(inputContext, packet->duration, packet->stream_index);
 					if (dur < 40)
 					{
 						dur = 40;
