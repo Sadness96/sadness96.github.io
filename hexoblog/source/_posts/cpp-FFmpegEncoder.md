@@ -4,7 +4,7 @@ date: 2022-08-20 19:38:58
 tags: [c++,ffmpeg]
 categories: C++
 ---
-### 使用 FFmpeg 编码视频并推流
+### 使用 FFmpeg 编码视频并推流或保存文件
 <!-- more -->
 #### 简介
 [FFmpeg](https://ffmpeg.org/) 是一个完整的跨平台解决方案，用于录制、转换和流式传输音频和视频。
@@ -233,19 +233,18 @@ void main()
 	string rtspJudgment = "rtsp";
 	string rtmpJudgment = "rtmp";
 
-	// 初始化 rtsp 连接
-	if (output.rfind(rtspJudgment_, 0) == 0)
+	if (output.rfind(rtspJudgment, 0) == 0)
 	{
+		// 初始化 rtsp 连接
 		ret = avformat_alloc_output_context2(&outputContext, NULL, "rtsp", output.c_str());
 		if (ret < 0)
 		{
 			av_log(NULL, AV_LOG_ERROR, "open output context failed\n");
 		}
 	}
-
-	// 初始化 rtmp 连接
-	if (output.rfind(rtmpJudgment_, 0) == 0)
+	else if (output.rfind(rtmpJudgment, 0) == 0)
 	{
+		// 初始化 rtmp 连接
 		int ret = avformat_alloc_output_context2(&outputContext, nullptr, "flv", output.c_str());
 		if (ret < 0)
 		{
@@ -255,10 +254,62 @@ void main()
 		ret = avio_open2(&outputContext->pb, output.c_str(), AVIO_FLAG_READ_WRITE, nullptr, nullptr);
 		if (ret < 0)
 		{
-			char buf[1024] = { 0 };
-			av_strerror(ret, buf, sizeof(buf) - 1);
-			cerr << buf << endl;
+			PrintError(ret);
+			av_log(NULL, AV_LOG_ERROR, "open avio failed");
+		}
+	}
+	else
+	{
+		// 判断文件夹是否合法
+		string outDir = output.substr(0, output.find_last_of("\\") + 1);
+		if (strlen(outDir.c_str()) > MAX_PATH)
+		{
+			cerr << "Maximum path length exceeded!" << endl;
+			return;
+		}
 
+		// 文件夹不存在则创建
+		int ipathLength = strlen(outDir.c_str());
+		int ileaveLength = 0;
+		int iCreatedLength = 0;
+		char szPathTemp[MAX_PATH] = { 0 };
+		for (int i = 0; (NULL != strchr(outDir.c_str() + iCreatedLength, '\\')); i++)
+		{
+			ileaveLength = strlen(strchr(outDir.c_str() + iCreatedLength, '\\')) - 1;
+			iCreatedLength = ipathLength - ileaveLength;
+			strncpy(szPathTemp, outDir.c_str(), iCreatedLength);
+			if (access(szPathTemp, 0))
+			{
+				if (mkdir(szPathTemp))
+				{
+					cerr << "mkdir " << szPathTemp << " false, errno:" << errno << " errmsg:" << strerror(errno) << endl;
+					return;
+				}
+			}
+		}
+		if (iCreatedLength < ipathLength)
+		{
+			if (access(outDir.c_str(), 0))
+			{
+				if (mkdir(outDir.c_str()))
+				{
+					cerr << "mkdir " << outDir << " false, errno:" << errno << " errmsg:" << strerror(errno) << endl;
+					return;
+				}
+			}
+		}
+
+		// 初始化文件连接
+		ret = avformat_alloc_output_context2(&outputContext, NULL, NULL, output.c_str());
+		if (ret < 0)
+		{
+			av_log(NULL, AV_LOG_ERROR, "open output context failed\n");
+		}
+
+		ret = avio_open2(&outputContext->pb, output.c_str(), AVIO_FLAG_READ_WRITE, nullptr, nullptr);
+		if (ret < 0)
+		{
+			PrintError(ret);
 			av_log(NULL, AV_LOG_ERROR, "open avio failed");
 		}
 	}
@@ -288,9 +339,7 @@ void main()
 	ret = avcodec_open2(codecContext, codec, NULL);
 	if (ret != 0)
 	{
-		char buf[1024] = { 0 };
-		av_strerror(ret, buf, sizeof(buf) - 1);
-		cerr << "avcodec_open2 failed!" << buf << endl;
+		PrintError(ret);
 		return;
 	}
 	cout << "avcodec_open2 success!" << endl;
@@ -408,9 +457,7 @@ void main()
 				ret = avcodec_send_frame(codecContext, pframe);
 				if (ret < 0)
 				{
-					char buf[1024] = { 0 };
-					av_strerror(ret, buf, sizeof(buf) - 1);
-					cerr << "avcodec_send_frame failed!" << buf << endl;
+					PrintError(ret);
 					av_frame_free(&pframe);
 					return;
 				}
@@ -423,9 +470,7 @@ void main()
 					}
 					if (ret < 0)
 					{
-						char buf[1024] = { 0 };
-						av_strerror(ret, buf, sizeof(buf) - 1);
-						cerr << "avcodec_send_frame failed!" << buf << endl;
+						PrintError(ret);
 						break;
 					}
 
@@ -445,8 +490,22 @@ void main()
 		// 释放 AVPacket
 		av_free_packet(packet);
 	}
-	// 释放 AVFormatContext
+	
+	// 释放输入 AVFormatContext
 	avformat_close_input(&inputContext);
+
+	// 写入文件尾
+	if (av_write_trailer(outputContext) < 0)
+	{
+		av_log(NULL, AV_LOG_ERROR, "format write trailer failed");
+	}
+
+	// 释放 AVCodecContext
+	avcodec_free_context(&pCodecCtx);
+	avcodec_free_context(&codecContext);
+
+	// 释放输出 AVFormatContext
+	avformat_close_input(&outputContext);
 }
 ```
 
@@ -462,18 +521,69 @@ void main()
 * 普通视频 30fps/60fps
 
 ##### 推流到 RTSP / RTMP
-1. 创建 RTSP 流仅需要通过 [avformat_alloc_output_context2](https://ffmpeg.org/doxygen/3.0/avformat_8h.html#a6ddf3d982feb45fa5081420ee911f5d5) 创建 "rtsp" 上下文即可。
-1. 创建 RTMP 流需要通过 [avformat_alloc_output_context2](https://ffmpeg.org/doxygen/3.0/avformat_8h.html#a6ddf3d982feb45fa5081420ee911f5d5) 创建 "flv" 上下文，创建并初始化一个 [AVIOContext](https://ffmpeg.org/doxygen/trunk/structAVIOContext.html) 以访问 url 指示的资源，在使用 [avformat_write_header](https://ffmpeg.org/doxygen/3.3/group__lavf__encoding.html#ga18b7b10bb5b94c4842de18166bc677cb) 写入流标头前写入 sps pps，此处没有验证具体含义，可以使用其他方式写入，但是测试时对各类视频没有影响。
-``` cpp
-unsigned char sps_pps[23] = { 0x00, 0x00, 0x00, 0x01, 0x67, 0x42, 0x00, 0x0a, 0xf8, 0x0f, 0x00, 0x44, 0xbe, 0x8, 0x00, 0x00, 0x00, 0x01, 0x68, 0xce, 0x38, 0x80 };
-pa->extradata_size = 23;
-pa->extradata = (uint8_t*)av_malloc(23 + AV_INPUT_BUFFER_PADDING_SIZE);
-if (pa->extradata == NULL) {
-    printf("could not av_malloc the video params extradata!\n");
-    return;
-}
-memcpy(pa->extradata, sps_pps, 23);
-```
+1. 创建 RTSP / RTMP 流需要通过 [avformat_alloc_output_context2](https://ffmpeg.org/doxygen/3.0/avformat_8h.html#a6ddf3d982feb45fa5081420ee911f5d5) 创建 "rtsp" / "flv" 上下文。
+1. 创建 RTMP 流需要创建并初始化一个 [AVIOContext](https://ffmpeg.org/doxygen/trunk/structAVIOContext.html) 以访问 url 指示的资源。
+1. 创建 RTMP 流需要写入流标头前写入 sps pps，此处没有验证具体含义，可以使用其他方式写入，但是测试时对各类视频没有影响。
+	``` cpp
+	unsigned char sps_pps[23] = { 0x00, 0x00, 0x00, 0x01, 0x67, 0x42, 0x00, 0x0a, 0xf8, 0x0f, 0x00, 0x44, 0xbe, 0x8, 0x00, 0x00, 0x00, 0x01, 0x68, 0xce, 0x38, 0x80 };
+	pa->extradata_size = 23;
+	pa->extradata = (uint8_t*)av_malloc(23 + AV_INPUT_BUFFER_PADDING_SIZE);
+	if (pa->extradata == NULL) {
+		printf("could not av_malloc the video params extradata!\n");
+		return;
+	}
+	memcpy(pa->extradata, sps_pps, 23);
+	```
+
+1. 使用 [avformat_write_header](https://ffmpeg.org/doxygen/3.3/group__lavf__encoding.html#ga18b7b10bb5b94c4842de18166bc677cb) 写入流标头。
+
+##### 保存到本地文件
+测试保存本地文件支持的文件格式有：mp4、flv、mov、ts、avi。
+1. 保存到本地文件首先需要判断文件路径的可用，如果文件夹为空时自动创建。
+	``` cpp
+	// 判断文件夹是否合法
+	string outDir = output.substr(0, output.find_last_of("\\") + 1);
+	if (strlen(outDir.c_str()) > MAX_PATH)
+	{
+		cerr << "Maximum path length exceeded!" << endl;
+		return;
+	}
+
+	// 文件夹不存在则创建
+	int ipathLength = strlen(outDir.c_str());
+	int ileaveLength = 0;
+	int iCreatedLength = 0;
+	char szPathTemp[MAX_PATH] = { 0 };
+	for (int i = 0; (NULL != strchr(outDir.c_str() + iCreatedLength, '\\')); i++)
+	{
+		ileaveLength = strlen(strchr(outDir.c_str() + iCreatedLength, '\\')) - 1;
+		iCreatedLength = ipathLength - ileaveLength;
+		strncpy(szPathTemp, outDir.c_str(), iCreatedLength);
+		if (access(szPathTemp, 0))
+		{
+			if (mkdir(szPathTemp))
+			{
+				cerr << "mkdir " << szPathTemp << " false, errno:" << errno << " errmsg:" << strerror(errno) << endl;
+				return;
+			}
+		}
+	}
+	if (iCreatedLength < ipathLength)
+	{
+		if (access(outDir.c_str(), 0))
+		{
+			if (mkdir(outDir.c_str()))
+			{
+				cerr << "mkdir " << outDir << " false, errno:" << errno << " errmsg:" << strerror(errno) << endl;
+				return;
+			}
+		}
+	}
+	```
+1. 保存到本地文件需要通过 [avformat_alloc_output_context2](https://ffmpeg.org/doxygen/3.0/avformat_8h.html#a6ddf3d982feb45fa5081420ee911f5d5) 创建 NULL 上下文即可，FFmpeg 可以通过文件路径中的后缀名自动创建类型。
+1. 创建并初始化一个 AVIOContext 以访问 url 指示的资源。
+1. 使用 [avformat_write_header](https://ffmpeg.org/doxygen/3.3/group__lavf__encoding.html#ga18b7b10bb5b94c4842de18166bc677cb) 写入流标头。
+1. 与推流不同，在写入本地视频的结尾，需要使用 [av_write_trailer](https://ffmpeg.org/doxygen/3.4/group__lavf__encoding.html#ga7f14007e7dc8f481f054b21614dfec13) 写入流尾并释放数据，否则会对一些格式造成一些影响，例如： mp4 格式无法播放，flv 格式无法正确显示时间轴。
 
 ##### 设置 pts
 推流到流媒体根据目标类型需要有不同的设置。

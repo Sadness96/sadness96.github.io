@@ -302,19 +302,18 @@ void main()
 	string rtspJudgment = "rtsp";
 	string rtmpJudgment = "rtmp";
 
-	// 初始化 rtsp 连接
-	if (output.rfind(rtspJudgment_, 0) == 0)
+	if (output.rfind(rtspJudgment, 0) == 0)
 	{
+		// 初始化 rtsp 连接
 		ret = avformat_alloc_output_context2(&outputContext, NULL, "rtsp", output.c_str());
 		if (ret < 0)
 		{
 			av_log(NULL, AV_LOG_ERROR, "open output context failed\n");
 		}
 	}
-
-	// 初始化 rtmp 连接
-	if (output.rfind(rtmpJudgment_, 0) == 0)
+	else if (output.rfind(rtmpJudgment, 0) == 0)
 	{
+		// 初始化 rtmp 连接
 		int ret = avformat_alloc_output_context2(&outputContext, nullptr, "flv", output.c_str());
 		if (ret < 0)
 		{
@@ -324,10 +323,62 @@ void main()
 		ret = avio_open2(&outputContext->pb, output.c_str(), AVIO_FLAG_READ_WRITE, nullptr, nullptr);
 		if (ret < 0)
 		{
-			char buf[1024] = { 0 };
-			av_strerror(ret, buf, sizeof(buf) - 1);
-			cerr << buf << endl;
+			PrintError(ret);
+			av_log(NULL, AV_LOG_ERROR, "open avio failed");
+		}
+	}
+	else
+	{
+		// 判断文件夹是否合法
+		string outDir = output.substr(0, output.find_last_of("\\") + 1);
+		if (strlen(outDir.c_str()) > MAX_PATH)
+		{
+			cerr << "Maximum path length exceeded!" << endl;
+			return;
+		}
 
+		// 文件夹不存在则创建
+		int ipathLength = strlen(outDir.c_str());
+		int ileaveLength = 0;
+		int iCreatedLength = 0;
+		char szPathTemp[MAX_PATH] = { 0 };
+		for (int i = 0; (NULL != strchr(outDir.c_str() + iCreatedLength, '\\')); i++)
+		{
+			ileaveLength = strlen(strchr(outDir.c_str() + iCreatedLength, '\\')) - 1;
+			iCreatedLength = ipathLength - ileaveLength;
+			strncpy(szPathTemp, outDir.c_str(), iCreatedLength);
+			if (access(szPathTemp, 0))
+			{
+				if (mkdir(szPathTemp))
+				{
+					cerr << "mkdir " << szPathTemp << " false, errno:" << errno << " errmsg:" << strerror(errno) << endl;
+					return;
+				}
+			}
+		}
+		if (iCreatedLength < ipathLength)
+		{
+			if (access(outDir.c_str(), 0))
+			{
+				if (mkdir(outDir.c_str()))
+				{
+					cerr << "mkdir " << outDir << " false, errno:" << errno << " errmsg:" << strerror(errno) << endl;
+					return;
+				}
+			}
+		}
+
+		// 初始化文件连接
+		ret = avformat_alloc_output_context2(&outputContext, NULL, NULL, output.c_str());
+		if (ret < 0)
+		{
+			av_log(NULL, AV_LOG_ERROR, "open output context failed\n");
+		}
+
+		ret = avio_open2(&outputContext->pb, output.c_str(), AVIO_FLAG_READ_WRITE, nullptr, nullptr);
+		if (ret < 0)
+		{
+			PrintError(ret);
 			av_log(NULL, AV_LOG_ERROR, "open avio failed");
 		}
 	}
@@ -356,9 +407,7 @@ void main()
 	ret = avcodec_open2(codecContext, codec, NULL);
 	if (ret != 0)
 	{
-		char buf[1024] = { 0 };
-		av_strerror(ret, buf, sizeof(buf) - 1);
-		cerr << "avcodec_open2 failed!" << buf << endl;
+		PrintError(ret);
 		return;
 	}
 	cout << "avcodec_open2 success!" << endl;
@@ -473,9 +522,7 @@ void main()
 				ret = avcodec_send_frame(codecContext, pframe);
 				if (ret < 0)
 				{
-					char buf[1024] = { 0 };
-					av_strerror(ret, buf, sizeof(buf) - 1);
-					cerr << "avcodec_send_frame failed!" << buf << endl;
+					PrintError(ret);
 					av_frame_free(&pframe);
 					return;
 				}
@@ -488,9 +535,7 @@ void main()
 					}
 					if (ret < 0)
 					{
-						char buf[1024] = { 0 };
-						av_strerror(ret, buf, sizeof(buf) - 1);
-						cerr << "avcodec_send_frame failed!" << buf << endl;
+						PrintError(ret);
 						break;
 					}
 
@@ -513,7 +558,21 @@ void main()
 		// 释放 AVPacket
 		av_free_packet(packet);
 	}
-	// 释放 AVFormatContext
+
+	// 释放输入 AVFormatContext
 	avformat_close_input(&inputContext);
+
+	// 写入文件尾
+	if (av_write_trailer(outputContext) < 0)
+	{
+		av_log(NULL, AV_LOG_ERROR, "format write trailer failed");
+	}
+
+	// 释放 AVCodecContext
+	avcodec_free_context(&pCodecCtx);
+	avcodec_free_context(&codecContext);
+
+	// 释放输出 AVFormatContext
+	avformat_close_input(&outputContext);
 }
 ```

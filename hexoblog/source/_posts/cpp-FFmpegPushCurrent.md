@@ -31,6 +31,17 @@ void av_packet_rescale_ts(AVPacket* pkt, AVRational src_tb, AVRational dst_tb)
 		pkt->duration = av_rescale_q(pkt->duration, src_tb, dst_tb);
 }
 
+/// <summary>
+/// 打印 FFmpeg 错误信息
+/// </summary>
+/// <param name="error">异常代码</param>
+void PrintError(int error)
+{
+	char buf[1024] = { 0 };
+	av_strerror(error, buf, sizeof(buf) - 1);
+	printf("FFmpeg Error Code:%d Info:%s\n", error, buf);
+}
+
 int main()
 {
 	av_register_all();
@@ -63,19 +74,18 @@ int main()
 	string rtspJudgment = "rtsp";
 	string rtmpJudgment = "rtmp";
 
-	// 初始化 rtsp 连接
-	if (output.find(rtspJudgment) != string::npos)
+	if (output.rfind(rtspJudgment, 0) == 0)
 	{
+		// 初始化 rtsp 连接
 		ret = avformat_alloc_output_context2(&outputContext, NULL, "rtsp", output.c_str());
 		if (ret < 0)
 		{
 			av_log(NULL, AV_LOG_ERROR, "open output context failed\n");
 		}
 	}
-
-	// 初始化 rtmp 连接
-	if (output.find(rtmpJudgment) != string::npos)
+	else if (output.rfind(rtmpJudgment, 0) == 0)
 	{
+		// 初始化 rtmp 连接
 		int ret = avformat_alloc_output_context2(&outputContext, nullptr, "flv", output.c_str());
 		if (ret < 0)
 		{
@@ -85,10 +95,7 @@ int main()
 		ret = avio_open2(&outputContext->pb, output.c_str(), AVIO_FLAG_READ_WRITE, nullptr, nullptr);
 		if (ret < 0)
 		{
-			char buf[1024] = { 0 };
-			av_strerror(ret, buf, sizeof(buf) - 1);
-			cerr << buf << endl;
-
+			PrintError(ret);
 			av_log(NULL, AV_LOG_ERROR, "open avio failed");
 		}
 	}
