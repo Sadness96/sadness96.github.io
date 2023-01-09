@@ -8,12 +8,15 @@ categories: C#.Net
 <!-- more -->
 ### 简介
 WPF 中 [Popup](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/popup?view=netframeworkdesktop-4.8) 与 [ToolTip](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/tooltip?view=netframeworkdesktop-4.8) 控件会受到 Windows 系统设置中 平板电脑设置->惯用手 设置而显示异常，例如设置惯用右手时弹窗显示在左侧，设置惯用左手时弹窗显示在右侧。
+
 #### 惯用右手
 <img src="https://sadness96.github.io/images/blog/csharp-Handedness/惯用右手1.jpg"/>
+
 <img src="https://sadness96.github.io/images/blog/csharp-Handedness/惯用右手2.jpg"/>
 
 #### 惯用左手
 <img src="https://sadness96.github.io/images/blog/csharp-Handedness/惯用左手1.jpg"/>
+
 <img src="https://sadness96.github.io/images/blog/csharp-Handedness/惯用左手2.jpg"/>
 
 ### 设置惯用手

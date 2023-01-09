@@ -10,9 +10,11 @@ categories: C#.Net
 现最常见的软件开发模式就是 [服务端](https://baike.baidu.com/item/%E6%9C%8D%E5%8A%A1%E7%AB%AF/6492316?fr=aladdin)（[B/S](https://baike.baidu.com/item/B%2FS%E7%BB%93%E6%9E%84/4868588?fromtitle=BS&fromid=2629117&fr=aladdin)、[WebApi](https://baike.baidu.com/item/WeBAPI)、[WebServer](https://baike.baidu.com/item/web%20server/9306055)) + [客户端](https://baike.baidu.com/item/%E5%AE%A2%E6%88%B7%E7%AB%AF)([C/S](https://baike.baidu.com/item/Client%2FServer/1504488?fromtitle=cs&fromid=2852264)、[Android](https://baike.baidu.com/item/Android/60243?fromtitle=%E5%AE%89%E5%8D%93&fromid=5389782)、[IOS](https://baike.baidu.com/item/ios/45705))。
 公司有部分新项目修改为逻辑在服务端处理，所以通过两种方法封装一个C/S端调用WebApi接口的帮助类。
 调试WebApi推荐使用：[Postman](https://www.getpostman.com/)。
+
 #### 帮助类
 ##### HttpClient
 [HttpClientHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/WebApi/HttpClientHelper.cs)
+
 ###### 创建Get请求
 ``` CSharp
 /// <summary>
@@ -55,6 +57,7 @@ public static string CreateGetHttpClient(string url, string requestUrl, IDiction
     }
 }
 ```
+
 ###### 创建Post请求
 ``` CSharp
 /// <summary>
@@ -80,6 +83,7 @@ public static string CreatePostHttpClient(string url, string requestUrl, IDictio
     }
 }
 ```
+
 ##### HttpWebRequest
 ###### 创建Get请求
 ``` CSharp
@@ -168,6 +172,7 @@ public static string CreateGetHttpWebRequest(string url, string requestUrl, IDic
     }
 }
 ```
+
 ###### 创建Post请求
 ``` CSharp
 /// <summary>

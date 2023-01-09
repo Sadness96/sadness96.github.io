@@ -19,10 +19,13 @@ Kafka通常用于两大类应用程序：
 
 * 建立实时流数据管道，以可靠地在系统或应用程序之间获取数据
 * 构建实时流应用程序以转换或响应数据流
+
 #### 安装部署
 请参阅[官方文档](http://kafka.apache.org/documentation/)
+
 #### C#代码调用
 引用 [Confluent.Kafka](https://github.com/confluentinc/confluent-kafka-dotnet) 库
+
 ##### 生产者
 ``` CSharp
 using System;
@@ -52,6 +55,7 @@ class Program
     }
 }
 ```
+
 ##### 消费者
 ``` CSharp
 using System;
@@ -71,7 +75,15 @@ class Program
             // topic/partitions of interest. By default, offsets are committed
             // automatically, so in this example, consumption will only start from the
             // earliest message in the topic 'my-topic' the first time you run the program.
-            AutoOffsetReset = AutoOffsetReset.Earliest
+            AutoOffsetReset = AutoOffsetReset.Earliest,
+            // 如果 Kafka 开启了 SSL 验证，则需要填写以下信息，否则删除
+            SecurityProtocol = SecurityProtocol.SaslSsl,
+            SaslMechanism = SaslMechanism.Plain,
+            SaslUsername = "",
+            SaslPassword = "",
+            SslCaLocation = "ca.crt",
+            SslKeystorePassword = "",
+            SslEndpointIdentificationAlgorithm = null
         };
 
         using (var c = new ConsumerBuilder<Ignore, string>(conf).Build())
@@ -108,6 +120,7 @@ class Program
     }
 }
 ```
+
 #### 遇到问题
 ##### 在实际使用中消费数据使用多服务器链接
 追加配置多 IP 地址到 Hosts 文件中（例）：
@@ -119,12 +132,14 @@ class Program
 172.26.78.141 tdh08
 172.26.78.142 tdh09
 ```
+
 Host 文件所在目录：
 | 系统 | 目录 |
 | ---- | ---- |
 | Windows | C:\windows\system32\drivers\etc\Hosts |
 | Linux / Unix | /etc/Hosts |
 | Mac OS | /private/etc/Hosts |
+
 修改部分代码：
 ``` CSharp
 var conf = new ConsumerConfig

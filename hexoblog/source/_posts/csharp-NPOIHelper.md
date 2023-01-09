@@ -8,12 +8,15 @@ categories: C#.Net
 <!-- more -->
 #### 简介
 工作中需要大量生成导出报表或合同证书文件，原理为使用Excel或Word模板，批量替换标签以达到效果。
+
 #### 设计
 由于原类库都属于基础方法，二次封装后具有更简易的使用方式，可直接传入生成的数据集或标签替换集合。
+
 #### 引用库介绍
 由于微软默认推荐的类库 [Microsoft.Office.Interop.Word](https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.word?redirectedfrom=MSDN&view=word-pia) 与 [Microsoft.Office.Interop.Excel](https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.excel?redirectedfrom=MSDN&view=excel-pia) 需要电脑安装 [Microsoft Office](https://office.microsoft.com/) 并引用COM组件才可以使用（已知调用打印机需引用COM组件），所以选用类库可独立于Office组件，在任意一台电脑也可以运行。
 [NPOI](https://github.com/tonyqus/npoi)：POI Java项目的.NET版本。可以非常轻松地读/写Office 2003/2007文件。
 [DocX](https://github.com/xceedsoftware/docx)：DocX是一个.NET库，允许开发人员以简单直观的方式操作Word文件。
+
 #### Excel文件操作
 [ExcelHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/NPOI.Helper/Excel/ExcelHelper.cs)提供创建文件（2003/2007）及Sheet分页创建编辑，读取Excel文件至内存DataSet及反向DataSet保存至Excel文件。仅显示最外层引用方法，详细调用请在帮助类种查看！
 ``` CSharp
@@ -52,6 +55,7 @@ public static DataSet ExcelConversionDataSet(string strDataSourcePath)
     }
 }
 ```
+
 ``` CSharp
 /// <summary>
 /// DataSet转换为Excel
@@ -91,6 +95,7 @@ public static bool DataSetConversionExcel(string strDataSourcePath, DataSet dsSo
     }
 }
 ```
+
 根据公司项目需要，把多个Excel的Sheet页的内容及样式合并为一个文件，Microsoft.Office.Interop.Excel提供拷贝分页方法，但是需要安装Microsoft Office，所以用NPOI类库实现了一个拷贝方法。
 ``` CSharp
 /// <summary>
@@ -189,6 +194,7 @@ public static bool CopySheet(string strSourceExcelPath, string strFromSheetName,
     }
 }
 ```
+
 ``` CSharp
 // <summary>
 /// 拷贝Sheet页到另一个Sheet页(浅拷贝,不提供保存方法)
@@ -331,6 +337,7 @@ public static bool CopySheetAt(IWorkbook iSourceWorkbook, ISheet iFromSheet, IWo
     }
 }
 ```
+
 #### Word文件操作
 [WordHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/NPOI.Helper/Word/WordHelper.cs)提供创建文件（2003/2007）及替换段落表格标签（匹配替换'{标签}','#标签#'），替换图片功能。仅显示最外层引用方法，详细调用请在帮助类种查看！
 ``` CSharp
@@ -400,6 +407,7 @@ public static int ReplaceTextLabel(string strDataSourcePath, string strLabelName
     }
 }
 ```
+
 ``` CSharp
 /// <summary>
 /// 替换表格标签(DataTable替换)
@@ -466,6 +474,7 @@ public static int ReplaceDataTableLabel(string strDataSourcePath, string strLabe
     }
 }
 ```
+
 ``` CSharp
 /// <summary>
 /// 替换图片标签(使用DocX.dll类库,调用这个方法后NPOI无法读取文档)

@@ -10,6 +10,7 @@ categories: C#.Net
 ### 基于 Win32 API 与 CMD 命令制作可视化文件共享工具
 #### 简介
 不论是工作使用或是平时经常会出现两台电脑网线直连拷贝文件的情况（通过外网传输速度会受带宽限制，飞秋这种局域网聊天软件需要两台电脑同时安装，硬件存储设备需要拷贝两次，Ftp需要搭建环境，所以大部分情况下文件共享还是最好的解决方案），但是就像我这种对系统比较熟悉的人，每次操作也要找一会，与其记住命令不如做出一个可视化界面。
+
 #### 核心代码
 [FileSharingHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/FileIO.Helper/FileSharing/FileSharingHelper.cs)
 ``` CSharp

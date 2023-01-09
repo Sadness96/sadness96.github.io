@@ -8,8 +8,10 @@ categories: Asp.Net
 <!-- more -->
 #### 简介
 工作时需要直接操作 [OA系统](https://baike.baidu.com/item/%E5%8A%9E%E5%85%AC%E8%87%AA%E5%8A%A8%E5%8C%96/1428?fromtitle=OA&fromid=25368&fr=aladdin) 调用打印机打印 [Word](https://baike.baidu.com/item/Microsoft%20Office%20Word/1448679?fromtitle=word&fromid=2970534) 文件。
+
 #### 引用库介绍
 需要电脑安装 [Microsoft Office](https://office.microsoft.com/) 并引用COM组件 [Microsoft.Office.Interop.Word](https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.word?redirectedfrom=MSDN&view=word-pia) 才可以调用打印机。
+
 #### 代码及调用
 打印Word
 ``` CSharp
@@ -111,6 +113,7 @@ private static void PrintWord(string filePath, string PrintName)
     }
 }
 ```
+
 调用方法
 ``` CSharp
 //打印Word

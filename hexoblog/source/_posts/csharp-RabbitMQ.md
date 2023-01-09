@@ -11,8 +11,10 @@ categories: C#.Net
 RabbitMQ在全球范围内在小型初创公司和大型企业中进行了超过35,000次RabbitMQ生产部署，是最受欢迎的开源消息代理。
 RabbitMQ轻量级，易于在内部和云中部署。它支持多种消息传递协议。RabbitMQ可以部署在分布式和联合配置中，以满足高规模，高可用性要求。
 RabbitMQ可在许多操作系统和云环境中运行，并为大多数流行语言提供各种开发人员工具。
+
 #### 安装部署
 请参阅[官方文档](https://www.rabbitmq.com/download.html)
+
 ##### Docker 部署
 ``` cmd
 安装官方镜像
@@ -24,8 +26,10 @@ docker run -d --hostname my-rabbit --name some-rabbit -e RABBITMQ_DEFAULT_USER=u
 WEB 端登录
 http://localhost:15672/#/
 ```
+
 #### C#代码调用
 引用 [RabbitMQ.Client](https://www.rabbitmq.com/dotnet.html) 库
+
 ##### 生产者
 ``` CSharp
 /// <summary>
@@ -50,6 +54,7 @@ public static void Send()
     Console.ReadLine();
 }
 ```
+
 ##### 消费者
 ``` CSharp
 /// <summary>

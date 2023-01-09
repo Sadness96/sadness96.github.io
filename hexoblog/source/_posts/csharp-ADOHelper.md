@@ -10,8 +10,10 @@ categories: C#.Net
 ### 使用 ADO.NET 二次封装ORM框架的数据库操作帮助类
 #### 简介
 工作中大量需要多种不同数据格式互相转换，通过ADO.NET实现可视化数据转换工具，目前支持关系型数据库SqlServer、Oracle、MySql、Access、SQLite。
+
 #### 设计
 简易的ORM框架，多种数据库操作封装为一套帮助类中，后期使用不需要过多考虑数据库类型，以及减少在代码中拼写SQL语句。近乎通用的连接方式以及增删改查，支持事务处理。
+
 #### 帮助类、官方文档及其调用方式
 ##### SQLServer：
 [SqlServerHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/SqlServer/SqlServerHelper.cs) 引用 [System.Data.SqlClient](https://technet.microsoft.com/zh-cn/system.data.sqlclient) 库
@@ -22,6 +24,7 @@ sqlHelper.SqlServerConnectionString(string server, string database, string uid, 
 sqlHelper.Open();
 sqlHelper.Close();
 ```
+
 ##### Oracle：
 [OracleHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/Oracle/OracleHelper.cs) 引用 [System.Data.OracleClient](https://technet.microsoft.com/zh-cn/system.data.oracleclient) 库
 调用方式：
@@ -31,6 +34,7 @@ sqlHelper.OracleConnectionString(string Source, string Id, string Password);
 sqlHelper.Open();
 sqlHelper.Close();
 ```
+
 ##### MySQL：
 [MySqlHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/MySql/MySqlHelper.cs) 引用 [MySql.Data.MySqlClient](https://dev.mysql.com/doc/dev/connector-net/8.0/html/N_MySql_Data_MySqlClient.htm) 库
 调用方式：
@@ -40,6 +44,7 @@ sqlHelper.MySqlConnectionString(string server, string id, string password, strin
 sqlHelper.Open();
 sqlHelper.Close();
 ```
+
 ##### Access：
 [AccessHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/Access/AccessHelper.cs) 引用 [System.Data.OleDb](https://docs.microsoft.com/zh-cn/dotnet/api/system.data.oledb?redirectedfrom=MSDN&view=netframework-4.8) 库
 调用方式：
@@ -50,6 +55,7 @@ sqlHelper.AccessConnectionPath_Office2007(string source);
 sqlHelper.Open();
 sqlHelper.Close();
 ```
+
 ##### SQLite：
 [SQLiteHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/SQLite/SQLiteHelper.cs) 引用 [System.Data.SQLite](http://system.data.sqlite.org/) 库
 调用方式：
@@ -59,9 +65,11 @@ sqlHelper.SQLiteConnectionPath(string source);
 sqlHelper.Open();
 sqlHelper.Close();
 ```
+
 #### 数据转换帮助类
 由于每种数据库的字段类型、字符格式长度等不一致，所以专门写了一个用于互相兼容的帮助类，用于自动识别源数据库与目标数据库差异，自动修改。
 [数据转换帮助类](https://github.com/Sadness96/Sadness/tree/master/Code/Helper/ADO.Helper/DatabaseConversion)
+
 ##### 删除DataTable中的空行
 数据源以C#基础类型DataTable传递，在实际使用中存在空行导致异常
 ``` CSharp
@@ -103,6 +111,7 @@ public static DataTable RemoveEmpty(DataTable dtDataSource)
     return dtDataSource;
 }
 ```
+
 ##### DataTable与List<T>互相转换
 实际使用中List<T>比DataTable更方便使用，提供互相转换方法方便开发
 ``` CSharp
@@ -149,6 +158,7 @@ public static List<T> ConvertToList<T>(DataTable dtDataSource) where T : class,n
     return null;
 }
 ```
+
 ``` CSharp
 /// <summary>
 /// List<T>转换为DataTable
@@ -186,6 +196,7 @@ public static DataTable ConvertDataTable(IList listDataSource)
     return null;
 }
 ```
+
 ##### String转Unicode,并去除'\\ufeff'非法字符
 个别数据中存在有非法字符，避免异常，转换时批量处理
 ``` CSharp
@@ -228,6 +239,7 @@ public static string UnicodeToString(string strSource)
     return new Regex(@"\\u([0-9A-F]{4})", RegexOptions.IgnoreCase | RegexOptions.Compiled).Replace(strSource, x => string.Empty + Convert.ToChar(Convert.ToUInt16(x.Result("$1"), 16)));
 }
 ```
+
 ##### 字段类型转换
 由于每种数据库字段类型及字段长度和主键不一致，根据每种目标数据库做单独修改
 代码过长，请查阅目录下方法 [TypeProcessing](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/ADO.Helper/DatabaseConversion/TypeProcessing.cs)

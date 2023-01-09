@@ -9,9 +9,11 @@ categories: C#.Net
 #### 简介
 [Entity Framework](https://baike.baidu.com/item/ADO.NET%20Entity%20Framework/6444727?fr=aladdin) 是微软以 ADO.NET 为基础所发展出来的对象关系对应 ([O/R Mapping](https://baike.baidu.com/item/%E5%AF%B9%E8%B1%A1%E5%85%B3%E7%B3%BB%E6%98%A0%E5%B0%84/311152?fromtitle=O%2FR%20Mapping&fromid=1229659)) 解决方案。
 在.NET 3.5之前，开发者通常使用 [ADO.NET](/blog/2016/12/21/csharp-ADOHelper/) 直接连接操作数据库，而Entity Framework的出现可以让开发者更多的从代码层面考虑数据交互，Entity Framework 会把字段映射为实体模型，通过 [Lambda表达式](https://baike.baidu.com/item/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/4585794?fr=aladdin) 来操作数据，不需要考虑各种类型数据库和拼写SQL语句。同时也有效的防止了 [SQL注入](https://baike.baidu.com/item/sql%E6%B3%A8%E5%85%A5)。
+
 #### 搭建-以MySQL为例
 ##### 类库或应用程序项目下新建项
 <img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef1.png"/>
+
 ##### 实体模型向导
 从EF 4.X开始支持三种构建方法：
 Database First：数据库优先，你的项目已经有一个数据库，并且使用工具（如Visual Studio中的EF设计器)依据数据库生成C#或VB类。你可以通过EF设计器修改这些创建的类以及类和数据库之间的映射关系；这种方式的关键是先要有数据，然后才有代码和模型。
@@ -19,22 +21,29 @@ Model First：模型优先，通过在EF设计器中创建一个空的容器，�
 Code First：代码优先，开发者只需要写代码，将会自动创建模型和数据库。
 现采用基础又最常用的 Database First 方式创建！
 <img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef2.png"/>
+
 ##### 更改数据源
 连接MySQL需要单独安装 [mysql-connector-net](https://dev.mysql.com/downloads/connector/net/) 与 [mysql-for-visualstudio](https://dev.mysql.com/downloads/windows/visualstudio/)
 <img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef3.png"/>
+
 ##### 修改连接属性
 <img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef4.png"/>
+
 ##### 添加连接串
 <img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef5.png"/>
+
 ##### 选择框架版本
 <img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef6.png"/>
+
 ##### 添加数据库表模型，完成
 <img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/ef7.png"/>
+
 ##### 如果出现闪退、无法编辑数据，尝试修改引用库版本
 EntityFramework：6.0.0.0
 EntityFramework.SqlServer：6.0.0.0
 MySql.Data：6.9.9.0
 MySql.Data.Entity.EF6：6.9.9.0
+
 #### 增删改查
 ``` CSharp
 //新增
@@ -65,11 +74,13 @@ flush privileges;
 ```
 ##### 报错：Mysql表 "TableDetails" 中列 "IsPrimaryKey" 的值位 DBNull。
 <img src="https://sadness96.github.io/images/blog/csharp-EntityFramework/error1.png"/>
+
 ``` SQL
 use 库名;
 SET GLOBAL optimizer_switch='derived_merge=off';
 SET optimizer_switch='derived_merge=off';
 ```
+
 ##### 报错：其他信息: 对一个或多个实体的验证失败。有关详细信息，请参见“EntityValidationErrors”属性。
 写入数据与表设定不一致
 SaveChanges();方法前后使用：Configuration.ValidateOnSaveEnabled 

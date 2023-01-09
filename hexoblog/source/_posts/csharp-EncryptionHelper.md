@@ -10,11 +10,14 @@ categories: C#.Net
 ### 提供几种对称加密与非对称加密算法，以及单项加密与文件夹加密
 #### 简介
 工作中需要各种方式的加密（传输文本加密，文件加密，图片Base64编码，文件MD5与SHA1值计算），既有对称式加密与非对称式加密，也有单向加密，应用于各种使用环境。
+
 #### 警告
 由于2017年5月12日的比特币勒索病毒 [WannaCry](https://baike.baidu.com/item/WannaCry/20797421?fr=aladdin) 爆发，100多个国家和地区超过10万台电脑遭到了勒索病毒攻击、感染。其原理就是加密电脑中的文件，以用秘钥勒索比特币。技术本质并无好坏之分，多行善事。
+
 #### 帮助类、介绍
 ##### 对称式加密
 [对称加密算法](https://baike.baidu.com/item/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/211953?fr=aladdin) 解密使用相同密钥及相同算法的逆算法对密文进行解密。
+
 ###### AES
 [AES](https://baike.baidu.com/item/aes/5903?fr=aladdin) 一种区块加密标准，替代原先的DES，对称密钥加密中最流行的算法之一。
 [AESHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Encryption/AESHelper.cs)
@@ -181,6 +184,7 @@ public static bool FileAESDecrypt(string strFilePath, string strSaveFilePath, st
     }
 }
 ```
+
 ###### DES
 [DES](https://baike.baidu.com/item/DES) 一种使用密钥加密的块算法,1977年被美国联邦政府的国家标准局确定为联邦资料处理标准（FIPS），并授权在非密级政府通信中使用。
 [DESHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Encryption/DESHelper.cs)
@@ -343,8 +347,10 @@ public static bool FileDESDecrypt(string strFilePath, string strSaveFilePath, st
     }
 }
 ```
+
 ##### 非对称式加密
 [非对称加密算法](https://baike.baidu.com/item/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95) 需要两个密钥：公开密钥（publickey:简称公钥）和私有密钥（privatekey:简称私钥）。公钥与私钥是一对，如果用公钥对数据进行加密，只有用对应的私钥才能解密。
+
 ###### RSA
 [RSA](https://baike.baidu.com/item/RSA%E7%AE%97%E6%B3%95?fromtitle=RSA&fromid=210678) 一种非对称加密算法。在公开密钥加密和电子商业中RSA被广泛使用。
 [RSAHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Encryption/RSAHelper.cs) 只能使用产生出的密钥，且加密更加复杂所以只能加密短文本（测试加密长度上限为58字节）。
@@ -419,8 +425,10 @@ public static string RSADecrypt(string strCiphertext, string xmlPrivateKey)
     }
 }
 ```
+
 ##### 单项加密
 [密码散列函数](https://baike.baidu.com/item/%E5%AF%86%E7%A0%81%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0) 一种单向函数，也就是说极其难以由散列函数输出的结果，回推输入的数据是什么。多用于文件效验完整性。
+
 ###### MD5
 [MD5](https://baike.baidu.com/item/MD5) 一种被广泛使用的密码散列函数，可以产生出一个128位（16字节）的散列值（hash value），用于确保信息传输完整一致。
 [MD5Helper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Encryption/MD5Helper.cs)
@@ -567,6 +575,7 @@ public static string FileMD5Encrypt_32Upper(string strFilePath)
     }
 }
 ```
+
 ###### SHA1
 [SHA1](https://baike.baidu.com/item/SHA1) 安全哈希算法（Secure Hash Algorithm）主要适用于数字签名标准 （Digital Signature Standard DSS）里面定义的数字签名算法（Digital Signature Algorithm DSA）。
 [SHA1Helper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Encryption/SHA1Helper.cs)
@@ -673,6 +682,7 @@ public static string FileSHA1Encrypt_40Upper(string strFilePath)
     }
 }
 ```
+
 ###### CRC32
 [CRC32](https://baike.baidu.com/item/CRC32) 循环冗余校验。在数据存储和数据通讯领域，为了保证数据的正确，就不得不采用检错的手段。在诸多检错手段中，CRC是最著名的一种。
 [CRC32Helper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Encryption/CRC32Helper.cs)
@@ -945,6 +955,7 @@ public class Crc32 : System.Security.Cryptography.HashAlgorithm
     }
 }
 ```
+
 ##### 其它方式（Base64）
 ###### Base64
 [Base64](https://baike.baidu.com/item/base64) 网络上最常见的用于传输8Bit字节码的编码方式之一，准确的来说Base64不属于加密范围，仅是一种基于64个可打印字符来表示二进制数据的方法。多用于图片传输使用。
@@ -1108,6 +1119,7 @@ public static ImageFormat GetImageFormatFromPath(string strImagePath)
     }
 }
 ```
+
 ##### 文件夹加密
 起因是一个女性朋友提出的需求，大概是说不想自己电脑的文件夹被其他人打开，但是又不想加密文件，因为耗时会很久，只想加密文件夹。查过各种资料后没有找到更好的方法，暂且使用一种修改文件夹后缀名达到让电脑识别为控制面板或回收站等图标的方式，然后修改恢复文件夹的时候预设匹对一个设定好的密码文件，就可以达到加密解密文件夹的效果，但是理解原理的人是可以直接破解的，但是我相信理解这项技术的不多，并且不会对每一个系统图标虎视眈眈的。
 [FolderHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Encryption/FolderHelper.cs)

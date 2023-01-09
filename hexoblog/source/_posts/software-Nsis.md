@@ -11,6 +11,7 @@ categories: Software
 #### 简介
 [NSIS（Nullsoft Scriptable Install System）](https://nsis.sourceforge.io/Main_Page)是一个专业的开源系统，用于创建Windows安装程序。它的设计尽可能小巧灵活，因此非常适合互联网分发。
 只做了一个最基础安装包程序，如需定制样式可查阅官方网站。
+
 #### 安装包截图
 <img src="https://sadness96.github.io/images/blog/software-Nsis/install1.png"/>
 <img src="https://sadness96.github.io/images/blog/software-Nsis/install2.png"/>
@@ -139,6 +140,7 @@ Function un.onUninstSuccess
   MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) 已成功地从您的计算机移除。"
 FunctionEnd
 ```
+
 #### 使用命令调用构建打包程序
 ``` cmd
 :: 调用 makensis 命令构建 NSI

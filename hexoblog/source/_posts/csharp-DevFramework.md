@@ -9,6 +9,7 @@ categories: C#.Net
 <!-- more -->
 ### 基于 Wpf + Prism + DevExpress 制作的插件式开发基础框架
 工作已经临近半年了，日常在工作中有所积累，打算写一套自己的帮助类，后逐步发展为一个桌面端快速开发的框架。使用 Wpf + Prism + DevExpress 作为基础，Ribbon样式的插件式开发方式。同时又基于帮助类实现了几个简单的功能，后续再博客中会逐步记录帮助类。
+
 #### 注册工具
 获取计算机硬件信息（网卡MAC地址、CPU-ID、硬盘序列号、内存序列号、主板序列号、BIOS序列号、显卡信息），拼接加密生成唯一序列号，可用于软件激活使用。
 详细请查阅：[电脑硬件信息帮助类](/blog/2017/06/06/csharp-PCInformationHelper/)
@@ -18,6 +19,7 @@ categories: C#.Net
 基于 ZXing.QrCode 库制作的横条码、二维码生成工具，可添加LOGO，也可动态识别横条码、二维码。
 详细请查阅：[二维码帮助类](/blog/2017/06/06/csharp-QRCodeHelper/)
 <img src="https://sadness96.github.io/images/blog/csharp-DevFramework/%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81.png"/>
+
 <img src="https://sadness96.github.io/images/blog/csharp-DevFramework/%E8%AF%86%E5%88%AB%E4%BA%8C%E7%BB%B4%E7%A0%81.png"/>
 
 #### 加密解密工具

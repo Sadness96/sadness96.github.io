@@ -9,6 +9,7 @@ categories: C#.Net
 #### 简介
 [Serv-U](https://www.serv-u.com/) 是一种被广泛运用的FTP服务器端软件。
 现FTP服务器还是公司企业普遍运用的文件储存方式，编写帮助类用于自动上传下载管理服务。
+
 #### 核心代码
 [FTPSharingHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/FileIO.Helper/FTPSharing/FTPSharingHelper.cs)
 ``` CSharp
@@ -367,6 +368,7 @@ private FTPListTypeModel AnalysisLISTCommand(string strListCommand)
     return ListType;
 }
 ```
+
 #### 应用
 一个同学的需求：公司是做三维模型模具的，领导要求每个人每次修改上传至FTP，然后领导每天会定时完整下载（虽然我也不理解为什么他们不用SVN或者GIT，需求是什么样的就做成什么样嘛！）。功能需求是制作一个控制台程序，通过[任务计划](/blog/2017/09/18/csharp-TaskschdHelper/)中每天下班定时执行即可。FTP参数调用本地[INI配置文件](/blog/2017/05/10/csharp-INIHelper/)。
 ``` CSharp

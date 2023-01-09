@@ -9,6 +9,7 @@ categories: C#.Net
 #### 简介
 [INI](https://baike.baidu.com/item/ini%E6%96%87%E4%BB%B6/9718973?fr=aladdin) 即初始化文件，是windows的系统配置文件所采用的存储格式。也是现在软件开发最常见的配置文件。
 [INIHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/FileIO.Helper/INI/INIHelper.cs) 帮助类主要提供INI配置文件创建，节点增删改。
+
 #### INI文件操作
 ``` CSharp
 #region INI 文本帮助类 API 声明

@@ -10,6 +10,7 @@ categories: C#.Net
 工作中用户提供 CSV 文件作为参考数据使用，需要读取到系统中进行相关计算
 [CSV](https://baike.baidu.com/item/CSV/10739?fr=aladdin)（逗号分隔值文件格式）其文件以纯文本形式存储表格数据，分隔字符也可以不是逗号，可用Excel编辑的表格文件。
 [CSVHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/FileIO.Helper/CSV/CSVHelper.cs) 帮助类主要提供内存表格DataTable互相转换，以正则表达式与截取拼接。
+
 #### CSV文件操作
 ``` CSharp
 /// <summary>

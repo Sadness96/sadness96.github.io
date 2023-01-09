@@ -9,11 +9,14 @@ categories: Software
 <!-- more -->
 ### 简介
 [SonarQube](https://www.sonarqube.org/) 是一个用于管理代码质量和安全的开源平台。
+
 ### 软件部署
 软件安装参考 [官方文档](https://docs.sonarqube.org/latest/setup/get-started-2-minutes/)
 使用版本 [SonarQube 7.9.x LTS](https://www.sonarqube.org/downloads/)
+
 #### 下载社区版本
 下载地址：[https://www.sonarqube.org/downloads/](https://www.sonarqube.org/downloads/)
+
 #### 解压后运行批处理文件
 按顺序运行：
 ``` cmd
@@ -21,9 +24,11 @@ categories: Software
 .\sonarqube\bin\windows-x86-64\StartNTService.bat
 .\sonarqube\bin\windows-x86-64\StartSonar.bat
 ```
+
 #### 访问网页
 [http://localhost:9000/](http://localhost:9000/)
 默认用户名密码：admin:admin
+
 #### Create new project
 ##### 创建新项目
 <img src="https://sadness96.github.io/images/blog/software-SonarQube/CreateNewProject.png"/>

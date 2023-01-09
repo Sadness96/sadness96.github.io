@@ -7,17 +7,20 @@ categories: C#.Net
 ### 新创建类库只能添加 WPF 用户控件，无法添加 WPF 窗体
 <!-- more -->
 通过修改 .csproj 配置文件使类库可以创建 WPF 窗体
+
 ### 修改方法
 组合使用 GUID，新增 ProjectTypeGuids 节点描述一个类库为 C# WPF 类型
 新增节点 ProjectTypeGuids 至 .csproj 配置文件 Project.PropertyGroup 下
 ``` xml
 <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
 ```
+
 <img src="https://sadness96.github.io/images/blog/csharp-CSProjGUID/csproj.png"/>
 
 ### 完整的 .csproj 文件中的 GUID 列表及其说明
 [参考资料](https://www.codeproject.com/Reference/720512/List-of-Visual-Studio-Project-Type-GUIDs)
 创建项目后，没有一种简单的方法可以在 Visual Studio 项目中更改项目类型。例如，将C＃类库更改为可移植类库（PCL）。了解这些GUID将允许您编辑项目文件 .csproj，.vbproj 以便在 Visual Studio 不允许使用 GUI 的情况下轻松更改项目类型。
+
 #### By Description
 | Name | Guid |
 | ---- | ---- |
@@ -84,6 +87,7 @@ categories: C#.Net
 | XNA (Windows) | {6D335F3A-9D43-41b4-9D22-F6F17C4BE596} |
 | XNA (XBox) | {2DF5C3F4-5A5F-47a9-8E94-23B4456F55E2} |
 | XNA (Zune) | {D399B71A-8929-442a-A9AC-8BEC78BB2433} |
+
 #### By GUID
 | Name | Guid |
 | ---- | ---- |

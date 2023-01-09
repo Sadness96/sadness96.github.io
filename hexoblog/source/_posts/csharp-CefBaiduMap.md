@@ -10,8 +10,10 @@ categories: C#.Net
 ### 在 WPF 中调用 CEF 加载百度地图
 #### 简介
 最近有需求需要把带定位的百度地图加载到桌面应用中
+
 #### 前置条件
 [使用 CEF 在 PC 客户端中加载网页](https://sadness96.github.io/blog/2020/08/11/csharp-CefSharp/)
+
 #### 开发 BaiduMap 用户控件
 ##### 创建带参数百度地图 WEB 页面
 map.baidu.html?Lon=116.4716&Lat=40.01849
@@ -68,6 +70,7 @@ map.baidu.html?Lon=116.4716&Lat=40.01849
 
 </html>
 ```
+
 ##### BaiduMap.xaml 用户控件
 ``` XML
 <UserControl x:Class="Ice.BaiduMap.Control.BaiduMap"
@@ -84,6 +87,7 @@ map.baidu.html?Lon=116.4716&Lat=40.01849
     </Grid>
 </UserControl>
 ```
+
 ##### BaiduMap.xaml.cs 用户控件后台
 ``` CSharp
 using CefSharp.Wpf;
@@ -142,6 +146,7 @@ namespace Ice.BaiduMap.Control
     }
 }
 ```
+
 ##### 在使用的地方引用
 ``` XML
 <Grid>

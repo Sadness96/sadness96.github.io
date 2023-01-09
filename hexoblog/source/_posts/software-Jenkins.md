@@ -9,6 +9,7 @@ categories: Software
 <!-- more -->
 ### 简介
 [Jenkins](https://jenkins.io/zh/) 是一个持续集成（CI&CD）工具，用以构建、部署、自动化。
+
 ### 运行流程
 以部署PC客户端软件为例：
 1.连接 [GitLab](https://about.gitlab.com/) 仓库 pull 最新代码
@@ -16,20 +17,26 @@ categories: Software
 3.使用 [MSBuild](https://msdn.microsoft.com/zh-CN/library/dd393574.aspx) 编译项目工程
 4.使用 [NSIS](https://nsis.sourceforge.io/Main_Page) 打包软件为安装包
 5.以邮件方式将打包文件发送(未完成)
+
 ### 软件部署
 软件安装参考 [官方文档](https://jenkins.io/zh/doc/pipeline/tour/getting-started/)
+
 #### 遇到的问题
 ##### 插件安装失败
 登录重启页重启后重试
 http://localhost:8081/restart
+
 ##### 需安装 Jenkins 插件
 Git、MSBuild、NuGet、PowerShell
+
 ##### 配置系统环境变量
 Path 下增加 MSBuild 路径：
 ..\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\amd64
+
 ##### NuGet 控制台程序下载
 https://www.nuget.org/downloads
 下载后拷贝至 Path 环境变量中
+
 #### 构建
 ##### Pull Git 代码
 填写 Git 地址以及分支名称即可
@@ -168,6 +175,7 @@ Expand-Archive -Path .\test.zip -DestinationPath .\test
 
 #### 集成 SonarQube
 安装使用 SonarQube 参考博客：[SonarQube 使用介绍](http://sadness96.github.io/blog/2020/01/16/software-SonarQube/)
+
 ##### SonarQube 创建 Jenkins ToKen
 <img src="https://sadness96.github.io/images/blog/software-Jenkins/SonarQubeJenkinsToKens.png"/>
 

@@ -8,6 +8,7 @@ categories: C#.Net
 <!-- more -->
 #### 简介
 [任务计划](https://baike.baidu.com/item/%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/4632223) 可以将任何脚本、程序或文档安排在某个最方便的时间运行。常见于系统开机自启动程序，或定期运行自动更新程序或守护程序。
+
 #### 帮助类
 [TaskschdHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Taskschd/TaskschdHelper.cs)
 ``` CSharp

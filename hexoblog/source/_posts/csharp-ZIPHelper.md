@@ -11,6 +11,7 @@ categories: C#.Net
 [ZIP](https://baike.baidu.com/item/Zip/16684862#viewPageContent) 通用且最为常见的压缩格式。
 [7-ZIP](https://www.7-zip.org/) 自由开源的压缩格式，压缩效果要比普通的ZIP效果要好。
 [GZIP](https://baike.baidu.com/item/gzip/4487553?fr=aladdin) 用于压缩数据流或文本。
+
 #### 帮助类代码及引用
 ##### ZIP：
 [ZIPHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/FileIO.Helper/ZIP/ZIPHelper.cs) 引用 ICSharpCode.SharpZipLib.Zip 库
@@ -213,6 +214,7 @@ public static bool DeCompressionZip(string strZipPath, string strDeCompressionPa
     }
 }
 ```
+
 ##### 7-ZIP：
 [ZIP7Helper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/FileIO.Helper/ZIP/ZIP7Helper.cs) 动态引用 7z.dll 库
 ``` CSharp

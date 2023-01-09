@@ -9,10 +9,13 @@ categories: Blog
 <!-- more -->
 ### 简介
 原来只有使用 [WordPress](https://cn.wordpress.org/) 记录一部分博客，以及平时有随手记录工作生活的习惯，这次迁移博客统一整理一遍。
+
 ### 技术简介
 博客主体使用 [GitHub Pages](https://pages.github.com/) 作为静态网站托管平台，使用 [Hexo](https://hexo.io/zh-cn/) 作为静态博客生成框架，以及使用 [theme-next](http://theme-next.iissnan.com/) 主题。
+
 ### 开发环境
 [VSCode](https://code.visualstudio.com/) + [Node.js](http://nodejs.cn/) + [Hexo](https://hexo.io/zh-cn/) + [Python](https://www.python.org/) + [GIT](https://git-scm.com/)
+
 ### 搭建
 #### 创建 GitHub Pages
 ##### GitHub 仓库创建与用户名同名的 ".github.io" 库
@@ -22,6 +25,7 @@ categories: Blog
 git地址为：https://github.com/Test/test.github.io.git
 Pages访问地址为：https://test.github.io
 设置网站为[HTTPS](https://baike.baidu.com/item/https/285356?fr=aladdin)：库 Settings 中勾选：Enforce HTTPS
+
 ##### 域名配置
 在[阿里云](https://www.aliyun.com/)中购买域名（例：test.com）后需实名认证
 安全设置中设置[禁止转移锁](https://wanwang.aliyun.com/domain/transferlock/?spm=5176.100251.0.0.7dd54f15rzxrOx)、[禁止更新锁](https://wanwang.aliyun.com/domain/domainlock/?spm=5176.100251.0.0.7dd54f15rzxrOx)
@@ -32,6 +36,7 @@ Pages访问地址为：https://test.github.io
 设置打开网站为域名地址：
 GitHub 库中新增 CNAME 文件 保存内容为域名地址（例：test.com）
 Settings 中显示 "Your site is published at https://test.com/ " 即可
+
 ##### 目录结构
 |目录文件夹或文件|作用及功能|
 |:---|:---|
@@ -45,6 +50,7 @@ Settings 中显示 "Your site is published at https://test.com/ " 即可
 |CNAME|设置Pages解析域名地址|
 |README.md|自述文件|
 |index.html|博客主界面|
+
 ##### 修改主题样式
 仅展示代码样式部分，主题配置文件请查阅官网 [theme-next](http://theme-next.iissnan.com/)
 修改文件路径：hexoblog/themes/next/source/css/_custom/custom.styl
@@ -115,6 +121,7 @@ Settings 中显示 "Your site is published at https://test.com/ " 即可
     border-top: 0px;
 }
 ```
+
 ##### 压缩Hexo博客生成空白行
 解决Hexo博客系统生成导致大量空白行问题
 自动遍历目录下所有html文件，创建临时文件，把非空格行拷贝，最后在重命名文件恢复
@@ -150,6 +157,7 @@ def yasuo(dir_path):
 # dir_path：压缩相对路径
 yasuo('public')
 ```
+
 ##### 拷贝Hexo博客系统public目录
 当前系统Hexo博客源码在 /hexoblog 目录下（该目录不被上传），将生成文件自动拷贝至上层目录 /blog 下
 生成博客文章后执行命令：python deploy.py 即可
@@ -176,10 +184,12 @@ def deploy(dir_path, dir_copy):
 # 拷贝上级目录相对路径
 deploy('public', 'blog')
 ```
+
 ##### 遇到的问题
 ###### 使用VSCode开发时生成静态页不加载CSS样式
 插件：View In Browser 本地网页打开
 插件：Live Server 启动一个服务打开网站
+
 ###### 上传Hexo博客源码后报错：Date is not a valid datetime
 由于GitHub Pages默认使用jekyll作为代码检查，在上传Hexo源码之后存在编译不通过的情况，所以需要创建.nojekyll空文件在Repository的根目录下以关闭针对jekyll的检查。
 Windows下创建以“.”开头文件夹和文件（执行命令）：
@@ -187,8 +197,10 @@ Windows下创建以“.”开头文件夹和文件（执行命令）：
 md .folder              //创建文件夹
 echo >.file             //创建文件
 ```
+
 ###### Hexo生成静态博客存在大量空白行
 请查看文章：[压缩Hexo博客生成空白行](/blog/2019/06/17/python-CompressHexo/)
+
 ##### 执行命令
 ``` CMD
 cd hexoblog                 //进入博客源码文件夹

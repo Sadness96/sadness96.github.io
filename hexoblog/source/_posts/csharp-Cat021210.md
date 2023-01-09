@@ -25,6 +25,7 @@ public static string I021_071(byte[] byteData)
     return I021_030(byteData);
 }
 ```
+
 <span id="1021130"><span/>
 
 #### 1021/130
@@ -60,6 +61,7 @@ public static double[] I021_130(byte[] byteData)
     return null;
 }
 ```
+
 <span id="1021131"><span/>
 
 #### 1021/131

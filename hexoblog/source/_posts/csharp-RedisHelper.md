@@ -8,6 +8,7 @@ categories: C#.Net
 <!-- more -->
 #### 简介
 [Redis](https://redis.io/) 作为典型的 [非关系型数据库（NoSQL）](https://baike.baidu.com/item/%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/6376860?fr=aladdin) 采用Key-Value方式储存数据，持久化储存于内存中，对于请发请求速度要远高于传统数据库。
+
 #### 帮助类
 [RedisHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Redis/RedisHelper.cs) 引用 [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis/) 库。
 ``` CSharp
@@ -1277,6 +1278,7 @@ public Dictionary<string, string> GetAllKeysValues()
     return dicAllKeysValues;
 }
 ```
+
 #### 错误处理
 Redis错误信息：MISCONG Redis is configured to save RDB
 执行：config set stop-writes-on-bgsave-error no

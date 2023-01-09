@@ -8,6 +8,7 @@ categories: C#.Net
 <!-- more -->
 #### 简介
 平时习惯于用QQ截图，但是公司一台电脑没有外网链接，登录不了QQ截图就很麻烦，通常是按PrtSc键截取全屏幕，然后在粘贴在Windows自带的画图应用中截取区域。原本计划自己实现一个仿制QQ截图（画笔、框选、编辑文字、提取颜色）的功能，但是一直也没有付诸行动，但是需要用到的技术栈都已经整理。屏幕录像的原理也是按照固定的[FPS](https://baike.baidu.com/item/%E5%B8%A7%E7%8E%87/1052590)写入视频流，但是实际测试截取速度比较慢，无法稳定在30FPS以上。
+
 #### 帮助类
 [ScreenshotHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Utils.Helper/Screenshot/ScreenshotHelper.cs)
 ``` CSharp
