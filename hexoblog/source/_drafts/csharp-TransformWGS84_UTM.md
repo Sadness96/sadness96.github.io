@@ -18,7 +18,7 @@ categories: C#.Net
 /// <summary>
 /// Transform UTM to WGS84
 /// </summary>
-/// <param name="points">UTM lng lat</param>
+/// <param name="points">UTM Easting Northing</param>
 /// <param name="zone">UTM zone</param>
 /// <param name="north">true of Northern hemisphere, false if southern</param>
 /// <returns>WGS84</returns>
@@ -35,7 +35,7 @@ private static double[] TransformUtm32ToWgs84(double[] points, int zone = 50, bo
 /// <summary>
 /// Transform WGS84 to UTM
 /// </summary>
-/// <param name="points">WGS84 lng lat</param>
+/// <param name="points">WGS84 Longitude Latitude</param>
 /// <param name="zone">UTM zone</param>
 /// <param name="north">true of Northern hemisphere, false if southern</param>
 /// <returns>UTM</returns>
