@@ -25,7 +25,34 @@ categories: Photo
     var vOssPath = 'https://sadness.oss-cn-beijing.aliyuncs.com/';
     var vOssProcess = '?x-oss-process=image/resize,m_lfit,w_348';
     var vPhotos = [
-
+        'images/photo-Tianjin/554A6031.JPG',
+        'images/photo-Tianjin/554A6033.JPG',
+        'images/photo-Tianjin/554A6035.JPG',
+        'images/photo-Tianjin/554A6039.JPG',
+        'images/photo-Tianjin/554A6043.JPG',
+        'images/photo-Tianjin/554A6052.JPG',
+        'images/photo-Tianjin/554A6056.JPG',
+        'images/photo-Tianjin/554A6064.JPG',
+        'images/photo-Tianjin/554A6065.JPG',
+        'images/photo-Tianjin/554A6071.JPG',
+        'images/photo-Tianjin/554A6075.JPG',
+        'images/photo-Tianjin/554A6077.JPG',
+        'images/photo-Tianjin/554A6079.JPG',
+        'images/photo-Tianjin/554A6080.JPG',
+        'images/photo-Tianjin/554A6082.JPG',
+        'images/photo-Tianjin/554A6083.JPG',
+        'images/photo-Tianjin/554A6088.JPG',
+        'images/photo-Tianjin/554A6105.JPG',
+        'images/photo-Tianjin/554A6106.JPG',
+        'images/photo-Tianjin/554A6111.JPG',
+        'images/photo-Tianjin/554A6115.JPG',
+        'images/photo-Tianjin/554A6127.JPG',
+        'images/photo-Tianjin/554A6142.JPG',
+        'images/photo-Tianjin/554A6143.JPG',
+        'images/photo-Tianjin/554A6147.JPG',
+        'images/photo-Tianjin/554A6158.JPG',
+        'images/photo-Tianjin/554A6189.JPG',
+        'images/photo-Tianjin/20221022_180444.jpg'
     ];
     vPhotos.forEach(element => {
         $("#grid").append('<li><img class="photo" src="' + vOssPath + element + vOssProcess + '" alt="' + vOssPath + element + '" style="cursor: pointer;"></li>');
