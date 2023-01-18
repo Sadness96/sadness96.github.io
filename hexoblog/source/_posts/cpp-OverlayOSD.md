@@ -230,7 +230,7 @@ extern "C" bool OSDNearest(unsigned char* yData, unsigned char* uvData, int imag
 	unsigned char* osdData, Rect osdRect, int drawLineStep);
 ```
 
-#### 
+#### OverlayOSD.cpp
 ``` cpp
 #include "OverlayOSD.h"
 
@@ -286,7 +286,8 @@ void OverlayOSD::InitOSD(const char* str, int fontSize, const char* faceName, in
 	int strBaseW = 0, strBaseH = 0;
 	char buf[1 << 12];
 	strcpy_s(buf, str);
-	char* bufT[1 << 12];  // 这个用于分隔字符串后剩余的字符，可能会超出。
+	// 这个用于分隔字符串后剩余的字符，可能会超出。
+	char* bufT[1 << 12];
 	//处理多行
 	{
 		int nnh = 0;
