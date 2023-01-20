@@ -11,6 +11,14 @@ categories: C++
 如果仅使用 FFmpeg 编解码，可以使用 [AVFilter](https://ffmpeg.org/doxygen/trunk/structAVFilter.html) 一系列方法给视频添加水印或文字信息，但是使用上多有不便，同时想解决 OpenCV Mat 无法叠加汉字的问题，所以使用了另一种方式。
 参考文章：[Opencv310图片Mat中叠加汉字](https://blog.csdn.net/zmdsjtu/article/details/53133223) 中使用的 Windows [LOGFONTA](https://learn.microsoft.com/zh-cn/windows/win32/api/dimm/ns-dimm-logfonta?redirectedfrom=MSDN) 创建的位图，以 Opencv 或 CUDA 的方式叠加到视频中。
 
+### 实现效果
+<img src="https://sadness96.github.io/images/blog/cpp-OverlayOSD/VideoOSD.jpg"/>
+
+直接叠加单色文本，可能会与视频颜色重叠，导致 OSD 内容不清晰，有以下几种解决方法，目前实现使用半透明矩形。
+1. 添加一个半透明矩形，既不影响视频内容又可以凸显出文字。
+1. 文字描边，普遍使用白字黑边。
+1. 使用反色叠加，如果亮度过高的像素使用黑色，亮度过低的使用白色，测试在单个像素计算显示可能会显得很凌乱，取一个区域的亮度整体调色或许会好很多。
+
 ### 核心代码
 #### OSDAlignment.h
 ``` cpp
@@ -561,13 +569,6 @@ void OverlayOSD::Dispose()
 ```
 
 ### 调用方法
-<img src="https://sadness96.github.io/images/blog/cpp-OverlayOSD/VideoOSD.jpg"/>
-
-直接叠加单色文本，可能会与视频颜色完美融合，有两种解决方法：
-1. 添加一个半透明矩形，既不影响视频内容又可以凸显出文字，可能不太美观。
-1. 文字描边，使用白字黑边。
-1. 使用反色叠加，如果亮度过高的像素使用黑色，亮度过低的使用白色，测试在单个像素计算显示可能会显得很凌乱，取一个区域的亮度整体调色或许会好很多。
-
 #### 以 Mat 方式叠加
 由于 OpenCV 无法直接叠加半透明矩形，所以使用 [addWeighted](https://docs.opencv.org/3.4/d5/dc4/tutorial_adding_images.html) 的方式叠加。
 ``` cpp
