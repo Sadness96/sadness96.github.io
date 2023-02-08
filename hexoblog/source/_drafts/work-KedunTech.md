@@ -1,7 +1,7 @@
 ---
 title: 科盾科技股份有限公司
 date: 2019-06-12 12:05:00
-tags: [c#,c++,asp,mysql,axure]
+tags: [work]
 categories: Work
 ---
 <img src="https://sadness96.github.io/images/blog/work-KedunTech/%E4%B8%BB%E7%A8%8B%E5%BA%8F.png"/>

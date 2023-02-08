@@ -1,7 +1,7 @@
 ---
-title: 地林伟业科技股份有限公司
+title: 北京地林伟业科技股份有限公司
 date: 2018-05-28 12:03:20
-tags: [c#,winform,sqlite,mysql]
+tags: [work]
 categories: Work
 ---
 <img src="https://sadness96.github.io/images/blog/work-Forestar/mapzone.png"/>
