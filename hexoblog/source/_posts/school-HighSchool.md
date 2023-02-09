@@ -1,7 +1,7 @@
 ---
 title: 齐齐哈尔职业教育中心学校
 date: 2014-10-5 19:07:18
-tags: [photoshop,flash]
+tags: [school,photoshop,flash]
 categories: School
 ---
 <img src="https://sadness96.github.io/images/blog/memory-HighSchool/school.png"/>

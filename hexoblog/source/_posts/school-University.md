@@ -1,7 +1,7 @@
 ---
 title: 哈尔滨信息工程学院
 date: 2016-05-10 20:08:50
-tags: [c,java,会声会影]
+tags: [school,c,java,会声会影]
 categories: School
 ---
 <img src="https://sadness96.github.io/images/blog/memory-University/school.png"/>
