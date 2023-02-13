@@ -93,7 +93,7 @@ __global__ void OSDNearestKernel(unsigned char* yData, unsigned char* uvData, in
 		int idx_in_y = srcY * imageWidth + srcX;
 		int idx_in_uv = srcY / 2 * imageWidth + srcX;
 
-		int idx_osd = drawLineStep * (osdRect.height - tidy) + tidx * 3;
+		int idx_osd = drawLineStep * (osdRect.height - tidy - 1) + tidx * 3;
 
 		if (osdData[idx_osd] > 0)
 		{
@@ -104,8 +104,6 @@ __global__ void OSDNearestKernel(unsigned char* yData, unsigned char* uvData, in
 		else
 		{
 			yData[idx_in_y] = yData[idx_in_y] >= 40 ? yData[idx_in_y] - 40 : 0;
-			uvData[srcX % 2 == 0 ? idx_in_uv : idx_in_uv - 1] = uvData[srcX % 2 == 0 ? idx_in_uv : idx_in_uv - 1];
-			uvData[srcX % 2 == 0 ? idx_in_uv + 1 : idx_in_uv] = uvData[srcX % 2 == 0 ? idx_in_uv + 1 : idx_in_uv];
 		}
 	}
 }
