@@ -45,6 +45,7 @@ categories: Photo
         'images/photo-E3PainCar/554A6366.jpg',
         'images/photo-E3PainCar/554A6375.jpg',
         'images/photo-E3PainCar/554A6384.jpg',
+        'images/photo-E3PainCar/554A6396.jpg',
         'images/photo-E3PainCar/554A6412.jpg',
         'images/photo-E3PainCar/554A6417.jpg',
         'images/photo-E3PainCar/554A6426.jpg',
