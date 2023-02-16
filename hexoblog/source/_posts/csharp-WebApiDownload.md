@@ -1,0 +1,133 @@
+---
+title: HttpClient 下载文件
+date: 2019-04-19 10:59:20
+tags: [c#,helper,webapi]
+categories: C#.Net
+---
+### 使用 HttpClient 下载文件并回调显示进度
+<!-- more -->
+### 简介
+原帮助类代码参考 [WebApi 帮助类](https://liujiahua.com/blog/2018/08/27/csharp-WebApiHelper/)，新增下载文件方法，使用 WPF 调用下载并回调显示下载进度。
+
+### 代码
+#### 帮助类代码
+``` CSharp
+/// <summary>
+/// 单文件下载
+/// </summary>
+/// <param name="baseAddress">Api访问地址</param>
+/// <param name="requestUrl">请求地址</param>
+/// <param name="parameters">请求参数</param>
+/// <param name="saveFilePath">保存文件路径</param>
+/// <param name="progressAction">进度回调</param>
+/// <param name="token">Token认证</param>
+/// <returns>是否下载成功</returns>
+public static async Task<bool> DownloadAsync(Uri baseAddress, string requestUrl, IDictionary<string, string> parameters, string saveFilePath, Action<object, HttpProgressEventArgs> progressAction = null, string token = null)
+{
+    ProgressMessageHandler progress = new ProgressMessageHandler();
+    progress.HttpReceiveProgress += (s, e) =>
+    {
+        progressAction?.Invoke(s, e);
+    };
+
+    HttpClient httpClient = HttpClientFactory.Create(progress);
+    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+    try
+    {
+        if (!string.IsNullOrEmpty(token))
+        {
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
+        httpClient.Timeout = TimeSpan.FromMinutes(20);
+
+        //拼接参数
+        StringBuilder builder = new StringBuilder();
+        builder.Append(baseAddress);
+        builder.Append(requestUrl);
+        if (parameters != null && parameters.Count >= 1)
+        {
+            builder.Append("?");
+            int i = 0;
+            foreach (var item in parameters)
+            {
+                if (i > 0)
+                {
+                    builder.Append("&");
+                }
+                builder.AppendFormat("{0}={1}", item.Key, item.Value);
+                i++;
+            }
+        }
+
+        using (HttpResponseMessage response = await httpClient.GetAsync(builder.ToString()))
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                //保存文件
+                using (FileStream fs = File.Create(saveFilePath))
+                {
+                    Stream stream = await response.Content.ReadAsStreamAsync();
+                    stream.CopyTo(fs);
+                    stream.Close();
+                    stream.Dispose();
+                    fs.Close();
+                    fs.Dispose();
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        TXTHelper.Logs(ex.ToString());
+        return false;
+    }
+    finally
+    {
+        httpClient.Dispose();
+        httpClient = null;
+        GC.Collect();
+    }
+}
+```
+
+#### 进度条样式
+``` CSharp
+<Grid>
+    <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="13" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Maximum="1" Minimum="0"/>
+</Grid>
+```
+
+#### 调用下载
+``` CSharp
+private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+{
+    string ServerUrl = "";
+    string SavePath = @"";
+
+    var vDownload = await HttpClientHelper.DownloadAsync(new Uri(ServerUrl), null, null, SavePath, DownloadProgressChanged);
+    MessageBox.Show($"保存{(vDownload ? "成功" : "失败")}");
+}
+
+/// <summary>
+/// 下载进度发生改变
+/// 更新界面下载进度
+/// </summary>
+/// <param name="arg1"></param>
+/// <param name="arg2"></param>
+private void DownloadProgressChanged(object arg1, HttpProgressEventArgs arg2)
+{
+    this.Dispatcher.Invoke(new Action(() =>
+    {
+        if (arg2.ProgressPercentage >= 0 && arg2.ProgressPercentage <= 100)
+        {
+            progressBar.Value = arg2.ProgressPercentage / 100.0;
+        }
+    }));
+}
+```

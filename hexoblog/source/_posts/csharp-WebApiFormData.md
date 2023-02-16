@@ -6,10 +6,10 @@ categories: C#.Net
 ---
 ### 使用 HttpClient form-data 上传文件
 <!-- more -->
-#### 简介
-用户需求，通过 multipart/form-data 类型 HTTP 请求上传文件，原帮助类代码参考 [C/S端调用 WebApi 帮助类](https://liujiahua.com/blog/2018/08/27/csharp-WebApiHelper/)，修改代码发送 HttpClient 表单文件上传请求。
+### 简介
+用户需求，通过 multipart/form-data 类型 HTTP 请求上传文件，原帮助类代码参考 [WebApi 帮助类](https://liujiahua.com/blog/2018/08/27/csharp-WebApiHelper/)，修改代码发送 HttpClient 表单文件上传请求。
 
-#### 代码
+### 代码
 ``` CSharp
 /// <summary>
 /// 创建Post请求
