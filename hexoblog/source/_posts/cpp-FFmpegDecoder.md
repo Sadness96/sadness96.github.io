@@ -285,7 +285,7 @@ void main()
 
 					auto vSendTimeOut = stopSendTimeOut - startSendTimeOut;
 					auto vReceiveTimeOut = clock() - startReceiveTimeOut;
-					auto vTimeOut = vSendTimeOut = vReceiveTimeOut;
+					auto vTimeOut = vSendTimeOut + vReceiveTimeOut;
 					if (vTimeOut >= 0 && vTimeOut < dur)
 					{
 						dur -= vTimeOut;
