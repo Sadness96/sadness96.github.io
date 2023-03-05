@@ -24,7 +24,7 @@ categories: C++
 ``` C++
 #pragma once
 
-#ifdef TEST_RXPORTS
+#ifdef TEST_EXPORTS
 #define Test_API __declspec(dllexport)
 #else
 #define Test_API __declspec(dllimport)
