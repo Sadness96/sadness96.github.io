@@ -22,8 +22,6 @@ public static void AutoColumnWidth(ISheet sheet, int cols)
 {
     for (int col = 0; col <= cols; col++)
     {
-        //自适应宽度，但是其实还是比实际文本要宽
-        sheet.AutoSizeColumn(col);
         //获取当前列宽度
         int columnWidth = sheet.GetColumnWidth(col) / 256;
         for (int rowIndex = 0; rowIndex <= sheet.LastRowNum; rowIndex++)
@@ -116,8 +114,6 @@ public static MemoryStream FillDataTableStream(string strSheetName, DataTable dt
         iWorkBook.Write(stream, false);
         iWorkBook.Close();
         return stream;
-
-        return null;
     }
     catch (Exception ex)
     {

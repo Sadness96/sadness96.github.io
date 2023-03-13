@@ -1,5 +1,5 @@
 ---
-title: C#/C++ 混合编程无法分配内存空间与回调
+title: C#/C++ 混合编程无法分配内存空间与回调函数
 date: 2023-02-28 11:03:55
 tags: [c++,c#,depends]
 categories: C++
