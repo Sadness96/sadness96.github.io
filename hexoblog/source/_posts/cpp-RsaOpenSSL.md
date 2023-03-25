@@ -162,3 +162,8 @@ int main()
 	return 0;
 }
 ```
+
+### 注意事项
+#### 报错：C4996 'RSA_new': Since OpenSSL 3.0
+使用 OpenSSL 3.1.0 调用已弃用的 OpenSSL 1.1.1 函数
+添加宏定义 #define OPENSSL_API_COMPAT 0x10100000L 使用与 OpenSSL 1.1.x 兼容的 API
