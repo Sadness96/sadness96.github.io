@@ -7,7 +7,7 @@ categories: C++
 ### 调用非动态链接库无法分配内存空间，回调 C# 方法返回数据
 <!-- more -->
 ### 简介
-使用 [C#/C++ 混合编程](https://sadness96.github.io/blog/2017/05/27/csharp-NPOIHelper/) 方式开发，新遇到的问题。
+使用 [C#/C++ 混合编程](https://sadness96.github.io/blog/2018/08/01/cpp-HybridCSharp/) 方式开发，新遇到的问题。
 
 ### 处理
 #### 报错：引发的异常: 0xC0000005: 执行位置 0x0000000000027DD4 时发生访问冲突。

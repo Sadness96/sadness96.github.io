@@ -33,59 +33,140 @@ openssl rsa -in private.key -pubout -out public.key
 #include <openssl/rand.h>
 #include <openssl/err.h>
 
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
+
 #include <iostream>
 #include <string>
 
-// Generate RSA key pair
-RSA* generateRSAKeyPair(const int keyLength)
+using namespace std;
+
+// 加载随机数种子文件或使用系统 API 获取随机数据
+void load_random_seed() {
+#ifdef _WIN32
+	// Windows 下使用 CryptGenRandom() 函数获取随机数据
+	HCRYPTPROV hProv;
+	BYTE pbData[32];
+	DWORD dwDataLen = sizeof(pbData);
+	if (CryptAcquireContext(&hProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT)) {
+		CryptGenRandom(hProv, dwDataLen, pbData);
+		CryptReleaseContext(hProv, 0);
+	}
+	RAND_seed(pbData, dwDataLen);
+#else
+	// Linux 下读取 /dev/urandom 文件获取随机数据
+	FILE* urand = fopen("/dev/urandom", "rb");
+	if (urand != NULL) {
+		unsigned char buf[32];
+		size_t n = fread(buf, sizeof(buf), 1, urand);
+		fclose(urand);
+		if (n == 1) {
+			RAND_seed(buf, sizeof(buf));
+		}
+	}
+#endif
+}
+
+// 生成 RSA PKCS#1
+void RSA_generate_pkcs1(const int keyLength, string& publicPem, string& privatePem)
 {
-	RSA* rsa = RSA_new();
-	BIGNUM* bne = BN_new();
-	unsigned long e = RSA_F4;
+	// 生成 RSA 密钥对
+	RSA* keypair = RSA_generate_key(keyLength, RSA_F4, nullptr, nullptr);
 
-	if (!BN_set_word(bne, e)) {
-		std::cerr << "Failed to set Big Number exponent" << std::endl;
-		return nullptr;
+	// 获取 PKCS#1 格式公钥并输出到控制台
+	BIO* bio_pubkey = BIO_new(BIO_s_mem());
+	PEM_write_bio_RSAPublicKey(bio_pubkey, keypair);
+	char* pubkey_str;
+	long pubkey_len = BIO_get_mem_data(bio_pubkey, &pubkey_str);
+	publicPem = string(pubkey_str, pubkey_len);
+
+	// 获取 PKCS#1 格式私钥并输出到控制台
+	BIO* bio_privkey = BIO_new(BIO_s_mem());
+	PEM_write_bio_RSAPrivateKey(bio_privkey, keypair, nullptr, nullptr, 0, nullptr, nullptr);
+	char* privkey_str;
+	long privkey_len = BIO_get_mem_data(bio_privkey, &privkey_str);
+	privatePem = string(privkey_str, privkey_len);
+
+	// 释放资源
+	RSA_free(keypair);
+	BIO_free_all(bio_pubkey);
+	BIO_free_all(bio_privkey);
+}
+
+// // 生成 RSA PKCS#8
+void RSA_generate_pkcs8(const int keyLength, string& publicPem, string& privatePem)
+{
+	// 生成 RSA 密钥对
+	RSA* keypair = RSA_generate_key(keyLength, RSA_F4, nullptr, nullptr);
+
+	// 将 RSA 私钥转换为 EVP 私钥对象
+	EVP_PKEY* pkey = EVP_PKEY_new();
+	EVP_PKEY_set1_RSA(pkey, keypair);
+
+	// 获取 PKCS#8 格式公钥并输出到控制台
+	BIO* bio_pubkey = BIO_new(BIO_s_mem());
+	PEM_write_bio_PUBKEY(bio_pubkey, pkey);
+	char* pubkey_str;
+	long pubkey_len = BIO_get_mem_data(bio_pubkey, &pubkey_str);
+	publicPem = string(pubkey_str, pubkey_len);
+
+	// 获取 PKCS#8 格式私钥并输出到控制台
+	BIO* bio_privkey = BIO_new(BIO_s_mem());
+	PEM_write_bio_PKCS8PrivateKey(bio_privkey, pkey, nullptr, nullptr, 0, nullptr, nullptr);
+	char* privkey_str;
+	long privkey_len = BIO_get_mem_data(bio_privkey, &privkey_str);
+	privatePem = string(privkey_str, privkey_len);
+
+	// 释放资源
+	RSA_free(keypair);
+	EVP_PKEY_free(pkey);
+	BIO_free_all(bio_pubkey);
+	BIO_free_all(bio_privkey);
+}
+
+// 打印错误信息
+void print_openssl_error() {
+	unsigned long err = ERR_get_error();
+	char err_msg[120];
+	ERR_error_string_n(err, err_msg, sizeof(err_msg));
+	printf("Error: %s\n", err_msg);
+}
+
+// 加载公钥
+RSA* load_public_key(const char* public_key_str) {
+	RSA* rsa = NULL;
+	BIO* bio = BIO_new_mem_buf(public_key_str, -1);
+	if (bio != NULL) {
+		rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, NULL, NULL);
+		BIO_free(bio);
+		if (rsa == NULL) {
+			print_openssl_error();
+		}
 	}
-
-	// Generate the RSA key
-	if (!RSA_generate_key_ex(rsa, keyLength, bne, nullptr)) {
-		std::cerr << "Failed to generate RSA key" << std::endl;
-		return nullptr;
+	else {
+		print_openssl_error();
 	}
-
-	// Free memory
-	BN_free(bne);
-
 	return rsa;
 }
 
-// Convert RSA public key to PEM format
-std::string convertRSAPublicKeyToPEM(RSA* rsa)
-{
-	BIO* bio = BIO_new(BIO_s_mem());
-	PEM_write_bio_RSAPublicKey(bio, rsa);
-	BUF_MEM* bufferPtr;
-	BIO_get_mem_ptr(bio, &bufferPtr);
-	std::string publicKey(bufferPtr->data, bufferPtr->length);
-	BIO_set_close(bio, BIO_CLOSE);
-	BIO_free_all(bio);
-
-	return publicKey;
-}
-
-// Convert RSA private key to PEM format
-std::string convertRSAPrivateKeyToPEM(RSA* rsa)
-{
-	BIO* bio = BIO_new(BIO_s_mem());
-	PEM_write_bio_RSAPrivateKey(bio, rsa, nullptr, nullptr, 0, nullptr, nullptr);
-	BUF_MEM* bufferPtr;
-	BIO_get_mem_ptr(bio, &bufferPtr);
-	std::string privateKey(bufferPtr->data, bufferPtr->length);
-	BIO_set_close(bio, BIO_CLOSE);
-	BIO_free_all(bio);
-
-	return privateKey;
+// 加载私钥
+RSA* load_private_key(const char* private_key_str) {
+	RSA* rsa = NULL;
+	BIO* bio = BIO_new_mem_buf(private_key_str, -1);
+	if (bio != NULL) {
+		rsa = PEM_read_bio_RSAPrivateKey(bio, NULL, NULL, NULL);
+		BIO_free(bio);
+		if (rsa == NULL) {
+			print_openssl_error();
+		}
+	}
+	else {
+		print_openssl_error();
+	}
+	return rsa;
 }
 
 // Encrypt plaintext with RSA public key
@@ -134,30 +215,28 @@ int main()
 	OpenSSL_add_all_algorithms();
 	ERR_load_BIO_strings();
 	ERR_load_crypto_strings();
-	RAND_load_file("/dev/random", 32);
+	load_random_seed();
 
-	const int KEY_LENGTH = 2048;
-	RSA* rsa = generateRSAKeyPair(KEY_LENGTH);
+	string publicPem;
+	string privatePem;
 
-	std::string publicKey = convertRSAPublicKeyToPEM(rsa);
-	std::string privateKey = convertRSAPrivateKeyToPEM(rsa);
+	RSA_generate_pkcs1(2048, publicPem, privatePem);
+	std::cout << "PKCS#1 Public Key:" << std::endl << publicPem << std::endl;
+	std::cout << "PKCS#1 Private Key:" << std::endl << privatePem << std::endl;
+	RSA_generate_pkcs8(2048, publicPem, privatePem);
+	std::cout << "PKCS#8 Public Key:" << std::endl << publicPem << std::endl;
+	std::cout << "PKCS#8 Private Key:" << std::endl << privatePem << std::endl;
 
-	std::cout << "Public Key:" << std::endl << publicKey << std::endl;
-	std::cout << "Private Key:" << std::endl << privateKey << std::endl;
+	RSA* public_RSA = load_public_key(publicPem.c_str());
+	RSA* private_RSA = load_private_key(privatePem.c_str());
 
 	std::string plaintext = "Hello, world!";
-	std::string ciphertext = rsaEncrypt(plaintext, rsa);
-	std::string decryptedText = rsaDecrypt(ciphertext, rsa);
+	std::string ciphertext = rsaEncrypt(plaintext, public_RSA);
+	std::string decryptedText = rsaDecrypt(ciphertext, private_RSA);
 
 	std::cout << "Plaintext: " << plaintext << std::endl;
 	std::cout << "Ciphertext: " << ciphertext << std::endl;
 	std::cout << "Decrypted Text: " << decryptedText << std::endl;
-
-	// Clean up
-	RSA_free(rsa);
-	EVP_cleanup();
-	CRYPTO_cleanup_all_ex_data();
-	ERR_free_strings();
 
 	return 0;
 }
@@ -167,3 +246,11 @@ int main()
 #### 报错：C4996 'RSA_new': Since OpenSSL 3.0
 使用 OpenSSL 3.1.0 调用已弃用的 OpenSSL 1.1.1 函数
 添加宏定义 #define OPENSSL_API_COMPAT 0x10100000L 使用与 OpenSSL 1.1.x 兼容的 API
+
+#### PKCS#1 在公钥转 RSA 对象时会报错
+使用命令提取公钥信息以验证公钥正确性，但是不清楚原因的使用 PKCS#1 在公钥转 RSA 对象时会报错，但是使用 PKCS#8 没问题。
+``` CMD
+:: 使用 OpenSSL 命令来提取公钥内容。
+:: 检查输出结果以确保公钥信息正确。在输出结果中能够看到包含模数和指数的 Public-Key: (RSA) 行。
+openssl rsa -in public.pem -pubin -text
+```
