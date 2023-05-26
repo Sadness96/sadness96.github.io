@@ -93,33 +93,45 @@
 
 			var self = this;
 
-			imagesLoaded( this.el, function() {
-				
+			if (Modernizr.cssanimations) {
 				// initialize masonry
-				new Masonry( self.el, {
+				var masonry = new Masonry( self.el, {
 					itemSelector: 'li',
 					transitionDuration : 0
-				} );
-				
-				if( Modernizr.cssanimations ) {
-					// the items already shown...
-					self.items.forEach( function( el, i ) {
-						if( inViewport( el ) ) {
-							self._checkTotalRendered();
-							classie.add( el, 'shown' );
-						}
-					} );
-
-					// animate on scroll the items inside the viewport
-					window.addEventListener( 'scroll', function() {
-						self._onScrollFn();
-					}, false );
-					window.addEventListener( 'resize', function() {
-						self._resizeHandler();
-					}, false );
-				}
-
-			});
+				});
+			  
+				// animate items already shown on load
+				self.items.forEach(function(el, i) {
+					var img = el.querySelector('img');
+					if (inViewport(el)) {
+						self._checkTotalRendered();
+						classie.add(el, 'shown');
+					}
+					img.addEventListener('load', function() {
+						masonry.layout();
+						self._checkTotalRendered();
+						classie.add(el, 'shown');
+					});
+					img.addEventListener('error', function() {
+						masonry.layout();
+					});
+				});
+			  
+				// animate on scroll the items inside the viewport
+				window.addEventListener('scroll', function() {
+					self._onScrollFn();
+				}, false);
+				window.addEventListener('resize', function() {
+					self._resizeHandler();
+					masonry.layout();
+				}, false);
+			} else {
+				// initialize masonry without animation
+				new Masonry(self.el, {
+					itemSelector: 'li',
+					transitionDuration: 0
+				});
+			}
 		},
 		_onScrollFn : function() {
 			var self = this;
