@@ -86,7 +86,7 @@ int main()
 	else if (output.rfind(rtmpJudgment, 0) == 0)
 	{
 		// 初始化 rtmp 连接
-		int ret = avformat_alloc_output_context2(&outputContext, nullptr, "flv", output.c_str());
+		ret = avformat_alloc_output_context2(&outputContext, NULL, "flv", output.c_str());
 		if (ret < 0)
 		{
 			av_log(NULL, AV_LOG_ERROR, "open output context failed\n");
