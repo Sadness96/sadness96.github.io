@@ -6,15 +6,15 @@ categories: C++
 ---
 ### 使用 FFmpeg 编码视频并推流或保存文件
 <!-- more -->
-#### 简介
+### 简介
 [FFmpeg](https://ffmpeg.org/) 是一个完整的跨平台解决方案，用于录制、转换和流式传输音频和视频。
 在处理 FFmpeg 编码视频前需了解 [FFmpeg 解码视频](https://sadness96.github.io/blog/2021/11/08/cpp-FFmpegDecoder/) 与 [FFmpeg 转发推流到 rtsp/rtmp](https://sadness96.github.io/blog/2022/07/11/cpp-FFmpegPushCurrent/)，此文以编码推流为目的，当然也可以编码后储存为文件或作为其他作用。
 设置解码方式：TCP 优化、软解码（多线程）、硬解码（CUDA、DXVA2、D3D11VA）
 设置编码器：[H.264](https://zh.wikipedia.org/wiki/H.264/MPEG-4_AVC) 、 [H.265](https://zh.wikipedia.org/wiki/%E9%AB%98%E6%95%88%E7%8E%87%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81)
 设置推流方式：[RTSP](https://zh.wikipedia.org/wiki/%E5%8D%B3%E6%99%82%E4%B8%B2%E6%B5%81%E5%8D%94%E5%AE%9A) 、 [RTMP](https://zh.wikipedia.org/wiki/%E5%AE%9E%E6%97%B6%E6%B6%88%E6%81%AF%E5%8D%8F%E8%AE%AE)
 
-#### 核心代码
-##### 参数变量
+### 核心代码
+#### 参数变量
 ``` cpp
 private:
 	/// <summary>
@@ -26,6 +26,18 @@ private:
 	/// RTMP 标识
 	/// </summary>
 	string rtmpJudgment_ = "rtmp";
+
+	/// <summary>
+	/// TCP 标识
+	/// 推流到 TCP 需要先使用命令启动服务
+	/// 例如：ffmpeg -listen 1 -i tcp://0.0.0.0:1234 -f rtsp rtsp://localhost:8554/main
+	/// </summary>
+	string tcpJudgment_ = "tcp";
+
+	/// <summary>
+	/// UDP 标识
+	/// </summary>
+	string udpJudgment_ = "udp";
 
 	/// <summary>
 	/// 是否启用 TCP 优化解码
@@ -68,7 +80,7 @@ private:
 	AVPixelFormat pix_fmt_ = is_hard_decoding_ ? AV_PIX_FMT_NV12 : AV_PIX_FMT_YUV420P;
 ```
 
-##### 解码 - 编码 - 推流
+#### 解码 - 编码 - 推流
 ``` cpp
 // 引用 FFmpeg C 头文件
 extern "C"
@@ -252,6 +264,22 @@ void main()
 		}
 
 		ret = avio_open2(&outputContext->pb, output.c_str(), AVIO_FLAG_READ_WRITE, nullptr, nullptr);
+		if (ret < 0)
+		{
+			PrintError(ret);
+			av_log(NULL, AV_LOG_ERROR, "open avio failed");
+		}
+	}
+	else if (output.rfind(tcpJudgment, 0) == 0 || output.rfind(udpJudgment, 0) == 0)
+	{
+		// 初始化 tcp 或 udp 连接
+		ret = avformat_alloc_output_context2(&outputContext_, NULL, "mpegts", outputPath_.c_str());
+		if (ret < 0)
+		{
+			av_log(NULL, AV_LOG_ERROR, "open output context failed\n");
+		}
+
+		ret = avio_open(&outputContext_->pb, outputPath_.c_str(), AVIO_FLAG_WRITE);
 		if (ret < 0)
 		{
 			PrintError(ret);
@@ -509,18 +537,18 @@ void main()
 }
 ```
 
-#### 注意事项
-##### 不支持的内容
+### 注意事项
+#### 不支持的内容
 * 测试 RTMP 推流不支持 H265 编码，似乎可以重新编译 FFmpeg 来支持。
 * 测试 H265 解码不支持硬编码类型 NV12。
 
-##### 编码帧率
+#### 编码帧率
 编码推流视频会根据帧率显示，常见的帧率：
 * 电影 24fps
 * 监控 25fps
 * 普通视频 30fps/60fps
 
-##### 推流到 RTSP / RTMP
+#### 推流到 RTSP / RTMP
 1. 创建 RTSP / RTMP 流需要通过 [avformat_alloc_output_context2](https://ffmpeg.org/doxygen/3.0/avformat_8h.html#a6ddf3d982feb45fa5081420ee911f5d5) 创建 "rtsp" / "flv" 上下文。
 1. 创建 RTMP 流需要创建并初始化一个 [AVIOContext](https://ffmpeg.org/doxygen/trunk/structAVIOContext.html) 以访问 url 指示的资源。
 1. 创建 RTMP 流需要写入流标头前写入 sps pps，此处没有验证具体含义，可以使用其他方式写入，但是测试时对各类视频没有影响。
@@ -537,7 +565,7 @@ void main()
 
 1. 使用 [avformat_write_header](https://ffmpeg.org/doxygen/3.3/group__lavf__encoding.html#ga18b7b10bb5b94c4842de18166bc677cb) 写入流标头。
 
-##### 保存到本地文件
+#### 保存到本地文件
 测试保存本地文件支持的文件格式有：mp4、flv、mov、ts、avi。
 1. 保存到本地文件首先需要判断文件路径的可用，如果文件夹为空时自动创建。
 	``` cpp
@@ -585,7 +613,7 @@ void main()
 1. 使用 [avformat_write_header](https://ffmpeg.org/doxygen/3.3/group__lavf__encoding.html#ga18b7b10bb5b94c4842de18166bc677cb) 写入流标头。
 1. 与推流不同，在写入本地视频的结尾，需要使用 [av_write_trailer](https://ffmpeg.org/doxygen/3.4/group__lavf__encoding.html#ga7f14007e7dc8f481f054b21614dfec13) 写入流尾并释放数据，否则会对一些格式造成一些影响，例如： mp4 格式无法播放，flv 格式无法正确显示时间轴。
 
-##### 设置 pts
+#### 设置 pts
 推流到流媒体根据目标类型需要有不同的设置。
 * 推流到 RTSP：time_base 默认为 90000，pts 平均以 3600 递增。
 * 推流到 RTMP：time_base 默认为 1000，pts 平均以 40 递增。

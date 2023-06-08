@@ -6,7 +6,7 @@ categories: C++
 ---
 ### 使用 FFmpeg 以代码的方式分别转发推流到 rtsp/rtmp
 <!-- more -->
-#### 简介
+### 简介
 转发任意支持的格式，推流到 rtsp/rtmp 的最简代码，数据源为文件的话需要额外添加 FPS 控制。
 使用流媒体服务为： [rtsp-simple-server](https://github.com/aler9/rtsp-simple-server)
 ``` cmd
@@ -19,7 +19,7 @@ ffmpeg -re -stream_loop -1 -i C:\Video.mp4 -c copy -f rtsp -rtsp_transport tcp r
 ffmpeg -re -stream_loop -1 -i C:\Video.mp4 -c copy -f flv rtmp://localhost/live
 ```
 
-#### 代码
+### 代码
 ``` cpp
 void av_packet_rescale_ts(AVPacket* pkt, AVRational src_tb, AVRational dst_tb)
 {
