@@ -240,4 +240,11 @@ Current Driver Version does not support this NvEncodeAPI version, please upgrade
 
 #### FFmpeg 推流 TCP 转发到 RTSP
 推流到 TCP 需要先使用命令启动服务
-例如：ffmpeg -listen 1 -i tcp://0.0.0.0:1234 -f rtsp rtsp://localhost:8554/main
+``` cmd
+:: 使用默认编码器
+ffmpeg -listen 1 -i tcp://0.0.0.0:1234 -f rtsp rtsp://localhost:8554/main
+:: 使用 libx264 编码器
+ffmpeg -listen 1 -i tcp://0.0.0.0:1234 -c:v libx264 -f rtsp rtsp://localhost:8554/main
+:: 使用 libx265 编码器
+ffmpeg -listen 1 -i tcp://0.0.0.0:1234 -c:v libx265 -f rtsp rtsp://localhost:8554/main
+```
