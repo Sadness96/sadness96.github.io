@@ -1,5 +1,5 @@
 ---
-title: 使用 OpenSSL RSA 加密解密
+title: C++ 使用 OpenSSL RSA 加密解密
 date: 2023-03-21 19:27:56
 tags: [c++,openssl,rsa,chatgpt]
 categories: C++
@@ -96,7 +96,7 @@ void RSA_generate_pkcs1(const int keyLength, string& publicPem, string& privateP
 	BIO_free_all(bio_privkey);
 }
 
-// // 生成 RSA PKCS#8
+// 生成 RSA PKCS#8
 void RSA_generate_pkcs8(const int keyLength, string& publicPem, string& privatePem)
 {
 	// 生成 RSA 密钥对
