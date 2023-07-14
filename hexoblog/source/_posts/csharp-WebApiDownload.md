@@ -7,7 +7,7 @@ categories: C#.Net
 ### 使用 HttpClient 下载文件并回调显示进度
 <!-- more -->
 ### 简介
-原帮助类代码参考 [WebApi 帮助类](https://liujiahua.com/blog/2018/08/27/csharp-WebApiHelper/)，新增下载文件方法，使用 WPF 调用下载并回调显示下载进度。显示下载文件大小以及下载速度。
+原帮助类代码参考 [WebApi 帮助类](https://sadness96.github.io/blog/2018/08/27/csharp-WebApiHelper/)，新增下载文件方法，使用 WPF 调用下载并回调显示下载进度。显示下载文件大小以及下载速度。
 
 ### 代码
 #### 帮助类代码
