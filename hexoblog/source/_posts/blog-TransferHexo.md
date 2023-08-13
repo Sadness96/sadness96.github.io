@@ -193,7 +193,7 @@ deploy('public', 'blog')
 ###### 上传Hexo博客源码后报错：Date is not a valid datetime
 由于GitHub Pages默认使用jekyll作为代码检查，在上传Hexo源码之后存在编译不通过的情况，所以需要创建.nojekyll空文件在Repository的根目录下以关闭针对jekyll的检查。
 Windows下创建以“.”开头文件夹和文件（执行命令）：
-``` CMD
+``` cmd
 md .folder              //创建文件夹
 echo >.file             //创建文件
 ```
@@ -202,7 +202,7 @@ echo >.file             //创建文件
 请查看文章：[压缩Hexo博客生成空白行](/blog/2019/06/17/python-CompressHexo/)
 
 ##### 执行命令
-``` CMD
+``` cmd
 cd hexoblog                 //进入博客源码文件夹
 hexo new <title>            //创建新文章
 hexo clean                  //清理博客生成文件

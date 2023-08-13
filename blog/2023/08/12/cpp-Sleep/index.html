@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://sadness96.github.io/images/Logo300.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://sadness96.github.io/images/Logo30.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://sadness96.github.io/images/Logo16.png">
+  <link rel="mask-icon" href="https://sadness96.github.io/images/logo.svg" color="#222">
+<link rel="stylesheet" href="/blog/css/main.css">
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/blog/lib/pace/pace-theme-minimal.min.css">
+  <script src="/blog/lib/pace/pace.min.js"></script>
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sadness96.github.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+  <meta name="description" content="解决 Sleep 精度不够问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ Sleep 精度不够">
+<meta property="og:url" content="http://sadness96.github.io/blog/2023/08/12/cpp-Sleep/index.html">
+<meta property="og:site_name" content="个人博客 - 刘佳华">
+<meta property="og:description" content="解决 Sleep 精度不够问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-12T04:45:52.000Z">
+<meta property="article:modified_time" content="2023-08-13T06:11:21.666Z">
+<meta property="article:author" content="LiuJiaHua">
+<meta property="article:tag" content="c++">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="http://sadness96.github.io/blog/2023/08/12/cpp-Sleep/">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+  <title>C++ Sleep 精度不够 | 个人博客 - 刘佳华</title>
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+  <div class="site-meta">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">个人博客 - 刘佳华</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+  </li>
+        <li class="menu-item menu-item-archives">
+    <a href="/blog/archives" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+  </li>
+        <li class="menu-item menu-item-categories">
+    <a href="/blog/categories" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+  </li>
+        <li class="menu-item menu-item-tags">
+    <a href="/blog/tags" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+  </li>
+        <li class="menu-item menu-item-about">
+    <a href="/blog/about" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+  </li>
+        <li class="menu-item menu-item-github">
+    <a href="https://github.com/Sadness96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+    </header>
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content post posts-expand">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sadness96.github.io/blog/2023/08/12/cpp-Sleep/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+      <meta itemprop="name" content="LiuJiaHua">
+      <meta itemprop="description" content="记录生活,记录学习,记录成长!">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客 - 刘佳华">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C++ Sleep 精度不够
+        </h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="创建时间：2023-08-12 12:45:52" itemprop="dateCreated datePublished" datetime="2023-08-12T12:45:52+08:00">2023-08-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+        </div>
+      </header>
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="解决-Sleep-精度不够问题"><a href="#解决-Sleep-精度不够问题" class="headerlink" title="解决 Sleep 精度不够问题"></a>解决 Sleep 精度不够问题</h3><span id="more"></span>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>在处理媒体视频时需要阻塞等待控制间隔，例如监控视频为 25FPS，就需要设置每帧间隔为 40 毫秒，在阻塞等待函数不够精准的情况下，就会出现帧数达不到的情况，可以在代码中提高帧数也就是降低间隔时间给函数留出精度不够的误差，但这似乎不是一个好办法，参考文章 <a target="_blank" rel="noopener" href="https://blog.csdn.net/liuhengxiao/article/details/99641539">Windows几种sleep精度的测试，结果基于微秒</a> 做的一些测试，根据项目需要选择更适合的方法。</p>
+<h3 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h3><h4 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h4><p>使用以下代码作为测试，运行时间越趋近于等待函数设置的值，精度越高。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;chrono&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mmsystem.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;timeapi.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std::this_thread;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> chrono;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> time = <span class="number">40</span>;</span><br><span class="line">	<span class="keyword">for</span> (;;)</span><br><span class="line">	&#123;</span><br><span class="line">		steady_clock::time_point start = steady_clock::<span class="built_in">now</span>();</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 等待函数</span></span><br><span class="line"></span><br><span class="line">		steady_clock::time_point end = steady_clock::<span class="built_in">now</span>();</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;运行时间：&quot;</span> &lt;&lt; duration_cast&lt;nanoseconds&gt;(end - start).<span class="built_in">count</span>() &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="sleep-for"><a href="#sleep-for" class="headerlink" title="sleep_for"></a>sleep_for</h4><p>使用 c++ 11 自带函数设置 sleep 间隔为 40 毫秒。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> time = <span class="number">40</span>;</span><br><span class="line">	<span class="keyword">for</span> (;;)</span><br><span class="line">	&#123;</span><br><span class="line">		steady_clock::time_point start = steady_clock::<span class="built_in">now</span>();</span><br><span class="line"></span><br><span class="line">		<span class="built_in">sleep_for</span>(<span class="built_in">milliseconds</span>(time));</span><br><span class="line"></span><br><span class="line">		steady_clock::time_point end = steady_clock::<span class="built_in">now</span>();</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;运行时间：&quot;</span> &lt;&lt; duration_cast&lt;nanoseconds&gt;(end - start).<span class="built_in">count</span>() &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>精度相差 2 - 8 毫秒，对于有精度需求的程序无法使用。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">运行时间：<span class="number">44549900</span></span><br><span class="line">运行时间：<span class="number">47305000</span></span><br><span class="line">运行时间：<span class="number">46158900</span></span><br><span class="line">运行时间：<span class="number">46949000</span></span><br><span class="line">运行时间：<span class="number">45595100</span></span><br><span class="line">运行时间：<span class="number">45570100</span></span><br><span class="line">运行时间：<span class="number">45340200</span></span><br><span class="line">运行时间：<span class="number">45241500</span></span><br><span class="line">运行时间：<span class="number">45490600</span></span><br><span class="line">运行时间：<span class="number">45625900</span></span><br></pre></td></tr></table></figure>
+<h4 id="sleep-for-timeBeginPeriod"><a href="#sleep-for-timeBeginPeriod" class="headerlink" title="sleep_for + timeBeginPeriod"></a>sleep_for + timeBeginPeriod</h4><p>依旧使用 sleep_for,额外使用 timeBeginPeriod 与 timeEndPeriod 设置系统时钟最小周期为 1 毫秒。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// &lt;summary&gt;</span></span><br><span class="line"><span class="comment">/// 等待函数</span></span><br><span class="line"><span class="comment">/// 基于 sleep_for 并且使用 timeBeginPeriod 提高系统时钟精度，依旧不够精准</span></span><br><span class="line"><span class="comment">/// &lt;/summary&gt;</span></span><br><span class="line"><span class="comment">/// &lt;param name=&quot;time&quot;&gt;毫秒&lt;/param&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">wait_sleep_for</span><span class="params">(<span class="keyword">int64_t</span> time)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">timeBeginPeriod</span>(<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">sleep_for</span>(<span class="built_in">milliseconds</span>(time));</span><br><span class="line">	<span class="built_in">timeEndPeriod</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> time = <span class="number">40</span>;</span><br><span class="line">	<span class="keyword">for</span> (;;)</span><br><span class="line">	&#123;</span><br><span class="line">		steady_clock::time_point start = steady_clock::<span class="built_in">now</span>();</span><br><span class="line"></span><br><span class="line">		<span class="built_in">wait_sleep_for</span>(time);</span><br><span class="line"></span><br><span class="line">		steady_clock::time_point end = steady_clock::<span class="built_in">now</span>();</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;运行时间：&quot;</span> &lt;&lt; duration_cast&lt;nanoseconds&gt;(end - start).<span class="built_in">count</span>() &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>精度相差 0.1 - 0.9 毫秒，如果读取文件不被察觉，如果是推流的话，会明显看到帧数达不到，25FPS 的设置只能达到 24.6FPS 左右。并且 timeBeginPeriod 为系统全局设置，就算及时关闭也不排除会对其他程序有影响。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">运行时间：<span class="number">40689800</span></span><br><span class="line">运行时间：<span class="number">40542900</span></span><br><span class="line">运行时间：<span class="number">40048500</span></span><br><span class="line">运行时间：<span class="number">40933100</span></span><br><span class="line">运行时间：<span class="number">40406200</span></span><br><span class="line">运行时间：<span class="number">40570000</span></span><br><span class="line">运行时间：<span class="number">40478500</span></span><br><span class="line">运行时间：<span class="number">40930100</span></span><br><span class="line">运行时间：<span class="number">40372600</span></span><br><span class="line">运行时间：<span class="number">40375400</span></span><br></pre></td></tr></table></figure>
+<h4 id="QueryPerformanceCounter"><a href="#QueryPerformanceCounter" class="headerlink" title="QueryPerformanceCounter"></a>QueryPerformanceCounter</h4><p>基于高精度计时器循环判断实现阻塞等待。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// &lt;summary&gt;</span></span><br><span class="line"><span class="comment">/// 等待函数</span></span><br><span class="line"><span class="comment">/// 基于 QueryPerformanceCounter 高精度计时器多媒体时钟轮询，较为精准，但是会大量占用 CPU 处理轮询</span></span><br><span class="line"><span class="comment">/// &lt;/summary&gt;</span></span><br><span class="line"><span class="comment">/// &lt;param name=&quot;time&quot;&gt;毫秒&lt;/param&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">wait_sleep_perform</span><span class="params">(<span class="keyword">int64_t</span> time)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	LARGE_INTEGER perfCnt, start, now;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">QueryPerformanceFrequency</span>(&amp;perfCnt);</span><br><span class="line">	<span class="built_in">QueryPerformanceCounter</span>(&amp;start);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		<span class="built_in">QueryPerformanceCounter</span>((LARGE_INTEGER*)&amp;now);</span><br><span class="line">	&#125; <span class="keyword">while</span> ((now.QuadPart - start.QuadPart) / <span class="built_in"><span class="keyword">float</span></span>(perfCnt.QuadPart) * <span class="number">1000</span> * <span class="number">1000</span> &lt; time * <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> time = <span class="number">40</span>;</span><br><span class="line">	<span class="keyword">for</span> (;;)</span><br><span class="line">	&#123;</span><br><span class="line">		steady_clock::time_point start = steady_clock::<span class="built_in">now</span>();</span><br><span class="line"></span><br><span class="line">		<span class="built_in">wait_sleep_perform</span>(time);</span><br><span class="line"></span><br><span class="line">		steady_clock::time_point end = steady_clock::<span class="built_in">now</span>();</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;运行时间：&quot;</span> &lt;&lt; duration_cast&lt;nanoseconds&gt;(end - start).<span class="built_in">count</span>() &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>精度相差 0.001 - 0.003 毫秒，几乎很完美的实现阻塞等待，但是存在一个问题，就是参考文章中提到的占用 CPU 问题，可能会使用一个 CPU 核心来处理，我这里测试确实有看到 CPU 的占用提升，但是还在可接受的范围内，因为视频大部分都是用 GPU 处理。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">运行时间：<span class="number">40001900</span></span><br><span class="line">运行时间：<span class="number">40002400</span></span><br><span class="line">运行时间：<span class="number">40003300</span></span><br><span class="line">运行时间：<span class="number">40003000</span></span><br><span class="line">运行时间：<span class="number">40002500</span></span><br><span class="line">运行时间：<span class="number">40002100</span></span><br><span class="line">运行时间：<span class="number">40001800</span></span><br><span class="line">运行时间：<span class="number">40002200</span></span><br><span class="line">运行时间：<span class="number">40002000</span></span><br><span class="line">运行时间：<span class="number">40003800</span></span><br></pre></td></tr></table></figure>
+    </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/c/" rel="tag"># c++</a>
+          </div>
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2023/07/26/csharp-NetCorePublish/" rel="prev" title="NetCore 应用发布">
+      <i class="fa fa-chevron-left"></i> NetCore 应用发布
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+  </article>
+          </div>
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+        </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3-Sleep-%E7%B2%BE%E5%BA%A6%E4%B8%8D%E5%A4%9F%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">解决 Sleep 精度不够问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">核心代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="nav-number">3.1.</span> <span class="nav-text">测试代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sleep-for"><span class="nav-number">3.2.</span> <span class="nav-text">sleep_for</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sleep-for-timeBeginPeriod"><span class="nav-number">3.3.</span> <span class="nav-text">sleep_for + timeBeginPeriod</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#QueryPerformanceCounter"><span class="nav-number">3.4.</span> <span class="nav-text">QueryPerformanceCounter</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LiuJiaHua"
+      src="https://avatars3.githubusercontent.com/u/19670054?s=460&v=4">
+  <p class="site-author-name" itemprop="name">LiuJiaHua</p>
+  <div class="site-description" itemprop="description">记录生活,记录学习,记录成长!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags">
+        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="footer-inner">
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuJiaHua</span>
+</div>
+      </div>
+    </footer>
+  </div>
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+<script src="/blog/js/utils.js"></script>
+<script src="/blog/js/motion.js"></script>
+<script src="/blog/js/schemes/pisces.js"></script>
+<script src="/blog/js/next-boot.js"></script>
+<script src="/blog/js/local-search.js"></script>
+</body>
+</html>
