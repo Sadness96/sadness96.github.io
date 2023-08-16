@@ -10,7 +10,7 @@ categories: C#.Net
 [MQTT 协议](https://www.runoob.com/w3cnote/mqtt-intro.html) 是一种基于发布/订阅（publish/subscribe）模式的"轻量级"通讯协议，该协议构建于 TCP/IP 协议上，由 IBM 在 1999 年发布。由于规范很简单，非常适合低功耗和网络带宽有限的 IOT 物联网场景。实际应用于第三方提供的道闸与雷达数据传输。
 
 #### 代码
-* Nuget 引用第三方开源库 [MQTTnet](https://github.com/dotnet/MQTTnet)
+* Nuget 引用第三方 [MQTTnet](https://github.com/dotnet/MQTTnet) 库。
 * 默认服务端端口 1883，可任意修改为未被占用的端口。
 * 通过 Topic(主题) 匹配数据，以 "+" 与 "#" 作为通配符，"+" 为单层通配符，"#" 为多层通配符。
 

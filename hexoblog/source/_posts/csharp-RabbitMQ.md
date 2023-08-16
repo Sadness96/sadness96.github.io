@@ -8,9 +8,6 @@ categories: C#.Net
 <!-- more -->
 #### 简介
 [RabbitMQ](https://www.rabbitmq.com/) 是实现了高级消息队列协议（AMQP）的开源消息代理软件（亦称面向消息的中间件）。RabbitMQ服务器是用Erlang语言编写的，而群集和故障转移是构建在开放电信平台框架上的。所有主要的编程语言均有与代理接口通讯的客户端库。具备异步、解耦等机制。
-RabbitMQ在全球范围内在小型初创公司和大型企业中进行了超过35,000次RabbitMQ生产部署，是最受欢迎的开源消息代理。
-RabbitMQ轻量级，易于在内部和云中部署。它支持多种消息传递协议。RabbitMQ可以部署在分布式和联合配置中，以满足高规模，高可用性要求。
-RabbitMQ可在许多操作系统和云环境中运行，并为大多数流行语言提供各种开发人员工具。
 
 #### 安装部署
 请参阅[官方文档](https://www.rabbitmq.com/download.html)
@@ -28,7 +25,7 @@ http://localhost:15672/#/
 ```
 
 #### C#代码调用
-引用 [RabbitMQ.Client](https://www.rabbitmq.com/dotnet.html) 库
+引用 [RabbitMQ.Client](https://www.rabbitmq.com/dotnet.html) 库。
 
 ##### 生产者
 ``` CSharp

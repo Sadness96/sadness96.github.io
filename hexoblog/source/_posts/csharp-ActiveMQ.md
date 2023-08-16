@@ -35,8 +35,8 @@ tasklist|findstr "PID"
 ```
 未查到 61616 端口使用，但是开启了 61617 端口
 
-#### C#代码调用
-引用 [Apache.NMS.ActiveMQ](https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ) 库
+#### C# 代码调用
+引用 [Apache.NMS.ActiveMQ](https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ) 库。
 
 ##### 生产者
 ``` CSharp

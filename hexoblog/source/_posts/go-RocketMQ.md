@@ -1,0 +1,190 @@
+---
+title: RocketMQ Demo
+date: 2023-08-16 14:42:00
+tags: [go,c#,rocketmq]
+categories: Golang
+---
+### RocketMQ 消息队列使用介绍
+<!-- more -->
+#### 简介
+[Apache RocketMQ](https://rocketmq.apache.org/) 是阿里巴巴开发的分布式消息中间件，后捐赠给 Apache 基金会维护。
+直接对接华为云，所以未在本地安装。测试对 C# 兼容不是很好，而且服务端都逐渐使用 docker 部署，所以最终选择使用 Golang 开发。
+
+#### C# 代码调用
+官方库 [rocketmq-client-csharp](https://github.com/apache/rocketmq-client-csharp) 的支持似乎并不好，调试了几次都运行不起来。
+改为引用第三方 [NewLife.RocketMQ](https://github.com/NewLifeX/NewLife.RocketMQ) 库。
+
+##### 生产者
+``` csharp
+class Program
+{
+    public static string namesvr = "";
+    public static string topic = "";
+
+    static void Main(string[] args)
+    {
+        ThreadStart str = new ThreadStart(Producer);
+        Thread ConstrolStr = new Thread(str);
+        ConstrolStr.Start();
+    }
+
+    /// <summary>
+    /// 生产者
+    /// </summary>
+    /// <param name="args"></param>
+    static void Producer()
+    {
+        // MQ 对象
+        var mq = new Producer()
+        {
+            // 主题
+            Topic = topic,
+            // 服务地址
+            NameServerAddress = namesvr,
+        };
+
+        mq.Start();
+
+        // 轮询发消息
+        while (true)
+        {
+            try
+            {
+                var content = $"{DateTime.Now}";
+                var message = new NewLife.RocketMQ.Protocol.Message();
+                message.SetBody(content);
+                // 发送消息（生产消息）
+                var sr = mq.Publish(message);
+                Console.WriteLine($"发送成功的消息，内容：{content}");
+                Task.Delay(TimeSpan.FromMilliseconds(500)).Wait();
+            }
+            catch (Exception ex)
+            {
+                //throw;
+            }
+        }
+    }
+}
+```
+
+##### 消费者
+``` csharp
+class Program
+{
+    public static string namesvr = "";
+    public static string topic = "";
+    public static string group = "";
+
+    static void Main(string[] args)
+    {
+        ThreadStart num = new ThreadStart(Consumer);
+        Thread ConstrolNum = new Thread(num);
+        ConstrolNum.Start();
+    }
+
+    /// <summary>
+    /// 消费者
+    /// </summary>
+    /// <param name="args"></param>
+    static void Consumer()
+    {
+        // 测试消费消息
+        var consumer = new NewLife.RocketMQ.Consumer
+        {
+            Topic = topic,
+            NameServerAddress = namesvr,
+            // 设置每次接收消息只拉取一条信息
+            BatchSize = 1,
+            Group = group
+        };
+        consumer.OnConsume = (q, ms) =>
+        {
+            string mInfo = $"BrokerName={q.BrokerName},QueueId={q.QueueId},Length={ms.Length}";
+            Console.WriteLine(mInfo);
+            foreach (var item in ms.ToList())
+            {
+                string msg = string.Format($"接收到消息：msgId={item.MsgId},key={item.Keys}，产生时间【{item.BornTimestamp.ToDateTime()}】，内容：{item.BodyString}");
+                Console.WriteLine(msg);
+            }
+            // return false; // 通知消息队：不消费消息
+            return true; // 通知消息队：消费了消息
+        };
+
+        consumer.Start();
+    }
+}
+```
+
+#### Golang 代码调用
+引用 [rocketmq-client-go](github.com/apache/rocketmq-client-go) 库。
+
+##### 生产者
+``` go
+var server string = string()
+var topic string = string()
+
+p, _ := rocketmq.NewProducer(
+    producer.WithNsResolver(primitive.NewPassthroughResolver([]string{server})),
+    producer.WithRetry(2),
+)
+err := p.Start()
+if err != nil {
+    fmt.Printf("start producer error: %s", err.Error())
+    os.Exit(1)
+}
+msg := &primitive.Message{
+    Topic: topic, 
+    Body:  []byte("Message"),
+}
+msg.WithTag("TagName")
+msg.WithKeys([]string{"KeyName"})
+
+for {
+    res, err := p.SendSync(context.Background(), msg)
+    if err != nil {
+        fmt.Printf("send message error: %s\n", err)
+    } else {
+        fmt.Printf("send message success: result=%s\n", res.String())
+    }
+
+    time.Sleep(1000000000)
+}
+
+err = p.Shutdown()
+if err != nil {
+    fmt.Printf("shutdown producer error: %s", err.Error())
+}
+```
+
+##### 消费者
+``` go
+var server string = string()
+var topic string = string()
+var group string = string()
+
+c, _ := rocketmq.NewPushConsumer(
+    consumer.WithGroupName(group),
+    consumer.WithNsResolver(primitive.NewPassthroughResolver([]string{server})), 
+)
+err := c.Subscribe(topic, consumer.MessageSelector{}, func(ctx context.Context, 
+    msgs ...*primitive.MessageExt) (consumer.ConsumeResult, error) {
+    for i := range msgs {
+        fmt.Printf("subscribe callback: %v \n", string(msgs[i].Message.Body))
+    }
+    return consumer.ConsumeSuccess, nil
+})
+if err != nil {
+    fmt.Println(err.Error())
+}
+// Note: start after subscribe
+err = c.Start()
+if err != nil {
+    fmt.Println(err.Error())
+    os.Exit(-1)
+}
+time.Sleep(time.Hour)
+err = c.Shutdown()
+if err != nil {
+    fmt.Printf("shutdown Consumer error: %s", err.Error())
+}
+```
