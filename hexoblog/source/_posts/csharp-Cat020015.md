@@ -12,14 +12,14 @@ categories: C#.Net
 
 解析文档均为[欧洲航空交通管理](https://www.eurocontrol.int/)官方提供。
 
-## 参考资料
-### 原文
+### 参考资料
 [EuroControl](https://www.eurocontrol.int)：[cat020p14ed15.pdf](https://www.eurocontrol.int/sites/default/files/2019-06/cat020-asterix-mlt-messages-part-14.pdf)
 
-## 测试数据解析
+### 解析数据
+``` txt
 14 00 46 FF 0F 01 84 16 07 41 10 A1 A0 BB 00 57 8B 48 01 44 DC F6 00 17 06 00 1F AD 0E F2 02 78 10 45 80 0C 54 F2 DB 3C 60 00 02 20 40 19 98 D0 00 00 00 00 00 01 00 0C 00 0C 00 03 00 06 00 05 00 05 A1 A0 C2 00
+```
 
-### 解析步骤
 #### 数据格式
 | CAT = 020 | LEN | FSPEC | Items of the first record |
 | ---- | ---- | ---- | ---- |

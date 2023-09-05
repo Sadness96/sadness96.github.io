@@ -12,14 +12,14 @@ categories: C#.Net
 
 解析文档均为[欧洲航空交通管理](https://www.eurocontrol.int/)官方提供。
 
-## 参考资料
-### 原文
+### 参考资料
 [EuroControl](https://www.eurocontrol.int)：[cat062p9ed118.pdf](https://www.eurocontrol.int/sites/default/files/content/documents/nm/asterix/cat062p9ed118.pdf)
 
-## 测试数据解析
+### 解析数据
+``` txt
 3E0034BB7D25040203000E584F003806E501460641FD2601B70D4A000D33B3C37E2080780CCB000601000550000028002A003E04
+```
 
-### 解析步骤
 #### 数据格式
 | CAT = 062 | LEN | FSPEC | Items of the first record |
 | ---- | ---- | ---- | ---- |
