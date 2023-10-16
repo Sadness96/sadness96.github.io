@@ -16,7 +16,7 @@ categories: C#.Net
 ``` cmd
 安装官方镜像
 docker pull webcenter/activemq
-启动 RabbitMQ 默认账户密码为 admin/admin
+启动 ActiveMQ 默认账户密码为 admin/admin
 docker run -d --name myactivemq -p 61617:61616 -p 8162:8161 webcenter/activemq
 WEB 端登录
 http://localhost:8162/
