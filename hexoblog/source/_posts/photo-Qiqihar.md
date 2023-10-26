@@ -166,7 +166,15 @@ categories: Photo
         'images/photo-Qiqihar/554A6816.JPG',
         'images/photo-Qiqihar/554A6824.JPG',
         'images/photo-Qiqihar/554A6828.JPG',
-        'images/photo-Qiqihar/554A6881.JPG'
+        'images/photo-Qiqihar/554A6881.JPG',
+        'images/photo-Qiqihar/554A8353.JPG',
+        'images/photo-Qiqihar/554A8372.JPG',
+        'images/photo-Qiqihar/554A8409.JPG',
+        'images/photo-Qiqihar/554A8420.JPG',
+        'images/photo-Qiqihar/554A8438.JPG',
+        'images/photo-Qiqihar/554A8455.JPG',
+        'images/photo-Qiqihar/554A8463.jpg',
+        'images/photo-Qiqihar/554A8494.JPG'
     ];
     vPhotos.forEach(element => {
         $("#grid").append('<li><img class="photo" src="' + vOssPath + element + vOssProcess + '" alt="' + vOssPath + element + '" style="cursor: pointer;"></li>');
