@@ -17,23 +17,10 @@ categories: C#.Net
 安装官方镜像
 docker pull webcenter/activemq
 启动 ActiveMQ 默认账户密码为 admin/admin
-docker run -d --name myactivemq -p 61617:61616 -p 8162:8161 webcenter/activemq
+docker run -d --name myactivemq -p 61616:61616 -p 8161:8161 webcenter/activemq
 WEB 端登录
-http://localhost:8162/
+http://localhost:8161/
 ```
-
-#### 遇到问题
-##### 未找到 61616 端口
-错误信息：
-``` cmd
-Apache.NMS.NMSConnectionException: Error connecting to localhost:61616. ---> System.Net.Sockets.SocketException: Unknown error (0xfffffffe)
-```
-使用命令查询端口号占用进程
-``` cmd
-netstat -ano|findstr "PORT"
-tasklist|findstr "PID"
-```
-未查到 61616 端口使用，但是开启了 61617 端口
 
 #### C# 代码调用
 引用 [Apache.NMS.ActiveMQ](https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ) 库。
@@ -51,7 +38,7 @@ class Program
         try
         {
             //Create the Connection Factory
-            IConnectionFactory factory = new ConnectionFactory("tcp://localhost:61617/");
+            IConnectionFactory factory = new ConnectionFactory("tcp://localhost:61616/");
             using (IConnection connection = factory.CreateConnection())
             {
                 //Create the Session
@@ -96,7 +83,7 @@ class Program
         try
         {
             //Create the Connection factory
-            IConnectionFactory factory = new ConnectionFactory("tcp://localhost:61617/");
+            IConnectionFactory factory = new ConnectionFactory("tcp://localhost:61616/");
             //Create the connection
             using (IConnection connection = factory.CreateConnection())
             {
