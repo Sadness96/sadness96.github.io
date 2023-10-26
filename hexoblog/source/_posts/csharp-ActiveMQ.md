@@ -14,11 +14,11 @@ categories: C#.Net
 
 ##### Docker 部署
 ``` cmd
-安装官方镜像
+# 拉取官方 ActiveMQ
 docker pull webcenter/activemq
-启动 ActiveMQ 默认账户密码为 admin/admin
+# 启动 ActiveMQ
 docker run -d --name myactivemq -p 61616:61616 -p 8161:8161 webcenter/activemq
-WEB 端登录
+# WEB 端登录 默认账户密码为 admin/admin
 http://localhost:8161/
 ```
 

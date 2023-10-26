@@ -14,13 +14,13 @@ categories: C#.Net
 
 ##### Docker 部署
 ``` cmd
-安装官方镜像
+# 拉取官方 RabbitMQ
 docker pull rabbitmq
-启动 RabbitMQ
+# 启动 RabbitMQ
 docker run -d --name myrabbitmq -p 5672:5672 -p 15672:15672 docker.io/rabbitmq:3-management
-设置 RabbitMQ 默认账户密码为 guest/guest
+# 设置 RabbitMQ 默认账户密码为 guest/guest
 docker run -d --hostname my-rabbit --name some-rabbit -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=password rabbitmq:3-management
-WEB 端登录
+# WEB 端登录
 http://localhost:15672/#/
 ```
 
