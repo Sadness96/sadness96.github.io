@@ -7,7 +7,7 @@ categories: C#.Net
 ### RocketMQ 消息队列帮助类使用介绍
 <!-- more -->
 ### 简介
-[RocketMQ Demo](https://sadness96.github.io/blog/2023/08/16/go-RocketMQ/) 写了关于 RocketMQ 的基础介绍与官方提供的最简生产者与消费者的 Demo，为了方便，当时使用的 Golang 对接的数据，现在给 c# 的版本封装一下。
+[RocketMQ Demo](https://sadness96.github.io/blog/2023/08/16/csharp-RocketMQ/) 写了关于 RocketMQ 的基础介绍与官方提供的最简生产者与消费者的 Demo，为了方便，当时使用的 Golang 对接的数据，现在给 c# 的版本封装一下。
 
 ### 核心代码
 [RocketMQHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Queue.Helper/RocketMQ/RocketMQHelper.cs)

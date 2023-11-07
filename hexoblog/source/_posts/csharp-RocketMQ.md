@@ -200,6 +200,11 @@ if err != nil {
         <artifactId>rocketmq-client</artifactId>
         <version>4.9.0</version>
     </dependency>
+    <dependency>
+        <groupId>org.apache.rocketmq</groupId>
+        <artifactId>rocketmq-acl</artifactId>
+        <version>4.9.0</version>
+    </dependency>
 </dependencies>
 ```
 
@@ -264,6 +269,76 @@ public class Main {
 }
 ```
 
+##### 生产者 ACL 验证
+``` java
+import org.apache.rocketmq.acl.common.AclClientRPCHook;
+import org.apache.rocketmq.acl.common.SessionCredentials;
+import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.remoting.RPCHook;
+import org.apache.rocketmq.remoting.common.RemotingHelper;
+
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+public class Main {
+    public static void main(String[] args) {
+        String producerGroup = "";
+        String namesvr = "";
+        String topic = "";
+        String tag = "*";
+
+        String ACL_ACCESS_KEY = "";
+        String ACL_SECRET_KEY = "";
+
+        RPCHook rpcHook = new AclClientRPCHook(new SessionCredentials(ACL_ACCESS_KEY, ACL_SECRET_KEY));
+        // 实例化一个生产者对象
+        DefaultMQProducer producer = new DefaultMQProducer(producerGroup, rpcHook);
+
+        // 设置 Name Server 地址
+        producer.setNamesrvAddr(namesvr);
+        // 设置启用 TLS（传输层安全）
+        producer.setUseTLS(true);
+
+        // 启动生产者
+        try {
+            producer.start();
+        } catch (MQClientException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            while (true) {
+                // 创建一个日期对象
+                Date currentDate = new Date();
+                // 创建一个日期格式化对象，指定日期时间格式
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                // 使用日期格式化对象将日期对象格式化为字符串
+                String formattedDate = dateFormat.format(currentDate);
+
+                // 创建消息对象，指定消息主题、标签和内容
+                Message message = new Message(
+                        topic,  // 主题
+                        tag,    // 标签
+                        formattedDate.getBytes(RemotingHelper.DEFAULT_CHARSET)  // 内容
+                );
+
+                // 发送消息
+                producer.send(message);
+                System.out.println("消息发送成功");
+                Thread.sleep(500);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭生产者
+            producer.shutdown();
+        }
+    }
+}
+```
+
 ##### 消费者
 ``` java
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -287,6 +362,67 @@ public class Main {
 
         // 设置 Name Server 地址
         consumer.setNamesrvAddr(namesvr);
+
+        // 设置消息监听器
+        consumer.registerMessageListener(new MessageListenerConcurrently() {
+            @Override
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
+                for (MessageExt message : msgs) {
+                    System.out.println("收到消息：" + new String(message.getBody()));
+                }
+
+                // 消费成功后返回状态
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            }
+        });
+
+        try {
+            // 订阅主题和标签
+            consumer.subscribe(topic, tag);
+            // 启动消费者
+            consumer.start();
+
+            System.out.println("消费者启动成功");
+        } catch (MQClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+```
+
+##### 消费者 ACL 验证
+``` java
+import org.apache.rocketmq.acl.common.AclClientRPCHook;
+import org.apache.rocketmq.acl.common.SessionCredentials;
+import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
+import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
+import org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueAveragely;
+import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.remoting.RPCHook;
+
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        String consumerGroup = "";
+        String namesvr = "";
+        String topic = "";
+        String tag = "*";
+
+        String ACL_ACCESS_KEY = "";
+        String ACL_SECRET_KEY = "";
+
+        RPCHook rpcHook = new AclClientRPCHook(new SessionCredentials(ACL_ACCESS_KEY, ACL_SECRET_KEY));
+        // 添加ACL权限认证，并开启消息轨迹（ConsumerGroupName-消费者组，rpcHook-ACL认证，true-消息轨迹开启）
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(null, consumerGroup, rpcHook, new AllocateMessageQueueAveragely(), true, null);
+
+        // 设置 Name Server 地址
+        consumer.setNamesrvAddr(namesvr);
+        // 设置启用 TLS（传输层安全）
+        consumer.setUseTLS(true);
 
         // 设置消息监听器
         consumer.registerMessageListener(new MessageListenerConcurrently() {

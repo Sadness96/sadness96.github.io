@@ -164,7 +164,7 @@ static void Main(string[] args)
 /// 队列消息回调
 /// </summary>
 /// <param name="message"></param>
-private static void RocketMQHelper_MessageCallback(string obj)
+private static void ActiveMQHelper_MessageCallback(string obj)
 {
     Console.WriteLine(obj);
 }
