@@ -1,8 +1,8 @@
 ---
 title: RocketMQ Demo
 date: 2023-08-16 14:42:00
-tags: [go,c#,rocketmq]
-categories: Golang
+tags: [c#,go,java,rocketmq]
+categories: C#.Net
 ---
 ### RocketMQ 消息队列使用介绍
 <!-- more -->
@@ -12,7 +12,7 @@ categories: Golang
 
 #### C# 代码调用
 官方库 [rocketmq-client-csharp](https://github.com/apache/rocketmq-client-csharp) 的支持似乎并不好，调试了几次都运行不起来。
-改为引用第三方 [NewLife.RocketMQ](https://github.com/NewLifeX/NewLife.RocketMQ) 库。
+引用第三方 [NewLife.RocketMQ](https://github.com/NewLifeX/NewLife.RocketMQ) 库。测试不支持 ACL（权限控制），如开启 ACL 则无法连接。
 
 ##### 生产者
 ``` csharp
@@ -186,5 +186,131 @@ time.Sleep(time.Hour)
 err = c.Shutdown()
 if err != nil {
     fmt.Printf("shutdown Consumer error: %s", err.Error())
+}
+```
+
+#### Java 代码调用
+通过 Maven 引用 rocketmq-client 等相关库。
+
+##### Maven 引用库
+``` xml
+<dependencies>
+    <dependency>
+        <groupId>org.apache.rocketmq</groupId>
+        <artifactId>rocketmq-client</artifactId>
+        <version>4.9.0</version>
+    </dependency>
+</dependencies>
+```
+
+##### 生产者
+``` java
+import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.remoting.common.RemotingHelper;
+
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+public class Main {
+    public static void main(String[] args) {
+        String producerGroup = "";
+        String namesvr = "";
+        String topic = "";
+        String tag = "*";
+
+        // 实例化一个生产者对象
+        DefaultMQProducer producer = new DefaultMQProducer(producerGroup);
+
+        // 设置 Name Server 地址
+        producer.setNamesrvAddr(namesvr);
+
+        // 启动生产者
+        try {
+            producer.start();
+        } catch (MQClientException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            while (true) {
+                // 创建一个日期对象
+                Date currentDate = new Date();
+                // 创建一个日期格式化对象，指定日期时间格式
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                // 使用日期格式化对象将日期对象格式化为字符串
+                String formattedDate = dateFormat.format(currentDate);
+
+                // 创建消息对象，指定消息主题、标签和内容
+                Message message = new Message(
+                        topic,  // 主题
+                        tag,    // 标签
+                        formattedDate.getBytes(RemotingHelper.DEFAULT_CHARSET)  // 内容
+                );
+
+                // 发送消息
+                producer.send(message);
+                System.out.println("消息发送成功");
+                Thread.sleep(500);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭生产者
+            producer.shutdown();
+        }
+    }
+}
+```
+
+##### 消费者
+``` java
+import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
+import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
+import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.common.message.MessageExt;
+
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        String consumerGroup = "";
+        String namesvr = "";
+        String topic = "";
+        String tag = "*";
+
+        // 实例化一个消费者对象
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(consumerGroup);
+
+        // 设置 Name Server 地址
+        consumer.setNamesrvAddr(namesvr);
+
+        // 设置消息监听器
+        consumer.registerMessageListener(new MessageListenerConcurrently() {
+            @Override
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
+                for (MessageExt message : msgs) {
+                    System.out.println("收到消息：" + new String(message.getBody()));
+                }
+
+                // 消费成功后返回状态
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            }
+        });
+
+        try {
+            // 订阅主题和标签
+            consumer.subscribe(topic, tag);
+            // 启动消费者
+            consumer.start();
+
+            System.out.println("消费者启动成功");
+        } catch (MQClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 ```
