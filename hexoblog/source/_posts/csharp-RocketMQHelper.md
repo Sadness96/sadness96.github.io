@@ -173,8 +173,8 @@ import org.apache.rocketmq.remoting.RPCHook;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
+import org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueAveragely;
 import org.apache.rocketmq.common.message.MessageExt;
-
 import java.util.List;
 
 /**
@@ -252,13 +252,10 @@ public class RocketMQHelper {
     public void RegisterConsumer(String consumerGroup, String namesrv, String topic, String tag) {
         // 实例化一个消费者对象
         consumer = new DefaultMQPushConsumer(consumerGroup);
-
         // 设置 Name Server 地址
         consumer.setNamesrvAddr(namesrv);
-
         // 设置消息监听器
         consumer.registerMessageListener(new MessageListenerConcurrently() {
-
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
                 for (MessageExt message : msgs) {
                     if (messageCallback != null) {
@@ -266,7 +263,46 @@ public class RocketMQHelper {
                         messageCallback.onMessageReceived(new String(message.getBody()));
                     }
                 }
+                // 消费成功后返回状态
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            }
+        });
 
+        try {
+            // 订阅主题和标签
+            consumer.subscribe(topic, tag);
+            // 启动消费者
+            consumer.start();
+        } catch (MQClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 注册消费者 ACL 验证
+     *
+     * @param consumerGroup 消费组
+     * @param namesrv       服务地址
+     * @param topic         主题
+     * @param tag           标签
+     * @param aclAccessKey  Access 秘钥
+     * @param aclSecretKey  Secret 秘钥
+     */
+    public void RegisterConsumer(String consumerGroup, String namesrv, String topic, String tag, String aclAccessKey, String aclSecretKey) {
+        RPCHook rpcHook = new AclClientRPCHook(new SessionCredentials(aclAccessKey, aclSecretKey));
+        // 实例化一个消费者对象，添加ACL权限认证，并开启消息轨迹（ConsumerGroupName-消费者组，rpcHook-ACL认证，true-消息轨迹开启）
+        consumer = new DefaultMQPushConsumer(null, consumerGroup, rpcHook, new AllocateMessageQueueAveragely(), true, null);
+        // 设置 Name Server 地址
+        consumer.setNamesrvAddr(namesrv);
+        // 设置消息监听器
+        consumer.registerMessageListener(new MessageListenerConcurrently() {
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
+                for (MessageExt message : msgs) {
+                    if (messageCallback != null) {
+                        // 调用消息回调函数传递消息
+                        messageCallback.onMessageReceived(new String(message.getBody()));
+                    }
+                }
                 // 消费成功后返回状态
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
