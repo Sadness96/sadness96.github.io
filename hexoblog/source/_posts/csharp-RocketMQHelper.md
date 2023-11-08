@@ -7,9 +7,10 @@ categories: C#.Net
 ### RocketMQ 消息队列帮助类使用介绍
 <!-- more -->
 ### 简介
-[RocketMQ Demo](https://sadness96.github.io/blog/2023/08/16/csharp-RocketMQ/) 写了关于 RocketMQ 的基础介绍与官方提供的最简生产者与消费者的 Demo，为了方便，当时使用的 Golang 对接的数据，现在给 c# 的版本封装一下。
+[RocketMQ Demo](https://sadness96.github.io/blog/2023/08/16/csharp-RocketMQ/) 写了关于 RocketMQ 的基础介绍与官方提供的最简生产者与消费者的 Demo，现在给 c# 与 java 的版本封装一下。
 
 ### 核心代码
+#### C# RocketMQ 帮助类
 [RocketMQHelper](https://github.com/Sadness96/Sadness/blob/master/Code/Helper/Queue.Helper/RocketMQ/RocketMQHelper.cs)
 
 ``` CSharp
@@ -111,8 +112,8 @@ public class RocketMQHelper
 }
 ```
 
-### 调用测试
-#### 生产者
+##### 调用测试
+###### 生产者
 ``` CSharp
 static void Main(string[] args)
 {
@@ -132,7 +133,7 @@ static void Main(string[] args)
 }
 ```
 
-#### 消费者
+###### 消费者
 ``` CSharp
 static void Main(string[] args)
 {
@@ -156,5 +157,220 @@ static void Main(string[] args)
 private static void RocketMQHelper_MessageCallback(string obj)
 {
     Console.WriteLine(obj);
+}
+```
+
+#### JAVA RocketMQ 帮助类
+``` Java
+import org.apache.rocketmq.acl.common.AclClientRPCHook;
+import org.apache.rocketmq.acl.common.SessionCredentials;
+import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
+import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
+import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.remoting.RPCHook;
+import org.apache.rocketmq.remoting.common.RemotingHelper;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
+import org.apache.rocketmq.common.message.MessageExt;
+
+import java.util.List;
+
+/**
+ * RocketMQ 消息队列帮助类
+ */
+public class RocketMQHelper {
+    /**
+     * 生产者
+     */
+    private DefaultMQProducer producer;
+
+    /**
+     * 消费者
+     */
+    private DefaultMQPushConsumer consumer;
+
+    /**
+     * 消息回调
+     */
+    private MessageCallback messageCallback;
+
+    /**
+     * 注册生产者
+     *
+     * @param producerGroup 生产组
+     * @param namesrv       服务地址
+     */
+    public void RegisterProducer(String producerGroup, String namesrv) {
+        // 实例化一个生产者对象
+        producer = new DefaultMQProducer(producerGroup);
+        // 设置 Name Server 地址
+        producer.setNamesrvAddr(namesrv);
+
+        try {
+            // 启动生产者
+            producer.start();
+        } catch (MQClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 注册生产者 ACL 验证
+     *
+     * @param producerGroup 生产组
+     * @param namesrv       服务地址
+     * @param aclAccessKey  Access 秘钥
+     * @param aclSecretKey  Secret 秘钥
+     */
+    public void RegisterProducer(String producerGroup, String namesrv, String aclAccessKey, String aclSecretKey) {
+        RPCHook rpcHook = new AclClientRPCHook(new SessionCredentials(aclAccessKey, aclSecretKey));
+        // 实例化一个生产者对象
+        DefaultMQProducer producer = new DefaultMQProducer(producerGroup);
+        // 设置 Name Server 地址
+        producer.setNamesrvAddr(namesrv);
+        // 设置启用 TLS（传输层安全）
+        producer.setUseTLS(true);
+
+        try {
+            // 启动生产者
+            producer.start();
+        } catch (MQClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 注册消费者
+     *
+     * @param consumerGroup 消费组
+     * @param namesrv       服务地址
+     * @param topic         主题
+     * @param tag           标签
+     */
+    public void RegisterConsumer(String consumerGroup, String namesrv, String topic, String tag) {
+        // 实例化一个消费者对象
+        consumer = new DefaultMQPushConsumer(consumerGroup);
+
+        // 设置 Name Server 地址
+        consumer.setNamesrvAddr(namesrv);
+
+        // 设置消息监听器
+        consumer.registerMessageListener(new MessageListenerConcurrently() {
+
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
+                for (MessageExt message : msgs) {
+                    if (messageCallback != null) {
+                        // 调用消息回调函数传递消息
+                        messageCallback.onMessageReceived(new String(message.getBody()));
+                    }
+                }
+
+                // 消费成功后返回状态
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            }
+        });
+
+        try {
+            // 订阅主题和标签
+            consumer.subscribe(topic, tag);
+            // 启动消费者
+            consumer.start();
+        } catch (MQClientException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 发送消息
+     *
+     * @param message 消息
+     * @param topic   主题
+     * @param tag     标签
+     */
+    public void SendMessage(String message, String topic, String tag) {
+        try {
+            // 发送消息
+            producer.send(new Message(
+                    topic,  // 主题
+                    tag,    // 标签
+                    message.getBytes(RemotingHelper.DEFAULT_CHARSET)  // 内容
+            ));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 关闭连接
+     */
+    public void Close() {
+        producer.shutdown();
+        consumer.shutdown();
+    }
+
+    /**
+     * 设置消息回调函数
+     *
+     * @param callback
+     */
+    public void setMessageCallback(MessageCallback callback) {
+        this.messageCallback = callback;
+    }
+
+    /**
+     * 定义消息回调接口
+     */
+    public interface MessageCallback {
+        void onMessageReceived(String message);
+    }
+}
+```
+
+##### 调用测试
+###### 生产者
+``` Java
+public static void main(String[] args) {
+    String producerGroup = "";
+    String namesvr = "";
+    String topic = "";
+    String tag = "*";
+
+    RocketMQHelper rocketMQHelper = new RocketMQHelper();
+    rocketMQHelper.RegisterProducer(producerGroup, namesvr);
+
+    while (true) {
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = dateFormat.format(currentDate);
+        rocketMQHelper.SendMessage(formattedDate, topic, tag);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+```
+
+###### 消费者
+``` Java
+public static void main(String[] args) {
+    String consumerGroup = "";
+    String namesvr = "";
+    String topic = "";
+    String tag = "*";
+
+    RocketMQHelper rocketMQHelper = new RocketMQHelper();
+    rocketMQHelper.RegisterConsumer(consumerGroup, namesvr, topic, tag);
+
+    rocketMQHelper.setMessageCallback(new RocketMQHelper.MessageCallback() {
+        @Override
+        public void onMessageReceived(String message) {
+            System.out.println("Received: " + message);
+        }
+    });
 }
 ```

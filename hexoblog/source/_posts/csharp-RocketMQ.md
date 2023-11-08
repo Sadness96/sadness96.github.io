@@ -209,7 +209,7 @@ if err != nil {
 ```
 
 ##### 生产者
-``` java
+``` Java
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.common.message.Message;
@@ -270,7 +270,7 @@ public class Main {
 ```
 
 ##### 生产者 ACL 验证
-``` java
+``` Java
 import org.apache.rocketmq.acl.common.AclClientRPCHook;
 import org.apache.rocketmq.acl.common.SessionCredentials;
 import org.apache.rocketmq.client.exception.MQClientException;
@@ -340,7 +340,7 @@ public class Main {
 ```
 
 ##### 消费者
-``` java
+``` Java
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -391,7 +391,7 @@ public class Main {
 ```
 
 ##### 消费者 ACL 验证
-``` java
+``` Java
 import org.apache.rocketmq.acl.common.AclClientRPCHook;
 import org.apache.rocketmq.acl.common.SessionCredentials;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
