@@ -227,7 +227,7 @@ public class RocketMQHelper {
     public void RegisterProducer(String producerGroup, String namesrv, String aclAccessKey, String aclSecretKey) {
         RPCHook rpcHook = new AclClientRPCHook(new SessionCredentials(aclAccessKey, aclSecretKey));
         // 实例化一个生产者对象
-        DefaultMQProducer producer = new DefaultMQProducer(producerGroup);
+        producer = new DefaultMQProducer(producerGroup, rpcHook);
         // 设置 Name Server 地址
         producer.setNamesrvAddr(namesrv);
         // 设置启用 TLS（传输层安全）
@@ -294,6 +294,8 @@ public class RocketMQHelper {
         consumer = new DefaultMQPushConsumer(null, consumerGroup, rpcHook, new AllocateMessageQueueAveragely(), true, null);
         // 设置 Name Server 地址
         consumer.setNamesrvAddr(namesrv);
+        // 设置启用 TLS（传输层安全）
+        consumer.setUseTLS(true);
         // 设置消息监听器
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
