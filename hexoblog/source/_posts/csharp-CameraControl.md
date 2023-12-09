@@ -11,7 +11,7 @@ categories: C#.Net
 与主流监控相机厂商（[海康](https://www.hikvision.com/cn/)、[大华](https://www.dahuatech.com/)、[宇视](https://cn.uniview.com/)） SDK 和开放行业接口 [Onvif](https://www.onvif.org/) 对接，实现画面预览、PTZ 云台控制等操作，二次封装后提供引用库、WebAPI 接口、Socket 等多种方式调用控制。
 
 ### 核心代码
-* 注意核心代码并不完整，仅做参考
+注意核心代码并不完整，仅做参考
 #### 接口
 ``` csharp
 /// <summary>
