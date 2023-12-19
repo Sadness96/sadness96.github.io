@@ -49,7 +49,7 @@ public class RabbitMQHelper
             // 后台处理消息
             UseBackgroundThreadsForIO = true,
             // 心跳超时时间
-            RequestedHeartbeat = 60
+            RequestedHeartbeat = TimeSpan.FromMilliseconds(60)
         };
 
         _connection = factory.CreateConnection();
@@ -58,12 +58,29 @@ public class RabbitMQHelper
 
     /// <summary>
     /// 注册生产者
+    /// 仅声明一个交换机
+    /// 接收数据的人通过交换机和路由获取数据
     /// </summary>
     /// <param name="exchangeName">交换机</param>
+    /// <param name="durable">持久化</param>
+    public void RegisterProducer(string exchangeName, bool durable = true)
+    {
+        _exchangeName = exchangeName;
+        _channel.ExchangeDeclare(exchangeName, ExchangeType.Topic, durable);
+    }
+
+    /// <summary>
+    /// 注册生产者
+    /// 声明交换机和队列
+    /// 接收数据的人可直接通过队列获取数据
+    /// </summary>
+    /// <param name="exchangeName">交换机</param>
+    /// <param name="routingKey">路由键</param>
     /// <param name="queueName">队列</param>
     /// <param name="durable">持久化</param>
+    /// <param name="autoDelete">队列是否自动删除</param>
     /// <param name="ttl">生存时间</param>
-    public void RegisterProducer(string exchangeName, string queueName, bool durable = true, TimeSpan? ttl = null)
+    public void RegisterProducer(string exchangeName, string routingKey, string queueName, bool durable = true, bool autoDelete = true, TimeSpan? ttl = null)
     {
         _exchangeName = exchangeName;
         _channel.ExchangeDeclare(exchangeName, ExchangeType.Topic, durable);
@@ -73,17 +90,19 @@ public class RabbitMQHelper
         {
             arguments.Add("x-message-ttl", (int)ttl.Value.TotalMilliseconds);
         }
-        _channel.QueueDeclare(queueName, durable, false, false, arguments);
-        _channel.QueueBind(queueName, exchangeName, routingKey: queueName);
+        _channel.QueueDeclare(queueName, durable, false, autoDelete, arguments);
+        _channel.QueueBind(queueName, exchangeName, routingKey);
     }
 
     /// <summary>
     /// 注册消费者
+    /// 通过队列获取数据
     /// </summary>
     /// <param name="queueName">队列名称</param>
     /// <param name="durable">持久化</param>
+    /// <param name="autoDelete">队列是否自动删除</param>
     /// <param name="ttl">生存时间</param>
-    public void RegisterConsumer(string queueName, bool durable = true, TimeSpan? ttl = null)
+    public void RegisterConsumer(string queueName, bool durable = true, bool autoDelete = true, TimeSpan? ttl = null)
     {
         var arguments = new Dictionary<string, object>();
 
@@ -92,7 +111,42 @@ public class RabbitMQHelper
             arguments.Add("x-message-ttl", (int)ttl.Value.TotalMilliseconds);
         }
 
-        _channel.QueueDeclare(queueName, durable, false, false, arguments);
+        _channel.QueueDeclare(queueName, durable, false, autoDelete, arguments);
+
+        var consumer = new EventingBasicConsumer(_channel);
+        consumer.Received += (model, ea) =>
+        {
+            var body = ea.Body.ToArray();
+            var message = Encoding.UTF8.GetString(body);
+
+            MessageCallback?.Invoke(message);
+        };
+
+        _channel.BasicConsume(queue: queueName, autoAck: true, consumer: consumer);
+    }
+
+    /// <summary>
+    /// 注册消费者
+    /// 通过交换机和路由获取数据
+    /// 自定义队列名，避免多个程序消费一份数据
+    /// </summary>
+    /// <param name="exchangeName">队列名称</param>
+    /// <param name="routingKey">路由键</param>
+    /// <param name="queueName">队列名称</param>
+    /// <param name="durable">持久化</param>
+    /// <param name="autoDelete">队列是否自动删除</param>
+    /// <param name="ttl">生存时间</param>
+    public void RegisterConsumer(string exchangeName, string routingKey, string queueName, bool durable = true, bool autoDelete = true, TimeSpan? ttl = null)
+    {
+        var arguments = new Dictionary<string, object>();
+
+        if (ttl != null)
+        {
+            arguments.Add("x-message-ttl", (int)ttl.Value.TotalMilliseconds);
+        }
+
+        _channel.QueueDeclare(queueName, durable, false, autoDelete, arguments);
+        _channel.QueueBind(queueName, exchangeName, routingKey);
 
         var consumer = new EventingBasicConsumer(_channel);
         consumer.Received += (model, ea) =>
@@ -146,19 +200,24 @@ string userName;
 string password;
 // 交换机
 string exchangeName;
+// 路由键
+string routingKey;
 // 队列名称
 string queueName;
 // 持久化
 bool durable = true;
+// 队列是否自动删除
+bool autoDelete = true;
 // 生存时间
 TimeSpan ttl = TimeSpan.FromDays(1);
 
 // 创建消费者 RabbitMQ 对象
 RabbitMQHelper _rabbitMQHelper = new RabbitMQHelper(ip, port, userName, password);
-_rabbitMQHelper.RegisterProducer(exchangeName, queueName, durable, ttl);
+// 创建一个仅声明交换机的生产者，接收数据的人通过交换机和路由获取数据
+_rabbitMQHelper.RegisterProducer(exchangeName, durable);
+// 创建一个声明交换机和队列的生产者，接收数据的人可直接通过队列获取数据
+_rabbitMQHelper.RegisterProducer(exchangeName, routingKey, queueName, durable, autoDelete, ttl);
 
-// 路由键
-string routingKey;
 // 消息
 string message;
 
@@ -176,17 +235,26 @@ int port;
 string userName;
 // 密码
 string password;
+// 交换机
+string exchangeName;
+// 路由键
+string routingKey;
 // 队列名称
 string queueName;
 // 持久化
 bool durable = true;
+// 队列是否自动删除
+bool autoDelete = true;
 // 生存时间
 TimeSpan ttl = TimeSpan.FromDays(1);
 
 // 创建消费者 RabbitMQ 对象
 RabbitMQHelper _rabbitMQHelper = new RabbitMQHelper(ip, port, userName, password);
 _rabbitMQHelper.MessageCallback += RabbitMQHelper_MessageCallback;
-_rabbitMQHelper.RegisterConsumer(queueName, durable, ttl);
+// 创建一个直接通过队列获取数据的消费者
+_rabbitMQHelper.RegisterConsumer(queueName, durable, autoDelete, ttl);
+// 创建一个通过交换机和路由获取数据的消费者，自定义队列名，避免多个程序消费一份数据
+_rabbitMQHelper.RegisterConsumer(exchangeName, routingKey, queueName, durable, autoDelete, ttl);
 
 /// <summary>
 /// 队列消息回调
