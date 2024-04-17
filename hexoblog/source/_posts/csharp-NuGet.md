@@ -53,10 +53,27 @@ nuget push -Source http://localhost:50557/v3/index.json package.nupkg
 </ItemGroup>
 <!--需要添加的配置-->
 <ItemGroup>
+    <!-- Content 项表示需要作为内容文件包含到项目中的文件或文件集合。 -->
+    <!-- Include 属性指定了要包含的文件或文件集合的路径模式，这里使用 NuGet 包根目录和特定子目录的通配符来匹配所有文件。 -->
     <Content Include="$(NuGetPackageRoot)\Test\1.0.0\content\lib\**">
+        <!-- LinkBase 属性定义了在项目内部如何引用这些文件的基础路径，它决定了文件在项目中显示的位置，通常用于将文件组织到特定的目录结构中。 -->
         <LinkBase>lib</LinkBase>
+        <!-- CopyToOutputDirectory 属性决定了文件在构建过程中是否应该被复制到输出目录，以及复制的行为。 -->
+        <!-- "Always" 表示无论构建成功或失败，文件都会被复制到输出目录。 -->
+        <!-- "PreserveNewest" 仅当文件比输出目录中的文件新时才复制。 -->
+        <!-- "Never" 不复制文件。 -->
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <!-- Visible 属性决定了这些文件是否应该在解决方案资源管理器中可见。 -->
+        <!-- "false" 表示这些文件在解决方案资源管理器中是不可见的。 -->
+        <!-- "true" 则表示文件在解决方案资源管理器中是可见的。 -->
+        <Visible>false</Visible>
+        <!-- LinkBaseTargetFramework 属性通常用于多目标框架项目，以指定目标框架的链接基础。 -->
+        <!-- 在这里为空，表示没有指定特定的目标框架链接基础。 -->
+        <!-- 如果设置了该属性，它将影响文件在不同目标框架下的链接路径。 -->
         <LinkBaseTargetFramework></LinkBaseTargetFramework>
+        <!-- LinkBaseSpecificVersion 属性用于控制是否使用特定版本的链接基础。 -->
+        <!-- "false" 表示不使用特定版本的链接基础，这通常意味着链接路径不会包含版本号信息。 -->
+        <!-- "true" 则链接路径可能会包含文件来源的版本号信息，以区分不同版本的文件。 -->
         <LinkBaseSpecificVersion>false</LinkBaseSpecificVersion>
     </Content>
 </ItemGroup>
