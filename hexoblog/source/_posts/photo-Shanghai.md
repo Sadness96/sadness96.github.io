@@ -1,10 +1,10 @@
 ---
-title: 江苏 - 苏州
-date: 2024-05-03 12:05:00
+title: 上海
+date: 2024-05-05 12:06:00
 tags: [photo]
 categories: Photo
 ---
-<img src="https://sadness96.github.io/images/blog/photo-Suzhou/suzhoulogo.jpg"/>
+<img src="https://sadness96.github.io/images/blog/photo-Shanghai/shanghailogo.jpg"/>
 
 <!-- more -->
 <ul class="grid effect-1" id="grid">
@@ -25,7 +25,24 @@ categories: Photo
     var vOssPath = 'https://sadness.oss-cn-beijing.aliyuncs.com/';
     var vOssProcess = '?x-oss-process=image/resize,m_lfit,w_348';
     var vPhotos = [
-        
+        'images/photo-Shanghai/554A1706.JPG',
+        'images/photo-Shanghai/554A1712.JPG',
+        'images/photo-Shanghai/554A1719.JPG',
+        'images/photo-Shanghai/554A1721.JPG',
+        'images/photo-Shanghai/554A1739.JPG',
+        'images/photo-Shanghai/554A1741.JPG',
+        'images/photo-Shanghai/554A1742.JPG',
+        'images/photo-Shanghai/554A1754.JPG',
+        'images/photo-Shanghai/554A1758.JPG',
+        'images/photo-Shanghai/554A1760.JPG',
+        'images/photo-Shanghai/554A1763.JPG',
+        'images/photo-Shanghai/554A1765.JPG',
+        'images/photo-Shanghai/554A1776.JPG',
+        'images/photo-Shanghai/554A1780.JPG',
+        'images/photo-Shanghai/554A1790.JPG',
+        'images/photo-Shanghai/554A1792.JPG',
+        'images/photo-Shanghai/554A1795.JPG',
+        'images/photo-Shanghai/554A1797.JPG'
     ];
     vPhotos.forEach(element => {
         $("#grid").append('<li><img class="photo" src="' + vOssPath + element + vOssProcess + '" alt="' + vOssPath + element + '" style="cursor: pointer;"></li>');
