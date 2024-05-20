@@ -4,7 +4,7 @@ date: 2021-12-28 00:45:00
 tags: [software, localeemulator]
 categories: Software
 ---
-<img src="https://camo.githubusercontent.com/bc5745f2fc88d0dd190453dd2bb6b55bd4bf69c14a9b5a85a1e68b2ddeb14d73/68747470733a2f2f692e696d6775722e636f6d2f45344771796c792e706e67"/>
+<img src="https://camo.githubusercontent.com/065f1a3eb69a0e787f7a7fdaae6a2032230cbe575ceaef82f559813735761a51/68747470733a2f2f692e696d6775722e636f6d2f45344771796c792e706e67"/>
 
 <!-- more -->
 ### 简介
