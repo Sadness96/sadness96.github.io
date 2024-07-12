@@ -1,19 +1,46 @@
 ---
-title: HttpClient 下载文件
+title: WebApi 下载文件
 date: 2019-04-19 10:59:20
 tags: [c#,helper,webapi]
 categories: C#.Net
 ---
-### 使用 HttpClient 下载文件并回调显示进度
+### WebApi 文件下载服务端与客户端
 <!-- more -->
 ### 简介
 原帮助类代码参考 [WebApi 帮助类](https://sadness96.github.io/blog/2018/08/27/csharp-WebApiHelper/)，新增下载文件方法，使用 WPF 调用下载并回调显示下载进度。显示下载文件大小以及下载速度。
 
 ### 代码
+#### 服务端代码
+服务端代码因项目而异，这段代码仅为示例。
+``` CSharp
+/// <summary>
+/// 下载文件
+/// </summary>
+/// <param name="FileName">文件名</param>
+/// <returns></returns>
+[HttpGet]
+public ActionResult DownloadFile(string FileName)
+{
+    var vFileCompletePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FileName);
+    if (!System.IO.File.Exists(vFileCompletePath))
+    {
+        return Unauthorized("File does not exist!");
+    }
+
+    var vStream = System.IO.File.OpenRead(vFileCompletePath);
+    var vProvider = new FileExtensionContentTypeProvider();
+    if (!vProvider.TryGetContentType(vFileCompletePath, out string? contentType))
+    {
+        contentType = "application/octet-stream";
+    }
+    return File(vStream, contentType);
+}
+```
+
 #### 帮助类代码
 ``` CSharp
 /// <summary>
-/// 单文件下载
+/// 文件下载
 /// </summary>
 /// <param name="baseAddress">Api访问地址</param>
 /// <param name="requestUrl">请求地址</param>
@@ -22,7 +49,7 @@ categories: C#.Net
 /// <param name="progressAction">进度回调</param>
 /// <param name="token">Token认证</param>
 /// <returns>是否下载成功</returns>
-public static async Task<bool> DownloadAsync(Uri baseAddress, string requestUrl, IDictionary<string, string> parameters, string saveFilePath, Action<object, HttpProgressEventArgs> progressAction = null, string token = null)
+public static async Task<bool> DownloadGetAsync(Uri baseAddress, string? requestUrl, IDictionary<string, object>? parameters, string saveFilePath, Action<object?, HttpProgressEventArgs>? progressAction = null, string? token = null)
 {
     ProgressMessageHandler progress = new ProgressMessageHandler();
     progress.HttpReceiveProgress += (s, e) =>
@@ -30,67 +57,62 @@ public static async Task<bool> DownloadAsync(Uri baseAddress, string requestUrl,
         progressAction?.Invoke(s, e);
     };
 
-    HttpClient httpClient = HttpClientFactory.Create(progress);
-    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+    var vHttpClient = HttpClientFactory.Create(progress);
+    vHttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
     try
     {
         if (!string.IsNullOrEmpty(token))
         {
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            vHttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
-        httpClient.Timeout = TimeSpan.FromMinutes(20);
+        vHttpClient.Timeout = TimeSpan.FromMinutes(20);
 
         //拼接参数
-        StringBuilder builder = new StringBuilder();
-        builder.Append(baseAddress);
-        builder.Append(requestUrl);
+        var vBuilder = new StringBuilder();
+        vBuilder.Append(baseAddress);
+        vBuilder.Append(requestUrl);
         if (parameters != null && parameters.Count >= 1)
         {
-            builder.Append("?");
+            vBuilder.Append('?');
             int i = 0;
             foreach (var item in parameters)
             {
                 if (i > 0)
                 {
-                    builder.Append("&");
+                    vBuilder.Append('&');
                 }
-                builder.AppendFormat("{0}={1}", item.Key, item.Value);
+                vBuilder.AppendFormat("{0}={1}", item.Key, item.Value);
                 i++;
             }
         }
 
-        using (HttpResponseMessage response = await httpClient.GetAsync(builder.ToString()))
+        using var vResponse = await vHttpClient.GetAsync(vBuilder.ToString());
+        if (vResponse.IsSuccessStatusCode)
         {
-            if (response.IsSuccessStatusCode)
-            {
-                //保存文件
-                using (FileStream fs = File.Create(saveFilePath))
-                {
-                    Stream stream = await response.Content.ReadAsStreamAsync();
-                    stream.CopyTo(fs);
-                    stream.Close();
-                    stream.Dispose();
-                    fs.Close();
-                    fs.Dispose();
-                    return true;
-                }
-            }
-            else
-            {
-                return false;
-            }
+            //保存文件
+            using var vFs = File.Create(saveFilePath);
+            var vStream = await vResponse.Content.ReadAsStreamAsync();
+            vStream.CopyTo(vFs);
+            vStream.Close();
+            vStream.Dispose();
+            vFs.Close();
+            vFs.Dispose();
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
-    catch (Exception ex)
+    catch (Exception)
     {
-        TXTHelper.Logs(ex.ToString());
         return false;
     }
     finally
     {
-        httpClient.Dispose();
-        httpClient = null;
+        vHttpClient.Dispose();
+        vHttpClient = null;
         GC.Collect();
     }
 }
@@ -109,10 +131,16 @@ public static async Task<bool> DownloadAsync(Uri baseAddress, string requestUrl,
 ``` CSharp
 private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
 {
-    string ServerUrl = "";
-    string SavePath = @"";
+    // 基于服务端示例代码的参数
+    string serverUrl = "https://localhost:7252/";
+    string requestUrl = "api/File/DownloadFile";
+    string savePath = @"D:\1.png";
 
-    var vDownload = await HttpClientHelper.DownloadAsync(new Uri(ServerUrl), null, null, SavePath, DownloadProgressChanged);
+    var vParameters = new Dictionary<string, object>
+    {
+        { "FileName", "1.png" }
+    };
+    var vDownload = await HttpClientHelper.DownloadGetAsync(new Uri(serverUrl), requestUrl, vParameters, savePath, DownloadProgressChanged);
     MessageBox.Show($"保存{(vDownload ? "成功" : "失败")}");
 }
 
@@ -122,7 +150,7 @@ private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
 /// </summary>
 /// <param name="arg1"></param>
 /// <param name="arg2"></param>
-private void DownloadProgressChanged(object arg1, HttpProgressEventArgs arg2)
+private void DownloadProgressChanged(object? arg1, HttpProgressEventArgs arg2)
 {
     this.Dispatcher.Invoke(new Action(() =>
     {
