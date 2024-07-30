@@ -8,7 +8,7 @@ categories: C#.Net
 <!-- more -->
 ### 简介
 使用 Popup + Border 可以很容易绘制一个简单的气泡弹窗，但是通常为了界面好看，都会在气泡弹窗加一个三角指向弹出方向。
-经过测试后以绘制 CombinedGeometry 并集图形效果最好。
+经过测试后以绘制 CombinedGeometry 并集图形效果最好，虽然封装了用户控件，但是目前无法解决用户控件中使用容器的问题，所以建议参考样式直接绘制。
 
 ### 代码
 <img src="https://sadness96.github.io/images/blog/csharp-Bubble/BubbleTest.jpg"/>
@@ -104,7 +104,7 @@ categories: C#.Net
 ```
 
 #### 使用 CombinedGeometry 封装控件绘制
-经过测试图 4 效果最好，所以对图 4 进行用户控件封装
+经过测试图 4 效果最好，所以对图 4 进行用户控件封装。
 
 ##### 演示效果
 <img src="https://sadness96.github.io/images/blog/csharp-Bubble/Bubble.jpg"/>
@@ -515,3 +515,63 @@ public enum BubbleAlignment
     </Grid>
 </Window>
 ```
+
+### 注意事项
+#### 用户控件中容器问题 - 用户控件内容消失
+目前在用户控件中嵌入容器控件 Grid 或 Border 等，需要使用 ContentPresenter 显示内容。但是用户控件中使用以下代码
+``` XML
+<ContentPresenter />
+```
+
+然后在外部像正常调用容器控件一样添加控件时
+``` XML
+<control:Bubble>
+    <Button />
+</control:Bubble>
+```
+
+会导致用户控件内的样式消失，解决方式是创建一个依赖属性并且绑定
+``` CSharp
+/// <summary>
+/// 组件
+/// </summary>
+public new object Content
+{
+    get { return (object)GetValue(ContentProperty); }
+    set { SetValue(ContentProperty, value); }
+}
+public static readonly new DependencyProperty ContentProperty =
+    DependencyProperty.Register("Content", typeof(object), typeof(Bubble), new PropertyMetadata(null));
+```
+
+``` XML
+<ContentPresenter Content="{Binding Content,RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+```
+
+但是这样会直接导致 XAML 编辑器无法正常显示 Visual Studio 报错 XAML 设计器已意外退出。(退出代码: c00000fd)，可以正常调用以下代码添加控件。
+``` XML
+<control:Bubble>
+    <control:Bubble.Content>
+        <Button />
+    </control:Bubble.Content>
+</control:Bubble>
+```
+
+#### 用户控件中容器问题 - 无法给控件命名
+基于以上代码，无论是调用哪一种，赋值 x:Name="btnTest"
+``` XML
+<control:Bubble>
+    <Button x:Name="btnTest"/>
+</control:Bubble>
+```
+
+``` XML
+<control:Bubble>
+    <control:Bubble.Content>
+        <Button x:Name="btnTest"/>
+    </control:Bubble.Content>
+</control:Bubble>
+```
+
+都会报错：MC3093 无法对元素“Button”设置 Name 特性值“btnTest”。“Button”在元素“Bubble”的范围内，在另一范围内定义它时，已注册了名称。
+按照错误提示是指不能命名冲突，但是显然不是命名的问题，这里只要设置名称就会报错，所以无法通过控件名通过后台修改，同样绑定的值也无法更新，疑似用户控件生命周期的问题。
