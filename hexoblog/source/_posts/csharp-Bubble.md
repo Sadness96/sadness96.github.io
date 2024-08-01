@@ -8,7 +8,7 @@ categories: C#.Net
 <!-- more -->
 ### 简介
 使用 Popup + Border 可以很容易绘制一个简单的气泡弹窗，但是通常为了界面好看，都会在气泡弹窗加一个三角指向弹出方向。
-经过测试后以绘制 CombinedGeometry 并集图形效果最好，虽然封装了用户控件，但是目前无法解决用户控件中使用容器的问题，所以建议参考样式直接绘制。
+经过测试后以绘制 CombinedGeometry 并集图形效果最好，感谢 [凌敏](https://www.lingmin.me/) 帮忙优化。
 
 ### 代码
 <img src="https://sadness96.github.io/images/blog/csharp-Bubble/BubbleTest.jpg"/>
@@ -109,77 +109,86 @@ categories: C#.Net
 ##### 演示效果
 <img src="https://sadness96.github.io/images/blog/csharp-Bubble/Bubble.jpg"/>
 
-##### 用户控件前端代码 Bubble.xaml
+##### 控件资源字典代码 BubbleStyle.xaml
 ``` XML
-<UserControl x:Class="Bubble_Demo.Controls.Bubble"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Bubble_Demo.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="200">
-    <Grid>
-        <Path Stroke="{Binding BubbleBrush,RelativeSource={RelativeSource AncestorType=UserControl}}" 
-              StrokeThickness="{Binding BubbleThickness,RelativeSource={RelativeSource AncestorType=UserControl}}" 
-              Fill="{Binding BubbleBackground,RelativeSource={RelativeSource AncestorType=UserControl}}" 
-              Opacity="{Binding BubbleOpacity,RelativeSource={RelativeSource AncestorType=UserControl}}">
-            <Path.Data>
-                <CombinedGeometry GeometryCombineMode="Union">
-                    <CombinedGeometry.Geometry1>
-                        <RectangleGeometry x:Name="Rectangle"
-                                           RadiusX="{Binding CornerRadius,RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                                           RadiusY="{Binding CornerRadius,RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-                    </CombinedGeometry.Geometry1>
-                    <CombinedGeometry.Geometry2>
-                        <PathGeometry x:Name="Triangle">
-                            <PathFigure StartPoint="12.6888,23.2835">
-                                <BezierSegment Point1="14.3186,25.5722" Point2="17.6814,25.5722" Point3="19.3112,23.2835" />
-                                <LineSegment Point="31.2205,6.55998" />
-                                <BezierSegment Point1="33.1695,3.82309" Point2="31.2398,0" Point3="27.9286,0" />
-                                <LineSegment Point="4.11098,0" />
-                                <BezierSegment Point1="0.780498,0" Point2="-1.16953,3.82309" Point3="0.779489,6.55998" />
-                                <LineSegment Point="12.6888,23.2835" />
-                            </PathFigure>
-                            <PathGeometry.Transform>
-                                <TransformGroup>
-                                    <RotateTransform x:Name="TriangleAngle" Angle="0"/>
-                                    <TranslateTransform x:Name="TriangleCoordinate" X="84" Y="175"/>
-                                </TransformGroup>
-                            </PathGeometry.Transform>
-                        </PathGeometry>
-                    </CombinedGeometry.Geometry2>
-                </CombinedGeometry>
-            </Path.Data>
-        </Path>
-        <ContentPresenter x:Name="BubbleContent" Content="{Binding Content,RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-    </Grid>
-</UserControl>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:control="clr-namespace:Bubble_Demo.Controls">
+
+    <Style TargetType="{x:Type control:Bubble}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type control:Bubble}">
+                    <Grid>
+                        <Path Stroke="{TemplateBinding BubbleBrush}"
+                              StrokeThickness="{TemplateBinding BubbleThickness}"
+                              Fill="{TemplateBinding BubbleBackground}"
+                              Opacity="{TemplateBinding BubbleOpacity}">
+                            <Path.Data>
+                                <CombinedGeometry GeometryCombineMode="Union">
+                                    <CombinedGeometry.Geometry1>
+                                        <RectangleGeometry Rect="{Binding RectangleRect,RelativeSource={RelativeSource TemplatedParent}}"
+                                                           RadiusX="{Binding CornerRadius,RelativeSource={RelativeSource TemplatedParent}}"
+                                                           RadiusY="{Binding CornerRadius,RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    </CombinedGeometry.Geometry1>
+                                    <CombinedGeometry.Geometry2>
+                                        <PathGeometry x:Name="Triangle">
+                                            <PathFigure StartPoint="12.6888,23.2835">
+                                                <BezierSegment Point1="14.3186,25.5722" Point2="17.6814,25.5722" Point3="19.3112,23.2835" />
+                                                <LineSegment Point="31.2205,6.55998" />
+                                                <BezierSegment Point1="33.1695,3.82309" Point2="31.2398,0" Point3="27.9286,0" />
+                                                <LineSegment Point="4.11098,0" />
+                                                <BezierSegment Point1="0.780498,0" Point2="-1.16953,3.82309" Point3="0.779489,6.55998" />
+                                                <LineSegment Point="12.6888,23.2835" />
+                                            </PathFigure>
+                                            <PathGeometry.Transform>
+                                                <TransformGroup>
+                                                    <RotateTransform Angle="{Binding TriangleAngle,RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                    <TranslateTransform X="{Binding TriangleX,RelativeSource={RelativeSource TemplatedParent}}"
+                                                                        Y="{Binding TriangleY,RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                </TransformGroup>
+                                            </PathGeometry.Transform>
+                                        </PathGeometry>
+                                    </CombinedGeometry.Geometry2>
+                                </CombinedGeometry>
+                            </Path.Data>
+                        </Path>
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          HorizontalAlignment="{TemplateBinding ContentHorizontal}"
+                                          VerticalAlignment="{TemplateBinding ContentVertical}"
+                                          Width="{TemplateBinding ContentWidth}"
+                                          Height="{TemplateBinding ContentHeight}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
 ```
 
-##### 用户控件后台代码 Bubble.xaml.cs
+##### 控件后台代码 Bubble.cs
 ``` CSharp
 /// <summary>
-/// Bubble.xaml 的交互逻辑
+/// 气泡
 /// </summary>
-public partial class Bubble : UserControl
+public class Bubble : ContentControl
 {
+    static Bubble() => DefaultStyleKeyProperty.OverrideMetadata(typeof(Bubble), new FrameworkPropertyMetadata(typeof(Bubble)));
+
     public Bubble()
     {
-        InitializeComponent();
-
+        // Subscribe to the SizeChanged event
         this.SizeChanged += Bubble_SizeChanged;
     }
 
     /// <summary>
-    /// 用户控件大小变化事件
+    /// SizeChanged
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
     private void Bubble_SizeChanged(object sender, SizeChangedEventArgs e)
     {
-        // 设置气泡
-        SetBubble(this);
+        SetBubbleCallback(this, new DependencyPropertyChangedEventArgs());
     }
 
     /// <summary>
@@ -191,21 +200,7 @@ public partial class Bubble : UserControl
         set { SetValue(BubbleThicknessProperty, value); }
     }
     public static readonly DependencyProperty BubbleThicknessProperty =
-        DependencyProperty.Register("BubbleThickness", typeof(double), typeof(Bubble), new PropertyMetadata(default(double), OnBubbleThicknessCallback));
-
-    /// <summary>
-    /// 气泡边框粗细变更回调
-    /// </summary>
-    /// <param name="d"></param>
-    /// <param name="e"></param>
-    private static void OnBubbleThicknessCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (d is Bubble bubble)
-        {
-            // 设置气泡
-            SetBubble(bubble);
-        }
-    }
+        DependencyProperty.Register("BubbleThickness", typeof(double), typeof(Bubble), new PropertyMetadata(default(double), SetBubbleCallback));
 
     /// <summary>
     /// 气泡边框颜色
@@ -238,7 +233,7 @@ public partial class Bubble : UserControl
         set { SetValue(BubbleOpacityProperty, value); }
     }
     public static readonly DependencyProperty BubbleOpacityProperty =
-        DependencyProperty.Register("BubbleOpacity", typeof(double), typeof(Bubble), new PropertyMetadata(default(double)));
+        DependencyProperty.Register("BubbleOpacity", typeof(double), typeof(Bubble), new PropertyMetadata(1d));
 
     /// <summary>
     /// 矩形角半径
@@ -260,21 +255,7 @@ public partial class Bubble : UserControl
         set { SetValue(PointingDirectionProperty, value); }
     }
     public static readonly DependencyProperty PointingDirectionProperty =
-        DependencyProperty.Register("PointingDirection", typeof(BubbleAlignment), typeof(Bubble), new PropertyMetadata(BubbleAlignment.Bottom, OnPointingDirectionCallback));
-
-    /// <summary>
-    /// 气泡三角指向方向变更回调
-    /// </summary>
-    /// <param name="d"></param>
-    /// <param name="e"></param>
-    private static void OnPointingDirectionCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (d is Bubble bubble)
-        {
-            // 设置气泡
-            SetBubble(bubble);
-        }
-    }
+        DependencyProperty.Register("PointingDirection", typeof(BubbleAlignment), typeof(Bubble), new PropertyMetadata(BubbleAlignment.Bottom, SetBubbleCallback));
 
     /// <summary>
     /// 气泡三角漏出大小(0-20)
@@ -286,119 +267,187 @@ public partial class Bubble : UserControl
         set { SetValue(TriangleSizeProperty, value); }
     }
     public static readonly DependencyProperty TriangleSizeProperty =
-        DependencyProperty.Register("TriangleSize", typeof(double), typeof(Bubble), new PropertyMetadata(10d, OnTriangleSizeCallback));
+        DependencyProperty.Register("TriangleSize", typeof(double), typeof(Bubble), new PropertyMetadata(10d, SetBubbleCallback));
+
+    #region 不对外暴露的依赖属性
+    /// <summary>
+    /// 气泡矩形范围
+    /// </summary>
+    public Rect RectangleRect
+    {
+        get { return (Rect)GetValue(RectangleRectProperty); }
+        private set { SetValue(RectangleRectProperty, value); }
+    }
+    public static readonly DependencyProperty RectangleRectProperty =
+        DependencyProperty.Register("RectangleRect", typeof(Rect), typeof(Bubble), new PropertyMetadata(default(Rect)));
 
     /// <summary>
-    /// 气泡漏出大小变更回调
+    /// 三角型旋转角度
     /// </summary>
-    /// <param name="d"></param>
-    /// <param name="e"></param>
-    private static void OnTriangleSizeCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    public double TriangleAngle
     {
-        if (d is Bubble bubble)
-        {
-            // 设置气泡
-            SetBubble(bubble);
-        }
+        get { return (double)GetValue(TriangleAngleProperty); }
+        private set { SetValue(TriangleAngleProperty, value); }
     }
+    public static readonly DependencyProperty TriangleAngleProperty =
+        DependencyProperty.Register("TriangleAngle", typeof(double), typeof(Bubble), new PropertyMetadata(default(double)));
 
     /// <summary>
-    /// 组件
+    /// 三角形 X 坐标位置
     /// </summary>
-    public new object Content
+    public double TriangleX
     {
-        get { return (object)GetValue(ContentProperty); }
-        set { SetValue(ContentProperty, value); }
+        get { return (double)GetValue(TriangleXProperty); }
+        private set { SetValue(TriangleXProperty, value); }
     }
-    public static readonly new DependencyProperty ContentProperty =
-        DependencyProperty.Register("Content", typeof(object), typeof(Bubble), new PropertyMetadata(null));
+    public static readonly DependencyProperty TriangleXProperty =
+        DependencyProperty.Register("TriangleX", typeof(double), typeof(Bubble), new PropertyMetadata(default(double)));
+
+    /// <summary>
+    /// 三角形 Y 坐标位置
+    /// </summary>
+    public double TriangleY
+    {
+        get { return (double)GetValue(TriangleYProperty); }
+        private set { SetValue(TriangleYProperty, value); }
+    }
+    public static readonly DependencyProperty TriangleYProperty =
+        DependencyProperty.Register("TriangleY", typeof(double), typeof(Bubble), new PropertyMetadata(default(double)));
+
+    /// <summary>
+    /// Content 水平位置
+    /// </summary>
+    public HorizontalAlignment ContentHorizontal
+    {
+        get { return (HorizontalAlignment)GetValue(ContentHorizontalProperty); }
+        private set { SetValue(ContentHorizontalProperty, value); }
+    }
+    public static readonly DependencyProperty ContentHorizontalProperty =
+        DependencyProperty.Register("ContentHorizontal", typeof(HorizontalAlignment), typeof(Bubble), new PropertyMetadata(default(HorizontalAlignment)));
+
+    /// <summary>
+    /// Content 垂直位置
+    /// </summary>
+    public VerticalAlignment ContentVertical
+    {
+        get { return (VerticalAlignment)GetValue(ContentVerticalProperty); }
+        private set { SetValue(ContentVerticalProperty, value); }
+    }
+    public static readonly DependencyProperty ContentVerticalProperty =
+        DependencyProperty.Register("ContentVertical", typeof(VerticalAlignment), typeof(Bubble), new PropertyMetadata(default(VerticalAlignment)));
+
+    /// <summary>
+    /// Content 宽度
+    /// </summary>
+    public double ContentWidth
+    {
+        get { return (double)GetValue(ContentWidthProperty); }
+        private set { SetValue(ContentWidthProperty, value); }
+    }
+    public static readonly DependencyProperty ContentWidthProperty =
+        DependencyProperty.Register("ContentWidth", typeof(double), typeof(Bubble), new PropertyMetadata(default(double)));
+
+    /// <summary>
+    /// Content 高度
+    /// </summary>
+    public double ContentHeight
+    {
+        get { return (double)GetValue(ContentHeightProperty); }
+        private set { SetValue(ContentHeightProperty, value); }
+    }
+    public static readonly DependencyProperty ContentHeightProperty =
+        DependencyProperty.Register("ContentHeight", typeof(double), typeof(Bubble), new PropertyMetadata(default(double)));
+    #endregion
 
     /// <summary>
     /// 设置气泡
     /// </summary>
-    /// <param name="bubble"></param>
-    private static void SetBubble(Bubble bubble)
+    /// <param name="d"></param>
+    /// <param name="e"></param>
+    private static void SetBubbleCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        var vTriangleBounds = bubble.Triangle.Bounds;
-        var vTriangleWidth = Math.Round(vTriangleBounds.Width, 0);
-        var vTriangleHeight = Math.Round(vTriangleBounds.Height, 0);
-
-        switch (bubble.PointingDirection)
+        if (d is Bubble bubble)
         {
-            case BubbleAlignment.Left:
-                // 矩形
-                bubble.Rectangle.Rect = new Rect(
-                    bubble.BubbleThickness + bubble.TriangleSize,
-                    bubble.BubbleThickness,
-                    bubble.Width - (bubble.BubbleThickness * 2) - bubble.TriangleSize,
-                    bubble.Height - (bubble.BubbleThickness * 2));
-                // Content
-                bubble.BubbleContent.HorizontalAlignment = HorizontalAlignment.Right;
-                bubble.BubbleContent.VerticalAlignment = VerticalAlignment.Stretch;
-                bubble.BubbleContent.Width = bubble.Width - bubble.TriangleSize;
-                bubble.BubbleContent.Height = bubble.Height;
-                // 三角
-                bubble.TriangleAngle.Angle = 90;
-                bubble.TriangleCoordinate.X = vTriangleWidth + bubble.BubbleThickness;
-                bubble.TriangleCoordinate.Y = bubble.Height / 2 - vTriangleWidth / 2;
-                break;
-            case BubbleAlignment.Right:
-                // 矩形
-                bubble.Rectangle.Rect = new Rect(
-                    bubble.BubbleThickness,
-                    bubble.BubbleThickness,
-                    bubble.Width - (bubble.BubbleThickness * 2) - bubble.TriangleSize,
-                    bubble.Height - (bubble.BubbleThickness * 2));
-                // Content
-                bubble.BubbleContent.HorizontalAlignment = HorizontalAlignment.Left;
-                bubble.BubbleContent.VerticalAlignment = VerticalAlignment.Stretch;
-                bubble.BubbleContent.Width = bubble.Width - bubble.TriangleSize;
-                bubble.BubbleContent.Height = bubble.Height;
-                // 三角
-                bubble.TriangleAngle.Angle = -90;
-                bubble.TriangleCoordinate.X = bubble.Width - vTriangleWidth - bubble.BubbleThickness;
-                bubble.TriangleCoordinate.Y = bubble.Height / 2 + vTriangleWidth / 2;
-                break;
-            case BubbleAlignment.Top:
-                // 矩形
-                bubble.Rectangle.Rect = new Rect(
-                    bubble.BubbleThickness,
-                    bubble.TriangleSize + bubble.BubbleThickness,
-                    bubble.Width - (bubble.BubbleThickness * 2),
-                    bubble.Height - bubble.TriangleSize - (bubble.BubbleThickness * 2));
-                // Content
-                bubble.BubbleContent.HorizontalAlignment = HorizontalAlignment.Stretch;
-                bubble.BubbleContent.VerticalAlignment = VerticalAlignment.Bottom;
-                bubble.BubbleContent.Width = bubble.Width;
-                bubble.BubbleContent.Height = bubble.Height - bubble.TriangleSize;
-                // 三角
-                bubble.TriangleAngle.Angle = 180;
-                bubble.TriangleCoordinate.X = (bubble.Width - vTriangleWidth) / 2 + vTriangleWidth;
-                bubble.TriangleCoordinate.Y = vTriangleHeight + bubble.BubbleThickness;
-                break;
-            case BubbleAlignment.Bottom:
-                // 矩形
-                bubble.Rectangle.Rect = new Rect(
-                    bubble.BubbleThickness,
-                    bubble.BubbleThickness,
-                    bubble.Width - (bubble.BubbleThickness * 2),
-                    bubble.Height - bubble.TriangleSize - (bubble.BubbleThickness * 2));
-                // Content
-                bubble.BubbleContent.HorizontalAlignment = HorizontalAlignment.Stretch;
-                bubble.BubbleContent.VerticalAlignment = VerticalAlignment.Top;
-                bubble.BubbleContent.Width = bubble.Width;
-                bubble.BubbleContent.Height = bubble.Height - bubble.TriangleSize;
-                // 三角
-                bubble.TriangleAngle.Angle = 0;
-                bubble.TriangleCoordinate.X = (bubble.Width - vTriangleWidth) / 2;
-                bubble.TriangleCoordinate.Y = bubble.Height - vTriangleHeight - bubble.BubbleThickness;
-                break;
+            var vTriangleWidth = 32;
+            var vTriangleHeight = 25;
+
+            switch (bubble.PointingDirection)
+            {
+                case BubbleAlignment.Left:
+                    // 矩形
+                    bubble.RectangleRect = new Rect(
+                        bubble.BubbleThickness + bubble.TriangleSize,
+                        bubble.BubbleThickness,
+                        bubble.Width - (bubble.BubbleThickness * 2) - bubble.TriangleSize,
+                        bubble.Height - (bubble.BubbleThickness * 2));
+                    // 三角
+                    bubble.TriangleAngle = 90;
+                    bubble.TriangleX = vTriangleHeight + bubble.BubbleThickness;
+                    bubble.TriangleY = bubble.Height / 2 - vTriangleWidth / 2;
+                    // Content
+                    bubble.ContentHorizontal = HorizontalAlignment.Right;
+                    bubble.ContentVertical = VerticalAlignment.Stretch;
+                    bubble.ContentWidth = bubble.Width - bubble.TriangleSize;
+                    bubble.ContentHeight = bubble.Height;
+                    break;
+                case BubbleAlignment.Right:
+                    // 矩形
+                    bubble.RectangleRect = new Rect(
+                        bubble.BubbleThickness,
+                        bubble.BubbleThickness,
+                        bubble.Width - (bubble.BubbleThickness * 2) - bubble.TriangleSize,
+                        bubble.Height - (bubble.BubbleThickness * 2));
+                    // 三角
+                    bubble.TriangleAngle = -90;
+                    bubble.TriangleX = bubble.Width - vTriangleHeight - bubble.BubbleThickness;
+                    bubble.TriangleY = bubble.Height / 2 + vTriangleWidth / 2;
+                    // Content
+                    bubble.ContentHorizontal = HorizontalAlignment.Left;
+                    bubble.ContentVertical = VerticalAlignment.Stretch;
+                    bubble.ContentWidth = bubble.Width - bubble.TriangleSize;
+                    bubble.ContentHeight = bubble.Height;
+                    break;
+                case BubbleAlignment.Top:
+                    // 矩形
+                    bubble.RectangleRect = new Rect(
+                        bubble.BubbleThickness,
+                        bubble.TriangleSize + bubble.BubbleThickness,
+                        bubble.Width - (bubble.BubbleThickness * 2),
+                        bubble.Height - bubble.TriangleSize - (bubble.BubbleThickness * 2));
+                    // Content
+                    bubble.ContentHorizontal = HorizontalAlignment.Stretch;
+                    bubble.ContentVertical = VerticalAlignment.Bottom;
+                    bubble.ContentWidth = bubble.Width;
+                    bubble.ContentHeight = bubble.Height - bubble.TriangleSize;
+                    // 三角
+                    bubble.TriangleAngle = 180;
+                    bubble.TriangleX = (bubble.Width - vTriangleWidth) / 2 + vTriangleWidth;
+                    bubble.TriangleY = vTriangleHeight + bubble.BubbleThickness;
+                    break;
+                case BubbleAlignment.Bottom:
+                    // 矩形
+                    bubble.RectangleRect = new Rect(
+                        bubble.BubbleThickness,
+                        bubble.BubbleThickness,
+                        bubble.Width - (bubble.BubbleThickness * 2),
+                        bubble.Height - bubble.TriangleSize - (bubble.BubbleThickness * 2));
+                    // Content
+                    bubble.ContentHorizontal = HorizontalAlignment.Stretch;
+                    bubble.ContentVertical = VerticalAlignment.Top;
+                    bubble.ContentWidth = bubble.Width;
+                    bubble.ContentHeight = bubble.Height - bubble.TriangleSize;
+                    // 三角
+                    bubble.TriangleAngle = 0;
+                    bubble.TriangleX = (bubble.Width - vTriangleWidth) / 2;
+                    bubble.TriangleY = bubble.Height - vTriangleHeight - bubble.BubbleThickness;
+                    break;
+            }
         }
     }
 }
 
 /// <summary>
-/// 气泡指向方向
+/// 气泡方向
 /// </summary>
 public enum BubbleAlignment
 {
@@ -419,7 +468,7 @@ public enum BubbleAlignment
         xmlns:control="clr-namespace:Bubble_Demo.Controls"
         xmlns:local="clr-namespace:Bubble_Demo"
         mc:Ignorable="d"
-        Title="Bubble" Height="450" Width="800" Background="#1E1E1E">
+        Title="Bubble" Height="640" Width="1024" Background="#1E1E1E">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -432,61 +481,176 @@ public enum BubbleAlignment
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!--左-->
-        <control:Bubble Width="200" Height="120" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" PointingDirection="Right"
-                        BubbleBrush="Gray" BubbleBackground="Black" 
-                        BubbleThickness="{Binding ElementName=BubbleThickness,Path=Value}" 
-                        BubbleOpacity="{Binding ElementName=BubbleOpacity,Path=Value}" 
-                        CornerRadius="{Binding ElementName=CornerRadius,Path=Value}" 
+        <control:Bubble Width="{Binding ElementName=BubbleWidth,Path=Value}"
+                        Height="{Binding ElementName=BubbleHeight,Path=Value}"
+                        Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" PointingDirection="Right"
+                        BubbleBrush="Gray" BubbleBackground="Black"
+                        BubbleThickness="{Binding ElementName=BubbleThickness,Path=Value}"
+                        BubbleOpacity="{Binding ElementName=BubbleOpacity,Path=Value}"
+                        CornerRadius="{Binding ElementName=CornerRadius,Path=Value}"
                         TriangleSize="{Binding ElementName=TriangleSize,Path=Value}">
-            <control:Bubble.Content>
-                <Grid>
-                    <TextBlock Text="Left" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
-                </Grid>
-            </control:Bubble.Content>
+            <Grid>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0">
+                    <TextBlock Text="Left" Foreground="White"/>
+                    <TextBlock Foreground="White">
+                        <Run Text="Width:"/>
+                        <Run Text="{Binding ElementName=BubbleWidth,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="Height:"/>
+                        <Run Text="{Binding ElementName=BubbleHeight,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="Thickness:"/>
+                        <Run Text="{Binding ElementName=BubbleThickness,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="Opacity:"/>
+                        <Run Text="{Binding ElementName=BubbleOpacity,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="CornerRadius:"/>
+                        <Run Text="{Binding ElementName=CornerRadius,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="TriangleSize:"/>
+                        <Run Text="{Binding ElementName=TriangleSize,Path=Value}"/>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
         </control:Bubble>
         <!--右-->
-        <control:Bubble Width="200" Height="120" Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" PointingDirection="Left"
+        <control:Bubble Width="{Binding ElementName=BubbleWidth,Path=Value}"
+                        Height="{Binding ElementName=BubbleHeight,Path=Value}"
+                        Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" PointingDirection="Left"
                         BubbleBrush="Gray" BubbleBackground="Black" 
-                        BubbleThickness="{Binding ElementName=BubbleThickness,Path=Value}" 
-                        BubbleOpacity="{Binding ElementName=BubbleOpacity,Path=Value}" 
-                        CornerRadius="{Binding ElementName=CornerRadius,Path=Value}" 
+                        BubbleThickness="{Binding ElementName=BubbleThickness,Path=Value}"
+                        BubbleOpacity="{Binding ElementName=BubbleOpacity,Path=Value}"
+                        CornerRadius="{Binding ElementName=CornerRadius,Path=Value}"
                         TriangleSize="{Binding ElementName=TriangleSize,Path=Value}">
-            <control:Bubble.Content>
-                <Grid>
-                    <TextBlock Text="Right" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
-                </Grid>
-            </control:Bubble.Content>
+            <Grid>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0">
+                    <TextBlock Text="Right" Foreground="White"/>
+                    <TextBlock Foreground="White">
+                        <Run Text="Width:"/>
+                        <Run Text="{Binding ElementName=BubbleWidth,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="Height:"/>
+                        <Run Text="{Binding ElementName=BubbleHeight,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="Thickness:"/>
+                        <Run Text="{Binding ElementName=BubbleThickness,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="Opacity:"/>
+                        <Run Text="{Binding ElementName=BubbleOpacity,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="CornerRadius:"/>
+                        <Run Text="{Binding ElementName=CornerRadius,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="TriangleSize:"/>
+                        <Run Text="{Binding ElementName=TriangleSize,Path=Value}"/>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
         </control:Bubble>
         <!--上-->
-        <control:Bubble Width="200" Height="120" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Top" Grid.Column="1" Margin="10" PointingDirection="Bottom"
+        <control:Bubble Width="{Binding ElementName=BubbleWidth,Path=Value}"
+                        Height="{Binding ElementName=BubbleHeight,Path=Value}"
+                        Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Top" Grid.Column="1" Margin="10" PointingDirection="Bottom"
                         BubbleBrush="Gray" BubbleBackground="Black" 
-                        BubbleThickness="{Binding ElementName=BubbleThickness,Path=Value}" 
-                        BubbleOpacity="{Binding ElementName=BubbleOpacity,Path=Value}" 
-                        CornerRadius="{Binding ElementName=CornerRadius,Path=Value}" 
+                        BubbleThickness="{Binding ElementName=BubbleThickness,Path=Value}"
+                        BubbleOpacity="{Binding ElementName=BubbleOpacity,Path=Value}"
+                        CornerRadius="{Binding ElementName=CornerRadius,Path=Value}"
                         TriangleSize="{Binding ElementName=TriangleSize,Path=Value}">
-            <control:Bubble.Content>
-                <Grid>
-                    <TextBlock Text="Top" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
-                </Grid>
-            </control:Bubble.Content>
+            <Grid>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0">
+                    <TextBlock Text="Top" Foreground="White"/>
+                    <TextBlock Foreground="White">
+                        <Run Text="Width:"/>
+                        <Run Text="{Binding ElementName=BubbleWidth,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="Height:"/>
+                        <Run Text="{Binding ElementName=BubbleHeight,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="Thickness:"/>
+                        <Run Text="{Binding ElementName=BubbleThickness,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="Opacity:"/>
+                        <Run Text="{Binding ElementName=BubbleOpacity,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="CornerRadius:"/>
+                        <Run Text="{Binding ElementName=CornerRadius,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="TriangleSize:"/>
+                        <Run Text="{Binding ElementName=TriangleSize,Path=Value}"/>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
         </control:Bubble>
         <!--下-->
-        <control:Bubble Width="200" Height="120"
+        <control:Bubble Width="{Binding ElementName=BubbleWidth,Path=Value}"
+                        Height="{Binding ElementName=BubbleHeight,Path=Value}"
                         Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" Grid.Column="1" Margin="10" PointingDirection="Top"
                         BubbleBrush="Gray" BubbleBackground="Black" 
-                        BubbleThickness="{Binding ElementName=BubbleThickness,Path=Value}" 
-                        BubbleOpacity="{Binding ElementName=BubbleOpacity,Path=Value}" 
-                        CornerRadius="{Binding ElementName=CornerRadius,Path=Value}" 
+                        BubbleThickness="{Binding ElementName=BubbleThickness,Path=Value}"
+                        BubbleOpacity="{Binding ElementName=BubbleOpacity,Path=Value}"
+                        CornerRadius="{Binding ElementName=CornerRadius,Path=Value}"
                         TriangleSize="{Binding ElementName=TriangleSize,Path=Value}">
-            <control:Bubble.Content>
-                <Grid>
-                    <TextBlock Text="Bottom" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
-                </Grid>
-            </control:Bubble.Content>
+            <Grid>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0">
+                    <TextBlock Text="Bottom" Foreground="White"/>
+                    <TextBlock Foreground="White">
+                        <Run Text="Width:"/>
+                        <Run Text="{Binding ElementName=BubbleWidth,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="Height:"/>
+                        <Run Text="{Binding ElementName=BubbleHeight,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="Thickness:"/>
+                        <Run Text="{Binding ElementName=BubbleThickness,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="Opacity:"/>
+                        <Run Text="{Binding ElementName=BubbleOpacity,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="CornerRadius:"/>
+                        <Run Text="{Binding ElementName=CornerRadius,Path=Value}"/>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <Run Text="TriangleSize:"/>
+                        <Run Text="{Binding ElementName=TriangleSize,Path=Value}"/>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
         </control:Bubble>
         <!--调整-->
         <Grid Grid.Row="1" Grid.Column="1" Width="220" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Orientation="Vertical">
+                <TextBlock Foreground="White">
+                    <Run Text="气泡宽度："/>
+                    <Run Text="{Binding ElementName=BubbleWidth,Path=Value}"/>
+                </TextBlock>
+                <Slider x:Name="BubbleWidth" Minimum="32" Maximum="300" Value="255"/>
+
+                <TextBlock Foreground="White">
+                    <Run Text="气泡高度："/>
+                    <Run Text="{Binding ElementName=BubbleHeight,Path=Value}"/>
+                </TextBlock>
+                <Slider x:Name="BubbleHeight" Minimum="32" Maximum="300" Value="165"/>
+
                 <TextBlock Foreground="White">
                     <Run Text="气泡边框粗细："/>
                     <Run Text="{Binding ElementName=BubbleThickness,Path=Value}"/>
@@ -515,63 +679,3 @@ public enum BubbleAlignment
     </Grid>
 </Window>
 ```
-
-### 注意事项
-#### 用户控件中容器问题 - 用户控件内容消失
-目前在用户控件中嵌入容器控件 Grid 或 Border 等，需要使用 ContentPresenter 显示内容。但是用户控件中使用以下代码
-``` XML
-<ContentPresenter />
-```
-
-然后在外部像正常调用容器控件一样添加控件时
-``` XML
-<control:Bubble>
-    <Button />
-</control:Bubble>
-```
-
-会导致用户控件内的样式消失，解决方式是创建一个依赖属性并且绑定
-``` CSharp
-/// <summary>
-/// 组件
-/// </summary>
-public new object Content
-{
-    get { return (object)GetValue(ContentProperty); }
-    set { SetValue(ContentProperty, value); }
-}
-public static readonly new DependencyProperty ContentProperty =
-    DependencyProperty.Register("Content", typeof(object), typeof(Bubble), new PropertyMetadata(null));
-```
-
-``` XML
-<ContentPresenter Content="{Binding Content,RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-```
-
-但是这样会直接导致 XAML 编辑器无法正常显示 Visual Studio 报错 XAML 设计器已意外退出。(退出代码: c00000fd)，可以正常调用以下代码添加控件。
-``` XML
-<control:Bubble>
-    <control:Bubble.Content>
-        <Button />
-    </control:Bubble.Content>
-</control:Bubble>
-```
-
-#### 用户控件中容器问题 - 无法给控件命名
-基于以上代码，无论是调用哪一种，赋值 x:Name="btnTest"
-``` XML
-<control:Bubble>
-    <Button x:Name="btnTest"/>
-</control:Bubble>
-```
-
-``` XML
-<control:Bubble>
-    <control:Bubble.Content>
-        <Button x:Name="btnTest"/>
-    </control:Bubble.Content>
-</control:Bubble>
-```
-
-都会报错：MC3093 无法对元素“Button”设置 Name 特性值“btnTest”。“Button”在元素“Bubble”的范围内，在另一范围内定义它时，已注册了名称。
-按照错误提示是指不能命名冲突，但是显然不是命名的问题，这里只要设置名称就会报错，所以无法通过控件名通过后台修改，同样绑定的值也无法更新，疑似用户控件生命周期的问题。
