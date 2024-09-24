@@ -236,7 +236,7 @@ public class Bubble : ContentControl
         DependencyProperty.Register("BubbleOpacity", typeof(double), typeof(Bubble), new PropertyMetadata(1d));
 
     /// <summary>
-    /// 矩形角半径
+    /// 矩形圆角半径
     /// </summary>
     public double CornerRadius
     {

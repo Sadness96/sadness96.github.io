@@ -8,7 +8,7 @@ categories: Software
 
 <!-- more -->
 ### 简介
-[Jenkins](https://jenkins.io/zh/) 是一个持续集成（CI&CD）工具，用以构建、部署、自动化。
+[Jenkins](https://www.jenkins.io/zh/) 是一个持续集成（CI&CD）工具，用以构建、部署、自动化。
 
 ### 运行流程
 以部署PC客户端软件为例：
@@ -19,9 +19,22 @@ categories: Software
 5.以邮件方式将打包文件发送(未完成)
 
 ### 软件部署
-软件安装参考 [官方文档](https://jenkins.io/zh/doc/pipeline/tour/getting-started/)
+软件安装参考 [官方文档](https://www.jenkins.io/zh/doc/pipeline/tour/getting-started/)
 
 #### 遇到的问题
+##### 修改工作目录
+我是使用 Windows 下 java 命令运行
+``` cmd
+java -jar jenkins.war --httpPort=8080
+```
+
+工作目录默认为 C:\Users\{用户名}\.jenkins
+直接拷贝工作目录到其他地方例如 D:\.jenkins
+修改启动命令
+``` cmd
+java -DJENKINS_HOME=D:\.jenkins -jar jenkins.war --httpPort=8080
+```
+
 ##### 插件安装失败
 登录重启页重启后重试
 http://localhost:8081/restart
