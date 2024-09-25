@@ -147,8 +147,21 @@ FunctionEnd
 makensis Setup.nsi
 ```
 ``` cmd
-:: 调用 makensis 命令带参数构建 NSI
 :: 从文本中读取版本号传入 NSI 中作为常量
-set /p var= < ClientVersion
+set /p var=<ClientVersion
+:: 调用 makensis 命令带参数构建 NSI
 makensis /DClientVersion=%var% Setup.nsi
+```
+``` cmd
+:: 打印详细日志
+makensis /v4 Setup.nsi
+```
+
+#### 报错 error mmapping datablock to 33572646.
+由于 NSIS 安装程序默认限制 2GB，使用 [NSISBI](https://sourceforge.net/projects/nsisbi/) 消除 NSIS 中的 2GB 限制，下载后直接替换覆盖到 NSIS 安装目录。
+``` cmd
+Internal compiler error #12345: error mmapping datablock to 33572646.
+
+Note: you may have one or two (large) stale temporary file(s) left in your temporary directory (Generally this only h
+appens on Windows 9x).
 ```
