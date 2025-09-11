@@ -1,6 +1,6 @@
 ---
 title: ASP.NET Core Minimal API
-date: 2025-7-18 4:42:15
+date: 2025-07-18 04:42:15
 tags: [c#,.net core,api]
 categories: C#.Net
 ---
