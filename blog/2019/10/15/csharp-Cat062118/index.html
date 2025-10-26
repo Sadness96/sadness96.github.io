@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 8.1.0">
   <link rel="apple-touch-icon" sizes="180x180" href="https://sadness96.github.io/images/Logo300.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://sadness96.github.io/images/Logo30.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://sadness96.github.io/images/Logo16.png">
@@ -15,7 +15,7 @@
   <script src="/blog/lib/pace/pace.min.js"></script>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"sadness96.github.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"sadness96.github.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
   <meta name="description" content="Radar CAT062 1.18 报文协议解析">
 <meta property="og:type" content="article">
@@ -175,24 +175,19 @@
       </header>
     <div class="post-body" itemprop="articleBody">
         <h3 id="Radar-CAT062-1-18-报文协议解析"><a href="#Radar-CAT062-1-18-报文协议解析" class="headerlink" title="Radar CAT062 1.18 报文协议解析"></a>Radar CAT062 1.18 报文协议解析</h3><span id="more"></span>
-<h3 id="简介-声明"><a href="#简介-声明" class="headerlink" title="简介/声明"></a>简介/声明</h3><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%9B%B7%E8%BE%BE/10485?fr=aladdin">Radar</a> 雷达，源于radio detection and ranging的缩写，意思为”无线电探测和测距”，即用无线电的方法发现目标并测定它们的空间位置。因此，雷达也被称为“无线电定位”。雷达是利用电磁波探测目标的电子设备。雷达发射电磁波对目标进行照射并接收其回波，由此获得目标至电磁波发射点的距离、距离变化率（径向速度）、方位、高度等信息。</p>
+<h3 id="简介-声明"><a href="#简介-声明" class="headerlink" title="简介&#x2F;声明"></a>简介&#x2F;声明</h3><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%9B%B7%E8%BE%BE/10485?fr=aladdin">Radar</a> 雷达，源于radio detection and ranging的缩写，意思为”无线电探测和测距”，即用无线电的方法发现目标并测定它们的空间位置。因此，雷达也被称为“无线电定位”。雷达是利用电磁波探测目标的电子设备。雷达发射电磁波对目标进行照射并接收其回波，由此获得目标至电磁波发射点的距离、距离变化率（径向速度）、方位、高度等信息。</p>
 <p>解析文档均为<a target="_blank" rel="noopener" href="https://www.eurocontrol.int/">欧洲航空交通管理</a>官方提供。</p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://www.eurocontrol.int">EuroControl</a>：<a target="_blank" rel="noopener" href="https://www.eurocontrol.int/sites/default/files/content/documents/nm/asterix/cat062p9ed118.pdf">cat062p9ed118.pdf</a></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://www.eurocontrol.int/">EuroControl</a>：<a target="_blank" rel="noopener" href="https://www.eurocontrol.int/sites/default/files/content/documents/nm/asterix/cat062p9ed118.pdf">cat062p9ed118.pdf</a></p>
 <h3 id="解析数据"><a href="#解析数据" class="headerlink" title="解析数据"></a>解析数据</h3><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3E0034BB7D25040203000E584F003806E501460641FD2601B70D4A000D33B3C37E2080780CCB000601000550000028002A003E04</span><br></pre></td></tr></table></figure>
 <h4 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h4><table>
 <thead>
 <tr>
-<th>CAT = 062</th>
+<th>CAT &#x3D; 062</th>
 <th>LEN</th>
 <th>FSPEC</th>
 <th>Items of the first record</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
 </table>
 <h4 id="解析报文区域数据"><a href="#解析报文区域数据" class="headerlink" title="解析报文区域数据"></a>解析报文区域数据</h4><table>
 <thead>
@@ -202,8 +197,7 @@
 <th>备注</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>0x3E</td>
 <td>62</td>
 <td>报文头，转换十进制为62</td>
@@ -221,22 +215,22 @@
 <tr>
 <td>0xBB</td>
 <td>10111011</td>
-<td>I062/010、I062/015、I062/070、I062/105、I062/185</td>
+<td>I062&#x2F;010、I062&#x2F;015、I062&#x2F;070、I062&#x2F;105、I062&#x2F;185</td>
 </tr>
 <tr>
 <td>0x7D</td>
 <td>01111101</td>
-<td>I062/060、I062/245、I062/380、I062/040、I062/080</td>
+<td>I062&#x2F;060、I062&#x2F;245、I062&#x2F;380、I062&#x2F;040、I062&#x2F;080</td>
 </tr>
 <tr>
 <td>0x25</td>
 <td>00100101</td>
-<td>I062/136、I062/220、</td>
+<td>I062&#x2F;136、I062&#x2F;220、</td>
 </tr>
 <tr>
 <td>0x04</td>
 <td>00000100</td>
-<td>I062/500</td>
+<td>I062&#x2F;500</td>
 </tr>
 <tr>
 <td>02</td>
@@ -246,12 +240,12 @@
 <tr>
 <td>03</td>
 <td>3</td>
-<td>I062/010</td>
+<td>I062&#x2F;010</td>
 </tr>
 <tr>
 <td>00</td>
 <td>0</td>
-<td>I062/015</td>
+<td>I062&#x2F;015</td>
 </tr>
 <tr>
 <td>0E</td>
@@ -266,7 +260,7 @@
 <tr>
 <td>4F</td>
 <td>79</td>
-<td><a href="#1062070">I062/070</a> 日时间项</td>
+<td><a href="#1062070">I062&#x2F;070</a> 日时间项</td>
 </tr>
 <tr>
 <td>00</td>
@@ -306,7 +300,7 @@
 <tr>
 <td>41</td>
 <td>65</td>
-<td><a href="#1062105">I062/105</a> 经纬度坐标</td>
+<td><a href="#1062105">I062&#x2F;105</a> 经纬度坐标</td>
 </tr>
 <tr>
 <td>FD</td>
@@ -326,7 +320,7 @@
 <tr>
 <td>B7</td>
 <td>183</td>
-<td>I062/185</td>
+<td>I062&#x2F;185</td>
 </tr>
 <tr>
 <td>0D</td>
@@ -336,7 +330,7 @@
 <tr>
 <td>4A</td>
 <td>74</td>
-<td>I062/060</td>
+<td>I062&#x2F;060</td>
 </tr>
 <tr>
 <td>00</td>
@@ -371,12 +365,12 @@
 <tr>
 <td>20</td>
 <td>32</td>
-<td><a href="#1062245">I062/245</a> 目标识别</td>
+<td><a href="#1062245">I062&#x2F;245</a> 目标识别</td>
 </tr>
 <tr>
 <td>80</td>
 <td>128</td>
-<td>I062/380</td>
+<td>I062&#x2F;380</td>
 </tr>
 <tr>
 <td>78</td>
@@ -386,7 +380,7 @@
 <tr>
 <td>0C</td>
 <td>12</td>
-<td>I062/040</td>
+<td>I062&#x2F;040</td>
 </tr>
 <tr>
 <td>CB</td>
@@ -396,7 +390,7 @@
 <tr>
 <td>00</td>
 <td>0</td>
-<td>I062/080</td>
+<td>I062&#x2F;080</td>
 </tr>
 <tr>
 <td>06</td>
@@ -406,7 +400,7 @@
 <tr>
 <td>01</td>
 <td>1</td>
-<td>I062/136</td>
+<td>I062&#x2F;136</td>
 </tr>
 <tr>
 <td>00</td>
@@ -416,12 +410,12 @@
 <tr>
 <td>05</td>
 <td>5</td>
-<td>I062/220</td>
+<td>I062&#x2F;220</td>
 </tr>
 <tr>
 <td>50</td>
 <td>80</td>
-<td>I062/500</td>
+<td>I062&#x2F;500</td>
 </tr>
 <tr>
 <td>00</td>
@@ -461,17 +455,17 @@
 <tr>
 <td>04</td>
 <td></td>
+<td></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h3 id="代码-部分解析可参考Cat020"><a href="#代码-部分解析可参考Cat020" class="headerlink" title="代码(部分解析可参考Cat020)"></a>代码(部分解析可参考Cat020)</h3><p><span id="1062070"><span/></p>
-<h4 id="I062-070"><a href="#I062-070" class="headerlink" title="I062/070"></a>I062/070</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 计算日时间项(I062/070)对应的值</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">I062_070</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//将几个独立字节合并为一个字节</span></span><br><span class="line">    <span class="built_in">uint</span> rhs = ((<span class="built_in">uint</span>)byteData[<span class="number">0</span>] &lt;&lt; <span class="number">16</span>) + ((<span class="built_in">uint</span>)byteData[<span class="number">1</span>] &lt;&lt; <span class="number">8</span>) + byteData[<span class="number">2</span>];</span><br><span class="line">    <span class="comment">//总秒数</span></span><br><span class="line">    <span class="built_in">uint</span> value0 = rhs / <span class="number">128</span>;</span><br><span class="line">    <span class="comment">//小时数</span></span><br><span class="line">    <span class="built_in">uint</span> value1 = value0 / <span class="number">3600</span>;</span><br><span class="line">    <span class="comment">//分钟数</span></span><br><span class="line">    <span class="built_in">uint</span> value2 = (value0 - value1 * <span class="number">3600</span>) / <span class="number">60</span>;</span><br><span class="line">    <span class="comment">//秒数</span></span><br><span class="line">    <span class="built_in">uint</span> value3 = (value0 - value1 * <span class="number">3600</span>) % <span class="number">60</span>;</span><br><span class="line">    <span class="comment">//毫秒数</span></span><br><span class="line">    <span class="built_in">uint</span> value4 = ((rhs % <span class="number">128</span>) * <span class="number">1000</span>) / <span class="number">128</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">$&quot;<span class="subst">&#123;DateTime.Now.ToShortDateString()&#125;</span> <span class="subst">&#123;value1&#125;</span>:<span class="subst">&#123;value2&#125;</span>:<span class="subst">&#123;value3&#125;</span>.<span class="subst">&#123;value4&#125;</span>&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="I062-070"><a href="#I062-070" class="headerlink" title="I062&#x2F;070"></a>I062&#x2F;070</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 计算日时间项(I062/070)对应的值</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">I062_070</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//将几个独立字节合并为一个字节</span></span><br><span class="line">    <span class="built_in">uint</span> rhs = ((<span class="built_in">uint</span>)byteData[<span class="number">0</span>] &lt;&lt; <span class="number">16</span>) + ((<span class="built_in">uint</span>)byteData[<span class="number">1</span>] &lt;&lt; <span class="number">8</span>) + byteData[<span class="number">2</span>];</span><br><span class="line">    <span class="comment">//总秒数</span></span><br><span class="line">    <span class="built_in">uint</span> value0 = rhs / <span class="number">128</span>;</span><br><span class="line">    <span class="comment">//小时数</span></span><br><span class="line">    <span class="built_in">uint</span> value1 = value0 / <span class="number">3600</span>;</span><br><span class="line">    <span class="comment">//分钟数</span></span><br><span class="line">    <span class="built_in">uint</span> value2 = (value0 - value1 * <span class="number">3600</span>) / <span class="number">60</span>;</span><br><span class="line">    <span class="comment">//秒数</span></span><br><span class="line">    <span class="built_in">uint</span> value3 = (value0 - value1 * <span class="number">3600</span>) % <span class="number">60</span>;</span><br><span class="line">    <span class="comment">//毫秒数</span></span><br><span class="line">    <span class="built_in">uint</span> value4 = ((rhs % <span class="number">128</span>) * <span class="number">1000</span>) / <span class="number">128</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">$&quot;<span class="subst">&#123;DateTime.Now.ToShortDateString()&#125;</span> <span class="subst">&#123;value1&#125;</span>:<span class="subst">&#123;value2&#125;</span>:<span class="subst">&#123;value3&#125;</span>.<span class="subst">&#123;value4&#125;</span>&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><span id="1062245"><span/></p>
-<h4 id="I062-245"><a href="#I062-245" class="headerlink" title="I062/245"></a>I062/245</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析(I062_245)目标识别</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">I062_245</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> str = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; byteData.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 把第一位去掉</span></span><br><span class="line">        str += Convert.ToString(byteData[i], <span class="number">2</span>).PadLeft(<span class="number">8</span>, <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">char</span>[] strCharArray = str.ToCharArray();</span><br><span class="line">    <span class="built_in">string</span> flno2BinaryStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="built_in">string</span> result = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; strCharArray.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        flno2BinaryStr += strCharArray[i] + <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> ((i + <span class="number">1</span>) % <span class="number">6</span> == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">string</span> flightNumberValue = Constants.flightNumberMap[flno2BinaryStr];</span><br><span class="line">            <span class="keyword">if</span> (!<span class="built_in">string</span>.IsNullOrEmpty(flightNumberValue))</span><br><span class="line">            &#123;</span><br><span class="line">                result += flightNumberValue;</span><br><span class="line">            &#125;</span><br><span class="line">            flno2BinaryStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="I062-245"><a href="#I062-245" class="headerlink" title="I062&#x2F;245"></a>I062&#x2F;245</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析(I062_245)目标识别</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">I062_245</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">string</span> str = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; byteData.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 把第一位去掉</span></span><br><span class="line">        str += Convert.ToString(byteData[i], <span class="number">2</span>).PadLeft(<span class="number">8</span>, <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">char</span>[] strCharArray = str.ToCharArray();</span><br><span class="line">    <span class="built_in">string</span> flno2BinaryStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="built_in">string</span> result = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; strCharArray.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        flno2BinaryStr += strCharArray[i] + <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> ((i + <span class="number">1</span>) % <span class="number">6</span> == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">string</span> flightNumberValue = Constants.flightNumberMap[flno2BinaryStr];</span><br><span class="line">            <span class="keyword">if</span> (!<span class="built_in">string</span>.IsNullOrEmpty(flightNumberValue))</span><br><span class="line">            &#123;</span><br><span class="line">                result += flightNumberValue;</span><br><span class="line">            &#125;</span><br><span class="line">            flno2BinaryStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><span id="1062105"><span/></p>
-<h4 id="I062-105"><a href="#I062-105" class="headerlink" title="I062/105"></a>I062/105</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析(I062_070)经纬度坐标</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span>[] <span class="title">I062_105</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">double</span>[] relDataArray = <span class="keyword">new</span> <span class="built_in">double</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span> (byteData.Length == <span class="number">8</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 16进制转成10进制（4位一转）</span></span><br><span class="line">        <span class="built_in">string</span> xCoordinate10 = byteData[<span class="number">0</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">1</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">2</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">3</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="built_in">string</span> yCoordinate10 = byteData[<span class="number">4</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">5</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">6</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">7</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="comment">// 10进制计算规则（xCoordinate10 * 180 /2^25）</span></span><br><span class="line">        relDataArray[<span class="number">0</span>] = <span class="built_in">double</span>.Parse(Convert.ToInt32(xCoordinate10, <span class="number">16</span>).ToString()) * <span class="number">180</span> / Math.Pow(<span class="number">2</span>, <span class="number">25</span>);</span><br><span class="line">        relDataArray[<span class="number">1</span>] = <span class="built_in">double</span>.Parse(Convert.ToInt32(yCoordinate10, <span class="number">16</span>).ToString()) * <span class="number">180</span> / Math.Pow(<span class="number">2</span>, <span class="number">25</span>);</span><br><span class="line">        <span class="keyword">return</span> relDataArray;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="I062-105"><a href="#I062-105" class="headerlink" title="I062&#x2F;105"></a>I062&#x2F;105</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析(I062_070)经纬度坐标</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span>[] <span class="title">I062_105</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">double</span>[] relDataArray = <span class="keyword">new</span> <span class="built_in">double</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span> (byteData.Length == <span class="number">8</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 16进制转成10进制（4位一转）</span></span><br><span class="line">        <span class="built_in">string</span> xCoordinate10 = byteData[<span class="number">0</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">1</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">2</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">3</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="built_in">string</span> yCoordinate10 = byteData[<span class="number">4</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">5</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">6</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">7</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="comment">// 10进制计算规则（xCoordinate10 * 180 /2^25）</span></span><br><span class="line">        relDataArray[<span class="number">0</span>] = <span class="built_in">double</span>.Parse(Convert.ToInt32(xCoordinate10, <span class="number">16</span>).ToString()) * <span class="number">180</span> / Math.Pow(<span class="number">2</span>, <span class="number">25</span>);</span><br><span class="line">        relDataArray[<span class="number">1</span>] = <span class="built_in">double</span>.Parse(Convert.ToInt32(yCoordinate10, <span class="number">16</span>).ToString()) * <span class="number">180</span> / Math.Pow(<span class="number">2</span>, <span class="number">25</span>);</span><br><span class="line">        <span class="keyword">return</span> relDataArray;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><span id="1062100"><span/></p>
-<h4 id="I062-100"><a href="#I062-100" class="headerlink" title="I062/100"></a>I062/100</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析(I062_100)卡迪尔坐标</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span>[] <span class="title">I062_100</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">double</span>[] relDataArray = <span class="keyword">new</span> <span class="built_in">double</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span> (byteData.Length == <span class="number">6</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> xAngle16 = byteData[<span class="number">0</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">1</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">2</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="built_in">string</span> yAngle16 = byteData[<span class="number">3</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">4</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">5</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="built_in">string</span> xAngle10 = Convert.ToInt32(xAngle16, <span class="number">16</span>).ToString();</span><br><span class="line">        <span class="built_in">string</span> yAngle10 = Convert.ToInt32(yAngle16, <span class="number">16</span>).ToString();</span><br><span class="line">        <span class="comment">// 10进制计算规则（xAngle10 * 0.5）</span></span><br><span class="line">        relDataArray[<span class="number">0</span>] = <span class="built_in">double</span>.Parse(xAngle10) * <span class="number">0.5</span>;</span><br><span class="line">        relDataArray[<span class="number">1</span>] = <span class="built_in">double</span>.Parse(yAngle10) * <span class="number">0.5</span>;</span><br><span class="line">        <span class="keyword">return</span> relDataArray;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="I062-100"><a href="#I062-100" class="headerlink" title="I062&#x2F;100"></a>I062&#x2F;100</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 解析(I062_100)卡迪尔坐标</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;byteData&quot;&gt;</span>二进制数据<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span>[] <span class="title">I062_100</span>(<span class="params"><span class="built_in">byte</span>[] byteData</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">double</span>[] relDataArray = <span class="keyword">new</span> <span class="built_in">double</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span> (byteData.Length == <span class="number">6</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> xAngle16 = byteData[<span class="number">0</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">1</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">2</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="built_in">string</span> yAngle16 = byteData[<span class="number">3</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">4</span>].ToString(<span class="string">&quot;X2&quot;</span>) + byteData[<span class="number">5</span>].ToString(<span class="string">&quot;X2&quot;</span>);</span><br><span class="line">        <span class="built_in">string</span> xAngle10 = Convert.ToInt32(xAngle16, <span class="number">16</span>).ToString();</span><br><span class="line">        <span class="built_in">string</span> yAngle10 = Convert.ToInt32(yAngle16, <span class="number">16</span>).ToString();</span><br><span class="line">        <span class="comment">// 10进制计算规则（xAngle10 * 0.5）</span></span><br><span class="line">        relDataArray[<span class="number">0</span>] = <span class="built_in">double</span>.Parse(xAngle10) * <span class="number">0.5</span>;</span><br><span class="line">        relDataArray[<span class="number">1</span>] = <span class="built_in">double</span>.Parse(yAngle10) * <span class="number">0.5</span>;</span><br><span class="line">        <span class="keyword">return</span> relDataArray;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
       <footer class="post-footer">
           <div class="post-tags">
