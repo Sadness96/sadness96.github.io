@@ -47,12 +47,23 @@ jobs:
       # index.html
       - name: Prepare Deployment Structure
         run: |
-          # 创建临时部署目录
-          mkdir -p ./deploy_root/blog
           # 拷贝入口文件到根目录
+          mkdir -p ./deploy_root
           cp ./index.html ./deploy_root/index.html
           cp ./404.html ./deploy_root/404.html
+          # 拷贝资源文件到目录
+          mkdir -p ./deploy_root/file
+          cp -r ./file/* ./deploy_root/file/
+          mkdir -p ./deploy_root/flash
+          cp -r ./flash/* ./deploy_root/flash/
+          mkdir -p ./deploy_root/fonts
+          cp -r ./fonts/* ./deploy_root/fonts/
+          mkdir -p ./deploy_root/images
+          cp -r ./images/* ./deploy_root/images/
+          mkdir -p ./deploy_root/video
+          cp -r ./video/* ./deploy_root/video/
           # 拷贝 Hexo 生成的文件到 /blog
+          mkdir -p ./deploy_root/blog
           cp -r ./blog/* ./deploy_root/blog/
       # 上传调整后的结构目录
       - name: Upload Pages artifact
