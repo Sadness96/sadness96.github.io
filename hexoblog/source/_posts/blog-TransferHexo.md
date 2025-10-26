@@ -216,3 +216,55 @@ git add .                   //添加修改至缓存区
 git commit -m "Message"     //填写修改内容
 git push                    //提交修改
 ```
+
+##### GitHub Actions
+Hexo 提供了通过 [GitHub Actions](https://hexo.io/docs/github-pages) 自动化构建方式，由于我自己创建的项目结构不是默认的结构，所以需要做一些修改。
+
+``` yml
+jobs:
+  build:
+    steps:
+      - name: Install Dependencies
+        working-directory: ./hexoblog
+        run: npm install
+      - name: Build
+        working-directory: ./hexoblog
+        run: npm run build
+      # 指定 Python 版本
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      # 执行 Python 脚本
+      - name: Run Python Scripts
+        working-directory: ./hexoblog
+        run: |
+          python compress.py
+          python deploy.py
+      # index.html
+      - name: Prepare Deployment Structure
+        run: |
+          # 拷贝入口文件到根目录
+          mkdir -p ./deploy_root
+          cp ./index.html ./deploy_root/index.html
+          cp ./404.html ./deploy_root/404.html
+          # 拷贝资源文件到目录
+          mkdir -p ./deploy_root/file
+          cp -r ./file/* ./deploy_root/file/
+          mkdir -p ./deploy_root/flash
+          cp -r ./flash/* ./deploy_root/flash/
+          mkdir -p ./deploy_root/fonts
+          cp -r ./fonts/* ./deploy_root/fonts/
+          mkdir -p ./deploy_root/images
+          cp -r ./images/* ./deploy_root/images/
+          mkdir -p ./deploy_root/video
+          cp -r ./video/* ./deploy_root/video/
+          # 拷贝 Hexo 生成的文件到 /blog
+          mkdir -p ./deploy_root/blog
+          cp -r ./blog/* ./deploy_root/blog/
+      # 上传调整后的结构目录
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./deploy_root
+```
