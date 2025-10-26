@@ -29,7 +29,9 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         working-directory: ./hexoblog
-        run: npm install
+        run: |
+          npm config set registry https://registry.npmjs.org  # 强制使用官方源
+          npm install
       - name: Build
         working-directory: ./hexoblog
         run: npm run build
