@@ -30,8 +30,10 @@ jobs:
       - name: Install Dependencies
         working-directory: ./hexoblog
         run: |
-          npm config set registry https://registry.npmjs.org  # 强制使用官方源
-          npm install
+          npm config set registry https://registry.npmjs.org/
+          npm config set strict-ssl true
+          npm cache clean --force
+          npm install --no-optional
       - name: Build
         working-directory: ./hexoblog
         run: npm run build
