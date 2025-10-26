@@ -29,23 +29,36 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         working-directory: ./hexoblog
-        run: |
-          npm config set registry https://registry.npmjs.org/
-          npm config set strict-ssl true
-          npm cache clean --force
-          npm install --no-optional
+        run: npm install
       - name: Build
         working-directory: ./hexoblog
         run: npm run build
-      - name: Compress and Deploy
+      # 指定 Python 版本
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      # 执行 Python 脚本
+      - name: Run Python Scripts
         working-directory: ./hexoblog
         run: |
           python compress.py
           python deploy.py
+      # index.html
+      - name: Prepare Deployment Structure
+        run: |
+          # 创建临时部署目录
+          mkdir -p ./deploy_root
+          # 拷贝入口文件到根目录
+          cp ./index.html ./deploy_root/index.html
+          cp ./404.html ./deploy_root/404.html
+          # 拷贝 Hexo 生成的文件到 /blog
+          cp -r ./blog/* ./deploy_root/blog/
+      # 上传调整后的结构目录
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./blog
+          path: ./deploy_root
   deploy:
     needs: build
     permissions:
