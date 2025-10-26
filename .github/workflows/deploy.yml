@@ -48,7 +48,7 @@ jobs:
       - name: Prepare Deployment Structure
         run: |
           # 创建临时部署目录
-          mkdir -p ./deploy_root
+          mkdir -p ./deploy_root/blog
           # 拷贝入口文件到根目录
           cp ./index.html ./deploy_root/index.html
           cp ./404.html ./deploy_root/404.html
