@@ -6,6 +6,7 @@ categories: Python
 ---
 <img src="https://cdn.prod.website-files.com/680a070c3b99253410dd3dcf/68430089e5357bbc12e74c31_hero-image-2.avif" style="max-height: 352px; width: auto;" />
 <!-- more -->
+
 #### 简介
 [YOLO](https://www.ultralytics.com/) 是一种高效的实时目标检测算法，它通过单个网络直接预测目标的边界框和类别概率，从而实现了快速的目标检测。
 
@@ -57,10 +58,7 @@ model = YOLO("yolo11n.pt")
   
 # Start tracking objects in a video  
 # You can also use live video streams or webcam input  
-model.track(source=r"D:\1.mp4",  
-            show=True, # 显示  
-            save=False, # 保存  
-            )
+model.track(source=r"D:\1.mp4", show=True, save=False)
 ```
 
 ###### 最小训练程序
