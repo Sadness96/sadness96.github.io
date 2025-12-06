@@ -25,7 +25,18 @@ categories: Photo
     var vOssPath = 'https://sadness.oss-cn-beijing.aliyuncs.com/';
     var vOssProcess = '?x-oss-process=image/resize,m_lfit,w_348';
     var vPhotos = [
-        
+        'images/photo-ChuanQiDongMan/554A2404.jpg',
+        'images/photo-ChuanQiDongMan/554A2424.jpg',
+        'images/photo-ChuanQiDongMan/554A2428.jpg',
+        'images/photo-ChuanQiDongMan/554A2436.jpg',
+        'images/photo-ChuanQiDongMan/554A2441.jpg',
+        'images/photo-ChuanQiDongMan/554A2449.jpg',
+        'images/photo-ChuanQiDongMan/554A2450.jpg',
+        'images/photo-ChuanQiDongMan/554A2463.jpg',
+        'images/photo-ChuanQiDongMan/554A2466.jpg',
+        'images/photo-ChuanQiDongMan/554A2489.jpg',
+        'images/photo-ChuanQiDongMan/554A2500.jpg',
+        'images/photo-ChuanQiDongMan/554A2508.jpg'
     ];
     vPhotos.forEach(element => {
         $("#grid").append('<li><img class="photo" src="' + vOssPath + element + vOssProcess + '" alt="' + vOssPath + element + '" style="cursor: pointer;"></li>');

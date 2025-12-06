@@ -1,5 +1,5 @@
 ---
-title:  音律联觉2025：熠曲丰碑
+title: 音律联觉2025：熠曲丰碑
 date: 2025-05-03 16:21:00
 tags: [photo,ambiencesynesthesia]
 categories: Photo
