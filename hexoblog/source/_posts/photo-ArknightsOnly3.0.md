@@ -25,7 +25,23 @@ categories: Photo
     var vOssPath = 'https://sadness.oss-cn-beijing.aliyuncs.com/';
     var vOssProcess = '?x-oss-process=image/resize,m_lfit,w_348';
     var vPhotos = [
-        
+        'images/photo-ArknightsOnly3.0/554A3629.jpg',
+        'images/photo-ArknightsOnly3.0/554A3635.jpg',
+        'images/photo-ArknightsOnly3.0/554A3639.jpg',
+        'images/photo-ArknightsOnly3.0/554A3645.jpg',
+        'images/photo-ArknightsOnly3.0/554A3652.jpg',
+        'images/photo-ArknightsOnly3.0/554A3659.jpg',
+        'images/photo-ArknightsOnly3.0/554A3669.jpg',
+        'images/photo-ArknightsOnly3.0/554A3677.jpg',
+        'images/photo-ArknightsOnly3.0/554A3683.jpg',
+        'images/photo-ArknightsOnly3.0/554A3692.jpg',
+        'images/photo-ArknightsOnly3.0/554A3698.jpg',
+        'images/photo-ArknightsOnly3.0/554A3707.jpg',
+        'images/photo-ArknightsOnly3.0/554A3715.jpg',
+        'images/photo-ArknightsOnly3.0/554A3721.jpg',
+        'images/photo-ArknightsOnly3.0/554A3755.jpg',
+        'images/photo-ArknightsOnly3.0/554A3768.jpg',
+        'images/photo-ArknightsOnly3.0/554A3773.jpg'
     ];
     vPhotos.forEach(element => {
         $("#grid").append('<li><img class="photo" src="' + vOssPath + element + vOssProcess + '" alt="' + vOssPath + element + '" style="cursor: pointer;"></li>');
