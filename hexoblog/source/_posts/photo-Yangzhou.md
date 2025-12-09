@@ -26,8 +26,8 @@ categories: Photo
     var vOssPath = 'https://sadness.oss-cn-beijing.aliyuncs.com/';
     var vOssProcess = '?x-oss-process=image/resize,m_lfit,w_348';
     var vPhotos = [
-        'images/photo-Ido41/554A2535.JPG',
-        'images/photo-Ido41/554A2537.JPG',
+        'images/photo-Yangzhou/554A2535.JPG',
+        'images/photo-Yangzhou/554A2537.JPG',
         'images/photo-Yangzhou/554A2538.JPG',
         'images/photo-Yangzhou/554A2541.JPG',
         'images/photo-Yangzhou/554A2550.JPG',
