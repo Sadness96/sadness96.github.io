@@ -47,11 +47,12 @@ nuget push -Source http://localhost:50557/v3/index.json package.nupkg
 
 所以目前我只能手动在安装 NuGet 包后手动添加配置或把文件手动把文件拷贝到项目根目录，编辑项目配置文件。
 例如： NuGet 包名为 Test，版本号为 1.0.0，要拷贝的文件包含在 content\lib 下，拷贝到项目生成目录 \lib。
+
 ``` xml
 <ItemGroup>
     <PackageReference Include="Test" Version="1.0.0" />
 </ItemGroup>
-<!--需要添加的配置-->
+<!-- 需要添加的配置 -->
 <ItemGroup>
     <!-- Content 项表示需要作为内容文件包含到项目中的文件或文件集合。 -->
     <!-- Include 属性指定了要包含的文件或文件集合的路径模式，这里使用 NuGet 包根目录和特定子目录的通配符来匹配所有文件。 -->
@@ -77,4 +78,28 @@ nuget push -Source http://localhost:50557/v3/index.json package.nupkg
         <LinkBaseSpecificVersion>false</LinkBaseSpecificVersion>
     </Content>
 </ItemGroup>
+```
+
+##### 使用 Https 访问 BaGet
+NuGet 要求所有包源使用 HTTPS 而非 HTTP。 这种执法通过防止包恢复及相关作中的篡改和拦截，保护软件供应链。 NuGet 通过生成错误并在使用 HTTP 源时停止作来强制执行这一要求。
+
+``` json
+// 修改 appsettings.json 文件 Kestrel 节点启用 Https
+"Kestrel": {
+    "Endpoints": {
+        "Http": {
+        "Url": "http://localhost:5557"
+        },
+        "Https": {
+        "Url": "https://localhost:5558"
+        }
+    }
+},
+```
+
+如果运行报错大概率是找不到 SSL 证书，在开发环境中可生成自签名证书。
+
+``` cmd
+:: 创建并信任开发证书
+dotnet dev-certs https --trust
 ```
