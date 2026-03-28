@@ -21,6 +21,9 @@ categories: Html
 | high_quality | 是否高清 1: 高清, 0: 最低视频质量(默认) |
 | danmaku | 是否开启弹幕 1: 开启(默认), 0: 关闭 |
 | allowfullscreen | 是否全屏 true：全屏 |
+| autoplay | 是否自动播放 1：自动播放（默认），0：不播放 |
+| preload | 是否自动预加载 auto：自动预加载 none：不预加载 |
+| t | 从第几秒开始播放，bilibili 默认不显示封面，可以作为封面 |
 
 ### 代码
 ``` html
