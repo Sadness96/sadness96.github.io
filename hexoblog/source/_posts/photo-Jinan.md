@@ -19,7 +19,6 @@ categories: Photo
 <script src="/blog/lib/masonry/imagesloaded.pkgd.min.js"></script>
 <script src="/blog/lib/masonry/classie.js"></script>
 <script src="/blog/lib/masonry/AnimOnScroll.js"></script>
-<script src="/blog/lib/masonry/ImgPreview.js"></script>
 
 <script>
     var vOssPath = 'https://sadness.oss-cn-beijing.aliyuncs.com/';
@@ -96,7 +95,7 @@ categories: Photo
         'images/photo-Jinan/554A7951.JPG'
     ];
     vPhotos.forEach(element => {
-        $("#grid").append('<li><img class="photo" src="' + vOssPath + element + vOssProcess + '" alt="' + vOssPath + element + '" style="cursor: pointer;"></li>');
+        $("#grid").append('<li><img class="photo" src="' + vOssPath + element + vOssProcess + '" data-zoom-src="' + vOssPath + element + '"></li>');
     });
 
     new AnimOnScroll(document.getElementById('grid'), {
@@ -104,10 +103,6 @@ categories: Photo
         maxDuration : 0.7,
         viewportFactor : 0.2
     });
-    
-    $(function(){  
-        $(".photo").click(function(){  
-            imgShow("#outerdiv", "#innerdiv", "#bigimg", $(this));
-        });  
-    });  
+
+    mediumZoom('.post-body .photo', { background: 'rgba(0,0,0,0.7)' });
 </script>
