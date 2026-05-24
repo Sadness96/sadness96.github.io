@@ -153,7 +153,8 @@ public:
 	UINT32 bufferFrames = 0;
 	bool initialized = false;
 
-	bool init(int sampleRate, int channels)
+    // reqBufferMs: requested buffer size in milliseconds (default 200ms)
+	bool init(int sampleRate, int channels, int reqBufferMs = 200)
 	{
 		CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 
@@ -172,7 +173,8 @@ public:
 		wfx.nBlockAlign = wfx.nChannels * wfx.wBitsPerSample / 8;
 		wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
 
-		REFERENCE_TIME hnsReq = 10000000; // 1s buffer
+        // requested buffer in 100-ns units: ms * 10000
+		REFERENCE_TIME hnsReq = (REFERENCE_TIME)reqBufferMs * 10000; // default 200ms
 		if (FAILED(pClient->Initialize(AUDCLNT_SHAREMODE_SHARED,
 			AUDCLNT_STREAMFLAGS_AUTOCONVERTPCM | AUDCLNT_STREAMFLAGS_SRC_DEFAULT_QUALITY,
 			hnsReq, 0, &wfx, nullptr)))
@@ -331,7 +333,8 @@ if (audioStream != NULL && audio_stream_index_ >= 0)
     }
 
     pWasapiPlayer_ = new WasapiPlayer();
-    if (!pWasapiPlayer_->init(44100, 2))
+	// use smaller WASAPI buffer (200ms) to reduce latency for volume changes
+	if (!pWasapiPlayer_->init(44100, 2, 200))
     {
         printf("WASAPI init failed, playing without audio!\n");
         delete pWasapiPlayer_;
