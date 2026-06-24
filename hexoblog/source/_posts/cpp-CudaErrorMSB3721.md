@@ -17,7 +17,13 @@ categories: C++
 ```
 
 ### 解决方法
+#### 安装低版本生成工具
 在 Visual Studio Installer 中搜索单个组件 MSVC，安装 CUDA 11.8 最后支持的 MSVC 版本：
 * MSVC v143 - VS2022 C++ x64/x86 生成工具(v14.36-17.6)(不受支持)
 
 我这里安装后就可用了，如还是不好使，需要确定编译器是通过这个版本生成的。
+
+#### 2026年6月25日补充
+意外删除 “D://Windows Kits” 文件夹后复现该问题
+编译失败不是 nvcc 本身导致，而是 MSVC/Windows SDK 的 UCRT 头文件缺失导致，所以在 nvcc 前就中断了。
+下载独立 [Windows SDK](https://learn.microsoft.com/en-us/windows/apps/windows-sdk/downloads)，运行安装程序并重启即可解决。
