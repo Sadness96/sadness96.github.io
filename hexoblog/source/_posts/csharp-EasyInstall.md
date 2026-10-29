@@ -21,3 +21,8 @@ categories: C#.Net
 | ![Default2](https://iceelves.com/EasyInstall/Screenshot/Default/2.png) | ![CloudMusic2](https://iceelves.com/EasyInstall/Screenshot/CloudMusic/2.png) | ![WeChat2](https://iceelves.com/EasyInstall/Screenshot/WeChat/2.png) |
 | ![Default3](https://iceelves.com/EasyInstall/Screenshot/Default/3.png) | ![CloudMusic3](https://iceelves.com/EasyInstall/Screenshot/CloudMusic/3.png) | ![WeChat3](https://iceelves.com/EasyInstall/Screenshot/WeChat/3.png) |
 | ![Default4](https://iceelves.com/EasyInstall/Screenshot/Default/4.png) | ![CloudMusic4](https://iceelves.com/EasyInstall/Screenshot/CloudMusic/4.png) | ![WeChat4](https://iceelves.com/EasyInstall/Screenshot/WeChat/4.png) |
+
+### 更新服务示例
+该项目提供了配套的更新服务，用于管理发布的安装包，提供：检查更新、查询版本、下载安装包 等功能。
+
+![Default1](https://iceelves.com/EasyInstall/EasyInstallUpdateServer.jpg)
